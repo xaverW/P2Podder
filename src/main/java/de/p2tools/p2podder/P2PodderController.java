@@ -82,7 +82,7 @@ public class P2PodderController extends StackPane {
             hBoxTop.setAlignment(Pos.CENTER);
 
             TilePane tilePaneStationFavourite = new TilePane();
-            tilePaneStationFavourite.setHgap(20);
+            tilePaneStationFavourite.setHgap(25);
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnEpisodes, btnPodcasts, btnDownloads);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
@@ -152,7 +152,7 @@ public class P2PodderController extends StackPane {
     private void initButton() {
         btnEmpty.setVisible(false);
         btnEmpty.setMaxWidth(Double.MAX_VALUE);
-        btnEmpty.getStyleClass().add("btnTab");
+        btnEmpty.getStyleClass().add("btnTabPod");
 
         btnEpisodes.setTooltip(new Tooltip("Episoden anzeigen"));
         btnEpisodes.setOnAction(e -> selPanelEpisode());
@@ -313,19 +313,19 @@ public class P2PodderController extends StackPane {
         btnDownloads.getStyleClass().clear();
 
         if (btnSel.equals(btnEpisodes)) {
-            btnEpisodes.getStyleClass().add("btnTab-sel");
+            btnEpisodes.getStyleClass().add("btnTabPod-sel");
         } else {
-            btnEpisodes.getStyleClass().add("btnTab");
+            btnEpisodes.getStyleClass().add("btnTabPod");
         }
         if (btnSel.equals(btnPodcasts)) {
-            btnPodcasts.getStyleClass().add("btnTab-sel");
+            btnPodcasts.getStyleClass().add("btnTabPod-sel");
         } else {
-            btnPodcasts.getStyleClass().add("btnTab");
+            btnPodcasts.getStyleClass().add("btnTabPod");
         }
         if (btnSel.equals(btnDownloads)) {
-            btnDownloads.getStyleClass().add("btnTab-sel");
+            btnDownloads.getStyleClass().add("btnTabPod-sel");
         } else {
-            btnDownloads.getStyleClass().add("btnTab");
+            btnDownloads.getStyleClass().add("btnTabPod");
         }
     }
 

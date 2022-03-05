@@ -1,5 +1,33 @@
 /*  Programmweites style sheet */
 
+
+.root {
+    -grad-1: linear-gradient(from 0% 0% to 100% 100%, #4e95ff, #2f5b99);
+    -grad-2: linear-gradient(from 0% 0% to 50% 50%, #334ca1, #18234c);
+}
+
+
+
+/* Button "Filme", "Downloads", "Abos" */
+.btnTabPod, .btnTabPod-sel{
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 30 30 0 0;
+    -fx-text-fill: black;
+    -fx-padding: 10 60 10 60;
+    -fx-text-fill: white;
+    -fx-background-color: -grad-1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 3 , 3 );
+}
+.btnTabPod-sel{
+    -fx-background-color: -grad-2;
+}
+.btnTabPod:hover, .btnTabPod-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 1 , 1 );
+}
+
+
+
 /* CheckBoxCell: CheckBoxen in der Tabelle*/
 .checkbox-table * {
     -fx-background-color: transparent;
