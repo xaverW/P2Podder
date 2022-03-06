@@ -19,7 +19,6 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.PodcastFilter;
-import de.p2tools.p2podder.gui.filter.PodcastFilterClear;
 import de.p2tools.p2podder.gui.filter.PodcastFilterController;
 import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
@@ -39,7 +38,7 @@ public class PodcastGui {
     private BooleanProperty boolDivOn;
     private final PodcastFilter podcastFilter;
     private final PodcastFilterController podcastFilterController;
-    private final PodcastFilterClear podcastFilterClear;
+    //    private final PodcastFilterClear podcastFilterClear;
     private final PodcastGuiController podcastGuiController;
     private boolean bound = false;
     private final StoredFilters storedFiltersPodcast; // gespeicherte Filterprofile
@@ -56,7 +55,7 @@ public class PodcastGui {
         storedFiltersPodcast.init();
 
         podcastFilter = new PodcastFilter();
-        podcastFilterClear = new PodcastFilterClear();
+//        podcastFilterClear = new PodcastFilterClear();
         podcastFilterController = new PodcastFilterController();
         podcastGuiController = new PodcastGuiController();
     }
@@ -73,9 +72,9 @@ public class PodcastGui {
         return podcastFilterController;
     }
 
-    public PodcastFilterClear getPodcastFilterClear() {
-        return podcastFilterClear;
-    }
+//    public PodcastFilterClear getPodcastFilterClear() {
+//        return podcastFilterClear;
+//    }
 
     public void closeSplit() {
         boolDivOn.setValue(!boolDivOn.get());

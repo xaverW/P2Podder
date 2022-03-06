@@ -18,6 +18,7 @@
 package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 

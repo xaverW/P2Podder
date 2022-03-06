@@ -24,6 +24,10 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterDownload.DownloadStart;
 
+import java.time.LocalDate;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public final class Download extends DownloadProps {
 
     private DownloadStart downloadStart = new DownloadStart(this);
@@ -111,6 +115,19 @@ public final class Download extends DownloadProps {
         getDownloadStart().setBandwidth(0);
         setStateStartedWaiting();
         setErrorMessage("");
+    }
+
+    public boolean checkDays(long days) {
+        if (days == 0) {
+            return true;
+        }
+
+        final long timeRange = DAYS.between(getPubDate().getLocalDate(), LocalDate.now());
+        if (timeRange <= days) {
+            return true;
+        }
+
+        return false;
     }
 
     //==============================================

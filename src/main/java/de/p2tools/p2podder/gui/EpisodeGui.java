@@ -18,9 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.episode.EpisodeFilter;
-import de.p2tools.p2podder.gui.filter.EpiDownFilterController;
-import de.p2tools.p2podder.gui.filter.EpisodeFilterClear;
 import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -35,10 +32,9 @@ public class EpisodeGui {
     private ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
-    private final EpisodeFilter episodeFilter;
     private final EpisodeGuiController episodeGuiController;
-    private final EpiDownFilterController epiDownFilterController;
-    private final EpisodeFilterClear episodeFilterClear;
+    private final EpisodeFilterController epiDownFilterController;
+    //    private final EpisodeFilterClear episodeFilterClear;
     private DoubleProperty filterDivider;
     private BooleanProperty filterOn;
     private boolean bound = false;
@@ -54,9 +50,8 @@ public class EpisodeGui {
         storedFiltersEpisodes = new StoredFilters(progData);
         storedFiltersEpisodes.init();
 
-        episodeFilter = new EpisodeFilter();
-        episodeFilterClear = new EpisodeFilterClear();
-        epiDownFilterController = new EpiDownFilterController(EpiDownFilterController.FILTER.EPISODE);
+//        episodeFilterClear = new EpisodeFilterClear();
+        epiDownFilterController = new EpisodeFilterController();
         episodeGuiController = new EpisodeGuiController();
     }
 
@@ -64,15 +59,11 @@ public class EpisodeGui {
         return storedFiltersEpisodes;
     }
 
-    public EpisodeFilter getEpisodeFilter() {
-        return episodeFilter;
-    }
+//    public EpisodeFilterClear getEpisodeFilterClear() {
+//        return episodeFilterClear;
+//    }
 
-    public EpisodeFilterClear getEpisodeFilterClear() {
-        return episodeFilterClear;
-    }
-
-    public EpiDownFilterController getPodcastFilter() {
+    public EpisodeFilterController getPodcastFilter() {
         return epiDownFilterController;
     }
 

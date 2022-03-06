@@ -103,9 +103,9 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         meta.podcastDate.getValue().setPLocalDateNow();
     }
 
-    public void triggerFilter() {
-        filteredListSetPred(ProgData.getInstance().podcastGui.getStoredFiltersPodcast().getActFilterSettings().getPredicatePodcast());
-    }
+//    public void triggerFilter() {
+//        filteredListSetPred(ProgData.getInstance().podcastGui.getStoredFiltersPodcast().getActFilterSettings().getPredicatePodcast());
+//    }
 
     public boolean podcastExistsAlready(Podcast podcast) {
         // true wenn es ihn schon gibt

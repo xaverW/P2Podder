@@ -18,9 +18,7 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.DownloadFilter;
-import de.p2tools.p2podder.gui.filter.DownloadFilterClear;
-import de.p2tools.p2podder.gui.filter.EpiDownFilterController;
+import de.p2tools.p2podder.gui.filter.DownloadFilter;
 import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -36,8 +34,8 @@ public class DownloadGui {
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
-    private final EpiDownFilterController epiDownFilterController;
-    private final DownloadFilterClear downloadFilterClear;
+    private final DownloadFilterController downloadFilterController;
+    //    private final DownloadFilterClear downloadFilterClear;
     private final DownloadFilter downloadFilter;
     private final StoredFilters storedFiltersDownload; // gespeicherte Filterprofile
     private DoubleProperty filterDivider;
@@ -56,8 +54,8 @@ public class DownloadGui {
         storedFiltersDownload.init();
 
         downloadFilter = new DownloadFilter();
-        downloadFilterClear = new DownloadFilterClear();
-        epiDownFilterController = new EpiDownFilterController(EpiDownFilterController.FILTER.DOWNLOAD);
+//        downloadFilterClear = new DownloadFilterClear();
+        downloadFilterController = new DownloadFilterController();
         downloadGuiController = new DownloadGuiController();
     }
 
@@ -69,13 +67,13 @@ public class DownloadGui {
         return storedFiltersDownload;
     }
 
-    public EpiDownFilterController getPodcastFilter() {
-        return epiDownFilterController;
+    public DownloadFilterController getPodcastFilter() {
+        return downloadFilterController;
     }
 
-    public DownloadFilterClear getDownloadFilterClear() {
-        return downloadFilterClear;
-    }
+//    public DownloadFilterClear getDownloadFilterClear() {
+//        return downloadFilterClear;
+//    }
 
     public DownloadFilter getDownloadFilter() {
         return downloadFilter;
@@ -86,7 +84,7 @@ public class DownloadGui {
         menuController.setId("download-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(epiDownFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(downloadFilterController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -106,7 +104,7 @@ public class DownloadGui {
     private void setSplit() {
         if (filterOn.getValue()) {
             splitPane.getItems().clear();
-            splitPane.getItems().addAll(epiDownFilterController, downloadGuiController);
+            splitPane.getItems().addAll(downloadFilterController, downloadGuiController);
             bound = true;
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(filterDivider);
         } else {

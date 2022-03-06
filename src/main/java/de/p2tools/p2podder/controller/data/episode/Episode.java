@@ -22,6 +22,10 @@ import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterEpisode.Start;
 
+import java.time.LocalDate;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public final class Episode extends EpisodeProps {
 
     private Start start = null;
@@ -66,6 +70,19 @@ public final class Episode extends EpisodeProps {
 
     public void setNew(boolean aNew) {
         isNew = aNew;
+    }
+
+    public boolean checkDays(long days) {
+        if (days == 0) {
+            return true;
+        }
+
+        final long timeRange = DAYS.between(getPubDate().getLocalDate(), LocalDate.now());
+        if (timeRange <= days) {
+            return true;
+        }
+
+        return false;
     }
 
     public void setThePodcast(Podcast podcast) {

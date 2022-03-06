@@ -48,6 +48,8 @@ public class ProgConfig extends PDataProgConfig {
 
 
     // ===========================================
+    //Filter Episoden
+    public static IntegerProperty FILTER_EPISODE_SEL_FILTER = addInt("filter-episode-sel-filter");
 
 
     // Configs der Programmversion
@@ -198,6 +200,7 @@ public class ProgConfig extends PDataProgConfig {
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getConfigsData());
+        configFile.addConfigs(ProgData.getInstance().storedFilters.getStoredFilterList());
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().podcastList);
         configFile.addConfigs(ProgData.getInstance().downloadList);

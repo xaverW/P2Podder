@@ -14,14 +14,16 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
-import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import de.p2tools.p2podder.gui.filter.FilterController;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -33,24 +35,24 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 
-public class EpiDownFilterController extends FilterController {
+public class DownloadFilterController extends FilterController {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
-    private VBox vBoxGuiClear;
+    //    private VBox vBoxGuiClear;
     private ProgData progData;
 
-    public enum FILTER {EPISODE, DOWNLOAD}
+    private final Button btnClearFilter = new Button("");
+    private final Slider slTimeRange = new Slider();
+    private final Label lblTimeRange = new Label("Zeitraum:");
+    private final Label lblTimeRangeValue = new Label();
 
-    FILTER filter;
-
-    public EpiDownFilterController(FILTER filter) {
-        super(filter == FILTER.EPISODE ? ProgConfig.EPISODE_GUI_FILTER_ON : ProgConfig.PODCAST_GUI_FILTER_ON);
-        this.filter = filter;
-        this.vBoxGuiClear = filter == FILTER.EPISODE ? ProgData.getInstance().episodeGui.getEpisodeFilterClear() :
-                ProgData.getInstance().downloadGui.getDownloadFilterClear();
+    public DownloadFilterController() {
+        super(ProgConfig.PODCAST_GUI_FILTER_ON);
+//        this.vBoxGuiClear = ProgData.getInstance().downloadGui.getDownloadFilterClear();
         this.progData = ProgData.getInstance();
 
         VBox vBoxTable = new VBox();
@@ -61,24 +63,100 @@ public class EpiDownFilterController extends FilterController {
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
+//        // Tage
+//        VBox vBoxTimeRange = new VBox(2);
+//        HBox h = new HBox();
+//        HBox hh = new HBox();
+//        h.getChildren().addAll(lblTimeRange, hh, lblTimeRangeValue);
+//        HBox.setHgrow(hh, Priority.ALWAYS);
+//        lblTimeRange.setMinWidth(0);
+//        vBoxTimeRange.getChildren().addAll(h, slTimeRange);
+
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-        VBox vBoxClear = new VBox();
-        vBoxClear.setSpacing(5);
-        vBoxClear.setPadding(new Insets(10, 0, 0, 0));
-        Separator sp1 = new Separator();
-        sp1.getStyleClass().add("pseperator3");
-        vBoxClear.getChildren().addAll(sp1, vBoxGuiClear);
-
         final VBox vBoxFilter = getVBoxTop();
         vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle, vBoxClear);
+        vBoxFilter.getChildren().addAll(vBoxTable, /*vBoxTimeRange,*/ vBoxGenre, vBoxTitle);
 
+        addButton();
+        initDaysFilter();
         initTable();
         initFilter();
+    }
+
+    private void addButton() {
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
+        btnClearFilter.setOnAction(a -> clearFilter());
+        btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
+
+        HBox hBoxAll = new HBox(5);
+        hBoxAll.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(hBoxAll, Priority.ALWAYS);
+        hBoxAll.getChildren().addAll(btnClearFilter);
+
+        Separator separator = new Separator();
+        separator.getStyleClass().add("pseperator1");
+
+        final VBox vBoxFilter = getVBoxTop();
+        VBox vBoxSpace = new VBox(0);
+        vBoxSpace.setPadding(new Insets(5));
+        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
+
+        VBox vBox = new VBox(10);
+        vBox.getChildren().addAll(vBoxSpace, separator, hBoxAll);
+        vBoxFilter.getChildren().add(vBox);
+    }
+
+    private void initDaysFilter() {
+        slTimeRange.setMin(ProgConst.FILTER_TIME_RANGE_MIN_VALUE);
+        slTimeRange.setMax(ProgConst.FILTER_TIME_RANGE_MAX_VALUE);
+        slTimeRange.setShowTickLabels(true);
+
+        slTimeRange.setMajorTickUnit(10);
+        slTimeRange.setBlockIncrement(5);
+
+        slTimeRange.setLabelFormatter(new StringConverter<>() {
+            @Override
+            public String toString(Double x) {
+                if (x == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) return "alles";
+                return x.intValue() + "";
+            }
+
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
+
+        slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
+        setLabelSlider();
+        slTimeRange.valueProperty().addListener((o, oldV, newV) -> {
+            setLabelSlider();
+            if (!slTimeRange.isValueChanging()) {
+                progData.downloadGui.getDownloadFilter().setTimeRange((int) slTimeRange.getValue());
+            }
+        });
+        slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> {
+                    setLabelSlider();
+                    if (!newvalue) {
+                        progData.downloadGui.getDownloadFilter().setTimeRange((int) slTimeRange.getValue());
+                    }
+                }
+        );
+    }
+
+    private void setLabelSlider() {
+        final String txtAll = "alles";
+        int i = (int) slTimeRange.getValue();
+        String tNr = i + "";
+        if (i == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
+            lblTimeRangeValue.setText(txtAll);
+        } else {
+            lblTimeRangeValue.setText(tNr + (i == 1 ? " Tag" : " Tage"));
+        }
     }
 
     private void initTable() {
@@ -96,61 +174,37 @@ public class EpiDownFilterController extends FilterController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 long l = tableView.getSelectionModel().getSelectedItem().getId();
-                if (filter == FILTER.EPISODE) {
-                    progData.episodeGui.getEpisodeFilter().setPodcastId(l);
-                } else {
-                    progData.downloadGui.getDownloadFilter().setPodcastId(l);
-                }
+                progData.downloadGui.getDownloadFilter().setPodcastId(l);
             }
         });
-        if (filter == FILTER.EPISODE) {
-            progData.episodeStoredList.addListener((v, o, n) -> {
-                tableView.getItems().clear();
-                tableView.getItems().addAll(filter == FILTER.EPISODE ? progData.episodeStoredList.getPodcastList() :
-                        DownloadFactory.getPodcastList());
-            });
-        } else {
-            progData.downloadList.addListener((v, o, n) -> {
-                tableView.getItems().clear();
-                tableView.getItems().addAll(DownloadFactory.getPodcastList());
-            });
-        }
-        tableView.getItems().addAll(filter == FILTER.EPISODE ? progData.episodeStoredList.getPodcastList() : DownloadFactory.getPodcastList());
+        progData.downloadList.addListener((v, o, n) -> {
+            tableView.getItems().clear();
+            tableView.getItems().addAll(DownloadFactory.getPodcastList());
+        });
+        tableView.getItems().addAll(DownloadFactory.getPodcastList());
 
         ListChangeListener listChangeListener = (ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
-                cboGenre.getItems().setAll(filter == FILTER.EPISODE ? progData.episodeStoredList.getGenreList() : progData.downloadList.getGenreList());
+                cboGenre.getItems().setAll(progData.downloadList.getGenreList());
                 cboGenre.getSelectionModel().select(sel);
                 if (!cboGenre.getItems().contains(sel)) {
                     clearFilter();
                 }
             });
         };
-        if (filter == FILTER.EPISODE) {
-            progData.episodeStoredList.getGenreList().addListener(listChangeListener);
-        } else {
-            progData.downloadList.getGenreList().addListener(listChangeListener);
-        }
+        progData.downloadList.getGenreList().addListener(listChangeListener);
         cboGenre.valueProperty().addListener((u, o, n) -> {
             if (n != null) {
                 Platform.runLater(() -> {
-                    if (filter == FILTER.EPISODE) {
-                        progData.episodeGui.getEpisodeFilter().setGenre(n);
-                    } else {
-                        progData.downloadGui.getDownloadFilter().setGenre(n);
-                    }
+                    progData.downloadGui.getDownloadFilter().setGenre(n);
                 });
             }
         });
-        cboGenre.getItems().addAll(filter == FILTER.EPISODE ? progData.episodeStoredList.getGenreList() : progData.downloadList.getGenreList());
+        cboGenre.getItems().addAll(progData.downloadList.getGenreList());
 
         txtTitle.textProperty().addListener((u, o, n) -> {
-            if (filter == FILTER.EPISODE) {
-                progData.episodeGui.getEpisodeFilter().setTitle(txtTitle.getText());
-            } else {
-                progData.downloadGui.getDownloadFilter().setTitle(txtTitle.getText());
-            }
+            progData.downloadGui.getDownloadFilter().setTitle(txtTitle.getText());
         });
     }
 
@@ -179,11 +233,7 @@ public class EpiDownFilterController extends FilterController {
                 String genre = podcast.getGenre();
 
                 String count;
-                if (filter == FILTER.EPISODE) {
-                    count = EpisodeFactory.countEpisode(podcast) + "";
-                } else {
-                    count = DownloadFactory.countDownload(podcast) + "";
-                }
+                count = DownloadFactory.countDownload(podcast) + "";
 
                 Label lblCount = new Label(count);
                 Label lblName = new Label(name);
@@ -208,13 +258,10 @@ public class EpiDownFilterController extends FilterController {
 
     public void clearFilter() {
         PDuration.onlyPing("Filter löschen");
-        if (filter == FILTER.EPISODE) {
-            progData.episodeStoredList.filteredListSetPred(progData.episodeGui.getEpisodeFilter().clearFilter());
-        } else {
-            progData.downloadList.filteredListSetPred(progData.downloadGui.getDownloadFilter().clearFilter());
-        }
+        progData.downloadList.filteredListSetPred(progData.downloadGui.getDownloadFilter().clearFilter());
 
         tableView.getSelectionModel().clearSelection();
+        slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
         cboGenre.getSelectionModel().clearSelection();
         txtTitle.setText("");
     }

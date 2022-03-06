@@ -73,4 +73,10 @@ public class ProgConst {
     public static final int LAST_TAB_STATION_EPISODE = 0;
     public static final int LAST_TAB_STATION_PODCAST = 1;
     public static final int LAST_TAB_STATION_DOWNLOAD = 2;
+
+    public static final int FILTER_TIME_RANGE_ALL_VALUE = 0;
+    public static final int FILTER_TIME_RANGE_MIN_VALUE = 0;
+    public static final int FILTER_TIME_RANGE_MAX_VALUE = 50;
+
+
 }

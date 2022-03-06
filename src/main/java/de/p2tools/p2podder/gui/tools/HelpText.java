@@ -86,6 +86,11 @@ public class HelpText {
                     "besagt das, dass die aktuellen Filtereinstellungen unverändert sind und " +
                     "denen des Profils entsprechen.";
 
+    public static final String GUI_STATIONS_EDIT_FILTER = "Hier können die angezeigten Filter " +
+            "ein- und ausgeschaltet werden. " +
+            "Ausgeschaltete Filter werden beim Suchen auch nicht berücksichtigt. " +
+            "Mit weniger Filtern ist auch der Suchvorgang schneller";
+
     public static final String CONFIG_STYLE = "Hier kann die Schriftgröße des Programms angepasst werden." + P2LibConst.LINE_SEPARATORx2 +
             "Die sollte sich automatisch an die vorgegebene Größe im Betriebssystem einstellen. " +
             "Wenn die Automatik nicht korrekt funktioniert oder eine andere gewünscht wird, kann " +

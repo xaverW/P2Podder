@@ -240,16 +240,16 @@ public class EpisodeGuiController extends AnchorPane {
     private void initFilter() {
         rbAll.setSelected(true);
         rbAll.selectedProperty().addListener((u, o, n) -> {
-            progData.episodeGui.getEpisodeFilter().setAll();
+            progData.storedFilters.getActFilterSettings().setAll();
         });
         rbNew.selectedProperty().addListener((u, o, n) -> {
-            progData.episodeGui.getEpisodeFilter().setNew();
+            progData.storedFilters.getActFilterSettings().setNew();
         });
         rbRunning.selectedProperty().addListener((u, o, n) -> {
-            progData.episodeGui.getEpisodeFilter().setRunning();
+            progData.storedFilters.getActFilterSettings().setRunning();
         });
         rbWasShown.selectedProperty().addListener((u, o, n) -> {
-            progData.episodeGui.getEpisodeFilter().setWasShown();
+            progData.storedFilters.getActFilterSettings().setWasShown();
         });
     }
 

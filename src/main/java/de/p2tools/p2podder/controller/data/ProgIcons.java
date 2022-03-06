@@ -26,10 +26,13 @@ public class ProgIcons {
     public final Image ICON_DIALOG_EIN_SW = GetIcon.getImage(ProgConfig.SYSTEM_DARK_THEME.get() ? "dialog-ein.png" : "dialog-ein-sw.png");
     public final Image IMAGE_ACHTUNG_64 = GetIcon.getImage("achtung_64.png");
 
-    public final ImageView ICON_BUTTON_PROPOSE = GetIcon.getImageView("button-propose.png", 16, 16);
+    public final ImageView ICON_BUTTON_CLEAR_FILTER = GetIcon.getImageView("button-clear-filter.png", 25, 20);
     public final ImageView ICON_BUTTON_RESET = GetIcon.getImageView("button-reset.png", 14, 14);
+    public final ImageView ICON_BUTTON_EDIT_FILTER = GetIcon.getImageView("button-edit-filter.png", 16, 16);
+    public final ImageView ICON_BUTTON_PROPOSE = GetIcon.getImageView("button-propose.png", 16, 16);
     public final ImageView ICON_BUTTON_BACKWARD = GetIcon.getImageView("button-backward.png", 16, 16);
     public final ImageView ICON_BUTTON_FORWARD = GetIcon.getImageView("button-forward.png", 16, 16);
+    public final ImageView ICON_BUTTON_MENU = GetIcon.getImageView("button-menu.png", 18, 15);
     public final ImageView ICON_BUTTON_QUIT = GetIcon.getImageView("button-quit.png", 16, 16);
     public final ImageView ICON_BUTTON_FILE_OPEN = GetIcon.getImageView("button-file-open.png", 16, 16);
     public final ImageView ICON_BUTTON_PLAY = GetIcon.getImageView("button-play.png", 16, 16);
@@ -44,6 +47,9 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_DOWN = GetIcon.getImageView("button-down.png", 16, 16);
     public final ImageView ICON_BUTTON_UP = GetIcon.getImageView("button-up.png", 16, 16);
     public final ImageView ICON_DIALOG_QUIT = GetIcon.getImageView("dialog-quit.png", 64, 64);
+    public final ImageView ICON_FILTER_EPISODE_LOAD = GetIcon.getImageView("filter-episode-load.png", 15, 15);
+    public final ImageView ICON_FILTER_EPISODE_SAVE = GetIcon.getImageView("filter-episode-save.png", 15, 15);
+    public final ImageView ICON_FILTER_EPISODE_NEW = GetIcon.getImageView("filter-episode-new.png", 15, 15);
 
     //table
     public static final Image IMAGE_TABLE_EPISODE_DEL = GetIcon.getImage("table-episode-del.png", 14, 14);

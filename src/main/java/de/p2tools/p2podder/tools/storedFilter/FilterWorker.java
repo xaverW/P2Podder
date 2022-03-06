@@ -19,6 +19,7 @@ package de.p2tools.p2podder.tools.storedFilter;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
 import de.p2tools.p2podder.controller.config.pEvent.EventLoadPodcastList;
+import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

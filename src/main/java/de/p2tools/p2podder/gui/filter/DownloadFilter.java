@@ -15,26 +15,25 @@
  */
 
 
-package de.p2tools.p2podder.controller.data.episode;
+package de.p2tools.p2podder.gui.filter;
 
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.download.Download;
 
 import java.util.Locale;
 import java.util.function.Predicate;
 
-public class EpisodeFilter {
-
-    public EpisodeFilter() {
-    }
+public class DownloadFilter {
 
     private long podcastId = 0;
     private String genre = "";
     private String title = "";
-    private boolean isNew = false;
+    private int timeRange = ProgConst.FILTER_TIME_RANGE_ALL_VALUE;
     private boolean isRunning = false;
-    private boolean wasShown = false;
+    private boolean finalized = false;
 
-    public Predicate<Episode> clearFilter() {
+    public Predicate<Download> clearFilter() {
         this.podcastId = 0;
         this.genre = "";
         this.title = "";
@@ -42,34 +41,34 @@ public class EpisodeFilter {
         return getPredicate();
     }
 
-    public Predicate<Episode> getPredicate() {
-        Predicate<Episode> predicate = episode -> true;
+    public Predicate<Download> getPredicate() {
+        Predicate<Download> predicate = download -> true;
 
         if (podcastId > 0) {
-            predicate = predicate.and(episode -> episode.podcastIdProperty().getValue().equals(podcastId));
+            predicate = predicate.and(download -> download.getPodcastId() == podcastId);
         }
         if (!genre.isEmpty()) {
-            predicate = predicate.and(episode -> episode.genreProperty().getValue().equals(genre));
+            predicate = predicate.and(download -> download.genreProperty().getValue().equals(genre));
         }
+        if (timeRange != ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
+            predicate = predicate.and(download -> download.checkDays(timeRange));
+        }
+
         if (!title.isEmpty()) {
-            predicate = predicate.and(episode ->
-                    episode.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(title));
-        }
-        if (isNew) {
-            predicate = predicate.and(episode -> episode.isNew());
+            predicate = predicate.and(download ->
+                    download.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(title));
         }
         if (isRunning) {
-            predicate = predicate.and(episode -> EpisodeFactory.episodeIsRunning(episode));
+            predicate = predicate.and(download -> download.isStarted());
         }
-        if (wasShown) {
-            predicate = predicate.and(episode -> ProgData.getInstance().historyEpisodes.
-                    checkIfUrlAlreadyIn(episode.getEpisodeUrl()));
+        if (finalized) {
+            predicate = predicate.and(download -> download.isStateFinalized());
         }
         return predicate;
     }
 
     private void setPredicate() {
-        ProgData.getInstance().episodeStoredList.filteredListSetPred(getPredicate());
+        ProgData.getInstance().downloadList.filteredListSetPred(getPredicate());
     }
 
     public void setPodcastId(long podcastId) {
@@ -77,9 +76,15 @@ public class EpisodeFilter {
         setPredicate();
     }
 
+    public void setTimeRange(int timeRange) {
+        this.timeRange = timeRange;
+        setPredicate();
+    }
+
     public void setGenre(String genre) {
         if (genre == null) {
-            genre = "";
+            return;
+//            genre = "";
         }
         this.genre = genre;
         setPredicate();
@@ -90,31 +95,13 @@ public class EpisodeFilter {
         setPredicate();
     }
 
-    public void setAll() {
-        this.isNew = false;
-        this.isRunning = false;
-        this.wasShown = false;
+    public void setRunning(boolean running) {
+        this.isRunning = running;
         setPredicate();
     }
 
-    public void setNew() {
-        this.isNew = true;
-        this.isRunning = false;
-        this.wasShown = false;
-        setPredicate();
-    }
-
-    public void setRunning() {
-        this.isNew = false;
-        this.isRunning = true;
-        this.wasShown = false;
-        setPredicate();
-    }
-
-    public void setWasShown() {
-        this.isNew = false;
-        this.isRunning = false;
-        this.wasShown = true;
+    public void setFinalized(boolean finalized) {
+        this.finalized = finalized;
         setPredicate();
     }
 }

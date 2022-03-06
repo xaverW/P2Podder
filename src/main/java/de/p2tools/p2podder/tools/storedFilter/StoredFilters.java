@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -40,6 +41,7 @@ public final class StoredFilters {
 
         filterChangeListener = (observable, oldValue, newValue) -> setFilterChange();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener); // wenn der User den Filter ändert
+        init();
     }
 
     public void init() {
@@ -138,11 +140,11 @@ public final class StoredFilters {
 
     public synchronized void clearFilter() {
         actFilterSettings.filterChangeProperty().removeListener(filterChangeListener);
-        if (actFilterSettings.isTextFilterEmpty()) {
-            actFilterSettings.clearFilter(); // Button Black wird nicht verändert
-        } else {
-            actFilterSettings.clearTxtFilter();
-        }
+//        if (actFilterSettings.isTextFilterEmpty()) {
+        actFilterSettings.clearFilter(); // Button Black wird nicht verändert
+//        } else {
+//            actFilterSettings.clearTxtFilter();
+//        }
         setFilterChange();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener);
     }

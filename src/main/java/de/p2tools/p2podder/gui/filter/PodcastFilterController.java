@@ -19,18 +19,19 @@ package de.p2tools.p2podder.gui.filter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.ProgIcons;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class PodcastFilterController extends FilterController {
 
+    private final Button btnClearFilter = new Button("");
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final TextField txtName = new TextField();
     private final TextField txtUrl = new TextField();
@@ -51,12 +52,12 @@ public class PodcastFilterController extends FilterController {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-        VBox vBoxClear = new VBox();
-        vBoxClear.setSpacing(5);
-        vBoxClear.setPadding(new Insets(10, 0, 0, 0));
-        Separator sp1 = new Separator();
-        sp1.getStyleClass().add("pseperator3");
-        vBoxClear.getChildren().addAll(sp1, progData.podcastGui.getPodcastFilterClear());
+//        VBox vBoxClear = new VBox();
+//        vBoxClear.setSpacing(5);
+//        vBoxClear.setPadding(new Insets(10, 0, 0, 0));
+//        Separator sp1 = new Separator();
+//        sp1.getStyleClass().add("pseperator3");
+//        vBoxClear.getChildren().addAll(sp1, progData.podcastGui.getPodcastFilterClear());
 
         VBox vBoxSpace = new VBox();
         VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
@@ -64,9 +65,33 @@ public class PodcastFilterController extends FilterController {
         final VBox vBoxFilter = getVBoxTop();
         vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTitle, vBoxUrl, vBoxSpace, vBoxClear);
+        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTitle, vBoxUrl, vBoxSpace/*, vBoxClear*/);
 
+        addButton();
         initFilter();
+    }
+
+    private void addButton() {
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
+        btnClearFilter.setOnAction(a -> clearFilter());
+        btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
+
+        HBox hBoxAll = new HBox(5);
+        hBoxAll.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(hBoxAll, Priority.ALWAYS);
+        hBoxAll.getChildren().addAll(btnClearFilter);
+
+        Separator separator = new Separator();
+        separator.getStyleClass().add("pseperator1");
+
+        final VBox vBoxFilter = getVBoxTop();
+        VBox vBoxSpace = new VBox(0);
+        vBoxSpace.setPadding(new Insets(5));
+        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
+
+        VBox vBox = new VBox(10);
+        vBox.getChildren().addAll(vBoxSpace, separator, hBoxAll);
+        vBoxFilter.getChildren().add(vBox);
     }
 
     private void initFilter() {

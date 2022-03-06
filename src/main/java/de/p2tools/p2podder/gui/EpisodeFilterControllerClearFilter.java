@@ -14,13 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.tools.HelpText;
-import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -28,7 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class EpisodeFilterClear extends VBox {
+public class EpisodeFilterControllerClearFilter extends VBox {
 
     private final Button btnClearFilter = new Button("");
     private final Button btnEditFilter = new Button("");
@@ -37,29 +37,34 @@ public class EpisodeFilterClear extends VBox {
 
     private final ProgData progData;
 
-    public EpisodeFilterClear() {
+    public EpisodeFilterControllerClearFilter() {
         super();
         progData = ProgData.getInstance();
-        setSpacing(20);
+        progData.stationFilterControllerClearFilter = this;
+
+//        setPadding(new Insets(0, 10, 0, 10));
+        setSpacing(5);
+
         addButton();
     }
 
     private void addButton() {
-        StoredFilters storedFiltersEpisodes = progData.episodeGui.getStoredFiltersEpisodes();
-
         btnGoBack.setGraphic(new ProgIcons().ICON_BUTTON_BACKWARD);
-        btnGoBack.setOnAction(a -> storedFiltersEpisodes.getStoredFiltersForwardBackward().goBackward());
-        btnGoBack.disableProperty().bind(storedFiltersEpisodes.getStoredFiltersForwardBackward().backwardProperty().not());
-        btnGoBack.setTooltip(new Tooltip("Letzte Filtereinstellung wieder herstellen"));
-
+        btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
+        btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
+        btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
         btnGoForward.setGraphic(new ProgIcons().ICON_BUTTON_FORWARD);
-        btnGoForward.setOnAction(a -> storedFiltersEpisodes.getStoredFiltersForwardBackward().goForward());
-        btnGoForward.disableProperty().bind(storedFiltersEpisodes.getStoredFiltersForwardBackward().forwardProperty().not());
-        btnGoForward.setTooltip(new Tooltip("Letzte Filtereinstellung wieder herstellen"));
+        btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
+        btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
+        btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_RESET);
+        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
         btnClearFilter.setOnAction(a -> clearFilter());
-        btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
+        btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
+
+        btnEditFilter.setGraphic(new ProgIcons().ICON_BUTTON_EDIT_FILTER);
+        btnEditFilter.setOnAction(a -> editFilter());
+        btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
 
         HBox hBox = new HBox(5);
         hBox.setAlignment(Pos.CENTER_LEFT);
@@ -69,11 +74,16 @@ public class EpisodeFilterClear extends VBox {
         final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
         HBox hBoxAll = new HBox(5);
-        hBoxAll.getChildren().addAll(hBox, btnClearFilter, btnHelp);
+        hBoxAll.getChildren().addAll(hBox, btnClearFilter, btnEditFilter, btnHelp);
         getChildren().addAll(hBoxAll);
     }
 
     private void clearFilter() {
-        progData.episodeGui.getPodcastFilter().clearFilter();
+        PDuration.onlyPing("Filter löschen");
+        progData.storedFilters.clearFilter();
+    }
+
+    private void editFilter() {
+        final StationFilterEditDialog editFilterDialog = new StationFilterEditDialog(progData);
     }
 }
