@@ -18,7 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
@@ -34,11 +33,9 @@ public class EpisodeGui {
     private final HBox hBox = new HBox();
     private final EpisodeGuiController episodeGuiController;
     private final EpisodeFilterController epiDownFilterController;
-    //    private final EpisodeFilterClear episodeFilterClear;
     private DoubleProperty filterDivider;
     private BooleanProperty filterOn;
     private boolean bound = false;
-    private final StoredFilters storedFiltersEpisodes; // gespeicherte Filterprofile
 
     public EpisodeGui() {
         progData = ProgData.getInstance();
@@ -47,24 +44,8 @@ public class EpisodeGui {
         this.filterDivider = ProgConfig.EPISODE_GUI_FILTER_DIVIDER;
         this.filterOn = ProgConfig.EPISODE_GUI_FILTER_ON;
 
-        storedFiltersEpisodes = new StoredFilters(progData);
-        storedFiltersEpisodes.init();
-
-//        episodeFilterClear = new EpisodeFilterClear();
         epiDownFilterController = new EpisodeFilterController();
         episodeGuiController = new EpisodeGuiController();
-    }
-
-    public StoredFilters getStoredFiltersEpisodes() {
-        return storedFiltersEpisodes;
-    }
-
-//    public EpisodeFilterClear getEpisodeFilterClear() {
-//        return episodeFilterClear;
-//    }
-
-    public EpisodeFilterController getPodcastFilter() {
-        return epiDownFilterController;
     }
 
     public EpisodeGuiController getEpisodeGuiController() {

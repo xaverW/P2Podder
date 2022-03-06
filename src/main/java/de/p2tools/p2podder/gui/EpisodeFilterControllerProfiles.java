@@ -48,8 +48,6 @@ public class EpisodeFilterControllerProfiles extends VBox {
     public EpisodeFilterControllerProfiles() {
         super();
         progData = ProgData.getInstance();
-
-//        setPadding(new Insets(0, 10, 0, 10));
         setSpacing(5);
 
         initButton();
@@ -165,20 +163,14 @@ public class EpisodeFilterControllerProfiles extends VBox {
         getChildren().add(hBox);
 
         cboFilterProfiles.setMaxWidth(Double.MAX_VALUE);
-//        final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
         hBox = new HBox(10);
         HBox.setHgrow(cboFilterProfiles, Priority.ALWAYS);
         hBox.getChildren().addAll(cboFilterProfiles, mbFilterTools);
 
-
         VBox vBox = new VBox(3);
         vBox.getChildren().addAll(new Label("Filterprofile:"), hBox);
         getChildren().add(vBox);
-
-//        hBox = new HBox(10);
-//        hBox.getChildren().addAll(mbFilterTools, PGuiTools.getHBoxGrower(), btnHelp);
-//        getChildren().add(hBox);
     }
 
     private void loadFilter() {
@@ -262,5 +254,4 @@ public class EpisodeFilterControllerProfiles extends VBox {
             markFilterSelected(false);
         }
     }
-
 }

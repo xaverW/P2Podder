@@ -40,7 +40,6 @@ public class EpisodeFilterController extends FilterController {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
-    //    private VBox vBoxGuiClear;
     private ProgData progData;
 
     private final Slider slTimeRange = new Slider();
@@ -53,7 +52,6 @@ public class EpisodeFilterController extends FilterController {
 
     public EpisodeFilterController() {
         super(ProgConfig.EPISODE_GUI_FILTER_ON);
-//        this.vBoxGuiClear = ProgData.getInstance().episodeGui.getEpisodeFilterClear();
         this.progData = ProgData.getInstance();
 
         clearFilter = new EpisodeFilterControllerClearFilter();
@@ -80,13 +78,6 @@ public class EpisodeFilterController extends FilterController {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-//        VBox vBoxClear = new VBox();
-//        vBoxClear.setSpacing(5);
-//        vBoxClear.setPadding(new Insets(10, 0, 0, 0));
-//        Separator sp1 = new Separator();
-//        sp1.getStyleClass().add("pseperator3");
-//        vBoxClear.getChildren().addAll(sp1, vBoxGuiClear);
-
         Separator sp2 = new Separator();
         sp2.getStyleClass().add("pseperator3");
         final VBox vBoxFilter = getVBoxTop();
@@ -96,7 +87,6 @@ public class EpisodeFilterController extends FilterController {
 
         VBox vBoxSpace = new VBox(0);
         vBoxSpace.setPadding(new Insets(5));
-//        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
 
         VBox vBoxEdit = new VBox(10);
         vBoxEdit.getChildren().addAll(vBoxSpace, clearFilter, sp2, profiles);
@@ -200,13 +190,6 @@ public class EpisodeFilterController extends FilterController {
             });
         };
         progData.episodeStoredList.getGenreList().addListener(listChangeListener);
-//        cboGenre.valueProperty().addListener((u, o, n) -> {
-//            if (n != null) {
-//                Platform.runLater(() -> {
-//                    progData.storedFilters.getActFilterSettings().setGenre(n);
-//                });
-//            }
-//        });
         cboGenre.getItems().addAll(progData.episodeStoredList.getGenreList());
 
         txtTitle.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().titleProperty());
@@ -259,14 +242,4 @@ public class EpisodeFilterController extends FilterController {
         };
         return cell;
     };
-
-//    public void clearFilter() {
-//        PDuration.onlyPing("Filter löschen");
-//        progData.storedFilters.getActFilterSettings().clearFilter();
-//
-//        tableView.getSelectionModel().clearSelection();
-//        slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-//        cboGenre.getSelectionModel().clearSelection();
-//        txtTitle.setText("");
-//    }
 }

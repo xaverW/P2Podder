@@ -45,7 +45,6 @@ public class PodcastGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
 
-    //    private final TabPane infoTab = new TabPane();
     private final TilePane tilePaneButton = new TilePane();
     private PodcastGuiInfoController podcastGuiInfoController;
     private final TableView<Podcast> tableView = new TableView<>();
@@ -116,7 +115,6 @@ public class PodcastGuiController extends AnchorPane {
     private void setPodcast() {
         Podcast podcast = tableView.getSelectionModel().getSelectedItem();
         podcastGuiInfoController.setStation(podcast);
-//        progData.episodeInfoDialogController.setStation(podcast);
     }
 
     private void selectPodcast() {
@@ -262,7 +260,6 @@ public class PodcastGuiController extends AnchorPane {
         new Table().setTable(tableView, Table.TABLE.PODCAST);
 
         tableView.setItems(sortedList);
-//        tableView.setItems(progData.podAboList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
 
         tableView.setOnMouseClicked(m -> {

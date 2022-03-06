@@ -93,7 +93,6 @@ public class EpisodeGuiController extends AnchorPane {
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         episodeGuiInfoController = new EpisodeGuiInfoController();
 
-
         setInfoPane();
         initFilter();
         initTable();

@@ -140,11 +140,7 @@ public final class StoredFilters {
 
     public synchronized void clearFilter() {
         actFilterSettings.filterChangeProperty().removeListener(filterChangeListener);
-//        if (actFilterSettings.isTextFilterEmpty()) {
-        actFilterSettings.clearFilter(); // Button Black wird nicht verändert
-//        } else {
-//            actFilterSettings.clearTxtFilter();
-//        }
+        actFilterSettings.clearFilter();
         setFilterChange();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener);
     }

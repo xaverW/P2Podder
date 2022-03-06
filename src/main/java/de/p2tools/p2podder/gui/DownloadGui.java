@@ -19,7 +19,6 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.DownloadFilter;
-import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
@@ -35,9 +34,7 @@ public class DownloadGui {
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
     private final DownloadFilterController downloadFilterController;
-    //    private final DownloadFilterClear downloadFilterClear;
     private final DownloadFilter downloadFilter;
-    private final StoredFilters storedFiltersDownload; // gespeicherte Filterprofile
     private DoubleProperty filterDivider;
     private BooleanProperty filterOn;
     private boolean bound = false;
@@ -50,11 +47,7 @@ public class DownloadGui {
         this.filterDivider = ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER;
         this.filterOn = ProgConfig.DOWNLOAD_GUI_FILTER_ON;
 
-        storedFiltersDownload = new StoredFilters(progData);
-        storedFiltersDownload.init();
-
         downloadFilter = new DownloadFilter();
-//        downloadFilterClear = new DownloadFilterClear();
         downloadFilterController = new DownloadFilterController();
         downloadGuiController = new DownloadGuiController();
     }
@@ -62,18 +55,6 @@ public class DownloadGui {
     public DownloadGuiController getDownloadGuiController() {
         return downloadGuiController;
     }
-
-    public StoredFilters getStoredFiltersDownload() {
-        return storedFiltersDownload;
-    }
-
-    public DownloadFilterController getPodcastFilter() {
-        return downloadFilterController;
-    }
-
-//    public DownloadFilterClear getDownloadFilterClear() {
-//        return downloadFilterClear;
-//    }
 
     public DownloadFilter getDownloadFilter() {
         return downloadFilter;

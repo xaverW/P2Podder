@@ -41,10 +41,7 @@ public class EpisodeFilterControllerClearFilter extends VBox {
         super();
         progData = ProgData.getInstance();
         progData.stationFilterControllerClearFilter = this;
-
-//        setPadding(new Insets(0, 10, 0, 10));
         setSpacing(5);
-
         addButton();
     }
 

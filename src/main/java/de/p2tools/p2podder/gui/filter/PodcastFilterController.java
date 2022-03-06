@@ -52,13 +52,6 @@ public class PodcastFilterController extends FilterController {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-//        VBox vBoxClear = new VBox();
-//        vBoxClear.setSpacing(5);
-//        vBoxClear.setPadding(new Insets(10, 0, 0, 0));
-//        Separator sp1 = new Separator();
-//        sp1.getStyleClass().add("pseperator3");
-//        vBoxClear.getChildren().addAll(sp1, progData.podcastGui.getPodcastFilterClear());
-
         VBox vBoxSpace = new VBox();
         VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
 
@@ -107,10 +100,6 @@ public class PodcastFilterController extends FilterController {
             });
         };
         progData.podcastList.getGenreList().addListener(listChangeListener);
-
-//        progData.podcastList.addListener((v, o, n) -> {
-//            cboGenre.getItems().setAll(progData.podcastList.getFilterGenreList());
-//        });
         cboGenre.valueProperty().addListener((u, o, n) -> {
             if (n != null) {
                 Platform.runLater(() -> {

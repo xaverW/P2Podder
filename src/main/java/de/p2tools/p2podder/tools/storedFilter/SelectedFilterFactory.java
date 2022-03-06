@@ -23,14 +23,6 @@ import java.util.ArrayList;
 
 public class SelectedFilterFactory {
 
-//    private final LongProperty podcastId = new SimpleLongProperty(0);
-//    private final StringProperty genre = new SimpleStringProperty("");
-//    private final StringProperty title = new SimpleStringProperty("");
-//    private final IntegerProperty timeRange = new SimpleIntegerProperty(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-//    private final BooleanProperty isNew = new SimpleBooleanProperty(false);
-//    private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
-//    private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
-
     public static SelectedFilter getFilterCopy(SelectedFilter sfFrom) {
         SelectedFilter sf = new SelectedFilter();
         copyFilter(sfFrom, sf);
@@ -77,15 +69,6 @@ public class SelectedFilterFactory {
 
         return true;
     }
-
-//    private final LongProperty podcastId = new SimpleLongProperty(0);
-//    private final StringProperty genre = new SimpleStringProperty("");
-//    private final StringProperty title = new SimpleStringProperty("");
-//    private final IntegerProperty timeRange = new SimpleIntegerProperty(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-//    private final BooleanProperty isNew = new SimpleBooleanProperty(false);
-//    private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
-//    private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
-
 
     public static ArrayList<String> printFilter(SelectedFilter sf) {
         ArrayList<String> list = new ArrayList<>();

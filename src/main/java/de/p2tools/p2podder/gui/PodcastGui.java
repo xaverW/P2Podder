@@ -38,7 +38,6 @@ public class PodcastGui {
     private BooleanProperty boolDivOn;
     private final PodcastFilter podcastFilter;
     private final PodcastFilterController podcastFilterController;
-    //    private final PodcastFilterClear podcastFilterClear;
     private final PodcastGuiController podcastGuiController;
     private boolean bound = false;
     private final StoredFilters storedFiltersPodcast; // gespeicherte Filterprofile
@@ -55,7 +54,6 @@ public class PodcastGui {
         storedFiltersPodcast.init();
 
         podcastFilter = new PodcastFilter();
-//        podcastFilterClear = new PodcastFilterClear();
         podcastFilterController = new PodcastFilterController();
         podcastGuiController = new PodcastGuiController();
     }
@@ -71,10 +69,6 @@ public class PodcastGui {
     public PodcastFilterController getPodcastFilterController() {
         return podcastFilterController;
     }
-
-//    public PodcastFilterClear getPodcastFilterClear() {
-//        return podcastFilterClear;
-//    }
 
     public void closeSplit() {
         boolDivOn.setValue(!boolDivOn.get());

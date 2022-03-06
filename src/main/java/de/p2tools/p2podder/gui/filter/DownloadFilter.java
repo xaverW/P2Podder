@@ -84,7 +84,6 @@ public class DownloadFilter {
     public void setGenre(String genre) {
         if (genre == null) {
             return;
-//            genre = "";
         }
         this.genre = genre;
         setPredicate();
