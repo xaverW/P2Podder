@@ -18,7 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.filter.DownloadFilter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
@@ -34,7 +33,6 @@ public class DownloadGui {
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
     private final DownloadFilterController downloadFilterController;
-    private final DownloadFilter downloadFilter;
     private DoubleProperty filterDivider;
     private BooleanProperty filterOn;
     private boolean bound = false;
@@ -47,17 +45,16 @@ public class DownloadGui {
         this.filterDivider = ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER;
         this.filterOn = ProgConfig.DOWNLOAD_GUI_FILTER_ON;
 
-        downloadFilter = new DownloadFilter();
         downloadFilterController = new DownloadFilterController();
         downloadGuiController = new DownloadGuiController();
     }
 
+//    public DownloadFilterController getDownloadFilterController() {
+//        return downloadFilterController;
+//    }
+
     public DownloadGuiController getDownloadGuiController() {
         return downloadGuiController;
-    }
-
-    public DownloadFilter getDownloadFilter() {
-        return downloadFilter;
     }
 
     public Pane pack() {

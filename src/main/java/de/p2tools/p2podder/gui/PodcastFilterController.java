@@ -14,12 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -35,6 +36,7 @@ public class PodcastFilterController extends FilterController {
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final TextField txtName = new TextField();
     private final TextField txtUrl = new TextField();
+
 
     private ProgData progData;
 
@@ -104,21 +106,26 @@ public class PodcastFilterController extends FilterController {
             if (n != null) {
                 Platform.runLater(() -> {
                     //kommt sonst zu Laufzeitproblemen beim Setzen in der FilteredList
-                    progData.podcastGui.getPodcastFilter().setGenre(n);
+                    progData.podcastFilter.setGenre(n);
                 });
             }
         });
         txtName.textProperty().addListener((u, o, n) -> {
-            progData.podcastGui.getPodcastFilter().setName(txtName.getText());
+            progData.podcastFilter.setName(txtName.getText());
         });
+        FilterCheckRegEx fName = new FilterCheckRegEx(txtName);
+        txtName.textProperty().addListener((observable, oldValue, newValue) -> fName.checkPattern());
+
         txtUrl.textProperty().addListener((u, o, n) -> {
-            progData.podcastGui.getPodcastFilter().setUrl(txtUrl.getText());
+            progData.podcastFilter.setUrl(txtUrl.getText());
         });
+        FilterCheckRegEx fUrl = new FilterCheckRegEx(txtUrl);
+        txtUrl.textProperty().addListener((observable, oldValue, newValue) -> fUrl.checkPattern());
     }
 
     public void clearFilter() {
         PDuration.onlyPing("Podcast-Filter löschen");
-        progData.podcastList.filteredListSetPred(progData.podcastGui.getPodcastFilter().clearFilter());
+        progData.podcastList.filteredListSetPred(progData.podcastFilter.clearFilter());
         cboGenre.getSelectionModel().clearSelection();
         txtName.setText("");
         txtUrl.setText("");

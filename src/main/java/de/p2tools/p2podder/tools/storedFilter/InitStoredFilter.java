@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.filter.SelectedFilter;
 
 public class InitStoredFilter {
 
@@ -25,13 +24,13 @@ public class InitStoredFilter {
         ProgData progData = ProgData.getInstance();
 
         //========================================================
-        SelectedFilter sf = new SelectedFilter("alle Sender");
-        sf.setTitle("Test");
+        SelectedFilter sf = new SelectedFilter("Nachrichten");
+        sf.setTitle("Nachrichten");
         progData.storedFilters.getStoredFilterList().add(sf);
 
         //========================================================
-        sf = new SelectedFilter("Bayern");
-        sf.setTitle("Aber");
+        sf = new SelectedFilter("Linux");
+        sf.setTitle("Linux");
         progData.storedFilters.getStoredFilterList().add(sf);
     }
 }

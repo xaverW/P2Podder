@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.tools.storedFilter;
 
 public class FilterToXml {
 

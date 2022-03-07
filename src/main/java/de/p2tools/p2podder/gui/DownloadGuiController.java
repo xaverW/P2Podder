@@ -250,16 +250,13 @@ public class DownloadGuiController extends AnchorPane {
     private void initFilter() {
         rbAll.setSelected(true);
         rbAll.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadGui.getDownloadFilter().setRunning(false);
-            progData.downloadGui.getDownloadFilter().setFinalized(false);
+            progData.downloadFilter.setAll();
         });
         rbRunning.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadGui.getDownloadFilter().setRunning(true);
-            progData.downloadGui.getDownloadFilter().setFinalized(false);
+            progData.downloadFilter.setRunning();
         });
         rbFinalized.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadGui.getDownloadFilter().setRunning(false);
-            progData.downloadGui.getDownloadFilter().setFinalized(true);
+            progData.downloadFilter.setFinalized();
         });
     }
 

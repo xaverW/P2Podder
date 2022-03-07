@@ -18,12 +18,11 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.gui.filter.FilterController;
+import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -35,25 +34,22 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 
 public class DownloadFilterController extends FilterController {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
-    //    private VBox vBoxGuiClear;
     private ProgData progData;
 
     private final Button btnClearFilter = new Button("");
-    private final Slider slTimeRange = new Slider();
-    private final Label lblTimeRange = new Label("Zeitraum:");
-    private final Label lblTimeRangeValue = new Label();
+//    private final DownloadFilter downloadFilter;
+
 
     public DownloadFilterController() {
         super(ProgConfig.PODCAST_GUI_FILTER_ON);
-//        this.vBoxGuiClear = ProgData.getInstance().downloadGui.getDownloadFilterClear();
         this.progData = ProgData.getInstance();
+//        this.downloadFilter = new DownloadFilter();
 
         VBox vBoxTable = new VBox();
         vBoxTable.getChildren().addAll(/*new Label("Podcast:"),*/ tableView);
@@ -62,15 +58,6 @@ public class DownloadFilterController extends FilterController {
 
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
-
-//        // Tage
-//        VBox vBoxTimeRange = new VBox(2);
-//        HBox h = new HBox();
-//        HBox hh = new HBox();
-//        h.getChildren().addAll(lblTimeRange, hh, lblTimeRangeValue);
-//        HBox.setHgrow(hh, Priority.ALWAYS);
-//        lblTimeRange.setMinWidth(0);
-//        vBoxTimeRange.getChildren().addAll(h, slTimeRange);
 
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
@@ -82,10 +69,13 @@ public class DownloadFilterController extends FilterController {
         vBoxFilter.getChildren().addAll(vBoxTable, /*vBoxTimeRange,*/ vBoxGenre, vBoxTitle);
 
         addButton();
-        initDaysFilter();
         initTable();
         initFilter();
     }
+
+//    public DownloadFilter getDownloadFilter() {
+//        return downloadFilter;
+//    }
 
     private void addButton() {
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
@@ -110,55 +100,6 @@ public class DownloadFilterController extends FilterController {
         vBoxFilter.getChildren().add(vBox);
     }
 
-    private void initDaysFilter() {
-        slTimeRange.setMin(ProgConst.FILTER_TIME_RANGE_MIN_VALUE);
-        slTimeRange.setMax(ProgConst.FILTER_TIME_RANGE_MAX_VALUE);
-        slTimeRange.setShowTickLabels(true);
-
-        slTimeRange.setMajorTickUnit(10);
-        slTimeRange.setBlockIncrement(5);
-
-        slTimeRange.setLabelFormatter(new StringConverter<>() {
-            @Override
-            public String toString(Double x) {
-                if (x == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) return "alles";
-                return x.intValue() + "";
-            }
-
-            @Override
-            public Double fromString(String string) {
-                return null;
-            }
-        });
-
-        slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-        setLabelSlider();
-        slTimeRange.valueProperty().addListener((o, oldV, newV) -> {
-            setLabelSlider();
-            if (!slTimeRange.isValueChanging()) {
-                progData.downloadGui.getDownloadFilter().setTimeRange((int) slTimeRange.getValue());
-            }
-        });
-        slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> {
-                    setLabelSlider();
-                    if (!newvalue) {
-                        progData.downloadGui.getDownloadFilter().setTimeRange((int) slTimeRange.getValue());
-                    }
-                }
-        );
-    }
-
-    private void setLabelSlider() {
-        final String txtAll = "alles";
-        int i = (int) slTimeRange.getValue();
-        String tNr = i + "";
-        if (i == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
-            lblTimeRangeValue.setText(txtAll);
-        } else {
-            lblTimeRangeValue.setText(tNr + (i == 1 ? " Tag" : " Tage"));
-        }
-    }
-
     private void initTable() {
         final TableColumn<Podcast, String> episodeColumn = new TableColumn<>("Podcast");
         episodeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -174,7 +115,7 @@ public class DownloadFilterController extends FilterController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 long l = tableView.getSelectionModel().getSelectedItem().getId();
-                progData.downloadGui.getDownloadFilter().setPodcastId(l);
+                progData.downloadFilter.setPodcastId(l);
             }
         });
         progData.downloadList.addListener((v, o, n) -> {
@@ -197,15 +138,17 @@ public class DownloadFilterController extends FilterController {
         cboGenre.valueProperty().addListener((u, o, n) -> {
             if (n != null) {
                 Platform.runLater(() -> {
-                    progData.downloadGui.getDownloadFilter().setGenre(n);
+                    progData.downloadFilter.setGenre(n);
                 });
             }
         });
         cboGenre.getItems().addAll(progData.downloadList.getGenreList());
 
         txtTitle.textProperty().addListener((u, o, n) -> {
-            progData.downloadGui.getDownloadFilter().setTitle(txtTitle.getText());
+            progData.downloadFilter.setTitle(txtTitle.getText());
         });
+        FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
+        txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
     }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactory
@@ -258,10 +201,9 @@ public class DownloadFilterController extends FilterController {
 
     public void clearFilter() {
         PDuration.onlyPing("Filter löschen");
-        progData.downloadList.filteredListSetPred(progData.downloadGui.getDownloadFilter().clearFilter());
+        progData.downloadList.filteredListSetPred(progData.downloadFilter.clearFilter());
 
         tableView.getSelectionModel().clearSelection();
-        slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
         cboGenre.getSelectionModel().clearSelection();
         txtTitle.setText("");
     }

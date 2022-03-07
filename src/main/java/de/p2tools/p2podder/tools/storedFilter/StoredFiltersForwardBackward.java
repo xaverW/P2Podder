@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.tools.storedFilter;
 
-import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

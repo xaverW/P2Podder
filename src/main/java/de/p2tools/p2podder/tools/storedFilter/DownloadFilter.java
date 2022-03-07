@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -56,7 +56,7 @@ public class DownloadFilter {
 
         if (!title.isEmpty()) {
             predicate = predicate.and(download ->
-                    download.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(title));
+                    FilterCheck.checkString(new Filter(title, true), download.getEpisodeTitle()));
         }
         if (isRunning) {
             predicate = predicate.and(download -> download.isStarted());
@@ -94,13 +94,21 @@ public class DownloadFilter {
         setPredicate();
     }
 
-    public void setRunning(boolean running) {
-        this.isRunning = running;
+    public void setAll() {
+        this.isRunning = false;
+        this.finalized = false;
         setPredicate();
     }
 
-    public void setFinalized(boolean finalized) {
-        this.finalized = finalized;
+    public void setRunning() {
+        this.isRunning = true;
+        this.finalized = false;
+        setPredicate();
+    }
+
+    public void setFinalized() {
+        this.isRunning = false;
+        this.finalized = true;
         setPredicate();
     }
 }

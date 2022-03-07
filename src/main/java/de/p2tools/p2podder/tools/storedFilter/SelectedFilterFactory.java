@@ -17,8 +17,6 @@
 
 package de.p2tools.p2podder.tools.storedFilter;
 
-import de.p2tools.p2podder.gui.filter.SelectedFilter;
-
 import java.util.ArrayList;
 
 public class SelectedFilterFactory {

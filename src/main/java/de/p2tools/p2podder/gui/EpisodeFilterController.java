@@ -21,7 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.gui.filter.FilterController;
+import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -193,6 +193,9 @@ public class EpisodeFilterController extends FilterController {
         cboGenre.getItems().addAll(progData.episodeStoredList.getGenreList());
 
         txtTitle.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().titleProperty());
+        FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
+        txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
+
     }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactory

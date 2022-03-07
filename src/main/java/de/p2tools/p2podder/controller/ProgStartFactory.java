@@ -27,6 +27,7 @@ import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.controller.data.PsetVorlagen;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startDialog.StartDialogController;
+import de.p2tools.p2podder.tools.storedFilter.InitStoredFilter;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
 
@@ -69,6 +70,7 @@ public class ProgStartFactory {
                 }
                 PDuration.onlyPing("Erster Start: PSet geladen");
             });
+            InitStoredFilter.initFilter();
         }
         progData.episodeStoredList.initList();
         progData.podcastList.initList();

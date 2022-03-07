@@ -31,7 +31,6 @@ import javafx.scene.layout.VBox;
 public class EpisodeFilterControllerClearFilter extends VBox {
 
     private final Button btnClearFilter = new Button("");
-    private final Button btnEditFilter = new Button("");
     private final Button btnGoBack = new Button("");
     private final Button btnGoForward = new Button("");
 
@@ -59,10 +58,6 @@ public class EpisodeFilterControllerClearFilter extends VBox {
         btnClearFilter.setOnAction(a -> clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
 
-        btnEditFilter.setGraphic(new ProgIcons().ICON_BUTTON_EDIT_FILTER);
-        btnEditFilter.setOnAction(a -> editFilter());
-        btnEditFilter.setTooltip(new Tooltip("Filter ein/ausschalten"));
-
         HBox hBox = new HBox(5);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().addAll(btnGoBack, btnGoForward);
@@ -71,16 +66,12 @@ public class EpisodeFilterControllerClearFilter extends VBox {
         final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
         HBox hBoxAll = new HBox(5);
-        hBoxAll.getChildren().addAll(hBox, btnClearFilter, btnEditFilter, btnHelp);
+        hBoxAll.getChildren().addAll(hBox, btnClearFilter, btnHelp);
         getChildren().addAll(hBoxAll);
     }
 
     private void clearFilter() {
         PDuration.onlyPing("Filter löschen");
         progData.storedFilters.clearFilter();
-    }
-
-    private void editFilter() {
-        final StationFilterEditDialog editFilterDialog = new StationFilterEditDialog(progData);
     }
 }

@@ -18,9 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.podcast.PodcastFilter;
-import de.p2tools.p2podder.gui.filter.PodcastFilterController;
-import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
@@ -36,11 +33,9 @@ public class PodcastGui {
     private final HBox hBox = new HBox();
     private DoubleProperty doubleProperty;
     private BooleanProperty boolDivOn;
-    private final PodcastFilter podcastFilter;
     private final PodcastFilterController podcastFilterController;
     private final PodcastGuiController podcastGuiController;
     private boolean bound = false;
-    private final StoredFilters storedFiltersPodcast; // gespeicherte Filterprofile
 
 
     public PodcastGui() {
@@ -50,24 +45,8 @@ public class PodcastGui {
         this.doubleProperty = ProgConfig.PODCAST_GUI_FILTER_DIVIDER;
         this.boolDivOn = ProgConfig.PODCAST_GUI_FILTER_ON;
 
-        storedFiltersPodcast = new StoredFilters(progData);
-        storedFiltersPodcast.init();
-
-        podcastFilter = new PodcastFilter();
         podcastFilterController = new PodcastFilterController();
         podcastGuiController = new PodcastGuiController();
-    }
-
-    public StoredFilters getStoredFiltersPodcast() {
-        return storedFiltersPodcast;
-    }
-
-    public PodcastFilter getPodcastFilter() {
-        return podcastFilter;
-    }
-
-    public PodcastFilterController getPodcastFilterController() {
-        return podcastFilterController;
     }
 
     public void closeSplit() {

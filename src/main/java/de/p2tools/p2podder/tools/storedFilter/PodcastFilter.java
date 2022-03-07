@@ -15,9 +15,10 @@
  */
 
 
-package de.p2tools.p2podder.controller.data.podcast;
+package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
 
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -46,11 +47,11 @@ public class PodcastFilter {
         }
         if (!name.isEmpty()) {
             predicate = predicate.and(podcast ->
-                    podcast.getName().toLowerCase(Locale.ROOT).contains(name));
+                    FilterCheck.checkString(new Filter(name, true), podcast.getName()));
         }
         if (!url.isEmpty()) {
             predicate = predicate.and(podcast ->
-                    podcast.getUrl().toLowerCase(Locale.ROOT).contains(url));
+                    FilterCheck.checkString(new Filter(url, true), podcast.getUrl()));
         }
         return predicate;
     }

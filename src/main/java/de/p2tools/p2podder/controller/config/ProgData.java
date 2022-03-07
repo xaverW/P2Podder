@@ -39,7 +39,9 @@ import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.tools.Listener;
+import de.p2tools.p2podder.tools.storedFilter.DownloadFilter;
 import de.p2tools.p2podder.tools.storedFilter.FilterWorker;
+import de.p2tools.p2podder.tools.storedFilter.PodcastFilter;
 import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -74,6 +76,8 @@ public class ProgData {
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
     public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;
+    public final DownloadFilter downloadFilter;
+    public final PodcastFilter podcastFilter;
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
     public FilterWorker filterWorker;
@@ -101,6 +105,8 @@ public class ProgData {
         eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
         storedFilters = new StoredFilters(this);
+        downloadFilter = new DownloadFilter();
+        podcastFilter = new PodcastFilter();
 
         episodeStoredList = new EpisodeList(this);
         episodeStartingList = new EpisodeList(this);

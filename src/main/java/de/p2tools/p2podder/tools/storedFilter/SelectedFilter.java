@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2Lib.tools.log.PDebugLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -24,7 +24,6 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-import java.util.Locale;
 import java.util.function.Predicate;
 
 public class SelectedFilter extends SelectedFilterProps {
@@ -54,7 +53,7 @@ public class SelectedFilter extends SelectedFilterProps {
         return filterChange;
     }
 
-    public void initFilter() {
+    private void initFilter() {
         clearFilter();
         podcastIdProperty().addListener(l -> reportFilterChange());
         genreProperty().addListener(l -> reportFilterChange());
@@ -73,7 +72,7 @@ public class SelectedFilter extends SelectedFilterProps {
     }
 
     public void clearFilter() {
-        // alle Filter löschen, Button Black bleibt wie er ist
+        // alle Filter löschen
         setPodcastId(0);
         setGenre("");
         setTitle("");
@@ -105,16 +104,21 @@ public class SelectedFilter extends SelectedFilterProps {
     public Predicate<Episode> getPredicateEpisode() {
         Predicate<Episode> predicate = episode -> true;
 
+        Filter fTitle = new Filter(getTitle(), true);
+
         if (getPodcastId() > 0) {
             predicate = predicate.and(episode -> episode.podcastIdProperty().getValue().equals(getPodcastId()));
         }
         if (!getGenre().isEmpty()) {
             predicate = predicate.and(episode -> episode.genreProperty().getValue().equals(getGenre()));
         }
-        if (!getTitle().isEmpty()) {
-            predicate = predicate.and(episode ->
-                    episode.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(getTitle()));
+        if (!fTitle.empty) {
+            predicate = predicate.and(f -> FilterCheck.checkString(fTitle, f.getEpisodeTitle()));
         }
+//        if (!getTitle().isEmpty()) {
+//            predicate = predicate.and(episode ->
+//                    episode.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(getTitle()));
+//        }
 
 
         if (getTimeRange() != ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {

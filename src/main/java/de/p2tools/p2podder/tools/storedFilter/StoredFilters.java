@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.tools.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,15 +25,11 @@ public final class StoredFilters {
 
     private final ProgData progData;
     private StoredFiltersForwardBackward storedFiltersForwardBackward = null; // gespeicherte Filterprofile
-
     private final BooleanProperty filterChange = new SimpleBooleanProperty(true);
     private final ChangeListener<Boolean> filterChangeListener;
 
-    // ist der aktuell angezeigte Filter
     private SelectedFilter actFilterSettings = new SelectedFilter("aktuelle Einstellung"); //ist der "aktuelle" Filter, Name dient nur der Info im Config-File
-
-    // ist die Liste der gespeicherten Filter
-    private final SelectedFilterList filterList = new SelectedFilterList();
+    private final SelectedFilterList filterList = new SelectedFilterList(); //ist die Liste der gespeicherten Filter
 
     public StoredFilters(ProgData progData) {
         this.progData = progData;

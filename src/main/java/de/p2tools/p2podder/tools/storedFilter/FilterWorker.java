@@ -19,7 +19,6 @@ package de.p2tools.p2podder.tools.storedFilter;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
 import de.p2tools.p2podder.controller.config.pEvent.EventLoadPodcastList;
-import de.p2tools.p2podder.gui.filter.SelectedFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,7 +28,6 @@ public class FilterWorker {
 
     private ObservableList<String> allGenreList = FXCollections.observableArrayList("");
 
-    final SelectedFilter sfTemp = new SelectedFilter();
     private final ProgData progData;
 
     public FilterWorker(ProgData progData) {
@@ -60,11 +58,9 @@ public class FilterWorker {
     }
 
     private void saveFilter() {
-        SelectedFilterFactory.copyFilter(progData.podcastGui.getStoredFiltersPodcast().getActFilterSettings(), sfTemp);
     }
 
     private void resetFilter() {
-        SelectedFilterFactory.copyFilter(sfTemp, progData.podcastGui.getStoredFiltersPodcast().getActFilterSettings());
     }
 
     public void createFilterLists() {

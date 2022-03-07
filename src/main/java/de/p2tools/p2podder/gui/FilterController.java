@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.filter;
+package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
 import javafx.beans.property.BooleanProperty;
