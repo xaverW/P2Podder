@@ -64,17 +64,14 @@ public class ProgLoadFactory {
             if (firstProgramStart) {
                 //schon mal ein paar eintragen
                 logList.add("erster Programmstart, ein paar Pods eintragen");
-                Podcast podcast = new Podcast();
-                podcast.setName("Der Tag");
-                podcast.setGenre("Nachrichten");
-                podcast.setUrl("https://www.deutschlandfunk.de/podcast-deutschlandfunk-der-tag.3417.de.podcast.xml");
-                progData.podcastList.addNewItem(podcast);
 
-                podcast = new Podcast();
-                podcast.init();
-                podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
-                podcast.setGenre("Zukunft");
-                podcast.setUrl("https://utopia.podigee.io/feed/mp3");
+                Podcast podcast = new Podcast();
+                podcast.setName("Deutschlandfunk – Der Tag");
+                podcast.setGenre("Nachrichten");
+                podcast.setUrl("https://www.deutschlandfunk.de/podcast-104.xml");
+                podcast.setWebsite("https://www.deutschlandfunk.de");
+                podcast.setDescription("Ausgewählte Themen hintergründig eingeordnet – das ist der Anspruch unseres " +
+                        "täglichen Podcasts „Der Tag“. Was steckt hinter einer Nachricht und was ergibt sich daraus?");
                 progData.podcastList.addNewItem(podcast);
 
                 podcast = new Podcast();
@@ -82,6 +79,23 @@ public class ProgLoadFactory {
                 podcast.setName("Auf den Punkt - der SZ-Nachrichtenpodcast");
                 podcast.setGenre("Nachrichten");
                 podcast.setUrl("https://sz-auf-den-punkt.podigee.io/feed/mp3");
+                podcast.setWebsite("https://www.sueddeutsche.de/");
+                podcast.setDescription("Die Nachrichten des Tages - als Podcast auf den Punkt gebracht. " +
+                        "Bleiben Sie auf dem Laufenden mit aktuellen Meldungen, Interviews und " +
+                        "Hintergrundberichten. Kostenlos und immer aktuell. Jeden Montag bis Freitag um 17 Uhr.");
+                progData.podcastList.addNewItem(podcast);
+
+                podcast = new Podcast();
+                podcast.init();
+                podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
+                podcast.setGenre("Ökologie");
+                podcast.setUrl("https://utopia.podigee.io/feed/mp3");
+                podcast.setWebsite("https://utopia.de/");
+                podcast.setDescription("Alle sprechen von Nachhaltigkeit – aber was ist damit eigentlich gemeint? " +
+                        "Ist es nur Marketing – oder die einzige Möglichkeit, wie wir die kommenden " +
+                        "ökologischen Herausforderungen meistern können? Der Utopia-Podcast hilft, " +
+                        "den Überblick zu behalten! Und zwar nicht abgehoben, sondern ganz alltagsnah, " +
+                        "mit vielen Tipps und nützlichen Hinweisen.");
                 progData.podcastList.addNewItem(podcast);
 
                 podcast = new Podcast();
@@ -89,7 +103,26 @@ public class ProgLoadFactory {
                 podcast.setName("Radio Tux");
                 podcast.setGenre("Linux");
                 podcast.setUrl("http://prometheus.radiotux.de/index.php?/feeds/index.rss2");
+                podcast.setWebsite("https://radiotux.de");
+                podcast.setDescription("RadioTux ist ein 2001 gegründetes Podcast-Projekt mit den thematischen " +
+                        "Schwerpunkten Linux, Open Source und Netzkultur. Es produziert in " +
+                        "regelmäßigen Abständen verschiedene Formate und hat sich zu einem " +
+                        "gefragten Medienpartner für OpenSource Events entwickelt.");
                 progData.podcastList.addNewItem(podcast);
+
+                podcast = new Podcast();
+                podcast.init();
+                podcast.setName("beVegt-Podcast");
+                podcast.setGenre("Gesundheit");
+                podcast.setUrl("https://bevegt.libsyn.com/rss");
+                podcast.setWebsite("https://www.bevegt.de/");
+                podcast.setDescription("Im beVegt-Podcast versorgen wir dich einmal pro Woche " +
+                        "mit Tipps rund um vegane Ernährung, Laufen, Motivation, Nachhaltigkeit, " +
+                        "Minimalismus und mehr. Wir helfen dir dabei, ein besserer Läufer zu werden, " +
+                        "Spaß an einem gesunden und aktiven Lebensstil zu haben und deine " +
+                        "persönlichen Ziele zu erreichen.");
+                progData.podcastList.addNewItem(podcast);
+
             }
             logList.add(PLog.LILNE1);
             logList.add("");

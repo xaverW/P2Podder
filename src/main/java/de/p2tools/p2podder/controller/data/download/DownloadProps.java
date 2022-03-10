@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.guiTools.PDownloadSize;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
+import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -121,7 +122,10 @@ public class DownloadProps extends PDataSample<Download> {
 
     public void setState(int state) {
         this.state.set(state);
-        Platform.runLater(() -> guiState.setValue(state));
+        Platform.runLater(() -> {
+            guiState.setValue(state);
+            ProgData.getInstance().filterDownload.setPredicate();
+        });
     }
 
     public void setGuiState(int guiState) {

@@ -108,7 +108,7 @@ public class FilterDownload {
         return predicate;
     }
 
-    private void setPredicate() {
+    public void setPredicate() {
         ProgData.getInstance().downloadList.filteredListSetPred(getPredicate());
     }
 
