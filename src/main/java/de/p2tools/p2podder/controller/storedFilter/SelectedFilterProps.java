@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
@@ -32,28 +32,32 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty title = new SimpleStringProperty("");
+    private final StringProperty description = new SimpleStringProperty("");
     private final IntegerProperty timeRange = new SimpleIntegerProperty(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
+    private final BooleanProperty isAll = new SimpleBooleanProperty(true);//dient nur dazu, dass die anderen ausgeschaltet werden
     private final BooleanProperty isNew = new SimpleBooleanProperty(false);
     private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
     private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
 
 
-    public BooleanProperty[] sfBooleanPropArr = {isNew, isRunning, wasShown};
-    public StringProperty[] sfStringPropArr = {name, genre, title};
+    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isRunning, wasShown};
+    public StringProperty[] sfStringPropArr = {name, genre, title, description};
     public IntegerProperty[] sfIntegerPropArr = {timeRange};
     public LongProperty[] sfLongPropArr = {podcastId};
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("name", FilterToXml.SELECTED_FILTER_GENRE, name));
-        list.add(new ConfigLongPropExtra("podcastId", FilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
-        list.add(new ConfigStringPropExtra("genre", FilterToXml.SELECTED_FILTER_GENRE, genre));
-        list.add(new ConfigStringPropExtra("title", FilterToXml.SELECTED_FILTER_TITLE, title));
-        list.add(new ConfigIntPropExtra("timeRange", FilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
-        list.add(new ConfigBoolPropExtra("isRunning", FilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
-        list.add(new ConfigBoolPropExtra("finalized", FilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
-        list.add(new ConfigBoolPropExtra("finalized", FilterToXml.SELECTED_FILTER_IS_FINALIZED, wasShown));
+        list.add(new ConfigStringPropExtra("name", SelectedFilterToXml.SELECTED_FILTER_GENRE, name));
+        list.add(new ConfigLongPropExtra("podcastId", SelectedFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
+        list.add(new ConfigStringPropExtra("genre", SelectedFilterToXml.SELECTED_FILTER_GENRE, genre));
+        list.add(new ConfigStringPropExtra("title", SelectedFilterToXml.SELECTED_FILTER_TITLE, title));
+        list.add(new ConfigStringPropExtra("description", SelectedFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
+        list.add(new ConfigIntPropExtra("timeRange", SelectedFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
+        list.add(new ConfigBoolPropExtra("isAll", SelectedFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
+        list.add(new ConfigBoolPropExtra("isRunning", SelectedFilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
+        list.add(new ConfigBoolPropExtra("finalized", SelectedFilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
+        list.add(new ConfigBoolPropExtra("finalized", SelectedFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }
@@ -111,6 +115,18 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
         this.title.set(title);
     }
 
+    public String getDescription() {
+        return description.get();
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description.set(description);
+    }
+
     public int getTimeRange() {
         return timeRange.get();
     }
@@ -121,6 +137,18 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
 
     public void setTimeRange(int timeRange) {
         this.timeRange.set(timeRange);
+    }
+
+    public boolean isIsAll() {
+        return isAll.get();
+    }
+
+    public BooleanProperty isAllProperty() {
+        return isAll;
+    }
+
+    public void setIsAll(boolean isAll) {
+        this.isAll.set(isAll);
     }
 
     public boolean isIsNew() {

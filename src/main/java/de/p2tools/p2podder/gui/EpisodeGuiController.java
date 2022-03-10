@@ -237,19 +237,24 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void initFilter() {
-        rbAll.setSelected(true);
-        rbAll.selectedProperty().addListener((u, o, n) -> {
-            progData.storedFilters.getActFilterSettings().setAll();
-        });
-        rbNew.selectedProperty().addListener((u, o, n) -> {
-            progData.storedFilters.getActFilterSettings().setNew();
-        });
-        rbRunning.selectedProperty().addListener((u, o, n) -> {
-            progData.storedFilters.getActFilterSettings().setRunning();
-        });
-        rbWasShown.selectedProperty().addListener((u, o, n) -> {
-            progData.storedFilters.getActFilterSettings().setWasShown();
-        });
+        rbAll.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isAllProperty());
+        rbNew.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isNewProperty());
+        rbRunning.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isRunningProperty());
+        rbWasShown.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().wasShownProperty());
+
+//        rbAll.setSelected(true);
+//        rbAll.selectedProperty().addListener((u, o, n) -> {
+//            progData.storedFilters.getActFilterSettings().setAll();
+//        });
+//        rbNew.selectedProperty().addListener((u, o, n) -> {
+//            progData.storedFilters.getActFilterSettings().setNew();
+//        });
+//        rbRunning.selectedProperty().addListener((u, o, n) -> {
+//            progData.storedFilters.getActFilterSettings().setRunning();
+//        });
+//        rbWasShown.selectedProperty().addListener((u, o, n) -> {
+//            progData.storedFilters.getActFilterSettings().setWasShown();
+//        });
     }
 
     private void initTable() {

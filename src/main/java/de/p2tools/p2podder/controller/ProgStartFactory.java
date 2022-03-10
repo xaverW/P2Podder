@@ -26,8 +26,8 @@ import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.controller.data.PsetVorlagen;
 import de.p2tools.p2podder.controller.data.SetDataList;
+import de.p2tools.p2podder.controller.storedFilter.InitStoredFilter;
 import de.p2tools.p2podder.gui.startDialog.StartDialogController;
-import de.p2tools.p2podder.tools.storedFilter.InitStoredFilter;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
 

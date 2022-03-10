@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
@@ -32,7 +32,7 @@ public final class StoredFiltersForwardBackward {
     private final SelectedFilter actFilter;
     private final BooleanProperty backward = new SimpleBooleanProperty(false);
     private final BooleanProperty forward = new SimpleBooleanProperty(false);
-    private boolean name = false, genre = false, url = false;
+    private boolean name = false, description = false, genre = false;
     private boolean stopFilterChangeListener = false;
 
     // ist die Liste der zuletzt verwendeten Filter
@@ -127,6 +127,12 @@ public final class StoredFiltersForwardBackward {
             return;
         }
 
+        if (checkText(sfB.descriptionProperty(), sf.descriptionProperty(), sfB, sf, description)) {
+            setFalse();
+            description = true;
+            return;
+        }
+
         if (checkText(sfB.genreProperty(), sf.genreProperty(), sfB, sf, genre)) {
             setFalse();
             genre = true;
@@ -139,8 +145,8 @@ public final class StoredFiltersForwardBackward {
 
     private void setFalse() {
         name = false;
+        description = false;
         genre = false;
-        url = false;
     }
 
     private boolean checkText(StringProperty old, StringProperty nnew, SelectedFilter oldSf, SelectedFilter newSf,

@@ -21,7 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -40,6 +40,7 @@ public class EpisodeFilterController extends FilterController {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
+    private TextField txtDescription = new TextField();
     private ProgData progData;
 
     private final Slider slTimeRange = new Slider();
@@ -64,6 +65,7 @@ public class EpisodeFilterController extends FilterController {
 
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
+        vBoxTitle.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
         // Tage
         VBox vBoxTimeRange = new VBox(2);
@@ -125,13 +127,7 @@ public class EpisodeFilterController extends FilterController {
             }
         });
         slTimeRange.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().timeRangeProperty());
-        slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> {
-                    setLabelSlider();
-//                    if (!newvalue) {
-//                        progData.storedFilters.getActFilterSettings().setTimeRange((int) slTimeRange.getValue());
-//                    }
-                }
-        );
+        slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> setLabelSlider());
     }
 
     private void setLabelSlider() {
@@ -179,23 +175,26 @@ public class EpisodeFilterController extends FilterController {
         tableView.getItems().addAll(progData.episodeStoredList.getPodcastList());
 
         cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
-        ListChangeListener listChangeListener = (ListChangeListener<String>) change -> {
+        progData.episodeStoredList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.episodeStoredList.getGenreList());
-                cboGenre.getSelectionModel().select(sel);
-                if (!cboGenre.getItems().contains(sel)) {
+                if (cboGenre.getItems().contains(sel)) {
+                    cboGenre.getSelectionModel().select(sel);
+                } else {
                     progData.storedFilters.clearFilter();
                 }
             });
-        };
-        progData.episodeStoredList.getGenreList().addListener(listChangeListener);
+        });
         cboGenre.getItems().addAll(progData.episodeStoredList.getGenreList());
 
         txtTitle.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().titleProperty());
         FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
         txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
 
+        txtDescription.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().descriptionProperty());
+        FilterCheckRegEx fD = new FilterCheckRegEx(txtDescription);
+        txtDescription.textProperty().addListener((observable, oldValue, newValue) -> fD.checkPattern());
     }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactory

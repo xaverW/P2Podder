@@ -22,7 +22,7 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -43,13 +43,11 @@ public class DownloadFilterController extends FilterController {
     private ProgData progData;
 
     private final Button btnClearFilter = new Button("");
-//    private final DownloadFilter downloadFilter;
 
 
     public DownloadFilterController() {
         super(ProgConfig.PODCAST_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
-//        this.downloadFilter = new DownloadFilter();
 
         VBox vBoxTable = new VBox();
         vBoxTable.getChildren().addAll(/*new Label("Podcast:"),*/ tableView);
@@ -72,10 +70,6 @@ public class DownloadFilterController extends FilterController {
         initTable();
         initFilter();
     }
-
-//    public DownloadFilter getDownloadFilter() {
-//        return downloadFilter;
-//    }
 
     private void addButton() {
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
@@ -115,7 +109,7 @@ public class DownloadFilterController extends FilterController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 long l = tableView.getSelectionModel().getSelectedItem().getId();
-                progData.downloadFilter.setPodcastId(l);
+                progData.filterDownload.setPodcastId(l);
             }
         });
         progData.downloadList.addListener((v, o, n) -> {
@@ -124,29 +118,21 @@ public class DownloadFilterController extends FilterController {
         });
         tableView.getItems().addAll(DownloadFactory.getPodcastList());
 
-        ListChangeListener listChangeListener = (ListChangeListener<String>) change -> {
+        cboGenre.getItems().addAll(progData.downloadList.getGenreList());
+        progData.downloadList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.downloadList.getGenreList());
-                cboGenre.getSelectionModel().select(sel);
-                if (!cboGenre.getItems().contains(sel)) {
-                    clearFilter();
+                if (cboGenre.getItems().contains(sel)) {
+                    cboGenre.getSelectionModel().select(sel);
+                } else {
+                    clearFilter();//clearSelection in der Tabelle bräuchte es da nicht, aber..
                 }
             });
-        };
-        progData.downloadList.getGenreList().addListener(listChangeListener);
-        cboGenre.valueProperty().addListener((u, o, n) -> {
-            if (n != null) {
-                Platform.runLater(() -> {
-                    progData.downloadFilter.setGenre(n);
-                });
-            }
         });
-        cboGenre.getItems().addAll(progData.downloadList.getGenreList());
+        cboGenre.valueProperty().bindBidirectional(progData.filterDownload.genreProperty());
 
-        txtTitle.textProperty().addListener((u, o, n) -> {
-            progData.downloadFilter.setTitle(txtTitle.getText());
-        });
+        txtTitle.textProperty().bindBidirectional(progData.filterDownload.titleProperty());
         FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
         txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
     }
@@ -201,10 +187,7 @@ public class DownloadFilterController extends FilterController {
 
     public void clearFilter() {
         PDuration.onlyPing("Filter löschen");
-        progData.downloadList.filteredListSetPred(progData.downloadFilter.clearFilter());
-
+        progData.filterDownload.clearFilter();
         tableView.getSelectionModel().clearSelection();
-        cboGenre.getSelectionModel().clearSelection();
-        txtTitle.setText("");
     }
 }

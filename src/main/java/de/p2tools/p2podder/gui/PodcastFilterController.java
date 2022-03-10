@@ -16,11 +16,10 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.tools.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -68,7 +67,7 @@ public class PodcastFilterController extends FilterController {
 
     private void addButton() {
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
-        btnClearFilter.setOnAction(a -> clearFilter());
+        btnClearFilter.setOnAction(a -> progData.filterPodcast.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 
         HBox hBoxAll = new HBox(5);
@@ -91,43 +90,25 @@ public class PodcastFilterController extends FilterController {
 
     private void initFilter() {
         cboGenre.getItems().addAll(progData.podcastList.getGenreList());
-        ListChangeListener listChangeListener = (ListChangeListener<String>) change -> {
+        progData.podcastList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.podcastList.getGenreList());
-                cboGenre.getSelectionModel().select(sel);
-                if (!cboGenre.getItems().contains(sel)) {
-                    clearFilter();
+                if (cboGenre.getItems().contains(sel)) {
+                    cboGenre.getSelectionModel().select(sel);
+                } else {
+                    progData.filterPodcast.clearFilter();
                 }
             });
-        };
-        progData.podcastList.getGenreList().addListener(listChangeListener);
-        cboGenre.valueProperty().addListener((u, o, n) -> {
-            if (n != null) {
-                Platform.runLater(() -> {
-                    //kommt sonst zu Laufzeitproblemen beim Setzen in der FilteredList
-                    progData.podcastFilter.setGenre(n);
-                });
-            }
         });
-        txtName.textProperty().addListener((u, o, n) -> {
-            progData.podcastFilter.setName(txtName.getText());
-        });
+        cboGenre.valueProperty().bindBidirectional(progData.filterPodcast.genreProperty());
+
+        txtName.textProperty().bindBidirectional(progData.filterPodcast.nameProperty());
         FilterCheckRegEx fName = new FilterCheckRegEx(txtName);
         txtName.textProperty().addListener((observable, oldValue, newValue) -> fName.checkPattern());
 
-        txtUrl.textProperty().addListener((u, o, n) -> {
-            progData.podcastFilter.setUrl(txtUrl.getText());
-        });
+        txtUrl.textProperty().bindBidirectional(progData.filterPodcast.urlProperty());
         FilterCheckRegEx fUrl = new FilterCheckRegEx(txtUrl);
         txtUrl.textProperty().addListener((observable, oldValue, newValue) -> fUrl.checkPattern());
-    }
-
-    public void clearFilter() {
-        PDuration.onlyPing("Podcast-Filter löschen");
-        progData.podcastList.filteredListSetPred(progData.podcastFilter.clearFilter());
-        cboGenre.getSelectionModel().clearSelection();
-        txtName.setText("");
-        txtUrl.setText("");
     }
 }

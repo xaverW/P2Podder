@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import java.util.ArrayList;
 
@@ -32,10 +32,12 @@ public class SelectedFilterFactory {
         sfTo.setPodcastId(sfFrom.getPodcastId());
         sfTo.setGenre(sfFrom.getGenre());
         sfTo.setTitle(sfFrom.getTitle());
+        sfTo.setDescription(sfFrom.getDescription());
         sfTo.setTimeRange(sfFrom.getTimeRange());
-        sfTo.setIsNew(sfFrom.isIsNew());
-        sfTo.setIsRunning(sfFrom.isIsRunning());
-        sfTo.setWasShown(sfFrom.isWasShown());
+//        sfTo.setIsAll(sfFrom.isIsAll());
+//        sfTo.setIsNew(sfFrom.isIsNew());
+//        sfTo.setIsRunning(sfFrom.isIsRunning());
+//        sfTo.setWasShown(sfFrom.isWasShown());
     }
 
     public static boolean compareFilterWithoutNameOfFilter(SelectedFilter sfFrom, SelectedFilter sfTo) {
@@ -75,10 +77,12 @@ public class SelectedFilterFactory {
         list.add("podcastId " + sf.getPodcastId());
         list.add("genre " + sf.getGenre());
         list.add("title " + sf.getTitle());
+        list.add("description " + sf.getDescription());
         list.add("timeRange " + sf.getTimeRange());
-        list.add("isNew " + sf.isIsNew());
-        list.add("isRunning " + sf.isIsRunning());
-        list.add("wasShown " + sf.isWasShown());
+//        list.add("isAll " + sf.isIsAll());
+//        list.add("isNew " + sf.isIsNew());
+//        list.add("isRunning " + sf.isIsRunning());
+//        list.add("wasShown " + sf.isWasShown());
         return list;
     }
 }

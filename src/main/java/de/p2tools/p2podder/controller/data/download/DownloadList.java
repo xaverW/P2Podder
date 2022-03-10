@@ -18,6 +18,7 @@ package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -188,7 +189,7 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
     }
 
     public synchronized void genGenreList() {
-        PDuration.counterStart("genGenreList");
+        PLog.sysLog("DownloadList: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<String> arrayList = new ArrayList<>();
         stream().forEach((download) -> {
@@ -199,6 +200,5 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
             }
         });
         genreList.setAll(arrayList);
-        PDuration.counterStop("genGenreList");
     }
 }

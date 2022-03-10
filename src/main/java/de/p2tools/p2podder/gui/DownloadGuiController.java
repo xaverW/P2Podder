@@ -23,7 +23,6 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.dialog.DownloadInfoDialogController;
 import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.table.Table;
@@ -123,8 +122,6 @@ public class DownloadGuiController extends AnchorPane {
         Download download = tableView.getSelectionModel().getSelectedItem();
         if (download != null) {
             downloadGuiInfoController.setDownload(download);
-            Podcast podcast = progData.podcastList.getPodcastById(download.getPodcastId());
-//            progData.episodeInfoDialogController.setStation(podcast);
         } else {
             downloadGuiInfoController.setDownload(null);
         }
@@ -248,16 +245,9 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     private void initFilter() {
-        rbAll.setSelected(true);
-        rbAll.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadFilter.setAll();
-        });
-        rbRunning.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadFilter.setRunning();
-        });
-        rbFinalized.selectedProperty().addListener((u, o, n) -> {
-            progData.downloadFilter.setFinalized();
-        });
+        rbAll.selectedProperty().bindBidirectional(progData.filterDownload.isAllProperty());
+        rbRunning.selectedProperty().bindBidirectional(progData.filterDownload.isRunningProperty());
+        rbFinalized.selectedProperty().bindBidirectional(progData.filterDownload.isFinalizedProperty());
     }
 
     private void initTable() {

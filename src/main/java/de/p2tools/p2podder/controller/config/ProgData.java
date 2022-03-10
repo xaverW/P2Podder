@@ -30,6 +30,9 @@ import de.p2tools.p2podder.controller.data.podcast.PodcastList;
 import de.p2tools.p2podder.controller.history.HistoryList;
 import de.p2tools.p2podder.controller.starterDownload.DownloadStarterFactory;
 import de.p2tools.p2podder.controller.starterEpisode.EpisodeStarterFactory;
+import de.p2tools.p2podder.controller.storedFilter.FilterDownload;
+import de.p2tools.p2podder.controller.storedFilter.FilterPodcast;
+import de.p2tools.p2podder.controller.storedFilter.StoredFilters;
 import de.p2tools.p2podder.controller.worker.EpisodeInfos;
 import de.p2tools.p2podder.controller.worker.StationInfos;
 import de.p2tools.p2podder.controller.worker.Worker;
@@ -39,10 +42,6 @@ import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.tools.Listener;
-import de.p2tools.p2podder.tools.storedFilter.DownloadFilter;
-import de.p2tools.p2podder.tools.storedFilter.FilterWorker;
-import de.p2tools.p2podder.tools.storedFilter.PodcastFilter;
-import de.p2tools.p2podder.tools.storedFilter.StoredFilters;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -76,11 +75,11 @@ public class ProgData {
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
     public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;
-    public final DownloadFilter downloadFilter;
-    public final PodcastFilter podcastFilter;
+    public final FilterDownload filterDownload;
+    public final FilterPodcast filterPodcast;
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
-    public FilterWorker filterWorker;
+    //    public FilterWorker filterWorker;
     public EpisodeInfos episodeInfos;
     public StationInfos stationInfos;
 
@@ -105,8 +104,8 @@ public class ProgData {
         eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
         storedFilters = new StoredFilters(this);
-        downloadFilter = new DownloadFilter();
-        podcastFilter = new PodcastFilter();
+        filterDownload = new FilterDownload();
+        filterPodcast = new FilterPodcast();
 
         episodeStoredList = new EpisodeList(this);
         episodeStartingList = new EpisodeList(this);
@@ -120,7 +119,7 @@ public class ProgData {
         episodeStarterFactory = new EpisodeStarterFactory(this);
         downloadStarterFactory = new DownloadStarterFactory(this);
 
-        filterWorker = new FilterWorker(this);
+//        filterWorker = new FilterWorker(this);
         episodeInfos = new EpisodeInfos(this);
         stationInfos = new StationInfos(this);
         progTray = new ProgTray(this);

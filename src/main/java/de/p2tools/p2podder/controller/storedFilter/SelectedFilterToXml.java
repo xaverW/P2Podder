@@ -14,34 +14,43 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
-public class FilterToXml {
+public class SelectedFilterToXml {
 
     public static final String SELECTED_FILTER_NAME = "name";
     public static final String SELECTED_FILTER_PODCAST_ID = "podcastId";
     public static final String SELECTED_FILTER_GENRE = "genre";
     public static final String SELECTED_FILTER_TITLE = "title";
+    public static final String SELECTED_FILTER_DESCRIPTION = "description";
     public static final String SELECTED_FILTER_TIME_RANGE = "timeRange";
+    public static final String SELECTED_FILTER_IS_ALL = "isAll";
     public static final String SELECTED_FILTER_IS_RUNNING = "isRunning";
     public static final String SELECTED_FILTER_IS_FINALIZED = "isFinalized";
+    public static final String SELECTED_FILTER_WAS_SHOWN = "wasShown";
 
     public static final int FILTER_NAME = 0;
     public static final int FILTER_PODCAST_ID = 1;
     public static final int FILTER_GENRE = 2;
     public static final int FILTER_TITLE = 3;
-    public static final int FILTER_TIME_RANGE = 4;
-    public static final int FILTER_IS_RUNNING = 5;
-    public static final int FILTER_IS_FINALIZED = 6;
+    public static final int FILTER_DESCRIPTION = 4;
+    public static final int FILTER_TIME_RANGE = 5;
+    public static final int FILTER_IS_ALL = 6;
+    public static final int FILTER_IS_RUNNING = 7;
+    public static final int FILTER_IS_FINALIZED = 8;
+    public static final int FILTER_WAS_SHOWN = 9;
 
     public static final String[] XML_NAMES = {
             "name",
             "podcastId",
             "genre",
             "title",
+            "description",
             "timeRange",
+            "isAll",
             "isRunning",
-            "isFinalized"
+            "isFinalized",
+            "wasShown"
     };
 
     public static final String TAG = "Filter";

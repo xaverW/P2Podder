@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import java.util.regex.Pattern;
 

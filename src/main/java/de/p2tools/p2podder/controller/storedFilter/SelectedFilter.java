@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import de.p2tools.p2Lib.tools.log.PDebugLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -41,14 +41,6 @@ public class SelectedFilter extends SelectedFilterProps {
         setName(name);
     }
 
-    public boolean isReportChange() {
-        return reportChange;
-    }
-
-    public void setReportChange(boolean reportChange) {
-        this.reportChange = reportChange;
-    }
-
     public BooleanProperty filterChangeProperty() {
         return filterChange;
     }
@@ -58,7 +50,9 @@ public class SelectedFilter extends SelectedFilterProps {
         podcastIdProperty().addListener(l -> reportFilterChange());
         genreProperty().addListener(l -> reportFilterChange());
         titleProperty().addListener(l -> reportFilterChange());
+        descriptionProperty().addListener(l -> reportFilterChange());
         timeRangeProperty().addListener(l -> reportFilterChange());
+        isAllProperty().addListener(l -> reportFilterChange());
         isNewProperty().addListener(l -> reportFilterChange());
         isRunningProperty().addListener(l -> reportFilterChange());
         wasShownProperty().addListener(l -> reportFilterChange());
@@ -76,51 +70,32 @@ public class SelectedFilter extends SelectedFilterProps {
         setPodcastId(0);
         setGenre("");
         setTitle("");
+        setDescription("");
         setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-        setIsNew(false);
-        setIsRunning(false);
-        setIsNew(false);
-    }
-
-    public boolean isTextFilterEmpty() {
-        return getGenre().isEmpty() &&
-                getTitle().isEmpty();
-    }
-
-
-    public boolean clearTxtFilter() {
-        boolean ret = false;
-        if (!getGenre().isEmpty()) {
-            ret = true;
-            setGenre("");
-        }
-        if (!getTitle().isEmpty()) {
-            ret = true;
-            setTitle("");
-        }
-        return ret;
+//        setIsAll(true);
+//        setIsNew(false);
+//        setIsRunning(false);
+//        setWasShown(false);
     }
 
     public Predicate<Episode> getPredicateEpisode() {
         Predicate<Episode> predicate = episode -> true;
 
         Filter fTitle = new Filter(getTitle(), true);
+        Filter fDescription = new Filter(getDescription(), true);
 
         if (getPodcastId() > 0) {
             predicate = predicate.and(episode -> episode.podcastIdProperty().getValue().equals(getPodcastId()));
         }
-        if (!getGenre().isEmpty()) {
+        if (getGenre() != null && !getGenre().isEmpty()) {
             predicate = predicate.and(episode -> episode.genreProperty().getValue().equals(getGenre()));
         }
         if (!fTitle.empty) {
-            predicate = predicate.and(f -> FilterCheck.checkString(fTitle, f.getEpisodeTitle()));
+            predicate = predicate.and(episode -> FilterCheck.checkString(fTitle, episode.getEpisodeTitle()));
         }
-//        if (!getTitle().isEmpty()) {
-//            predicate = predicate.and(episode ->
-//                    episode.getEpisodeTitle().toLowerCase(Locale.ROOT).contains(getTitle()));
-//        }
-
-
+        if (!fDescription.empty) {
+            predicate = predicate.and(episode -> FilterCheck.checkString(fDescription, episode.getDescription()));
+        }
         if (getTimeRange() != ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
             predicate = predicate.and(episode -> episode.checkDays(getTimeRange()));
         }
@@ -137,27 +112,27 @@ public class SelectedFilter extends SelectedFilterProps {
         return predicate;
     }
 
-    public void setAll() {
-        setIsNew(false);
-        setIsRunning(false);
-        setWasShown(false);
-    }
-
-    public void setNew() {
-        setIsNew(true);
-        setIsRunning(false);
-        setWasShown(false);
-    }
-
-    public void setRunning() {
-        setIsNew(false);
-        setIsRunning(true);
-        setWasShown(false);
-    }
-
-    public void setWasShown() {
-        setIsNew(false);
-        setIsRunning(false);
-        setWasShown(true);
-    }
+//    public void setAll() {
+//        setIsNew(false);
+//        setIsRunning(false);
+//        setWasShown(false);
+//    }
+//
+//    public void setNew() {
+//        setIsNew(true);
+//        setIsRunning(false);
+//        setWasShown(false);
+//    }
+//
+//    public void setRunning() {
+//        setIsNew(false);
+//        setIsRunning(true);
+//        setWasShown(false);
+//    }
+//
+//    public void setWasShown() {
+//        setIsNew(false);
+//        setIsRunning(false);
+//        setWasShown(true);
+//    }
 }

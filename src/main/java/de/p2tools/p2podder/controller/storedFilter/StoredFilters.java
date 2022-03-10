@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.tools.storedFilter;
+package de.p2tools.p2podder.controller.storedFilter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
@@ -34,12 +34,8 @@ public final class StoredFilters {
     public StoredFilters(ProgData progData) {
         this.progData = progData;
 
-        filterChangeListener = (observable, oldValue, newValue) -> setFilterChange();
+        filterChangeListener = (observable, oldValue, newValue) -> setFilterChanged();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener); // wenn der User den Filter ändert
-        init();
-    }
-
-    public void init() {
         storedFiltersForwardBackward = new StoredFiltersForwardBackward(this, actFilterSettings);
     }
 
@@ -71,9 +67,8 @@ public final class StoredFilters {
         }
 
         actFilterSettings.filterChangeProperty().removeListener(filterChangeListener);
-
         SelectedFilterFactory.copyFilter(sf, actFilterSettings);
-        setFilterChange();
+        setFilterChanged();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener);
     }
 
@@ -136,7 +131,7 @@ public final class StoredFilters {
     public synchronized void clearFilter() {
         actFilterSettings.filterChangeProperty().removeListener(filterChangeListener);
         actFilterSettings.clearFilter();
-        setFilterChange();
+        setFilterChanged();
         actFilterSettings.filterChangeProperty().addListener(filterChangeListener);
     }
 
@@ -155,7 +150,7 @@ public final class StoredFilters {
         return ret;
     }
 
-    private void setFilterChange() {
+    private void setFilterChanged() {
         this.filterChange.set(!filterChange.get());
     }
 }

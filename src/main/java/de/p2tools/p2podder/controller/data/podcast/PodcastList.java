@@ -20,7 +20,6 @@ import de.p2tools.p2Lib.configFile.pData.PDataListMeta;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,10 +101,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     public synchronized void setGenDateNow() {
         meta.podcastDate.getValue().setPLocalDateNow();
     }
-
-//    public void triggerFilter() {
-//        filteredListSetPred(ProgData.getInstance().podcastGui.getStoredFiltersPodcast().getActFilterSettings().getPredicatePodcast());
-//    }
 
     public boolean podcastExistsAlready(Podcast podcast) {
         // true wenn es ihn schon gibt
@@ -246,7 +241,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
             }
         });
         genres = hashSet.toArray(new String[hashSet.size()]);
-        ProgData.getInstance().filterWorker.createFilterLists();//und im Filter eintragen
+//        ProgData.getInstance().filterWorker.createFilterLists();//und im Filter eintragen
 
         PDuration.counterStop("Filter-Listen suchen");
     }
@@ -256,6 +251,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     }
 
     private synchronized void genGenreList() {
+        PLog.sysLog("PodcastList: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<String> arrayList = new ArrayList<>();
         stream().forEach((episode) -> {
