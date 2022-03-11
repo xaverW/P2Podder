@@ -25,12 +25,14 @@ public class InitStoredFilter {
 
         //========================================================
         SelectedFilter sf = new SelectedFilter("Nachrichten");
-        sf.setTitle("Nachrichten");
+        sf.setGenre("Nachrichten");
+        sf.setTimeRange(20);
         progData.storedFilters.getStoredFilterList().add(sf);
 
         //========================================================
         sf = new SelectedFilter("Linux");
-        sf.setTitle("Linux");
+        sf.setGenre("Linux");
+        sf.setTimeRange(20);
         progData.storedFilters.getStoredFilterList().add(sf);
     }
 }

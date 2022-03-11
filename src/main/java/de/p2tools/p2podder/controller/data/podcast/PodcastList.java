@@ -209,7 +209,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
 
     public synchronized Podcast getPodcastById(final Long id) {
         final Optional<Podcast> opt =
-                parallelStream().filter(station -> station.getId() == id).findAny();
+                stream().filter(station -> station.getId() == id).findAny();
         return opt.orElse(null);
     }
 

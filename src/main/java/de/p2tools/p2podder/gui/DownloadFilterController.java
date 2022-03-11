@@ -73,7 +73,7 @@ public class DownloadFilterController extends FilterController {
 
     private void addButton() {
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
-        btnClearFilter.setOnAction(a -> clearFilter());
+        btnClearFilter.setOnAction(a -> clearFilter(true));
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 
         HBox hBoxAll = new HBox(5);
@@ -113,8 +113,15 @@ public class DownloadFilterController extends FilterController {
             }
         });
         progData.downloadList.addListener((v, o, n) -> {
-            tableView.getItems().clear();
-            tableView.getItems().addAll(DownloadFactory.getPodcastList());
+            Platform.runLater(() -> {
+                Podcast sel = tableView.getSelectionModel().getSelectedItem();
+                tableView.getItems().setAll(DownloadFactory.getPodcastList());
+                if (tableView.getItems().contains(sel)) {
+                    tableView.getSelectionModel().select(sel);
+                } else {
+                    clearFilter(false);
+                }
+            });
         });
         tableView.getItems().addAll(DownloadFactory.getPodcastList());
 
@@ -123,10 +130,11 @@ public class DownloadFilterController extends FilterController {
             Platform.runLater(() -> {
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.downloadList.getGenreList());
-                if (cboGenre.getItems().contains(sel)) {
+                if (sel.isEmpty()) {
+                } else if (cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
                 } else {
-                    clearFilter();//clearSelection in der Tabelle bräuchte es da nicht, aber..
+                    clearFilter(false);//clearSelection in der Tabelle bräuchte es da nicht, aber..
                 }
             });
         });
@@ -185,9 +193,11 @@ public class DownloadFilterController extends FilterController {
         return cell;
     };
 
-    public void clearFilter() {
+    public void clearFilter(boolean clearTable) {
         PDuration.onlyPing("Filter löschen");
         progData.filterDownload.clearFilter();
-        tableView.getSelectionModel().clearSelection();
+        if (clearTable) {
+            tableView.getSelectionModel().clearSelection();
+        }
     }
 }

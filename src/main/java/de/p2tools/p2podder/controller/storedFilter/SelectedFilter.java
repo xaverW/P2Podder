@@ -21,6 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -60,8 +61,10 @@ public class SelectedFilter extends SelectedFilterProps {
 
     private void reportFilterChange() {
         if (reportChange) {
-            PDebugLog.sysLog("reportFilterChange");
-            filterChange.setValue(!filterChange.getValue());
+            Platform.runLater(() -> {
+                PDebugLog.sysLog("reportFilterChange");
+                filterChange.setValue(!filterChange.getValue());
+            });
         }
     }
 
@@ -72,10 +75,6 @@ public class SelectedFilter extends SelectedFilterProps {
         setTitle("");
         setDescription("");
         setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
-//        setIsAll(true);
-//        setIsNew(false);
-//        setIsRunning(false);
-//        setWasShown(false);
     }
 
     public Predicate<Episode> getPredicateEpisode() {
@@ -111,28 +110,4 @@ public class SelectedFilter extends SelectedFilterProps {
         }
         return predicate;
     }
-
-//    public void setAll() {
-//        setIsNew(false);
-//        setIsRunning(false);
-//        setWasShown(false);
-//    }
-//
-//    public void setNew() {
-//        setIsNew(true);
-//        setIsRunning(false);
-//        setWasShown(false);
-//    }
-//
-//    public void setRunning() {
-//        setIsNew(false);
-//        setIsRunning(true);
-//        setWasShown(false);
-//    }
-//
-//    public void setWasShown() {
-//        setIsNew(false);
-//        setIsRunning(false);
-//        setWasShown(true);
-//    }
 }

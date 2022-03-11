@@ -18,6 +18,7 @@ package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.beans.property.BooleanProperty;
@@ -204,6 +205,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
 
     public synchronized void genGenreList() {
         PDuration.counterStart("genGenreList");
+        PLog.sysLog("Episoden: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<String> arrayList = new ArrayList<>();
         stream().forEach((episode) -> {
