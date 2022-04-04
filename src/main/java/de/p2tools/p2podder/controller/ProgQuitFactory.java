@@ -16,9 +16,7 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.dialog.QuitDialogController;
@@ -44,11 +42,6 @@ public class ProgQuitFactory {
 
         //fertige werden entfernt
         ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
-    }
-
-    private static void writeWindowSizes() {
-        // Hauptfenster
-        PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStage);
     }
 
     private static void writeTabSettings() {
@@ -91,7 +84,6 @@ public class ProgQuitFactory {
         // und dann Programm beenden
         stopAll();
         writeTabSettings();
-        writeWindowSizes();
 
         ProgSaveFactory.saveProgConfig();
         LogMessage.endMsg();

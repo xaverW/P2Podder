@@ -54,7 +54,7 @@ public class EpisodeDelDialogController extends PDialogExtra {
     }
 
     public void close() {
-        PGuiSize.getSizeWindow(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_DEL, getStage());
+        PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_DEL, getStage());
         super.close();
     }
 

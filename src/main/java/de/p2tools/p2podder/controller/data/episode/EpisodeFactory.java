@@ -158,6 +158,19 @@ public class EpisodeFactory {
         startFileWithProgram(episode, setData);
     }
 
+    public static void playEpisode(List<Episode> episode, SetData setData) {
+        if (setData == null) {
+            setData = ProgData.getInstance().setDataList.getSetDataPlay();
+        }
+        if (setData == null) {
+            new NoSetDialogController(ProgData.getInstance());
+            return;
+        }
+
+        // und starten
+        startFileWithProgram(episode, setData);
+    }
+
     private static synchronized void startFileWithProgram(Episode episode, SetData setData) {
         final String filePathName = episode.getFilePath();
         if (!filePathName.isEmpty()) {
@@ -170,5 +183,19 @@ public class EpisodeFactory {
             ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
             ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
         }
+    }
+
+    private static synchronized void startFileWithProgram(List<Episode> episode, SetData setData) {
+        episode.stream().forEach(epi -> {
+            final String filePathName = epi.getFilePath();
+            if (!filePathName.isEmpty()) {
+                final Start start = new Start(setData, epi);
+                epi.setStart(start);
+                start.initStart();
+                ProgData.getInstance().episodeStartingList.add(epi);
+            }
+        });
+        ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
+        ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
     }
 }

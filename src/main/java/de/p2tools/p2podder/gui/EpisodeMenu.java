@@ -22,15 +22,12 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class EpisodeMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolFilterOn = ProgConfig.EPISODE_GUI_FILTER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.EPISODE_GUI_DIVIDER_ON;
 
     public EpisodeMenu(VBox vBox) {
         this.vBox = vBox;
@@ -58,7 +55,7 @@ public class EpisodeMenu {
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
 
-        btStart.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().playEpisode());
+        btStart.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().playSelectedEpisodes());
         btStop.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().stopEpisode(true));
         btDel.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().deleteEpisode(true));
         btInfo.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
@@ -94,9 +91,9 @@ public class EpisodeMenu {
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
-        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.EPISODE_GUI_FILTER_ON);
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
-        miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER_ON);
         mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);

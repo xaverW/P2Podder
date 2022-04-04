@@ -67,13 +67,11 @@ public class ConfigPaneController extends PAccordionPane {
     BooleanProperty propSizePodcast = ProgConfig.SYSTEM_SMALL_ROW_TABLE_PODCAST;
     BooleanProperty propSizeEpisode = ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE;
     BooleanProperty propLoadStationList = ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS;
-    BooleanProperty propTray = ProgConfig.SYSTEM_TRAY;
 
     private final PToggleSwitch tglSmallEpisode = new PToggleSwitch("In der Tabelle \"Episoden\" nur kleine Button anzeigen:");
     private final PToggleSwitch tglSmallPodcast = new PToggleSwitch("In der Tabelle \"Podcast\" nur kleine Button anzeigen:");
     private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Podcasts automatisch alle " +
             ProgConst.LOAD_PODCASTS_EVERY_DAYS + " Tage aktualisieren");
-    private final PToggleSwitch tglTray = new PToggleSwitch("Programm im System Tray anzeigen");
 
     private TextField txtUserAgent;
     private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
@@ -84,6 +82,7 @@ public class ConfigPaneController extends PAccordionPane {
     private ColorPane colorPane;
     private ShortcutPane shortcutPane;
     private StylePane stylePane;
+    private TrayPane trayPane;
 
     public ConfigPaneController(Stage stage) {
         super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_CONFIG);
@@ -95,12 +94,12 @@ public class ConfigPaneController extends PAccordionPane {
 
     public void close() {
         super.close();
+        trayPane.close();
         colorPane.close();
         shortcutPane.close();
         stylePane.close();
         tglSmallPodcast.selectedProperty().unbindBidirectional(propSizePodcast);
         tglSmallEpisode.selectedProperty().unbindBidirectional(propSizeEpisode);
-        tglTray.selectedProperty().unbindBidirectional(propTray);
         tglLoadStationList.selectedProperty().unbindBidirectional(propLoadStationList);
         txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
         tglEnableLog.selectedProperty().unbindBidirectional(propLog);
@@ -114,6 +113,8 @@ public class ConfigPaneController extends PAccordionPane {
     public Collection<TitledPane> createPanes() {
         Collection<TitledPane> result = new ArrayList<TitledPane>();
         makeConfig(result);
+        trayPane = new TrayPane(stage);
+        trayPane.makeTray(result);
         makeLogfile(result);
         colorPane = new ColorPane(stage);
         colorPane.makeColor(result);
@@ -187,16 +188,6 @@ public class ConfigPaneController extends PAccordionPane {
         gridPane.add(tglSmallPodcast, 0, ++row, 2, 1);
         gridPane.add(btnHelpSize, 2, row);
         gridPane.add(tglSmallEpisode, 0, ++row, 2, 1);
-
-        tglTray.selectedProperty().bindBidirectional(propTray);
-        final Button btnHelpTray = PButton.helpButton(stage, "Programm im System Tray anzeigen",
-                HelpText.TRAY);
-        GridPane.setHalignment(btnHelpTray, HPos.RIGHT);
-
-        gridPane.add(new Label(" "), 0, ++row);
-        gridPane.add(tglTray, 0, ++row, 2, 1);
-        gridPane.add(btnHelpTray, 2, row);
-
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(new Label(" "), 0, ++row);

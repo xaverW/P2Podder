@@ -18,7 +18,7 @@ package de.p2tools.p2podder;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.ProgLoadFactory;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
@@ -35,6 +35,10 @@ public class P2Podder extends Application {
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
     Scene scene = null;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
@@ -71,9 +75,7 @@ public class P2Podder extends Application {
             progData.episodeInfoDialogController = new EpisodeInfoDialogController(progData);
             progData.p2PodderController = new P2PodderController();
 
-            scene = new Scene(progData.p2PodderController,
-                    PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
-                    PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+            scene = new Scene(progData.p2PodderController);
             addThemeCss(); // und jetzt noch für die neue Scene
             ProgColorList.setColorTheme();
 
@@ -96,10 +98,8 @@ public class P2Podder extends Application {
                 ProgQuitFactory.quit(true);
             });
 
-            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage)) {
-                primaryStage.centerOnScreen();
-            }
-            primaryStage.show();
+            PDialogFactory.addSizeListener(primaryStage, ProgConfig.SYSTEM_SIZE_GUI);
+            PDialogFactory.showDialog(primaryStage, ProgConfig.SYSTEM_SIZE_GUI);
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -114,9 +114,5 @@ public class P2Podder extends Application {
             P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
         }
         P2LibInit.addP2LibCssToScene(scene);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

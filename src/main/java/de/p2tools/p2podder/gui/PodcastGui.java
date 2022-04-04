@@ -18,8 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,8 +29,6 @@ public class PodcastGui {
     ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
-    private DoubleProperty doubleProperty;
-    private BooleanProperty boolDivOn;
     private final PodcastFilterController podcastFilterController;
     private final PodcastGuiController podcastGuiController;
     private boolean bound = false;
@@ -42,26 +38,23 @@ public class PodcastGui {
         progData = ProgData.getInstance();
         progData.podcastGui = this;
 
-        this.doubleProperty = ProgConfig.PODCAST_GUI_FILTER_DIVIDER;
-        this.boolDivOn = ProgConfig.PODCAST_GUI_FILTER_ON;
-
         podcastFilterController = new PodcastFilterController();
         podcastGuiController = new PodcastGuiController();
     }
 
     public void closeSplit() {
-        boolDivOn.setValue(!boolDivOn.get());
+        ProgConfig.PODCAST_GUI_FILTER_ON.setValue(!ProgConfig.PODCAST_GUI_FILTER_ON.get());
     }
 
     private void setSplit() {
-        if (boolDivOn.getValue()) {
+        if (ProgConfig.PODCAST_GUI_FILTER_ON.getValue()) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(podcastFilterController, podcastGuiController);
             bound = true;
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(doubleProperty);
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.PODCAST_GUI_FILTER_DIVIDER);
         } else {
             if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(doubleProperty);
+                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.PODCAST_GUI_FILTER_DIVIDER);
             }
             splitPane.getItems().clear();
             splitPane.getItems().addAll(podcastGuiController);
@@ -83,7 +76,7 @@ public class PodcastGui {
         HBox.setHgrow(splitPane, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPane, menuController);
 
-        boolDivOn.addListener((observable, oldValue, newValue) -> setSplit());
+        ProgConfig.PODCAST_GUI_FILTER_ON.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
         return hBox;
     }

@@ -84,38 +84,52 @@ public class HelpText {
                     "und auch wieder abrufen. So wird der gespeicherte Zustand genau " +
                     "wieder hergestellt. Ist der Profilname im Auswahlfeld unterstrichen, " +
                     "besagt das, dass die aktuellen Filtereinstellungen unverändert sind und " +
-                    "denen des Profils entsprechen.";
+                    "denen des Profils entsprechen." +
+                    "\n";
 
     public static final String GUI_STATIONS_EDIT_FILTER = "Hier können die angezeigten Filter " +
             "ein- und ausgeschaltet werden. " +
             "Ausgeschaltete Filter werden beim Suchen auch nicht berücksichtigt. " +
-            "Mit weniger Filtern ist auch der Suchvorgang schneller";
+            "Mit weniger Filtern ist auch der Suchvorgang schneller" +
+            "\n";
 
     public static final String CONFIG_STYLE = "Hier kann die Schriftgröße des Programms angepasst werden." + P2LibConst.LINE_SEPARATORx2 +
             "Die sollte sich automatisch an die vorgegebene Größe im Betriebssystem einstellen. " +
             "Wenn die Automatik nicht korrekt funktioniert oder eine andere gewünscht wird, kann " +
             "sie hier angepasst werden." +
             P2LibConst.LINE_SEPARATORx2 +
-            "Damit die Änderungen wirksam werden, kann ein Programmneustart notwendig sein.";
+            "Damit die Änderungen wirksam werden, kann ein Programmneustart notwendig sein." +
+            "\n";
 
     public static final String LOAD_PODCASTS_EVERY_DAYS = "Ist die Liste der Podcasts älter als " + ProgConst.LOAD_PODCASTS_EVERY_DAYS +
-            " Tage, wird automatisch eine neue Liste geladen.";
+            " Tage, wird automatisch eine neue Liste geladen." +
+            "\n";
 
     public static final String SMALL_BUTTON = "In der Tabelle Episoden und Podcasts können auch " +
-            "kleine Buttons angezeigt werden. Die Zeilenhöhe wird dadurch kleiner.";
+            "kleine Buttons angezeigt werden. Die Zeilenhöhe wird dadurch kleiner." +
+            "\n";
 
-    public static final String TRAY = "Im System Tray wird für das Programm ein Symbol angezeigt. Damit kann das " +
-            "Programm auf dem Desktop ausgeblendete werden.";
+    public static final String TRAY =
+            "Im System Tray wird für das Programm ein Symbol angezeigt. " +
+                    "Damit kann das Programm auf dem Desktop ausgeblendet werden." +
+                    "\n";
+
+    public static final String TRAY_OWN_ICON =
+            "Im System Tray wird für das Programm ein Symbol angezeigt. " +
+                    "Damit kann ein eigens Bild dafür verwendet werden." +
+                    "\n";
 
     public static final String DARK_THEME = "Das Programm wird damit mit einer dunklen " +
             "Programmoberfläche angezeigt. Damit alle Elemente der Programmoberfläche " +
-            "geändert werden, kann ein Programmneustart notwendig sein.";
+            "geändert werden, kann ein Programmneustart notwendig sein." +
+            "\n";
 
     public static final String USER_AGENT = "Hier kann ein User Agent angegeben werden. " +
             "Beim Laden der Podcasts/Episoden wird er dann als Programmname verwendet. Es sollte der Name des Programms " +
             " enthalten sein. Wird kein User Agent angegeben, wird auch keiner verwendet." +
             P2LibConst.LINE_SEPARATORx2 +
-            "(Es sind nur ASCII-Zeichen erlaubt und die Textlänge ist begrenzt auf 100 Zeichen)";
+            "(Es sind nur ASCII-Zeichen erlaubt und die Textlänge ist begrenzt auf 100 Zeichen)" +
+            "\n";
 
     public static final String LOGFILE = "Hier kann ein Ordner angegeben werden " +
             "in dem ein Logfile erstellt wird. Darin wird der Programmverlauf skizziert. " +
@@ -123,23 +137,27 @@ public class HelpText {
             "Der Standardordner ist \"Log\" im Konfigordner des Programms." + P2LibConst.LINE_SEPARATORx2 +
             "Wird der Pfad zum Logfile geändert, wirkt sich das erst beim Neustart des Programms " +
             "aus. Mit dem Button \"Pfad zum Logfile jetzt schon verwenden\" wird die Programmausgabe ab " +
-            "Klick darauf ins neue Logfile geschrieben.";
+            "Klick darauf ins neue Logfile geschrieben." +
+            "\n";
 
     public static final String DEST_DIR = "Hier wird der Speicherort der Podcasts angegeben." +
             P2LibConst.LINE_SEPARATORx2 +
             "Podcasts werden geladen und in diesem Ordner gespeichert. Dort werden dann auch die Podcasts " +
-            "zum Abspielen gesucht.";
+            "zum Abspielen gesucht." +
+            "\n";
 
     public static final String DEST_DIR_EPISODES = "Hier wird der Speicherort der Episoden angegeben." +
             P2LibConst.LINE_SEPARATORx2 +
             "Podcasts werden geladen und in diesem Ordner werden die Episoden gespeichert. " +
-            "Dort werden dann auch die Episoden zum Abspielen gesucht.";
+            "Dort werden dann auch die Episoden zum Abspielen gesucht." +
+            "\n";
 
     public static final String WEBBROWSER = "Wenn das Programm versucht, einen Link zu öffnen " +
             "(z.B. den Link im Menüpunkt \"Hilfe\" zu den \"Hilfeseiten\") " +
             "und die Standardanwendung (z.B. \"Firefox\") nicht startet, " +
             "kann damit ein Programm ausgewählt und " +
-            "fest zugeordnet werden (z.B. der Browser \"Firefox\").";
+            "fest zugeordnet werden (z.B. der Browser \"Firefox\")." +
+            "\n";
 
     public static final String RESET_DIALOG =
             "==> Einstellungen zum Abspielen zurücksetzen" +

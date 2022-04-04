@@ -90,7 +90,7 @@ public class ProgStartFactory {
         startMsg();
         setTitle(progData);
 
-        progData.startTimer();
+        progData.initProgData();
         checkProgUpdate(progData);
     }
 

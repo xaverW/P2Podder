@@ -74,7 +74,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     public void close() {
         final StringProperty sp = ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                 ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL;
-        PGuiSize.getSizeWindow(sp, getStage());
+        PGuiSize.getSizeStage(sp, getStage());
         super.close();
     }
 

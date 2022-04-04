@@ -146,7 +146,6 @@ public class P2PodderController extends StackPane {
         Button btnStop = maskerPane.getButton();
         maskerPane.setButtonText("");
         btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP);
-//        btnStop.setOnAction(a -> progData.searchPodcastList.setStop(true));
     }
 
     private void initButton() {
@@ -198,14 +197,14 @@ public class P2PodderController extends StackPane {
     private void initMenu() {
         // Menü
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> new ConfigDialogController());
+        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuitFactory.quit(true));
         PShortcutWorker.addShortCut(miQuit, P2PodderShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");
-        miAbout.setOnAction(event -> new AboutDialogController(progData));
+        miAbout.setOnAction(event -> AboutDialogController.getInstanceAndShow());
 
         final MenuItem miLog = new MenuItem("Logdatei öffnen");
         miLog.setOnAction(event -> {

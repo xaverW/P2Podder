@@ -42,6 +42,7 @@ import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.tools.Listener;
+import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -79,7 +80,6 @@ public class ProgData {
     public final FilterPodcast filterPodcast;
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
-    //    public FilterWorker filterWorker;
     public EpisodeInfos episodeInfos;
     public StationInfos stationInfos;
 
@@ -98,6 +98,8 @@ public class ProgData {
     public SetDataList setDataList;
     public HistoryList historyDownloads; //erfolgreich geladenen Downloads
     public HistoryList historyEpisodes; //gehörte Episoden
+    // Programmdaten
+    boolean oneSecond = false;
 
     private ProgData() {
         pShortcut = new P2PodderShortCuts();
@@ -119,7 +121,6 @@ public class ProgData {
         episodeStarterFactory = new EpisodeStarterFactory(this);
         downloadStarterFactory = new DownloadStarterFactory(this);
 
-//        filterWorker = new FilterWorker(this);
         episodeInfos = new EpisodeInfos(this);
         stationInfos = new StationInfos(this);
         progTray = new ProgTray(this);
@@ -130,9 +131,12 @@ public class ProgData {
                 ProgInfos.getSettingsDirectoryString());
     }
 
-    boolean oneSecond = false;
+    public void initProgData() {
+        startTimer();
+        progTray.initProgTray();
+    }
 
-    public void startTimer() {
+    private void startTimer() {
         // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
             oneSecond = !oneSecond;

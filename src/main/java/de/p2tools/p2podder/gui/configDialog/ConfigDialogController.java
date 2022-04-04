@@ -34,7 +34,7 @@ import javafx.scene.layout.VBox;
 
 
 public class ConfigDialogController extends PDialogExtra {
-
+    private static ConfigDialogController instance;
     private TabPane tabPane = new TabPane();
     private Button btnOk = new Button("_Ok");
     private BooleanProperty blackChanged = new SimpleBooleanProperty(false);
@@ -46,12 +46,25 @@ public class ConfigDialogController extends PDialogExtra {
     PodPaneController podPane;
     SetPaneController setPane;
 
-    public ConfigDialogController() {
+    public ConfigDialogController(ProgData progData) {
         super(ProgData.getInstance().primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
                 true, false, DECO.NONE);
 
         this.progData = ProgData.getInstance();
-        init(true);
+        init(false);
+    }
+
+    public synchronized static final ConfigDialogController getInstanceAndShow() {
+        if (instance == null) {
+            instance = new ConfigDialogController(ProgData.getInstance());
+        }
+
+        if (!instance.isShowing()) {
+            instance.showDialog();
+        }
+        instance.getStage().toFront();
+
+        return instance;
     }
 
     @Override

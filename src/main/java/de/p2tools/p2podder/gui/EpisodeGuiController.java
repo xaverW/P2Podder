@@ -26,8 +26,6 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -59,9 +57,6 @@ public class EpisodeGuiController extends AnchorPane {
     private final ProgData progData;
     private boolean bound = false;
 
-    private DoubleProperty splitPaneProperty = ProgConfig.EPISODE_GUI_DIVIDER;
-    private BooleanProperty boolInfoOn = ProgConfig.EPISODE_GUI_DIVIDER_ON;
-
     public EpisodeGuiController() {
         progData = ProgData.getInstance();
 
@@ -90,7 +85,7 @@ public class EpisodeGuiController extends AnchorPane {
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
+        ProgConfig.EPISODE_GUI_DIVIDER_ON.addListener((observable, oldValue, newValue) -> setInfoPane());
         episodeGuiInfoController = new EpisodeGuiInfoController();
 
         setInfoPane();
@@ -135,6 +130,11 @@ public class EpisodeGuiController extends AnchorPane {
         if (episode.isPresent()) {
             EpisodeFactory.playEpisode(episode.get());
         }
+    }
+
+    public void playSelectedEpisodes() {
+        final ArrayList<Episode> episode = getSelList();
+        EpisodeFactory.playEpisode(episode, null);
     }
 
     public void stopEpisode(boolean all) {
@@ -221,9 +221,9 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void setInfoPane() {
-        if (!boolInfoOn.getValue()) {
+        if (!ProgConfig.EPISODE_GUI_DIVIDER_ON.getValue()) {
             if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
+                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER);
             }
             splitPane.getItems().clear();
             splitPane.getItems().add(vBox);
@@ -231,7 +231,7 @@ public class EpisodeGuiController extends AnchorPane {
             bound = true;
             splitPane.getItems().clear();
             splitPane.getItems().addAll(vBox, episodeGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER);
             SplitPane.setResizableWithParent(vBox, true);
         }
     }

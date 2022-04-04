@@ -18,8 +18,6 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -33,25 +31,15 @@ public class DownloadGui {
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
     private final DownloadFilterController downloadFilterController;
-    private DoubleProperty filterDivider;
-    private BooleanProperty filterOn;
     private boolean bound = false;
 
     public DownloadGui() {
         progData = ProgData.getInstance();
         progData.downloadGui = this;
 
-
-        this.filterDivider = ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER;
-        this.filterOn = ProgConfig.DOWNLOAD_GUI_FILTER_ON;
-
         downloadFilterController = new DownloadFilterController();
         downloadGuiController = new DownloadGuiController();
     }
-
-//    public DownloadFilterController getDownloadFilterController() {
-//        return downloadFilterController;
-//    }
 
     public DownloadGuiController getDownloadGuiController() {
         return downloadGuiController;
@@ -70,24 +58,24 @@ public class DownloadGui {
         HBox.setHgrow(splitPane, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPane, menuController);
 
-        filterOn.addListener((observable, oldValue, newValue) -> setSplit());
+        ProgConfig.DOWNLOAD_GUI_FILTER_ON.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
         return hBox;
     }
 
     public void closeSplit() {
-        filterOn.setValue(!filterOn.get());
+        ProgConfig.DOWNLOAD_GUI_FILTER_ON.setValue(!ProgConfig.DOWNLOAD_GUI_FILTER_ON.get());
     }
 
     private void setSplit() {
-        if (filterOn.getValue()) {
+        if (ProgConfig.DOWNLOAD_GUI_FILTER_ON.getValue()) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(downloadFilterController, downloadGuiController);
             bound = true;
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(filterDivider);
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER);
         } else {
             if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(filterDivider);
+                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER);
             }
             splitPane.getItems().clear();
             splitPane.getItems().addAll(downloadGuiController);
