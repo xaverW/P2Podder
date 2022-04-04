@@ -18,7 +18,7 @@ package de.p2tools.p2podder;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
+import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.ProgLoadFactory;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
@@ -75,7 +75,10 @@ public class P2Podder extends Application {
             progData.episodeInfoDialogController = new EpisodeInfoDialogController(progData);
             progData.p2PodderController = new P2PodderController();
 
-            scene = new Scene(progData.p2PodderController);
+            scene = new Scene(progData.p2PodderController,
+                    PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI_SCENE),
+                    PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI_SCENE));
+
             addThemeCss(); // und jetzt noch für die neue Scene
             ProgColorList.setColorTheme();
 
@@ -98,8 +101,17 @@ public class P2Podder extends Application {
                 ProgQuitFactory.quit(true);
             });
 
-            PDialogFactory.addSizeListener(primaryStage, ProgConfig.SYSTEM_SIZE_GUI);
-            PDialogFactory.showDialog(primaryStage, ProgConfig.SYSTEM_SIZE_GUI);
+            scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
+            scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
+            primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
+            primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
+            ProgConfig.SYSTEM_SIZE_GUI_SCENE.addListener((v, o, n) -> System.out.println(ProgConfig.SYSTEM_SIZE_GUI_SCENE));
+
+            //Pos setzen
+            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage)) {
+                primaryStage.centerOnScreen();
+            }
+            primaryStage.show();
         } catch (final Exception e) {
             e.printStackTrace();
         }

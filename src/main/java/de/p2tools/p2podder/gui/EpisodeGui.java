@@ -68,7 +68,8 @@ public class EpisodeGui {
     }
 
     private void setSplit() {
-        System.out.println(ProgConfig.EPISODE_GUI_FILTER_DIVIDER.get());
+//        System.out.println(ProgConfig.EPISODE_GUI_FILTER_DIVIDER.get());
+//        ProgConfig.EPISODE_GUI_FILTER_DIVIDER.addListener((v, o, n) -> System.out.println(ProgConfig.EPISODE_GUI_FILTER_DIVIDER.get()));
         if (ProgConfig.EPISODE_GUI_FILTER_ON.getValue()) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(epiDownFilterController, episodeGuiController);

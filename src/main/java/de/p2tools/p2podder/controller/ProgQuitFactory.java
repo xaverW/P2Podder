@@ -27,11 +27,6 @@ public class ProgQuitFactory {
     private ProgQuitFactory() {
     }
 
-    private static void stopAll() {
-        EpisodeFactory.stopAllEpisode();
-        stopAllDownloads();
-    }
-
     private static void stopAllDownloads() {
         //erst mal alle Downloads stoppen und zurücksetzen
         ProgData.getInstance().downloadList.forEach(download -> {
@@ -42,13 +37,6 @@ public class ProgQuitFactory {
 
         //fertige werden entfernt
         ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
-    }
-
-    private static void writeTabSettings() {
-        // Tabelleneinstellungen merken
-        ProgData.getInstance().podcastGui.getPodcastGuiController().saveTable();
-        ProgData.getInstance().downloadGui.getDownloadGuiController().saveTable();
-        ProgData.getInstance().episodeGui.getEpisodeGuiController().saveTable();
     }
 
     /**
@@ -88,5 +76,17 @@ public class ProgQuitFactory {
         ProgSaveFactory.saveProgConfig();
         LogMessage.endMsg();
         return true;
+    }
+
+    private static void stopAll() {
+        EpisodeFactory.stopAllEpisode();
+        stopAllDownloads();
+    }
+
+    private static void writeTabSettings() {
+        // Tabelleneinstellungen merken
+        ProgData.getInstance().podcastGui.getPodcastGuiController().saveTable();
+        ProgData.getInstance().downloadGui.getDownloadGuiController().saveTable();
+        ProgData.getInstance().episodeGui.getEpisodeGuiController().saveTable();
     }
 }

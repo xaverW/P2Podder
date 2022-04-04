@@ -187,7 +187,7 @@ public class ProgTray {
 
     private void showDialog() {
         Platform.runLater(() -> {
-            PDialogFactory.showDialog(progData.primaryStage, ProgConfig.SYSTEM_SIZE_GUI);
+            PDialogFactory.showDialog(progData.primaryStage, ProgConfig.SYSTEM_SIZE_GUI_SCENE);
         });
         PDialogExtra.showAllDialog();
     }

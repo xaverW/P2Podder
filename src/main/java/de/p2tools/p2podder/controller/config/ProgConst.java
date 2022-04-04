@@ -52,7 +52,7 @@ public class ProgConst {
     // ProgrammUrls
     public static final String ADRESSE_WEBSITE_VLC = "http://www.videolan.org";
 
-    public static final double GUI_FILTER_DIVIDER_LOCATION = 0.3;
+    public static final double GUI_FILTER_DIVIDER_LOCATION = 0.2;
     public static final double GUI_DIVIDER_LOCATION = 0.7;
 
     public static final double CONFIG_DIALOG_SET_DIVIDER = 0.2;
