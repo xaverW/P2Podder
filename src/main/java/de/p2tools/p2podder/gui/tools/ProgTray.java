@@ -18,7 +18,7 @@
 package de.p2tools.p2podder.gui.tools;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
+import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -147,22 +147,21 @@ public class ProgTray {
         popupMenu.add(miStop);
         popupMenu.add(miInfo);
         popupMenu.add(miConfig);
-        popupMenu.add(miTray);
+        if (!ProgramTools.getOs().equals(ProgramTools.OperatingSystemType.MAC)) {
+            //machen unter MAC Probleme
+            popupMenu.add(miTray);
+        }
 
         popupMenu.addSeparator();
         popupMenu.add(miAbout);
-        popupMenu.addSeparator();
-        popupMenu.add(miQuit);
+        if (!ProgramTools.getOs().equals(ProgramTools.OperatingSystemType.MAC)) {
+            //machen unter MAC Probleme
+            popupMenu.addSeparator();
+            popupMenu.add(miQuit);
+        }
 
         trayicon.setPopupMenu(popupMenu);
     }
-
-    private void max() {
-        if (!progData.primaryStage.isShowing()) {
-            Platform.runLater(() -> progData.primaryStage.show());
-        }
-    }
-
 
     private void closeTray() {
         //dann die Dialoge wieder anzeigen
@@ -187,7 +186,7 @@ public class ProgTray {
 
     private void showDialog() {
         Platform.runLater(() -> {
-            PDialogFactory.showDialog(progData.primaryStage, ProgConfig.SYSTEM_SIZE_GUI_SCENE);
+            progData.primaryStage.show();
         });
         PDialogExtra.showAllDialog();
     }

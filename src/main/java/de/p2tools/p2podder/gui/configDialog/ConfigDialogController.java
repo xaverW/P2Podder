@@ -46,12 +46,12 @@ public class ConfigDialogController extends PDialogExtra {
     PodPaneController podPane;
     SetPaneController setPane;
 
-    public ConfigDialogController(ProgData progData) {
-        super(ProgData.getInstance().primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
+    private ConfigDialogController(ProgData progData) {
+        super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
                 true, false, DECO.NONE);
 
         this.progData = ProgData.getInstance();
-        init(false);
+        init(false);//!!!!!!!!!!!!!!!!!!!!!
     }
 
     public synchronized static final ConfigDialogController getInstanceAndShow() {
