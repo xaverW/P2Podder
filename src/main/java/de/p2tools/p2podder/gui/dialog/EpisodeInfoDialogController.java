@@ -130,9 +130,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
         btnStart.setTooltip(new Tooltip("Episode abspielen"));
         btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
-        btnStart.setOnAction(event -> {
-            progData.episodeGui.getEpisodeGuiController().playEpisode();
-        });
+        btnStart.setOnAction(event -> EpisodeFactory.playEpisode());
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
         btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);

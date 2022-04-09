@@ -18,6 +18,7 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
+import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -43,19 +44,19 @@ public class EpisodeGuiTableContextMenu {
     }
 
     private void getMenu(ContextMenu contextMenu, Episode episode) {
-        MenuItem miStart = new MenuItem("Episode starten");
-        miStart.setOnAction(a -> episodeGuiController.playEpisode());
+        MenuItem miStart = new MenuItem("Episode abspielen");
+        miStart.setOnAction(a -> EpisodeFactory.playEpisode(episode));
         MenuItem miStop = new MenuItem("Episode stoppen");
-        miStop.setOnAction(a -> episodeGuiController.stopEpisode(false));
+        miStop.setOnAction(a -> EpisodeFactory.stopEpisode(episode));
         MenuItem miStopAll = new MenuItem("alle Episoden stoppen");
-        miStopAll.setOnAction(a -> episodeGuiController.stopEpisode(true /* alle */));
+        miStopAll.setOnAction(a -> EpisodeFactory.stopAllEpisode());
         MenuItem miCopyUrl = new MenuItem("Episode (URL) kopieren");
-        miCopyUrl.setOnAction(a -> episodeGuiController.copyUrl());
+        miCopyUrl.setOnAction(a -> EpisodeFactory.copyUrl());
 
         MenuItem miChange = new MenuItem("Episode ändern");
         miChange.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
-        MenuItem miRemove = new MenuItem("Episoden löschen");
-        miRemove.setOnAction(a -> episodeGuiController.deleteEpisode(false));
+        MenuItem miRemove = new MenuItem("Episode löschen");
+        miRemove.setOnAction(a -> EpisodeFactory.delEpisode());
 
         miStart.setDisable(episode == null);
         miStop.setDisable(episode == null);

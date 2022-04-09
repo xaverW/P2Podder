@@ -137,7 +137,7 @@ public class ProgLoadFactory {
         ProgData progData = ProgData.getInstance();
         progData.setDataList.clear();
         progData.downloadList.clear();
-        progData.episodeStoredList.clear();
+        progData.episodeList.clear();
     }
 
     private static boolean loadProgConfig() {

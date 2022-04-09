@@ -104,7 +104,6 @@ public class P2Podder extends Application {
             scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
             primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
             primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
-            ProgConfig.SYSTEM_SIZE_GUI_SCENE.addListener((v, o, n) -> System.out.println(ProgConfig.SYSTEM_SIZE_GUI_SCENE));
 
             //Pos setzen
             if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage)) {

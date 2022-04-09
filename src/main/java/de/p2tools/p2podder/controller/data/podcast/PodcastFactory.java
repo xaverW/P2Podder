@@ -45,9 +45,9 @@ public class PodcastFactory {
     }
 
     public static void cleanFaultyCharacterStationList() {
-        // damit werden Unicode-Zeichen korrigiert
-        // gibt da einen Java-Bug
-        // https://github.com/javafxports/openjdk-jfx/issues/287
+        //damit werden Unicode-Zeichen korrigiert
+        //gibt da einen Java-Bug
+        //https://github.com/javafxports/openjdk-jfx/issues/287
         PDuration.counterStart("cleanFaultyCharacter");
         PodcastList podcastList = ProgData.getInstance().podcastList;
         podcastList.stream().forEach(station -> {
@@ -71,9 +71,9 @@ public class PodcastFactory {
     }
 
     private static String clean_1(String ret, boolean alsoNewLine) {
-        // damit werden Unicode-Zeichen korrigiert
-        // gibt da eine Java-Bug
-        // https://github.com/javafxports/openjdk-jfx/issues/287
+        //damit werden Unicode-Zeichen korrigiert
+        //gibt da eine Java-Bug
+        //https://github.com/javafxports/openjdk-jfx/issues/287
         if (alsoNewLine) {
             ret = ret.replaceAll(regEx1, " ").replaceAll(regEx2, "");
         } else {
@@ -83,12 +83,12 @@ public class PodcastFactory {
     }
 
     private static String clean_2(String test) {
-        // damit werden Unicode-Zeichen korrigiert
-        // gibt da eine Java-Bug, auch Probleme bei Linux mit fehlenden Zeichen in den code tablen
-        // https://github.com/javafxports/openjdk-jfx/issues/287
+        //damit werden Unicode-Zeichen korrigiert
+        //gibt da eine Java-Bug, auch Probleme bei Linux mit fehlenden Zeichen in den code tablen
+        //https://github.com/javafxports/openjdk-jfx/issues/287
         char[] c = test.toCharArray();
         for (int i = 0; i < c.length; ++i) {
-            if ((int) c[i] > 11263) { // der Wert ist jetzt einfach mal geschätzt und kommt ~ 20x vor
+            if ((int) c[i] > 11263) { //der Wert ist jetzt einfach mal geschätzt und kommt ~ 20x vor
                 counterMap.merge(c[i], 1, Integer::sum);
                 c[i] = ' ';
                 test = String.valueOf(c);

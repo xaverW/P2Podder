@@ -38,7 +38,7 @@ public class DownloadListFactory {
         final List<Download> downloads = new ArrayList<>();
 
         downloads.addAll(ProgData.getInstance().downloadList.stream()
-                .filter(download -> download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStateStartedRun())
+                .filter(download -> download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStatedRunning())
                 .collect(Collectors.toList()));
 
         return downloads;

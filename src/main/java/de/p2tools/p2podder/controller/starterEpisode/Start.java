@@ -17,79 +17,40 @@
 package de.p2tools.p2podder.controller.starterEpisode;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.guiTools.PSizeTools;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.data.SetData;
-import de.p2tools.p2podder.controller.data.download.Download;
-import de.p2tools.p2podder.controller.data.download.DownloadConstants;
 import de.p2tools.p2podder.controller.data.episode.Episode;
-import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.tools.MLInputStream;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public final class Start extends StartProps {
 
     private final StartStatus startStatus = new StartStatus();
-    private Starter starter = new Starter(this);
-    private int restartCounter = 0; // zählt die Anzahl der Neustarts bei einem Downloadfeheler->Summe Starts = erster Start + Restarts
-    private long bandwidth = -1; // Downloadbandbreite: bytes per second
-    private long timeLeftSeconds = -1; // restliche Laufzeit [s] des Downloads
-    private MLInputStream inputStream = null;
-    private PDate startTime = null;
-    private Process process = null; //Prozess des Download
-
-    private Podcast podcast = null;
-    private Download download = null;
     private Episode episode = null;
+
+
+    private int startCounter = 0;
+    private int restartCounter = 0; //zählt die Anzahl der Neustarts bei einem Startfehler -> Summe Starts = erster Start + Restarts
+    private final StringProperty programCall = new SimpleStringProperty("");
+    private final StringProperty programCallArray = new SimpleStringProperty("");
+
+    private Process process = null; //Prozess des Programms (VLC)
+    private PDate startTime = new PDate();
+
     private SetData setData = null;
+    private EpisodeStarterFactory episodeStarterFactory = null;
+
 
     public Start() {
     }
 
-    public Start(Download download) {
-        this.download = download;
-    }
-
-    public Start(SetData setData, Podcast podcast) {
-        if (podcast == null) {
-            setPodcastNo(EpisodeConstants.PODCAST_NO);
-        }
-
-        this.podcast = podcast;
-        setPodcastNo(podcast.getNo());
-        setEpisodeTitle(podcast.getName());
-        setUrl(podcast.getUrl());
-
-        setSetData(setData);
-        StartProgramFactory.makeProgParameter(this);
-    }
-
-    public Start(SetData setData, Download download) {
-        this.download = download;
-        setEpisodeTitle(download.getEpisodeTitle());
-        setUrl(download.getEpisodeUrl());
-
-        setSetData(setData);
-        StartProgramFactory.makeProgParameter(this);
-    }
-
-
     public Start(SetData setData, Episode episode) {
         this.episode = episode;
+        this.setData = setData;
+
         setEpisodeTitle(episode.getEpisodeTitle());
         setUrl(episode.getEpisodeUrl());
-
-        setSetData(setData);
         StartProgramFactory.makeProgParameter(this);
-    }
-
-    public long getBandwidth() {
-        return bandwidth;
-    }
-
-    public void setBandwidth(long bandwidth) {
-        this.bandwidth = bandwidth;
-        download.setBandwidth(PSizeTools.humanReadableByteCount(bandwidth, true));
     }
 
     public PDate getStartTime() {
@@ -100,12 +61,16 @@ public final class Start extends StartProps {
         this.startTime = startTime;
     }
 
-    public StartStatus getStartStatus() {
-        return startStatus;
+    public int getStartCounter() {
+        return startCounter;
     }
 
-    public Starter getStarter() {
-        return starter;
+    public void incStartCounter() {
+        ++this.startCounter;
+    }
+
+    public int getRestartCounter() {
+        return restartCounter;
     }
 
     public Process getProcess() {
@@ -116,53 +81,33 @@ public final class Start extends StartProps {
         this.process = process;
     }
 
-    public void initStart() {
-        getStarter().setStartTime();
-        getStarter().setRestartCounter(0);
-        getStartStatus().setState(EpisodeConstants.STATE_INIT);
-        getStartStatus().setErrorMessage("");
+    public String getProgramCall() {
+        return programCall.get();
     }
 
-    public void stopStart() {
-        if (getStartStatus().isStateError()) {
-            // damit fehlerhafte nicht wieder starten
-//            getStart().setRestartCounter(ProgConfig.SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART.get());
-        } else {
-            getStartStatus().setStateStopped();
-        }
-
-        setNo(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
+    public StringProperty programCallProperty() {
+        return programCall;
     }
 
-    public MLInputStream getInputStream() {
-        return inputStream;
+    public void setProgramCall(String programCall) {
+        this.programCall.set(programCall);
     }
 
-    public void setInputStream(MLInputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-    //==============================================
-    // Get/Set
-    //==============================================
-
-    public String getStationUrl() {
-        if (podcast != null) {
-            return podcast.getUrl();
-        } else {
-            return getUrl();
-        }
+    public String getProgramCallArray() {
+        return programCallArray.get();
     }
 
-    public void startDownload() {
-        setStartTime(new PDate());
+    public StringProperty programCallArrayProperty() {
+        return programCallArray;
     }
 
-    public void setRestartCounter(int restartCounter) {
-        this.restartCounter = restartCounter;
+    public void setProgramCallArray(String programCallArray) {
+        this.programCallArray.set(programCallArray);
     }
 
-    public Podcast getStation() {
-        return podcast;
+
+    public StartStatus getStartStatus() {
+        return startStatus;
     }
 
     public Episode getEpisode() {
@@ -173,32 +118,8 @@ public final class Start extends StartProps {
         return setData;
     }
 
-    public void setSetData(SetData setData) {
-        this.setData = setData;
-        setSetDataId(setData.getId());
-    }
-
-    public int getRestartCounter() {
-        return restartCounter;
-    }
-
-    public long getTimeLeftSeconds() {
-        return timeLeftSeconds;
-    }
-
-    public void setTimeLeftSeconds(long timeLeftSeconds) {
-        this.timeLeftSeconds = timeLeftSeconds;
-        if (download.isStateStartedRun() && getTimeLeftSeconds() > 0) {
-            download.setRemaining(DownloadConstants.getTimeLeft(timeLeftSeconds));
-        } else {
-            download.setRemaining("");
-        }
-    }
-
     public Start getCopy() {
         final Start ret = new Start();
-        ret.starter = starter;
-        ret.podcast = podcast;
         ret.setData = setData;
 
         Config[] configs = getConfigsArr();
@@ -210,8 +131,6 @@ public final class Start extends StartProps {
     }
 
     public void copyToMe(Start start) {
-        starter = start.starter;
-        podcast = start.podcast;
         setData = start.setData;
 
         Config[] configs = start.getConfigsArr();

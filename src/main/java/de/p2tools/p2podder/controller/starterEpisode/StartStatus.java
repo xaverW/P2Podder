@@ -24,7 +24,7 @@ public class StartStatus {
 
     // Stati
     public static final int STATE_INIT = 0; //nicht gestart
-    public static final int STATE_STARTED_RUN = 1; //läuft
+    public static final int STATE_RUNNING = 1; //läuft
     public static final int STATE_STOPPED = 4; //abgebrochen
     public static final int STATE_ERROR = 5; //fehlerhaft
 
@@ -80,16 +80,16 @@ public class StartStatus {
         return getState() == StartStatus.STATE_STOPPED;
     }
 
-    public void setStateStartedRun() {
-        setState(StartStatus.STATE_STARTED_RUN);
+    public void setStateRunning() {
+        setState(StartStatus.STATE_RUNNING);
     }
 
-    public boolean isStateStartedRun() {
-        return getState() == StartStatus.STATE_STARTED_RUN;
+    public boolean isStatedRunning() {
+        return getState() == StartStatus.STATE_RUNNING;
     }
 
     public boolean isStarted() {
-        return getState() >= StartStatus.STATE_STARTED_RUN;
+        return getState() >= StartStatus.STATE_RUNNING;
     }
 
     //======================================

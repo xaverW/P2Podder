@@ -236,10 +236,10 @@ public class TableEpisode {
                     //dann stoppen
                     final Button btnStop;
                     btnStop = new Button("");
-                    btnStop.setTooltip(new Tooltip("Episode abspielen"));
+                    btnStop.setTooltip(new Tooltip("Episode stoppen"));
                     btnStop.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_STOP_PLAY));
                     btnStop.setOnAction((ActionEvent event) -> {
-                        progData.episodeGui.getEpisodeGuiController().stopEpisode(episode);
+                        EpisodeFactory.stopEpisode(episode);
                         getTableView().getSelectionModel().clearSelection();
                         getTableView().getSelectionModel().select(getIndex());
                     });
@@ -292,7 +292,7 @@ public class TableEpisode {
                 btnDel.setTooltip(new Tooltip("Episode löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_DEL));
                 btnDel.setOnAction(event -> {
-                    progData.episodeGui.getEpisodeGuiController().deleteEpisode(episode);
+                    EpisodeFactory.delEpisode(episode);
                 });
 
                 if (small.get()) {

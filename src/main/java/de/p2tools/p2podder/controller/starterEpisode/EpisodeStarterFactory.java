@@ -41,6 +41,7 @@ public class EpisodeStarterFactory {
 
     private final ProgData progData;
     private StarterThread starterThread;
+    private Episode runningEpisode = null;//ist die gerade laufende Episode
 
     public EpisodeStarterFactory(ProgData progData) {
         super();
@@ -48,19 +49,22 @@ public class EpisodeStarterFactory {
     }
 
     public void startWaitingEpisodes() {
-        if (starterThread == null ||
-                starterThread != null && !starterThread.isAlive()) {
+        if (starterThread == null || starterThread != null && !starterThread.isAlive()) {
             //dann wieder starten
             starterThread = new StarterThread();
             starterThread.start();
         }
     }
 
-    // ********************************************
-    // Hier wird dann gestartet
-    // der Thread läuft so lange, wie Episoden
-    // vorhanden sind
-    // ********************************************
+    public Episode getRunningEpisode() {
+        return runningEpisode;
+    }
+
+    //*******************************************
+    //Hier wird dann gestartet
+    //der Thread läuft so lange, wie Episoden
+    //vorhanden sind
+    //*******************************************
     private class StarterThread extends Thread {
         private Episode episode;
 
@@ -89,9 +93,11 @@ public class EpisodeStarterFactory {
         }
 
         private void startEpisode(Episode episode) {
+            runningEpisode = episode;
+            progData.historyEpisodes.addHistoryDataToHistory(episode);
+
             Start start = episode.getStart();
             int stat = stat_start;
-            progData.historyEpisodes.addHistoryDataToHistory(episode);
             refreshTable();
 
             try {
@@ -101,14 +107,15 @@ public class EpisodeStarterFactory {
             } catch (final Exception ex) {
                 final String exMessage = ex.getLocalizedMessage();
                 PLog.errorLog(987989569, ex);
-                if (start.getStarter().getRestartCounter() == 0) {
-                    // nur beim ersten Mal melden -> nervt sonst
+                if (start.getRestartCounter() == 0) {
+                    //nur beim ersten Mal melden -> nervt sonst
                     Platform.runLater(() -> new StartEpisodeErrorDialogController(start, exMessage));
                 }
                 start.getStartStatus().setState(StartStatus.STATE_ERROR);
                 start.getStartStatus().setErrorMessage(exMessage);
             }
 
+            runningEpisode = null;
             finalizePlaying(episode);
         }
 
@@ -146,14 +153,14 @@ public class EpisodeStarterFactory {
             //versuch das Programm zu Starten
             //die Reihenfolge: startCounter - startmeldung ist wichtig!
             int retStat;
-            start.getStarter().incStartCounter();
+            start.incStartCounter();
             startMsg(start);
             final StartRuntimeExec runtimeExec = new StartRuntimeExec(start);
             final Process process = runtimeExec.exec();
-            start.getStarter().setProcess(process);
+            start.setProcess(process);
 
             if (process != null) {
-                start.getStartStatus().setStateStartedRun();
+                start.getStartStatus().setStateRunning();
                 retStat = stat_running;
             } else {
                 retStat = stat_restart;
@@ -168,12 +175,12 @@ public class EpisodeStarterFactory {
                 if (start.getStartStatus().isStateStopped()) {
                     //soll abgebrochen werden
                     retStatus = stat_finished_ok;
-                    if (start.getStarter().getProcess() != null) {
-                        start.getStarter().getProcess().destroy();
+                    if (start.getProcess() != null) {
+                        start.getProcess().destroy();
                     }
 
                 } else {
-                    final int exitV = start.getStarter().getProcess().exitValue(); //liefert ex wenn noch nicht fertig
+                    final int exitV = start.getProcess().exitValue(); //liefert ex wenn noch nicht fertig
                     if (exitV != 0) {
                         retStatus = stat_restart;
                     } else {
@@ -192,7 +199,7 @@ public class EpisodeStarterFactory {
         private int restartProgram(Start start) {
             int retStatus;
             // counter prüfen und starten bis zu einem MaxWert, sonst endlos
-            if (start.getStarter().getStartCounter() < StartStatus.START_COUNTER_MAX) {
+            if (start.getStartCounter() < StartStatus.START_COUNTER_MAX) {
                 // dann nochmal von vorne
                 retStatus = stat_start;
             } else {
@@ -208,7 +215,7 @@ public class EpisodeStarterFactory {
             list.add("Episode abspielen");
 
             list.add("URL: " + starter.getUrl());
-            list.add("Startzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(starter.getStarter().getStartTime()));
+            list.add("Startzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(starter.getStartTime()));
             list.add("Programmaufruf: " + starter.getProgramCall());
             list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
@@ -220,12 +227,8 @@ public class EpisodeStarterFactory {
             //Aufräumen
             Start start = episode.getStart();
             finishedMsg(start);
-//            if (start.getStartStatus().isStateError()) {
-//            } else if (!start.getStartStatus().isStateInit()) {
-//                //dann ist er gelaufen
-//            }
-            start.getStarter().setProcess(null);
-            start.getStarter().setStartTime(null);
+
+            start.setProcess(null);
             episode.setStart(null);
             refreshTable();
         }
@@ -241,19 +244,19 @@ public class EpisodeStarterFactory {
             final ArrayList<String> list = new ArrayList<>();
             list.add(PLog.LILNE3);
             list.add("Episode abspielen beendet");
-            list.add("Startzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(start.getStarter().getStartTime()));
+            list.add("Startzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(start.getStartTime()));
             list.add("Endzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(new PDate().getTime()));
 
-            if (start.getStarter().getRestartCounter() > 0) {
-                list.add("Restarts: " + start.getStarter().getRestartCounter());
+            if (start.getRestartCounter() > 0) {
+                list.add("Restarts: " + start.getRestartCounter());
             }
 
-            final long dauer = start.getStarter().getStartTime().diffInMinutes();
+            final long dauer = start.getStartTime().diffInMinutes();
             if (dauer == 0) {
-                list.add("Dauer: " + start.getStarter().getStartTime().diffInSeconds() + " s");
+                list.add("Dauer: " + start.getStartTime().diffInSeconds() + " s");
                 //list.add("Dauer: <1 Min.");
             } else {
-                list.add("Dauer: " + start.getStarter().getStartTime().diffInMinutes() + " Min");
+                list.add("Dauer: " + start.getStartTime().diffInMinutes() + " Min");
             }
 
             list.add("URL: " + start.getUrl());

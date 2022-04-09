@@ -58,7 +58,7 @@ public class ProgQuitFactory {
 
     private static boolean quit_(boolean showOptionTerminate) {
         // erst mal prüfen ob noch Episoden laufen
-        if (ProgData.getInstance().episodeStoredList.countStartedAndRunningEpisode() > 0) {
+        if (ProgData.getInstance().episodeList.countStartedAndRunningEpisode() > 0) {
             // und ob der Dialog angezeigt werden soll
             if (showOptionTerminate) {
                 QuitDialogController quitDialogController;

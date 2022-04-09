@@ -154,7 +154,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         int ret = 0;
         for (final Episode episode : this) {
             if (episode.getStart() != null &&
-                    (episode.getStart().getStartStatus().isStarted() || episode.getStart().getStartStatus().isStateStartedRun())) {
+                    (episode.getStart().getStartStatus().isStarted() || episode.getStart().getStartStatus().isStatedRunning())) {
                 ++ret;
             }
         }

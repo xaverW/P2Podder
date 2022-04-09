@@ -49,7 +49,6 @@ public class StartProps extends PDataSample<Start> {
         return list.toArray(new Config[]{});
     }
 
-    private final StringProperty setDataId = new SimpleStringProperty("");
     private final StringProperty program = new SimpleStringProperty("");
     private final StringProperty programCall = new SimpleStringProperty("");
     private final StringProperty programCallArray = new SimpleStringProperty("");
@@ -107,18 +106,6 @@ public class StartProps extends PDataSample<Start> {
 
     public void setUrl(String url) {
         this.url.set(url);
-    }
-
-    public String getSetDataId() {
-        return setDataId.get();
-    }
-
-    public StringProperty setDataIdProperty() {
-        return setDataId;
-    }
-
-    public void setSetDataId(String setDataId) {
-        this.setDataId.set(setDataId);
     }
 
     public String getProgram() {

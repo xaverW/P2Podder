@@ -90,7 +90,8 @@ public class ProgData {
     public StoredFilters storedFilters; // gespeicherte Filterprofile
 
     // Programmdaten
-    public EpisodeList episodeStoredList; //sind die gespeicherten Episoden
+
+    public EpisodeList episodeList; //sind die gespeicherten Episoden
     public EpisodeList episodeStartingList; //sind die Episoden die gestartet werden sollen
     public PodcastList podcastList; //sind die Podcasts
     public DownloadList downloadList; //sind die, die zum Download anstehen
@@ -109,7 +110,7 @@ public class ProgData {
         filterDownload = new FilterDownload();
         filterPodcast = new FilterPodcast();
 
-        episodeStoredList = new EpisodeList(this);
+        episodeList = new EpisodeList(this);
         episodeStartingList = new EpisodeList(this);
         podcastList = new PodcastList();
         downloadList = new DownloadList(this);

@@ -201,7 +201,7 @@ public class DownloadStarterFactory {
 
             //fertigen Download in die PosListe eintragen
             Episode episode = new Episode(download);
-            ProgData.getInstance().episodeStoredList.add(episode);
+            ProgData.getInstance().episodeList.add(episode);
         }
 
         download.setNo(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);

@@ -128,7 +128,7 @@ public class ProgTray {
 
         miMaxMin.addActionListener(e -> Platform.runLater(() -> maxMin()));
         miStop.addActionListener(e -> {
-            progData.episodeStoredList.stream().forEach(f -> EpisodeFactory.stopEpisode(f));
+            progData.episodeList.stream().forEach(f -> EpisodeFactory.stopEpisode(f));
         });
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.episodeInfoDialogController.toggleShowInfo();

@@ -41,7 +41,7 @@ public class EpisodeStartsFactory {
         final List<Episode> episodes = new ArrayList<>();
 
         episodes.addAll(episodeList.stream()
-                .filter(episode -> episode.getStart() != null && episode.getStart().getStartStatus().isStateStartedRun())
+                .filter(episode -> episode.getStart() != null && episode.getStart().getStartStatus().isStatedRunning())
                 .filter(download -> source.equals(EpisodeConstants.ALL) /*|| download.getSource().equals(source)*/)
                 .collect(Collectors.toList()));
 

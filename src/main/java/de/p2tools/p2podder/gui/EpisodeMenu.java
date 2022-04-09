@@ -47,17 +47,17 @@ public class EpisodeMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierte Episode abspielen", "markierte Episode abspielen", new ProgIcons().ICON_TOOLBAR_EPISODE_START);
+                "Markierte Episoden abspielen", "Markierte Episoden abspielen", new ProgIcons().ICON_TOOLBAR_EPISODE_START);
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Episoden stoppen", "alle laufenden Episoden stoppen", new ProgIcons().ICON_TOOLBAR_EPISODE_STOP);
+                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", new ProgIcons().ICON_TOOLBAR_EPISODE_STOP);
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierte Episode löschen", "markierte Episode löschen", new ProgIcons().ICON_TOOLBAR_EPISODE_DEL);
+                "Markierte Episoden löschen", "Markierte Episoden löschen", new ProgIcons().ICON_TOOLBAR_EPISODE_DEL);
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
 
-        btStart.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().playSelectedEpisodes());
-        btStop.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().stopEpisode(true));
-        btDel.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().deleteEpisode(true));
+        btStart.setOnAction(a -> EpisodeFactory.playSelEpisode());
+        btStop.setOnAction(a -> EpisodeFactory.stopAllEpisode());
+        btDel.setOnAction(a -> EpisodeFactory.delSelEpisode());
         btInfo.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
     }
 
@@ -68,26 +68,27 @@ public class EpisodeMenu {
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miEpisodeStart = new MenuItem("Episode abspielen");
-        miEpisodeStart.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().playEpisode());
+        miEpisodeStart.setOnAction(a -> EpisodeFactory.playEpisode());
         PShortcutWorker.addShortCut(miEpisodeStart, P2PodderShortCuts.SHORTCUT_EPOSODE_START);
 
         final MenuItem miEpisodeStop = new MenuItem("Episode stoppen");
-        miEpisodeStop.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().stopEpisode(false));
+        miEpisodeStop.setOnAction(a -> EpisodeFactory.stopEpisode());
 
-        final MenuItem miStopAll = new MenuItem("alle laufenden Episoden stoppen");
-        miStopAll.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().stopEpisode(true));
+        final MenuItem miStopAll = new MenuItem("Alle laufenden Episoden stoppen");
+        miStopAll.setOnAction(a -> EpisodeFactory.stopAllEpisode());
         PShortcutWorker.addShortCut(miStopAll, P2PodderShortCuts.SHORTCUT_EPISODE_STOP);
 
         final MenuItem miEpisodeDel = new MenuItem("Episode löschen");
-        miEpisodeDel.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().deleteEpisode(false));
+        miEpisodeDel.setOnAction(a -> EpisodeFactory.delEpisode());
+
+        MenuItem miDelShown = new MenuItem("Alle gespielten Episoden löschen");
+        miDelShown.setOnAction(a -> EpisodeFactory.delAllShownEpisodes());
 
         MenuItem miCopyUrl = new MenuItem("Episoden-URL kopieren");
-        miCopyUrl.setOnAction(a -> progData.episodeGui.getEpisodeGuiController().copyUrl());
+        miCopyUrl.setOnAction(a -> EpisodeFactory.copyUrl());
 
-        MenuItem miDelShown = new MenuItem("Gespielte Episoden löschen");
-        miDelShown.setOnAction(a -> EpisodeFactory.delShownEpisodes());
-
-        mb.getItems().addAll(miEpisodeStart, miEpisodeStop, miStopAll, miEpisodeDel, miCopyUrl, miDelShown);
+        mb.getItems().addAll(miEpisodeStart, miEpisodeStop, miStopAll, miEpisodeDel,
+                miDelShown, new SeparatorMenuItem(), miCopyUrl);
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");

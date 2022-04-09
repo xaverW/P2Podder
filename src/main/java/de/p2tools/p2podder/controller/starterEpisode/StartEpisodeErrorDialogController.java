@@ -41,10 +41,10 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
     private final HBox hBoxTitle;
     private final VBox vBoxCont;
 
-    private Label lblHeader = new Label("Downloadfehler");
+    private Label lblHeader = new Label("Fehler");
     private Button btnOk = new Button("_Ok");
 
-    private Label lblStationTitle = new Label("ARD: Tatort, ..");
+    private Label lblEpisodeTitle = new Label("ARD: Tatort, ..");
     private Label lblUrl = new Label();
     private TextArea txtCont = new TextArea();
 
@@ -75,8 +75,8 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
     public void make() {
         initCont();
 
-        lblStationTitle.setStyle("-fx-font-weight: bold;");
-        lblStationTitle.setText(start.getStation().getName());
+        lblEpisodeTitle.setStyle("-fx-font-weight: bold;");
+        lblEpisodeTitle.setText(start.getEpisodeTitle());
 
         lblUrl.setText(start.getUrl());
 
@@ -113,7 +113,7 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
 
         int row = 0;
         gridPane.add(new Label("Episode:"), 0, row);
-        gridPane.add(lblStationTitle, 1, row);
+        gridPane.add(lblEpisodeTitle, 1, row);
 
         gridPane.add(new Label("URL:"), 0, ++row);
         gridPane.add(lblUrl, 1, row);

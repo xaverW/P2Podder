@@ -35,7 +35,7 @@ public class InfoFactory {
 
     public static String getInfosEpisode() {
         String textLinks;
-        String sumEpisodeListStr = numberFormat.format(progData.episodeStoredList.size());
+        String sumEpisodeListStr = numberFormat.format(progData.episodeList.size());
         String sumEpisodeShownStr = numberFormat.format(progData.episodeGui.getEpisodeGuiController().getEpisodesShown());
 
         // Anzahl der Episoden
@@ -46,7 +46,7 @@ public class InfoFactory {
         }
 
         // weitere Infos anzeigen
-        if (progData.episodeStoredList.size() != progData.episodeGui.getEpisodeGuiController().getEpisodesShown()) {
+        if (progData.episodeList.size() != progData.episodeGui.getEpisodeGuiController().getEpisodesShown()) {
             textLinks += " (Insgesamt: " + sumEpisodeListStr;
             textLinks += ")";
         }
@@ -63,7 +63,7 @@ public class InfoFactory {
         String textLinks;
         final int sumPodcastsList = progData.podcastList.size();
         final int sumPodcastsShown = progData.podcastGui.getPodcastGuiController().getStationCount();
-        final int runs = progData.episodeStoredList.getListOfStartsNotFinished(EpisodeConstants.SRC_BUTTON).size();
+        final int runs = progData.episodeList.getListOfStartsNotFinished(EpisodeConstants.SRC_BUTTON).size();
 
         String sumPodcastListStr = numberFormat.format(sumPodcastsShown);
         String sumPodcastShownStr = numberFormat.format(sumPodcastsList);

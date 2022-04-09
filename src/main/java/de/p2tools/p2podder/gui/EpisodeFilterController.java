@@ -168,11 +168,11 @@ public class EpisodeFilterController extends FilterController {
                 tableView.getSelectionModel().clearSelection();
             }
         });
-        progData.episodeStoredList.addListener((v, o, n) -> {
+        progData.episodeList.addListener((v, o, n) -> {
             //ist für das Hinzufügen/Löschen von Episoden
             Platform.runLater(() -> {
                 Podcast sel = tableView.getSelectionModel().getSelectedItem();
-                tableView.getItems().setAll(progData.episodeStoredList.getPodcastList());
+                tableView.getItems().setAll(progData.episodeList.getPodcastList());
                 if (tableView.getItems().contains(sel)) {
                     tableView.getSelectionModel().select(sel);
                 } else {
@@ -180,14 +180,14 @@ public class EpisodeFilterController extends FilterController {
                 }
             });
         });
-        tableView.getItems().addAll(progData.episodeStoredList.getPodcastList());
+        tableView.getItems().addAll(progData.episodeList.getPodcastList());
 
         cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
-        progData.episodeStoredList.getGenreList().addListener((ListChangeListener<String>) change -> {
+        progData.episodeList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 //kann durch Downloads außer der Reihe sein!!
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
-                cboGenre.getItems().setAll(progData.episodeStoredList.getGenreList());
+                cboGenre.getItems().setAll(progData.episodeList.getGenreList());
                 if (sel.isEmpty()) {
                 } else if (cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
@@ -196,7 +196,7 @@ public class EpisodeFilterController extends FilterController {
                 }
             });
         });
-        cboGenre.getItems().addAll(progData.episodeStoredList.getGenreList());
+        cboGenre.getItems().addAll(progData.episodeList.getGenreList());
 
         txtTitle.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().titleProperty());
         FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);

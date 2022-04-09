@@ -72,7 +72,7 @@ public class ProgStartFactory {
             });
             InitStoredFilter.initFilter();
         }
-        progData.episodeStoredList.initList();
+        progData.episodeList.initList();
         progData.podcastList.initList();
         progData.downloadList.initList();
 

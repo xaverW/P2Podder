@@ -17,6 +17,7 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
+import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -30,48 +31,120 @@ import de.p2tools.p2podder.gui.dialog.NoSetDialogController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EpisodeFactory {
 
-//    public static void delEpisodes(Episode episode) {
-//        if (ProgConfig.SYSTEM_DELETE_EPISODE_FILE_DONT_ASK.getValue()) {
-//            if (ProgConfig.SYSTEM_DELETE_EPISODE_FILE.getValue()) {
-//                //dann automatisch alles machen
-//                List<Episode> delList = new ArrayList<>();
-//                delList.add(episode);
-//                delFiles(delList);
-//            }
-//            return;
-//        }
-//
-//        //dann will er erst mal gefragt werden
-//        final String path = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
-//        if (PAlert.BUTTON.NO == new PAlert().alert_yes_no_remember(ProgData.getInstance().primaryStage,
-//                "Episode", "Episode löschen?",
-//                "Soll die Episode und die Datei: " + P2LibConst.LINE_SEPARATOR +
-//                        path + P2LibConst.LINE_SEPARATOR
-//                        + "gelöscht werden?", ProgConfig.SYSTEM_DELETE_EPISODE_FILE_DONT_ASK, "Nicht mehr anzeigen")) {
-//            ProgConfig.SYSTEM_DELETE_EPISODE_FILE.setValue(false);
-//            return;
-//        } else {
-//            ProgConfig.SYSTEM_DELETE_EPISODE_FILE.setValue(true);
-//        }
-//
-//        List<Episode> delList = new ArrayList<>();
-//        delList.add(episode);
-//        delFiles(delList);
-//    }
+    public static boolean episodeIsRunning(Episode episode) {
+        if (episode.getStart() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static long countEpisode(Podcast podcast) {
+        return ProgData.getInstance().episodeList.stream().filter(p -> p.getPodcastId() == podcast.getId()).count();
+    }
+
+    public static void copyUrl() {
+        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        if (episode.isPresent()) {
+            return;
+        }
+        PSystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
+    }
+
+    public static void playEpisode() {
+        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        if (episode.isPresent()) {
+            EpisodeFactory.playEpisode(episode.get());
+        }
+    }
+
+    public static void playSelEpisode() {
+        playEpisode(ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList(), null);
+    }
+
+    public static void playEpisode(Episode episode) {
+        playEpisode(episode, null);
+    }
+
+    public static void playEpisode(Episode episode, SetData setData) {
+        if (setData == null) {
+            setData = ProgData.getInstance().setDataList.getSetDataPlay();
+        }
+        if (setData == null) {
+            new NoSetDialogController(ProgData.getInstance());
+            return;
+        }
+
+        //und starten
+        startFileWithProgram(episode, setData);
+    }
+
+    public static void playEpisode(List<Episode> episode, SetData setData) {
+        if (setData == null) {
+            setData = ProgData.getInstance().setDataList.getSetDataPlay();
+        }
+        if (setData == null) {
+            new NoSetDialogController(ProgData.getInstance());
+            return;
+        }
+
+        //und starten
+        startFileWithProgram(episode, setData);
+    }
+
+    public static void stopEpisode() {
+        //bezieht sich auf die markierte Episode
+        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        if (episode.isPresent()) {
+            stopEpisode(episode.get());
+        }
+    }
+
+    public static void stopEpisode(Episode episode) {
+        //eine Episode stopnnen
+        if (episodeIsRunning(episode)) {
+            if (episode.getStart().getStartStatus().isStatedRunning()) {
+                episode.getStart().getStartStatus().setStateStopped();
+                episode.getStart().setNo(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
+            } else if (episode.getStart().getStartStatus().isStateInit()) {
+                //dann ist er angelegt aber noch nicht gestartet
+                episode.setStart(null);
+            }
+        }
+    }
 
 
-    public static void delEpisodes(Episode episode) {
+    public static void stopAllEpisode() {
+        //alle laufenden Episoden stoppen
+        if (ProgData.getInstance().episodeStarterFactory.getRunningEpisode() != null) {
+            stopEpisode(ProgData.getInstance().episodeStarterFactory.getRunningEpisode());
+        }
+        ProgData.getInstance().episodeList.stream().forEach(episode -> stopEpisode(episode));
+        ProgData.getInstance().episodeStartingList.clear();//die wartenden entfernen
+    }
+
+
+    public static void delEpisode() {
+        //Menü: markierte Episoden löschen
+        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        if (episode.isPresent()) {
+            delEpisode(episode.get());
+        }
+    }
+
+    public static void delEpisode(Episode episode) {
         List<Episode> delList = new ArrayList<>();
         delList.add(episode);
         delEpisodes(delList);
     }
 
-    public static void delShownEpisodes() {
+    public static void delAllShownEpisodes() {
         List<Episode> delList = new ArrayList<>();
-        ProgData.getInstance().episodeStoredList.stream().forEach(episode -> {
+        ProgData.getInstance().episodeList.stream().forEach(episode -> {
             if (ProgData.getInstance().historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl())) {
                 delList.add(episode);
             }
@@ -79,10 +152,15 @@ public class EpisodeFactory {
         delEpisodes(delList);
     }
 
-    public static void delEpisodes(List<Episode> episodeList) {
+    public static void delSelEpisode() {
+        //Menü: Alle markierten Episoden löschen
+        delEpisodes(ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList());
+    }
+
+    private static void delEpisodes(List<Episode> episodeList) {
         if (!ProgConfig.SYSTEM_DELETE_EPISODE_FILE_ASK.getValue()) {
             //dann wird schon mal nicht gefragt
-            delFiles(episodeList);
+            delEpisodeAndFiles(episodeList);
             return;
         }
 
@@ -90,14 +168,15 @@ public class EpisodeFactory {
         EpisodeDelDialogController episodeDelDialogController = new EpisodeDelDialogController(ProgData.getInstance(), episodeList);
         if (episodeDelDialogController.isOk()) {
             //ansonsten will wer nix
-            delFiles(episodeList);
+            delEpisodeAndFiles(episodeList);
         }
     }
 
-    private static void delFiles(List<Episode> delList) {
-        delList.stream().forEach(episode ->
-                //erst mal die Episode aus dem Programm löschen
-                ProgData.getInstance().episodeStoredList.remove(episode)
+    private static void delEpisodeAndFiles(List<Episode> delList) {
+        delList.stream().forEach(episode -> {
+                    //erst mal die Episode aus dem Programm löschen
+                    ProgData.getInstance().episodeList.remove(episode);
+                }
         );
 
         if (ProgConfig.SYSTEM_DELETE_EPISODE_FILE.getValue()) {
@@ -119,82 +198,29 @@ public class EpisodeFactory {
         }
     }
 
-    public static boolean episodeIsRunning(Episode episode) {
-        if (episode.getStart() != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static long countEpisode(Podcast podcast) {
-        return ProgData.getInstance().episodeStoredList.stream().filter(p -> p.getPodcastId() == podcast.getId()).count();
-    }
-
-    public static void stopEpisode(Episode episode) {
-        if (episodeIsRunning(episode)) {
-            episode.getStart().stopStart();
-        }
-    }
-
-    public static void stopAllEpisode() {
-        ProgData.getInstance().episodeStoredList.stream().forEach(episode -> stopEpisode(episode));
-    }
-
-    public static void playEpisode(Episode episode) {
-        playEpisode(episode, null);
-    }
-
-    public static void playEpisode(Episode episode, SetData setData) {
-        if (setData == null) {
-            setData = ProgData.getInstance().setDataList.getSetDataPlay();
-        }
-        if (setData == null) {
-            new NoSetDialogController(ProgData.getInstance());
-            return;
-        }
-
-        // und starten
-        startFileWithProgram(episode, setData);
-    }
-
-    public static void playEpisode(List<Episode> episode, SetData setData) {
-        if (setData == null) {
-            setData = ProgData.getInstance().setDataList.getSetDataPlay();
-        }
-        if (setData == null) {
-            new NoSetDialogController(ProgData.getInstance());
-            return;
-        }
-
-        // und starten
-        startFileWithProgram(episode, setData);
-    }
-
     private static synchronized void startFileWithProgram(Episode episode, SetData setData) {
         final String filePathName = episode.getFilePath();
         if (!filePathName.isEmpty()) {
 
             final Start start = new Start(setData, episode);
             episode.setStart(start);
-            start.initStart();
-
             ProgData.getInstance().episodeStartingList.add(episode);
+
             ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
             ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
         }
     }
 
-    private static synchronized void startFileWithProgram(List<Episode> episode, SetData setData) {
-        episode.stream().forEach(epi -> {
-            final String filePathName = epi.getFilePath();
+    private static synchronized void startFileWithProgram(List<Episode> episodeList, SetData setData) {
+        episodeList.stream().forEach(episode -> {
+            final String filePathName = episode.getFilePath();
             if (!filePathName.isEmpty()) {
-                final Start start = new Start(setData, epi);
-                epi.setStart(start);
-                start.initStart();
-                ProgData.getInstance().episodeStartingList.add(epi);
+                final Start start = new Start(setData, episode);
+                episode.setStart(start);
+                ProgData.getInstance().episodeStartingList.add(episode);
             }
         });
+
         ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
         ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
     }

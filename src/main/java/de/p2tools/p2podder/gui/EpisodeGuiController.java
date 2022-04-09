@@ -18,11 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
-import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
-import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import javafx.application.Platform;
@@ -107,14 +105,6 @@ public class EpisodeGuiController extends AnchorPane {
         return tableView.getItems().size();
     }
 
-    public void copyUrl() {
-        final Optional<Episode> episode = getSel();
-        if (!episode.isPresent()) {
-            return;
-        }
-        PSystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
-    }
-
     private void setSelectedEpisode() {
         Episode episode = tableView.getSelectionModel().getSelectedItem();
         if (episode != null) {
@@ -123,55 +113,6 @@ public class EpisodeGuiController extends AnchorPane {
         } else {
             episodeGuiInfoController.setEpisode(null);
         }
-    }
-
-    public void playEpisode() {
-        final Optional<Episode> episode = getSel();
-        if (episode.isPresent()) {
-            EpisodeFactory.playEpisode(episode.get());
-        }
-    }
-
-    public void playSelectedEpisodes() {
-        final ArrayList<Episode> episode = getSelList();
-        EpisodeFactory.playEpisode(episode, null);
-    }
-
-    public void stopEpisode(boolean all) {
-        // bezieht sich auf "alle" oder nur die markierten
-        if (all) {
-            EpisodeFactory.stopAllEpisode();
-
-        } else {
-            final Optional<Episode> episode = getSel();
-            if (episode.isPresent()) {
-                EpisodeFactory.stopEpisode(episode.get());
-            }
-        }
-    }
-
-    public void stopEpisode(Episode episode) {
-        EpisodeFactory.stopEpisode(episode);
-    }
-
-    public void deleteEpisode(boolean all) {
-        if (all) {
-            final ArrayList<Episode> list = getSelList();
-            if (list.isEmpty()) {
-                return;
-            }
-            EpisodeFactory.delEpisodes(list);
-
-        } else {
-            final Optional<Episode> episode = getSel();
-            if (episode.isPresent()) {
-                EpisodeFactory.delEpisodes(episode.get());
-            }
-        }
-    }
-
-    public void deleteEpisode(Episode episode) {
-        EpisodeFactory.delEpisodes(episode);
     }
 
     public void saveTable() {
@@ -241,20 +182,6 @@ public class EpisodeGuiController extends AnchorPane {
         rbNew.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isNewProperty());
         rbRunning.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isRunningProperty());
         rbWasShown.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().wasShownProperty());
-
-//        rbAll.setSelected(true);
-//        rbAll.selectedProperty().addListener((u, o, n) -> {
-//            progData.storedFilters.getActFilterSettings().setAll();
-//        });
-//        rbNew.selectedProperty().addListener((u, o, n) -> {
-//            progData.storedFilters.getActFilterSettings().setNew();
-//        });
-//        rbRunning.selectedProperty().addListener((u, o, n) -> {
-//            progData.storedFilters.getActFilterSettings().setRunning();
-//        });
-//        rbWasShown.selectedProperty().addListener((u, o, n) -> {
-//            progData.storedFilters.getActFilterSettings().setWasShown();
-//        });
     }
 
     private void initTable() {
@@ -264,8 +191,8 @@ public class EpisodeGuiController extends AnchorPane {
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         new Table().setTable(tableView, Table.TABLE.EPISODE);
 
-        tableView.setItems(progData.episodeStoredList.getEpisodeSortedList());
-        progData.episodeStoredList.getEpisodeSortedList().comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(progData.episodeList.getEpisodeSortedList());
+        progData.episodeList.getEpisodeSortedList().comparatorProperty().bind(tableView.comparatorProperty());
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {

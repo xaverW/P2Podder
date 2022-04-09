@@ -207,7 +207,7 @@ public class ProgConfig extends PDataProgConfig {
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().podcastList);
         configFile.addConfigs(ProgData.getInstance().downloadList);
-        configFile.addConfigs(ProgData.getInstance().episodeStoredList);
+        configFile.addConfigs(ProgData.getInstance().episodeList);
     }
 
     public static void getConfigLog(ArrayList<String> list) {
