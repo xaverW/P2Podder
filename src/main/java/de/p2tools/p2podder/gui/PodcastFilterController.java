@@ -53,13 +53,10 @@ public class PodcastFilterController extends FilterController {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-        VBox vBoxSpace = new VBox();
-        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
-
         final VBox vBoxFilter = getVBoxTop();
         vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTitle, vBoxUrl, vBoxSpace/*, vBoxClear*/);
+        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTitle, vBoxUrl);
 
         addButton();
         initFilter();
