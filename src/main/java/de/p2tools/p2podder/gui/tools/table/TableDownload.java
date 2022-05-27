@@ -127,6 +127,7 @@ public class TableDownload {
         genreColumn.setPrefWidth(120);
         podcastNameColumn.setPrefWidth(200);
         titleColumn.setPrefWidth(250);
+        startColumn.setPrefWidth(120);
         remainingColumn.setPrefWidth(120);
         speedColumn.setPrefWidth(100);
         pdownloadSizeColumn.setPrefWidth(100);

@@ -37,6 +37,7 @@ public final class Episode extends EpisodeProps {
     public Episode(Download download) {
         Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
 
+        setDuration(download.getDuration());
         setDescription(download.getDescription());
         setEpisodeWebsite(download.getEpisodeWebsite());
         setEpisodeUrl(download.getEpisodeUrl());

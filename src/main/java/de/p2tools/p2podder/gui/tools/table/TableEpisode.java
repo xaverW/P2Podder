@@ -84,6 +84,10 @@ public class TableEpisode {
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
         datumColumn.getStyleClass().add("alignCenter");
 
+        final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
+        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        durationColumn.getStyleClass().add("alignCenter");
+
         final TableColumn<Episode, PFileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
         sizeColumn.setCellFactory(cellFactorySize);
@@ -111,7 +115,7 @@ public class TableEpisode {
 
         return new TableColumn[]{
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
-                startColumn, datumColumn,
+                startColumn, datumColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn
         };
     }

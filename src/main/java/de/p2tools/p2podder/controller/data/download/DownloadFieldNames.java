@@ -28,6 +28,7 @@ public class DownloadFieldNames {
     public static final String DOWNLOAD_BUTTON2 = "";
     public static final String DOWNLOAD_STATE = "Status";
     public static final String DOWNLOAD_PROGRESS = "Fortschritt";
+    public static final String DOWNLOAD_DURATION = "Dauer";
     public static final String DOWNLOAD_DESCRIPTION = "Beschreibung";
     public static final String DOWNLOAD_SIZE = "Größe";
     public static final String DOWNLOAD_DATE = "Datum";

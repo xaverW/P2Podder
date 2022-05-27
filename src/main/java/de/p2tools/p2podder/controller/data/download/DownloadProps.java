@@ -39,6 +39,7 @@ public class DownloadProps extends PDataSample<Download> {
     private final StringProperty episodeTitle = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty podcastName = new SimpleStringProperty("");
+    private final StringProperty duration = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final BooleanProperty placedBack = new SimpleBooleanProperty(false);
     private final DoubleProperty progress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
@@ -74,6 +75,7 @@ public class DownloadProps extends PDataSample<Download> {
         list.add(new ConfigStringPropExtra("genre", DownloadFieldNames.DOWNLOAD_GENRE, genre));
         list.add(new ConfigStringPropExtra("podcastName", DownloadFieldNames.DOWNLOAD_GENRE, podcastName));
 
+        list.add(new ConfigStringPropExtra("duration", DownloadFieldNames.DOWNLOAD_DURATION, duration));
         list.add(new ConfigStringPropExtra("description", DownloadFieldNames.DOWNLOAD_DESCRIPTION, description));
         list.add(new ConfigBoolPropExtra("placedBack", DownloadFieldNames.DOWNLOAD_PLACED_BACK, placedBack));
         list.add(new ConfigDoublePropExtra("progress", DownloadFieldNames.DOWNLOAD_PROGRESS, progress));
@@ -174,6 +176,26 @@ public class DownloadProps extends PDataSample<Download> {
 
     public void setPodcastName(String podcastName) {
         this.podcastName.set(podcastName);
+    }
+
+    public String getDuration() {
+        return duration.get();
+    }
+
+    public StringProperty durationProperty() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        if (!duration.contains(":")) {
+            try {
+                int dur = Integer.parseInt(duration);
+                this.duration.set(dur / 60 + ":" + dur % 60);
+            } catch (Exception e) {
+            }
+        } else {
+            this.duration.set(duration);
+        }
     }
 
     public String getDescription() {

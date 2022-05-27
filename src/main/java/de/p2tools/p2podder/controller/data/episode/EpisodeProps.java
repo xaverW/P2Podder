@@ -35,6 +35,7 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
+    private final StringProperty duration = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty fileName = new SimpleStringProperty("");
     private final StringProperty filePath = new SimpleStringProperty("");
@@ -57,6 +58,7 @@ public class EpisodeProps extends PDataSample<Episode> {
 
         list.add(new ConfigStringPropExtra("country", EpisodeFieldNames.EPISODE_COUNTRY, country));
         list.add(new ConfigStringPropExtra("language", EpisodeFieldNames.EPISODE_COUNTRY, language));
+        list.add(new ConfigStringPropExtra("duration", EpisodeFieldNames.EPISODE_DESCRIPTION, duration));
         list.add(new ConfigStringPropExtra("description", EpisodeFieldNames.EPISODE_DESCRIPTION, description));
         list.add(new ConfigStringPropExtra("fileName", EpisodeFieldNames.EPISODE_FILE_NAME, fileName));
         list.add(new ConfigStringPropExtra("filePath", EpisodeFieldNames.EPISODE_FILE_PATH, filePath));
@@ -146,6 +148,18 @@ public class EpisodeProps extends PDataSample<Episode> {
 
     public void setLanguage(String language) {
         this.language.set(language);
+    }
+
+    public String getDuration() {
+        return duration.get();
+    }
+
+    public StringProperty durationProperty() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration.set(duration);
     }
 
     public String getDescription() {

@@ -28,6 +28,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import org.jdom.Element;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -70,7 +71,15 @@ public class ParseRss {
                 String uri = syndEntry.getUri();
                 String website = syndEntry.getLink();
                 String pubDate = syndEntry.getPublishedDate().toString();
+                String duration = "";
                 SyndContent desc = syndEntry.getDescription();
+                final List<Element> foreignMarkup = (List<Element>) syndEntry.getForeignMarkup();
+                for (Element element : foreignMarkup) {
+                    if (element.getName().equals("duration")) {
+                        duration = element.getValue();
+                    }
+                }
+
                 String description = "";
                 if (desc != null) {
                     description = desc.getValue();
@@ -93,6 +102,8 @@ public class ParseRss {
 
                 Download download = new Download(uri, title, website, pubDate, description, podcast);
                 download.getPdownloadSize().setFileSize(size);
+                download.setDuration(duration);
+
                 downloads.add(download);
 //                System.out.println("author : " + author);
 //                System.out.println("Title : " + title);

@@ -28,6 +28,7 @@ public class EpisodeFieldNames {
     public static final String EPISODE_BUTTON1 = "";
     public static final String EPISODE_BUTTON2 = "";
     public static final String EPISODE_COUNTRY = "Land";
+    public static final String EPISODE_DURATION = "Dauer";
     public static final String EPISODE_DESCRIPTION = "Beschreibung";
 
     public static final String EPISODE_FILE_NAME = "Dateiname";
@@ -67,6 +68,7 @@ public class EpisodeFieldNames {
             EPISODE_GENRE,
             EPISODE_BUTTON1, EPISODE_BUTTON2,
             EPISODE_COUNTRY,
+            EPISODE_DURATION,
             EPISODE_DESCRIPTION,
 
             EPISODE_FILE_NAME,
