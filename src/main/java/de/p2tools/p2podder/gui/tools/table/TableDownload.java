@@ -67,17 +67,12 @@ public class TableDownload {
         noColumn.setCellFactory(cellFactoryNo);
         noColumn.getStyleClass().add("alignCenterLeft");
 
-//        final TableColumn<Download, Integer> podIdColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_PODCAST_ID);
-//        podIdColumn.setCellValueFactory(new PropertyValueFactory<>("podcastId"));
-//        podIdColumn.getStyleClass().add("alignCenterLeft");
-//
         final TableColumn<Download, String> genreColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Download, Long> podcastNameColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_PODCAST_NAME);
         podcastNameColumn.setCellValueFactory(new PropertyValueFactory<>("podcastName"));
-//        podcastNameColumn.setCellFactory(cellFactoryPodcast);
         podcastNameColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Download, String> titleColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE);
@@ -107,6 +102,10 @@ public class TableDownload {
         pdownloadSizeColumn.setCellFactory(cellFactorySize);
         pdownloadSizeColumn.getStyleClass().add("alignCenter");
 
+        final TableColumn<Download, String> durationColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DURATION);
+        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        durationColumn.getStyleClass().add("alignCenter");
+
         final TableColumn<Download, PDate> datumColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
         datumColumn.getStyleClass().add("alignCenter");
@@ -131,7 +130,7 @@ public class TableDownload {
         remainingColumn.setPrefWidth(120);
         speedColumn.setPrefWidth(100);
         pdownloadSizeColumn.setPrefWidth(100);
-        datumColumn.setPrefWidth(120);
+//        datumColumn.setPrefWidth(120);
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(250);
         urlColumn.setPrefWidth(350);
@@ -141,7 +140,7 @@ public class TableDownload {
         return new TableColumn[]{
                 noColumn, genreColumn, podcastNameColumn, titleColumn,
                 startColumn, progressColumn, remainingColumn, speedColumn,
-                pdownloadSizeColumn, datumColumn, fileColumn, pathColumn, urlColumn
+                pdownloadSizeColumn, durationColumn, datumColumn, fileColumn, pathColumn, urlColumn
         };
     }
 

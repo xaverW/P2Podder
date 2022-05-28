@@ -83,6 +83,8 @@ public class TablePodcast {
         nrColumn.setPrefWidth(50);
         nameColumn.setPrefWidth(150);
         genreColumn.setPrefWidth(120);
+        websiteColumn.setPrefWidth(350);
+        urlColumn.setPrefWidth(350);
 
         addRowFact(table);
 
