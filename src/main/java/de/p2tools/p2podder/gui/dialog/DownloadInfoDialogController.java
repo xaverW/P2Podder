@@ -78,43 +78,56 @@ public class DownloadInfoDialogController extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
+        gridAdd(DownloadFieldNames.DOWNLOAD_NO, download.getNo() + "", row);
 
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_NO + ":"), 0, row);
-        gridPane.add(new Label(download.getNo() + ""), 1, row);
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE + ":"), 0, row);
-        gridPane.add(new Label(download.getEpisodeTitle()), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE, download.getEpisodeTitle(), row);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_GENRE + ":"), 0, row);
-        gridPane.add(new Label(download.getGenre()), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_GENRE, download.getGenre(), row);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_PODCAST_NAME + ":"), 0, row);
-        gridPane.add(new Label(download.getPodcastName()), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_PODCAST_NAME, download.getPodcastName(), row);
+
         ++row;
         TextArea taDescription = new TextArea();
         taDescription.setEditable(false);
         taDescription.setText(download.getDescription());
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DESCRIPTION + ":"), 0, row);
-        gridPane.add(taDescription, 1, row);
+        gridPane.add(taDescription, 1, row, 3, 1);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_SIZE + ":"), 0, row);
-        gridPane.add(new Label(download.getPdownloadSize().getFileSize() + ""), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, download.getPdownloadSize().getSizeString() + " MB",
+                DownloadFieldNames.DOWNLOAD_DURATION, download.getDuration(), row);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME + ":"), 0, row);
-        gridPane.add(new Label(download.getDestFileName()), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, download.getDestFileName(), row);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DEST_PATH + ":"), 0, row);
-        gridPane.add(new Label(download.getDestPath()), 1, row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_PATH, download.getDestPath(), row);
+
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_URL + ":"), 0, row);
-        gridPane.add(new PHyperlink(download.getEpisodeUrl()), 1, row);
+        gridPane.add(new PHyperlink(download.getEpisodeUrl()), 1, row, 3, 1);
+
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_WEBSITE + ":"), 0, row);
-        gridPane.add(new PHyperlink(download.getEpisodeWebsite()), 1, row);
+        gridPane.add(new PHyperlink(download.getEpisodeWebsite()), 1, row, 3, 1);
+
         ++row;
-        gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DATE + ":"), 0, row);
-        gridPane.add(new Label(download.getPubDate().toString()), 1, row);
-        ++row;
+        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, download.getPubDate().toString(), row);
+    }
+
+    private void gridAdd(String name, String value, int row) {
+        gridPane.add(new Label(name + ":"), 0, row);
+        gridPane.add(new Label(value), 1, row, 3, 1);
+    }
+
+    private void gridAdd(String name1, String value1, String name2, String value2, int row) {
+        gridPane.add(new Label(name1 + ":"), 0, row);
+        gridPane.add(new Label(value1), 1, row);
+        gridPane.add(new Label(name2 + ":"), 2, row);
+        gridPane.add(new Label(value2), 3, row);
     }
 
     private void initButton() {

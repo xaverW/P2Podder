@@ -194,6 +194,9 @@ public class DownloadProps extends PDataSample<Download> {
             } catch (Exception e) {
             }
         } else {
+            if (duration.startsWith("00:")) {
+                duration = duration.replaceFirst("00:", "");
+            }
             this.duration.set(duration);
         }
     }
