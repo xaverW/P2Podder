@@ -33,6 +33,8 @@ import org.jdom.Element;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ParseRss {
 
@@ -116,14 +118,33 @@ public class ParseRss {
         }
     }
 
+    //<img src="https://assets.2" alt="Di+" title="Die Frt+++" width="144" height="81" border="0" align="left" hspace="4" vspace="4"/>
+    //<a title="" href="https://podcast-mp3.dradio.de/podcast/2022/05/27/china_und_die_deutsche_wirtschaft_dlf_20220527_1700_9edfa0d3.mp3"></a>
+    //<p></p>
+
+    static final Pattern pImg = Pattern.compile("<img[^>]*src=\"[^\"]*\"[^>]*>", Pattern.CASE_INSENSITIVE);
+
     private static String cleanDescription(String description) {
-        String ret = description.replaceAll("<br/>", P2LibConst.LINE_SEPARATOR);
+        String ret = description;
+
+        Matcher m = pImg.matcher(ret);
+        while (m.find()) {
+            ret = m.replaceAll("");
+        }
+
+        ret = ret.replaceAll("<br/>", P2LibConst.LINE_SEPARATOR);
         ret = ret.replaceAll("<br />", P2LibConst.LINE_SEPARATOR);
         ret = ret.replaceAll("<BR/>", P2LibConst.LINE_SEPARATOR);
         ret = ret.replaceAll("<BR />", P2LibConst.LINE_SEPARATOR);
-
-//        ret = ret.replaceAll("<img([*]*)>", "");
+        ret = ret.replaceAll("<p>", "");
+        ret = ret.replaceAll("</p>", "");
+        ret = ret.replaceAll("Direkter Link zur Audiodatei", "");
         ret = ret.replaceAll("\\<.*?>", "");
+
+        while (ret.startsWith(P2LibConst.LINE_SEPARATOR)) {
+            ret = ret.replaceFirst(P2LibConst.LINE_SEPARATOR, "");
+        }
+        ret = ret.trim();
         return ret;
     }
 }

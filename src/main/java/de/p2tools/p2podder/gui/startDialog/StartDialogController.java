@@ -40,7 +40,8 @@ public class StartDialogController extends PDialogExtra {
     private StackPane stackpane;
     private Button btnOk, btnCancel;
     private Button btnPrev, btnNext;
-    private Button btnStart1 = new Button(STR_START),
+    private Button btnDescription = new Button(STR_START),
+            btnStart1 = new Button(STR_START),
             btnStart2 = new Button(STR_START),
             btnStart3 = new Button(STR_START),
             btnConfig = new Button(STR_CONFIG);
@@ -48,15 +49,17 @@ public class StartDialogController extends PDialogExtra {
     private static final String STR_START = "Infos";
     private static final String STR_CONFIG = "Einstellungen";
 
-    private enum State {START_1, START_2, START_3, CONFIG}
+    private enum State {START_DESCRIPTION, START_1, START_2, START_3, CONFIG}
 
-    private State aktState = State.START_1;
+    private State aktState = State.START_DESCRIPTION;
 
+    private TitledPane tStartDescription;
     private TitledPane tStart1;
     private TitledPane tStart2;
     private TitledPane tStart3;
     private TitledPane tConfig;
 
+    private StartPane startDescription;
     private StartPane startPane1;
     private StartPane startPane2;
     private StartPane startPane3;
@@ -82,6 +85,7 @@ public class StartDialogController extends PDialogExtra {
 
     private void closeDialog(boolean ok) {
         this.ok = ok;
+        startDescription.close();
         startPane1.close();
         startPane2.close();
         startPane3.close();
@@ -95,12 +99,13 @@ public class StartDialogController extends PDialogExtra {
 
     private void initTopButton() {
         getvBoxCont().getChildren().add(tilePane);
-        tilePane.getChildren().addAll(btnStart1, btnStart2, btnStart3, btnConfig);
+        tilePane.getChildren().addAll(btnDescription, btnStart1, btnStart2, btnStart3, btnConfig);
         tilePane.setAlignment(Pos.CENTER);
         tilePane.setPadding(new Insets(10, 10, 20, 10));
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
+        setButton(btnDescription, State.START_DESCRIPTION);
         setButton(btnStart1, State.START_1);
         setButton(btnStart2, State.START_2);
         setButton(btnStart3, State.START_3);
@@ -120,6 +125,12 @@ public class StartDialogController extends PDialogExtra {
         stackpane = new StackPane();
         VBox.setVgrow(stackpane, Priority.ALWAYS);
         getvBoxCont().getChildren().add(stackpane);
+
+        //description
+        startDescription = new StartPane(getStage());
+        tStartDescription = startDescription.makeDescription();
+        tStartDescription.setMaxHeight(Double.MAX_VALUE);
+        tStartDescription.setCollapsible(false);
 
         //startPane 1
         startPane1 = new StartPane(getStage());
@@ -145,7 +156,7 @@ public class StartDialogController extends PDialogExtra {
         tConfig.setMaxHeight(Double.MAX_VALUE);
         tConfig.setCollapsible(false);
 
-        stackpane.getChildren().addAll(tStart1, tStart2, tStart3, tConfig);
+        stackpane.getChildren().addAll(tStartDescription, tStart1, tStart2, tStart3, tConfig);
     }
 
     private void initButton() {
@@ -161,6 +172,9 @@ public class StartDialogController extends PDialogExtra {
         btnNext = PButton.getButton(new ProgIcons().ICON_BUTTON_NEXT, "nächste Seite");
         btnNext.setOnAction(event -> {
             switch (aktState) {
+                case START_DESCRIPTION:
+                    aktState = State.START_1;
+                    break;
                 case START_1:
                     aktState = State.START_2;
                     break;
@@ -178,7 +192,10 @@ public class StartDialogController extends PDialogExtra {
         btnPrev = PButton.getButton(new ProgIcons().ICON_BUTTON_PREV, "vorherige Seite");
         btnPrev.setOnAction(event -> {
             switch (aktState) {
+                case START_DESCRIPTION:
+                    break;
                 case START_1:
+                    aktState = State.START_DESCRIPTION;
                     break;
                 case START_2:
                     aktState = State.START_1;
@@ -208,8 +225,14 @@ public class StartDialogController extends PDialogExtra {
 
     private void selectActPane() {
         switch (aktState) {
-            case START_1:
+            case START_DESCRIPTION:
                 btnPrev.setDisable(true);
+                btnNext.setDisable(false);
+                tStartDescription.toFront();
+                setButtonStyle(btnDescription);
+                break;
+            case START_1:
+                btnPrev.setDisable(false);
                 btnNext.setDisable(false);
                 tStart1.toFront();
                 setButtonStyle(btnStart1);
@@ -239,6 +262,7 @@ public class StartDialogController extends PDialogExtra {
     }
 
     private void setButtonStyle(Button btnSel) {
+        btnDescription.getStyleClass().retainAll("btnStartDialog");
         btnStart1.getStyleClass().retainAll("btnStartDialog");
         btnStart2.getStyleClass().retainAll("btnStartDialog");
         btnStart3.getStyleClass().retainAll("btnStartDialog");
@@ -247,6 +271,7 @@ public class StartDialogController extends PDialogExtra {
     }
 
     private void initTooltip() {
+        btnDescription.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart1.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart2.setTooltip(new Tooltip("Infos über das Programm"));
         btnStart3.setTooltip(new Tooltip("Infos über das Programm"));

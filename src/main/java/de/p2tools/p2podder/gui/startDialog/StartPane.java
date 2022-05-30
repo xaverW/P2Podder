@@ -36,6 +36,41 @@ public class StartPane {
     public void close() {
     }
 
+    public TitledPane makeDescription() {
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(25);
+        hBox.setPadding(new Insets(20));
+
+        ImageView iv = new ImageView();
+        Image im = getImageDescription();
+        iv.setSmooth(true);
+        iv.setImage(im);
+
+        Label text = new Label("" +
+                "1) Podcasts" + P2LibConst.LINE_SEPARATOR +
+                "Ein Podcast ist eine Serie von meist " + P2LibConst.LINE_SEPARATOR +
+                "abonnierbaren Mediendateien " + P2LibConst.LINE_SEPARATOR +
+                "(Audio oder Video) im Internet." + P2LibConst.LINE_SEPARATOR +
+                "Hier werden alle abonnierten Podcasts" + P2LibConst.LINE_SEPARATOR +
+                "angezeigt." + P2LibConst.LINE_SEPARATORx2 +
+
+                "2) Episoden" + P2LibConst.LINE_SEPARATOR +
+                "Das sind die einzelnen \"Sendungen\" " + P2LibConst.LINE_SEPARATOR +
+                "eines Podcasts. Alle gespeicherten Episoden " + P2LibConst.LINE_SEPARATOR +
+                "sind hier gelistet." + P2LibConst.LINE_SEPARATORx2 +
+
+                "3) Downloads" + P2LibConst.LINE_SEPARATOR +
+                "Hier werden die Episoden die " + P2LibConst.LINE_SEPARATOR +
+                "geladen werden können (und noch nicht " + P2LibConst.LINE_SEPARATOR +
+                "geladen wurden) angezeigt." +
+                "");
+
+        hBox.getChildren().addAll(iv, text);
+        TitledPane tpConfig = new TitledPane("Was ist was?", hBox);
+        return tpConfig;
+    }
+
     public TitledPane makeStart1() {
 
         HBox hBox = new HBox();
@@ -43,7 +78,7 @@ public class StartPane {
         hBox.setPadding(new Insets(20));
 
         ImageView iv = new ImageView();
-        Image im = getHelpScreen1();
+        Image im = getImageHelpScreen1();
         iv.setSmooth(true);
         iv.setImage(im);
 
@@ -87,7 +122,7 @@ public class StartPane {
         hBox.setPadding(new Insets(20));
 
         ImageView iv = new ImageView();
-        Image im = getHelpScreen2();
+        Image im = getImageHelpScreen2();
         iv.setSmooth(true);
         iv.setImage(im);
 
@@ -115,7 +150,7 @@ public class StartPane {
         hBox.setPadding(new Insets(20));
 
         ImageView iv = new ImageView();
-        Image im = getHelpScreen3();
+        Image im = getImageHelpScreen3();
         iv.setSmooth(true);
         iv.setImage(im);
 
@@ -141,17 +176,22 @@ public class StartPane {
         return tpConfig;
     }
 
-    private javafx.scene.image.Image getHelpScreen1() {
+    private javafx.scene.image.Image getImageDescription() {
+        final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-description.png";
+        return new Image(path, 600, 600, true, true);
+    }
+
+    private javafx.scene.image.Image getImageHelpScreen1() {
         final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-1.png";
         return new Image(path, 600, 600, true, true);
     }
 
-    private javafx.scene.image.Image getHelpScreen2() {
+    private javafx.scene.image.Image getImageHelpScreen2() {
         final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-2.png";
         return new Image(path, 600, 600, true, true);
     }
 
-    private javafx.scene.image.Image getHelpScreen3() {
+    private javafx.scene.image.Image getImageHelpScreen3() {
         final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-3.png";
         return new Image(path, 600, 600, true, true);
     }
