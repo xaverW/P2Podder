@@ -28,6 +28,7 @@ import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -109,6 +110,7 @@ public class ConfigPane {
         gridPane.add(btnFile, 1, row);
         gridPane.add(btnReset, 2, row);
         gridPane.add(btnHelp, 3, row);
+        GridPane.setHalignment(btnReset, HPos.RIGHT);
     }
 
     private void makeVLCPath() {
@@ -156,6 +158,8 @@ public class ConfigPane {
         gridPane.add(txtPlayer, 0, ++row);
         gridPane.add(btnFile, 1, row);
         gridPane.add(btnFind, 2, row);
+        GridPane.setHalignment(btnFind, HPos.RIGHT);
+
         gridPane.add(btnHelp, 3, row);
         gridPane.add(hBox, 0, ++row, 3, 1);
     }
@@ -175,7 +179,9 @@ public class ConfigPane {
         gridPane.add(new Label(" "), 2, ++row);
         gridPane.add(new Label(" "), 2, ++row);
         gridPane.add(text, 0, row);
-        gridPane.add(tglSearch, 0, ++row, 2, 1);
+        gridPane.add(tglSearch, 0, ++row, 3, 1);
+        GridPane.setHalignment(tglSearch, HPos.RIGHT);
+
         gridPane.add(btnHelp, 3, row);
     }
 }

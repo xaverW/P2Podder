@@ -56,14 +56,14 @@ public class StartPane {
                 "angezeigt." + P2LibConst.LINE_SEPARATORx2 +
 
                 "2) Episoden" + P2LibConst.LINE_SEPARATOR +
-                "Das sind die einzelnen \"Sendungen\" " + P2LibConst.LINE_SEPARATOR +
-                "eines Podcasts. Alle gespeicherten Episoden " + P2LibConst.LINE_SEPARATOR +
-                "sind hier gelistet." + P2LibConst.LINE_SEPARATORx2 +
+                "Das sind die einzelnen \"Folgen\" " + P2LibConst.LINE_SEPARATOR +
+                "eines Podcasts. Alle gespeicherten " + P2LibConst.LINE_SEPARATOR +
+                "Episoden sind hier gelistet." + P2LibConst.LINE_SEPARATORx2 +
 
                 "3) Downloads" + P2LibConst.LINE_SEPARATOR +
-                "Hier werden die Episoden die " + P2LibConst.LINE_SEPARATOR +
+                "Hier werden die neuen Episoden die " + P2LibConst.LINE_SEPARATOR +
                 "geladen werden können (und noch nicht " + P2LibConst.LINE_SEPARATOR +
-                "geladen wurden) angezeigt." +
+                "gespeichert wurden) angezeigt." +
                 "");
 
         hBox.getChildren().addAll(iv, text);
@@ -160,12 +160,12 @@ public class StartPane {
                 "gefiltert werden." +
                 P2LibConst.LINE_SEPARATORx2 +
 
-                "2) Hier werden die Downloads" + P2LibConst.LINE_SEPARATOR +
-                "gestartet (einzeln oder alle)." +
+                "2) Hier wird der Zielordner" + P2LibConst.LINE_SEPARATOR +
+                "der Episoden geöffnet." +
                 P2LibConst.LINE_SEPARATORx2 +
 
-                "3) Hier wird der Zielordner" + P2LibConst.LINE_SEPARATOR +
-                "der Episoden geöffnet." +
+                "3) Hier werden die Downloads" + P2LibConst.LINE_SEPARATOR +
+                "gestartet (einzeln oder alle)." +
                 P2LibConst.LINE_SEPARATORx2 +
 
                 "4) Hier können Downloads gestoppt," + P2LibConst.LINE_SEPARATOR +
