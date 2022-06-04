@@ -28,7 +28,6 @@ import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
-import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,20 +40,16 @@ import javafx.util.Callback;
 public class TableEpisode {
 
     private final ProgData progData;
-    private final BooleanProperty geoMelden;
-    private final BooleanProperty small;
 
     public TableEpisode(ProgData progData) {
         this.progData = progData;
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE;
     }
 
     public TableColumn[] initEpisodeColumn(TableView table) {
         table.getColumns().clear();
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE.addListener((observableValue, s, t1) -> Table.refresh_table(table));
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
         ProgColorList.EPISODE_RUN.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
         ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
@@ -248,10 +243,7 @@ public class TableEpisode {
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
-                    if (small.get()) {
-                        btnStop.setMinHeight(18);
-                        btnStop.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnStop);
                     hbox.getChildren().add(btnStop);
 
                 } else if (set) {
@@ -266,10 +258,7 @@ public class TableEpisode {
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
-                    if (small.get()) {
-                        cboSet.setMinHeight(18);
-                        cboSet.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(cboSet);
                     hbox.getChildren().add(cboSet);
 
                 } else {
@@ -284,10 +273,7 @@ public class TableEpisode {
                         getTableView().getSelectionModel().select(getIndex());
                     });
 
-                    if (small.get()) {
-                        btnPlay.setMinHeight(18);
-                        btnPlay.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnPlay);
                     hbox.getChildren().add(btnPlay);
                 }
 
@@ -299,10 +285,7 @@ public class TableEpisode {
                     EpisodeFactory.delEpisode(episode);
                 });
 
-                if (small.get()) {
-                    btnDel.setMinHeight(18);
-                    btnDel.setMaxHeight(18);
-                }
+                Table.setButtonSize(btnDel);
                 hbox.getChildren().add(btnDel);
 
                 setGraphic(hbox);
@@ -329,11 +312,6 @@ public class TableEpisode {
         if (!error && !playing && history) {
             currentRow.setStyle(ProgColorList.EPISODE_HISTORY.getCssBackgroundAndSel());
         }
-//        if (isNew) {
-////            currentRow.getChildren().stream().forEach(c -> c.setStyle(ProgColorList.EPISODE_NEW.getCssFont()));
-//            cell.setStyle(ProgColorList.EPISODE_NEW.getCssFont());
-//            currentRow.setStyle(ProgColorList.EPISODE_NEW.getCssFont());
-//        }
     }
 
     private Callback<TableColumn<Episode, Integer>, TableCell<Episode, Integer>> cellFactoryNo

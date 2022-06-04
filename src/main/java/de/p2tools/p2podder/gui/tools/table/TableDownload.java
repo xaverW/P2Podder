@@ -28,7 +28,6 @@ import de.p2tools.p2podder.controller.data.download.DownloadConstants;
 import de.p2tools.p2podder.controller.data.download.DownloadFieldNames;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
-import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,20 +44,16 @@ import java.util.List;
 public class TableDownload {
 
     private final ProgData progData;
-    private final BooleanProperty geoMelden;
-    private final BooleanProperty small;
 
     public TableDownload(ProgData progData) {
         this.progData = progData;
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE;
     }
 
     public TableColumn[] initDownloadColumn(TableView table) {
         table.getColumns().clear();
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> table.refresh());
         ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
@@ -220,14 +215,9 @@ public class TableDownload {
                         DownloadListStartStopFactory.delDownloads(download);
                     });
 
-                    if (small.get()) {
-                        btnDownStart.setMinHeight(18);
-                        btnDownStart.setMaxHeight(18);
-                        btnDownBack.setMinHeight(18);
-                        btnDownBack.setMaxHeight(18);
-                        btnDownDel.setMinHeight(18);
-                        btnDownDel.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnDownStart);
+                    Table.setButtonSize(btnDownBack);
+                    Table.setButtonSize(btnDownDel);
                     hbox.getChildren().addAll(btnDownStart, btnDownBack, btnDownDel);
                     setGraphic(hbox);
 
@@ -248,12 +238,8 @@ public class TableDownload {
                         DownloadListStartStopFactory.delDownloads(download);
                     });
 
-                    if (small.get()) {
-                        btnDownStop.setMinHeight(18);
-                        btnDownStop.setMaxHeight(18);
-                        btnDownDel.setMinHeight(18);
-                        btnDownDel.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnDownStop);
+                    Table.setButtonSize(btnDownDel);
                     hbox.getChildren().addAll(btnDownStop, btnDownDel);
                     setGraphic(hbox);
 
@@ -266,10 +252,7 @@ public class TableDownload {
                         POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, new ProgIcons().ICON_BUTTON_FILE_OPEN);
                     });
 
-                    if (small.get()) {
-                        btnOpenDirectory.setMinHeight(18);
-                        btnOpenDirectory.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnOpenDirectory);
                     hbox.getChildren().addAll(btnOpenDirectory);
                     setGraphic(hbox);
 
@@ -292,12 +275,8 @@ public class TableDownload {
                         DownloadListStartStopFactory.delDownloads(download);
                     });
 
-                    if (small.get()) {
-                        btnDownStart.setMinHeight(18);
-                        btnDownStart.setMaxHeight(18);
-                        btnDownDel.setMinHeight(18);
-                        btnDownDel.setMaxHeight(18);
-                    }
+                    Table.setButtonSize(btnDownStart);
+                    Table.setButtonSize(btnDownDel);
                     hbox.getChildren().addAll(btnDownStart, btnDownDel);
                     setGraphic(hbox);
 

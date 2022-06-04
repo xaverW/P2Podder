@@ -191,7 +191,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.DOWNOAD);
+        new Table().saveTable(tableView, Table.TABLE.DOWNLOAD);
     }
 
     public ArrayList<Download> getSelList() {
@@ -255,7 +255,7 @@ public class DownloadGuiController extends AnchorPane {
         tableView.setEditable(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.DOWNOAD);
+        new Table().setTable(tableView, Table.TABLE.DOWNLOAD);
         tableView.setItems(progData.downloadList.getSortedList());
         progData.downloadList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());
 

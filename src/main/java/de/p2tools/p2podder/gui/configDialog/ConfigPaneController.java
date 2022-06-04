@@ -41,6 +41,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -64,14 +65,10 @@ public class ConfigPaneController extends PAccordionPane {
     StringProperty propUrl = ProgConfig.SYSTEM_PROG_OPEN_URL;
     BooleanProperty propLog = ProgConfig.SYSTEM_LOG_ON;
     StringProperty propLogDir = ProgConfig.SYSTEM_LOG_DIR;
-    BooleanProperty propSizePodcast = ProgConfig.SYSTEM_SMALL_ROW_TABLE_PODCAST;
-    BooleanProperty propSizeEpisode = ProgConfig.SYSTEM_SMALL_ROW_TABLE_EPISODE;
-    BooleanProperty propLoadStationList = ProgConfig.SYSTEM_LOAD_STATION_LIST_EVERY_DAYS;
 
-    private final PToggleSwitch tglSmallEpisode = new PToggleSwitch("In der Tabelle \"Episoden\" nur kleine Button anzeigen:");
-    private final PToggleSwitch tglSmallPodcast = new PToggleSwitch("In der Tabelle \"Podcast\" nur kleine Button anzeigen:");
-    private final PToggleSwitch tglLoadStationList = new PToggleSwitch("Die Podcasts automatisch alle " +
-            ProgConst.LOAD_PODCASTS_EVERY_DAYS + " Tage aktualisieren");
+    private final PToggleSwitch tglUpdatePodcastDaily = new PToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
+    private final PToggleSwitch tglStartDownload = new PToggleSwitch("und den Download der Episoden gleich starten");
+    private final PToggleSwitch tglSmallButton = new PToggleSwitch("In den Tabellen nur kleine Buttons anzeigen:");
 
     private TextField txtUserAgent;
     private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");
@@ -98,16 +95,6 @@ public class ConfigPaneController extends PAccordionPane {
         colorPane.close();
         shortcutPane.close();
         stylePane.close();
-        tglSmallPodcast.selectedProperty().unbindBidirectional(propSizePodcast);
-        tglSmallEpisode.selectedProperty().unbindBidirectional(propSizeEpisode);
-        tglLoadStationList.selectedProperty().unbindBidirectional(propLoadStationList);
-        txtUserAgent.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
-        tglEnableLog.selectedProperty().unbindBidirectional(propLog);
-        txtLogFile.textProperty().unbindBidirectional(propLogDir);
-        txtFileManagerWeb.textProperty().unbindBidirectional(propUrl);
-        tglSearch.selectedProperty().unbindBidirectional(propUpdateSearch);
-        tglSearchBeta.selectedProperty().unbindBidirectional(propUpdateBetaSearch);
-        chkDaily.selectedProperty().unbindBidirectional(propUpdateDailySearch);
     }
 
     public Collection<TitledPane> createPanes() {
@@ -137,10 +124,16 @@ public class ConfigPaneController extends PAccordionPane {
         TitledPane tpConfig = new TitledPane("Allgemein", gridPane);
         result.add(tpConfig);
 
-        tglSmallPodcast.selectedProperty().bindBidirectional(propSizePodcast);
-        tglSmallEpisode.selectedProperty().bindBidirectional(propSizeEpisode);
-        tglLoadStationList.selectedProperty().bindBidirectional(propLoadStationList);
-        final Button btnHelpLoadStationList = PButton.helpButton(stage, "Liste der Podcasts aktualisieren",
+        tglSmallButton.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW);
+        tglUpdatePodcastDaily.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY);
+        tglStartDownload.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_START_DAILY_DOWNLOAD);
+        tglStartDownload.disableProperty().bind(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.not());
+        tglUpdatePodcastDaily.selectedProperty().addListener((u, o, n) -> {
+            if (!tglUpdatePodcastDaily.isSelected()) {
+                tglStartDownload.setSelected(false);
+            }
+        });
+        final Button btnHelpLoadStationList = PButton.helpButton(stage, "Nach neuen Episoden suchen",
                 HelpText.LOAD_PODCASTS_EVERY_DAYS);
         final Button btnHelpSize = PButton.helpButton(stage, "Nur kleine Button anzeigen",
                 HelpText.SMALL_BUTTON);
@@ -181,13 +174,17 @@ public class ConfigPaneController extends PAccordionPane {
 
 
         int row = 0;
-        gridPane.add(tglLoadStationList, 0, ++row, 2, 1);
+        gridPane.add(tglUpdatePodcastDaily, 0, ++row, 2, 1);
         gridPane.add(btnHelpLoadStationList, 2, row);
 
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(new Label("    "), tglStartDownload);
+        HBox.setHgrow(tglStartDownload, Priority.ALWAYS);
+        gridPane.add(hBox, 0, ++row, 2, 1);
+
         gridPane.add(new Label(" "), 0, ++row);
-        gridPane.add(tglSmallPodcast, 0, ++row, 2, 1);
+        gridPane.add(tglSmallButton, 0, ++row, 2, 1);
         gridPane.add(btnHelpSize, 2, row);
-        gridPane.add(tglSmallEpisode, 0, ++row, 2, 1);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(new Label(" "), 0, ++row);

@@ -22,7 +22,6 @@ public class ProgConst {
     public static final String USER_AGENT_DEFAULT = PROGRAM_NAME;
     public static final int MAX_USER_AGENT_SIZE = 100;
     public static final int SYSTEM_UPDATE_SATE = 0;
-    public static final int LOAD_PODCASTS_EVERY_DAYS = 7;
 
     // settings file
     public static final String CONFIG_FILE = "p2podder.xml";
@@ -78,5 +77,5 @@ public class ProgConst {
     public static final int FILTER_TIME_RANGE_MIN_VALUE = 0;
     public static final int FILTER_TIME_RANGE_MAX_VALUE = 50;
 
-
+    public static final int TABLE_SMALL_BUTTON = 18;
 }

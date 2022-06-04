@@ -18,15 +18,17 @@ package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class Table {
-    public static enum TABLE {
-        EPISODE, PODCAST, DOWNOAD
+    public enum TABLE {
+        EPISODE, PODCAST, DOWNLOAD
     }
 
     private static final String SORT_ASCENDING = "ASCENDING";
@@ -47,95 +49,17 @@ public class Table {
     private StringProperty confVis; //Spalte ist sichtbar
     private StringProperty confOrder; //"Reihenfolge" der Spalten
 
+    public static void setButtonSize(Control btn) {
+        if (ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.get()) {
+            btn.setMinHeight(ProgConst.TABLE_SMALL_BUTTON);
+            btn.setMaxHeight(ProgConst.TABLE_SMALL_BUTTON);
+        }
+    }
+    
     public static void refresh_table(TableView table) {
         for (int i = 0; i < table.getColumns().size(); i++) {
             ((TableColumn) (table.getColumns().get(i))).setVisible(false);
             ((TableColumn) (table.getColumns().get(i))).setVisible(true);
-        }
-    }
-
-    private void initConf(TABLE eTable) {
-        switch (eTable) {
-            case EPISODE:
-                confWidth = ProgConfig.EPISODE_GUI_TABLE_WIDTH;
-                confSort = ProgConfig.EPISODE_GUI_TABLE_SORT;
-                confUpDown = ProgConfig.EPISODE_GUI_TABLE_UP_DOWN;
-                confVis = ProgConfig.EPISODE_GUI_TABLE_VIS;
-                confOrder = ProgConfig.EPISODE_GUI_TABLE_ORDER;
-                break;
-
-            case PODCAST:
-                confWidth = ProgConfig.PODCAST_GUI_TABLE_WIDTH;
-                confSort = ProgConfig.PODCAST_GUI_TABLE_SORT;
-                confUpDown = ProgConfig.PODCAST_GUI_TABLE_UP_DOWN;
-                confVis = ProgConfig.PODCAST_GUI_TABLE_VIS;
-                confOrder = ProgConfig.PODCAST_GUI_TABLE_ORDER;
-                break;
-
-            case DOWNOAD:
-                confWidth = ProgConfig.DOWNLOAD_GUI_TABLE_WIDTH;
-                confSort = ProgConfig.DOWNLOAD_GUI_TABLE_SORT;
-                confUpDown = ProgConfig.DOWNLOAD_GUI_TABLE_UP_DOWN;
-                confVis = ProgConfig.DOWNLOAD_GUI_TABLE_VIS;
-                confOrder = ProgConfig.DOWNLOAD_GUI_TABLE_ORDER;
-                break;
-        }
-    }
-
-    private void initColumn(TABLE eTable, TableView<Data> table) {
-//        table.setTooltip(new Tooltip("In der Tabelle können mit dem \"+\"-Button\n" +
-//                "Spalten ein- und ausgeblendet werden." + PConst.LINE_SEPARATOR +
-//                "Mit einem Klick auf den Titel einer Spalte" + PConst.LINE_SEPARATOR +
-//                "wird die Tabelle nach der Spalte sortiert"));
-
-        TableColumn[] tArray;
-        switch (eTable) {
-            case PODCAST:
-                tArray = new TablePodcast(ProgData.getInstance()).initStationColumn(table);
-                break;
-            case DOWNOAD:
-                tArray = new TableDownload(ProgData.getInstance()).initDownloadColumn(table);
-                break;
-            case EPISODE:
-            default:
-                tArray = new TableEpisode(ProgData.getInstance()).initEpisodeColumn(table);
-                break;
-        }
-
-        final String order = confOrder.get();
-        String[] arOrder = order.split(",");
-
-        if (confOrder.get().isEmpty() || arOrder.length != tArray.length) {
-            // dann gibts keine Einstellungen oder die Anzahl der Spalten hat sich geändert
-            for (TableColumn tc : tArray) {
-                table.getColumns().add(tc);
-            }
-
-        } else {
-            addColumn(arOrder, table, tArray);
-        }
-
-        table.getColumns().stream().forEach(c -> c.setSortable(true));
-        table.getColumns().stream().forEach(c -> c.setVisible(true));
-    }
-
-    private void addColumn(String[] arOrder, TableView<Data> table, TableColumn[] tArray) {
-        for (String s : arOrder) {
-            for (TableColumn tc : tArray) {
-
-                if (s.equals(tc.getText()) && !table.getColumns().contains(tc)) {
-                    table.getColumns().add(tc);
-                }
-
-            }
-        }
-
-        // Spalten deren Name sich geändert hat, wurden nicht gefunden
-        // (beim Versionswechsel kann das vorkommen)
-        for (TableColumn tc : tArray) {
-            if (!table.getColumns().contains(tc)) {
-                table.getColumns().add(tc);
-            }
         }
     }
 
@@ -176,19 +100,6 @@ public class Table {
         reset(ta, eTable);
         setTable(ta, eTable);
     }
-
-    private void reset(TableView ta, TABLE eTable) {
-        initConf(eTable);
-        maxSpalten = ta.getColumns().size();
-        switch (eTable) {
-            case PODCAST:
-            case DOWNOAD:
-            case EPISODE:
-            default:
-                resetTable();
-        }
-    }
-
 
     public void setTable(TableView ta, TABLE eTable) {
         // Tabelle setzen
@@ -240,6 +151,98 @@ public class Table {
         } catch (final Exception ex) {
             PLog.errorLog(642103218, ex.getMessage());
             reset(ta, eTable);
+        }
+    }
+
+    private void initConf(TABLE eTable) {
+        switch (eTable) {
+            case EPISODE:
+                confWidth = ProgConfig.EPISODE_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.EPISODE_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.EPISODE_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.EPISODE_GUI_TABLE_VIS;
+                confOrder = ProgConfig.EPISODE_GUI_TABLE_ORDER;
+                break;
+
+            case PODCAST:
+                confWidth = ProgConfig.PODCAST_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.PODCAST_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.PODCAST_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.PODCAST_GUI_TABLE_VIS;
+                confOrder = ProgConfig.PODCAST_GUI_TABLE_ORDER;
+                break;
+
+            case DOWNLOAD:
+                confWidth = ProgConfig.DOWNLOAD_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.DOWNLOAD_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.DOWNLOAD_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.DOWNLOAD_GUI_TABLE_VIS;
+                confOrder = ProgConfig.DOWNLOAD_GUI_TABLE_ORDER;
+                break;
+        }
+    }
+
+    private void initColumn(TABLE eTable, TableView<Data> table) {
+        TableColumn[] tArray;
+        switch (eTable) {
+            case PODCAST:
+                tArray = new TablePodcast(ProgData.getInstance()).initStationColumn(table);
+                break;
+            case DOWNLOAD:
+                tArray = new TableDownload(ProgData.getInstance()).initDownloadColumn(table);
+                break;
+            case EPISODE:
+            default:
+                tArray = new TableEpisode(ProgData.getInstance()).initEpisodeColumn(table);
+                break;
+        }
+
+        final String order = confOrder.get();
+        String[] arOrder = order.split(",");
+
+        if (confOrder.get().isEmpty() || arOrder.length != tArray.length) {
+            // dann gibts keine Einstellungen oder die Anzahl der Spalten hat sich geändert
+            for (TableColumn tc : tArray) {
+                table.getColumns().add(tc);
+            }
+
+        } else {
+            addColumn(arOrder, table, tArray);
+        }
+
+        table.getColumns().stream().forEach(c -> c.setSortable(true));
+        table.getColumns().stream().forEach(c -> c.setVisible(true));
+    }
+
+    private void addColumn(String[] arOrder, TableView<Data> table, TableColumn[] tArray) {
+        for (String s : arOrder) {
+            for (TableColumn tc : tArray) {
+
+                if (s.equals(tc.getText()) && !table.getColumns().contains(tc)) {
+                    table.getColumns().add(tc);
+                }
+
+            }
+        }
+
+        // Spalten deren Name sich geändert hat, wurden nicht gefunden
+        // (beim Versionswechsel kann das vorkommen)
+        for (TableColumn tc : tArray) {
+            if (!table.getColumns().contains(tc)) {
+                table.getColumns().add(tc);
+            }
+        }
+    }
+
+    private void reset(TableView ta, TABLE eTable) {
+        initConf(eTable);
+        maxSpalten = ta.getColumns().size();
+        switch (eTable) {
+            case PODCAST:
+            case DOWNLOAD:
+            case EPISODE:
+            default:
+                resetTable();
         }
     }
 

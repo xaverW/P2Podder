@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools;
 
 import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2podder.controller.config.ProgConst;
 
 public class HelpText {
 
@@ -101,11 +100,13 @@ public class HelpText {
             "Damit die Änderungen wirksam werden, kann ein Programmneustart notwendig sein." +
             "\n";
 
-    public static final String LOAD_PODCASTS_EVERY_DAYS = "Ist die Liste der Podcasts älter als " + ProgConst.LOAD_PODCASTS_EVERY_DAYS +
-            " Tage, wird automatisch eine neue Liste geladen." +
+    public static final String LOAD_PODCASTS_EVERY_DAYS = "Einmal am Tag (beim ersten Programmstart) werden die Podcasts nach " +
+            "neuen Episoden durchsucht. " + P2LibConst.LINE_SEPARATOR +
+            "Wenn auch vorgegeben, werden die neuen Episoden " +
+            "gleich gespeichert und in der Liste der Episoden angezeigt." +
             "\n";
 
-    public static final String SMALL_BUTTON = "In der Tabelle Episoden und Podcasts können auch " +
+    public static final String SMALL_BUTTON = "In den Tabellen (Episoden, Podcasts und Downloads) können auch " +
             "kleine Buttons angezeigt werden. Die Zeilenhöhe wird dadurch kleiner." +
             "\n";
 

@@ -24,7 +24,6 @@ import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.data.podcast.PodcastNames;
 import de.p2tools.p2podder.controller.parser.ParserThread;
-import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -36,20 +35,16 @@ import javafx.util.Callback;
 public class TablePodcast {
 
     private final ProgData progData;
-    private final BooleanProperty geoMelden;
-    private final BooleanProperty small;
 
     public TablePodcast(ProgData progData) {
         this.progData = progData;
-        geoMelden = ProgConfig.SYSTEM_MARK_GEO;
-        small = ProgConfig.SYSTEM_SMALL_ROW_TABLE_PODCAST;
     }
 
     public TableColumn[] initStationColumn(TableView table) {
         table.getColumns().clear();
 
         // bei Farbänderung der Schriftfarbe klappt es damit besser: Table.refresh_table(table)
-        ProgConfig.SYSTEM_SMALL_ROW_TABLE_PODCAST.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> table.refresh());
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
@@ -85,7 +80,6 @@ public class TablePodcast {
         genreColumn.setPrefWidth(120);
         websiteColumn.setPrefWidth(350);
         urlColumn.setPrefWidth(350);
-
         addRowFact(table);
 
         return new TableColumn[]{
@@ -101,7 +95,6 @@ public class TablePodcast {
 
                 if (podcast == null || empty) {
                     setStyle("");
-                } else {
                 }
             }
         });
@@ -137,10 +130,6 @@ public class TablePodcast {
                     new ParserThread(progData).parse(podcast);
                 });
 
-                if (small.get()) {
-                    btnUpdate.setMaxHeight(18);
-                    btnUpdate.setMinHeight(18);
-                }
                 final Button btnDel;
                 btnDel = new Button("");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
@@ -149,11 +138,8 @@ public class TablePodcast {
                     progData.podcastList.removePodcast(podcast);
                 });
 
-                if (small.get()) {
-                    btnUpdate.setMaxHeight(18);
-                    btnUpdate.setMinHeight(18);
-                }
-
+                Table.setButtonSize(btnUpdate);
+                Table.setButtonSize(btnDel);
                 hbox.getChildren().addAll(btnUpdate, btnDel);
                 setGraphic(hbox);
             }
