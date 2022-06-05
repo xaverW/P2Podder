@@ -224,13 +224,7 @@ public class DownloadStarterFactory {
             if (destFile.exists()) {
                 final long length = destFile.length();
                 if (length > 0)
-                    if (download.getPdownloadSize().getFileSize() > 0) {
-                        //nur wenn der Download schon eine Größe hatte, nicht bei m3u8!
-                        download.getPdownloadSize().setFileSize(length);
-                    } else {
-                        //bei m3u8 nur die aktSize setzen!
-                        download.getPdownloadSize().setActFileSize(length);
-                    }
+                    download.getPdownloadSize().setActFileSize(length);
             }
         } catch (
                 final Exception ex) {

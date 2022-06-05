@@ -354,8 +354,7 @@ public class TableDownload {
                 }
 
                 Download download = getTableView().getItems().get(getIndex());
-                String s = download.getPdownloadSize().getSizeString();
-                setText(s);
+                setText(download.getPdownloadSize().getActSizeString());
             }
         };
         return cell;
