@@ -48,7 +48,7 @@ public class EpisodeFilterControllerProfiles extends VBox {
     public EpisodeFilterControllerProfiles() {
         super();
         progData = ProgData.getInstance();
-        setSpacing(5);
+        setSpacing(10);
 
         initButton();
         filterProfiles();

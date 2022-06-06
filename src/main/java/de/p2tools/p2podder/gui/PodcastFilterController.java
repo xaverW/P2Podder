@@ -43,11 +43,9 @@ public class PodcastFilterController extends FilterController {
         super(ProgConfig.PODCAST_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
 
-        VBox vBoxTitle = new VBox();
-        vBoxTitle.getChildren().addAll(new Label("Name:"), txtName);
-
-        VBox vBoxUrl = new VBox();
-        vBoxUrl.getChildren().addAll(new Label("URL:"), txtUrl);
+        VBox vBoxTxt = new VBox();
+        vBoxTxt.getChildren().addAll(new Label("Name:"), txtName);
+        vBoxTxt.getChildren().addAll(new Label("URL:"), txtUrl);
 
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
@@ -56,7 +54,7 @@ public class PodcastFilterController extends FilterController {
         final VBox vBoxFilter = getVBoxTop();
         vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTitle, vBoxUrl);
+        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTxt);
 
         addButton();
         initFilter();
@@ -73,15 +71,15 @@ public class PodcastFilterController extends FilterController {
         hBoxAll.getChildren().addAll(btnClearFilter);
 
         Separator separator = new Separator();
-        separator.getStyleClass().add("pseperator1");
+        separator.getStyleClass().add("pseperator2");
 
         final VBox vBoxFilter = getVBoxTop();
-        VBox vBoxSpace = new VBox(0);
-        vBoxSpace.setPadding(new Insets(5));
-        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
+//        VBox vBoxSpace = new VBox(0);
+//        vBoxSpace.setPadding(new Insets(5));
+//        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
 
         VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(vBoxSpace, separator, hBoxAll);
+        vBox.getChildren().addAll(separator, hBoxAll);
         vBoxFilter.getChildren().add(vBox);
     }
 

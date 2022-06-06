@@ -47,27 +47,17 @@ public class EpisodeFilterController extends FilterController {
     private final Label lblTimeRange = new Label("Zeitraum:");
     private final Label lblTimeRangeValue = new Label();
 
-    EpisodeFilterControllerClearFilter clearFilter;
-    EpisodeFilterControllerProfiles profiles;
-
-
     public EpisodeFilterController() {
         super(ProgConfig.EPISODE_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
 
-        clearFilter = new EpisodeFilterControllerClearFilter();
-        profiles = new EpisodeFilterControllerProfiles();
-
+        //Tabelle
         VBox vBoxTable = new VBox();
         vBoxTable.getChildren().addAll(/*new Label("Podcast:"),*/ tableView);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         VBox.setVgrow(vBoxTable, Priority.ALWAYS);
 
-        VBox vBoxTitle = new VBox();
-        vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
-        vBoxTitle.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
-
-        // Tage
+        //Tage
         VBox vBoxTimeRange = new VBox(2);
         HBox h = new HBox();
         HBox hh = new HBox();
@@ -76,23 +66,28 @@ public class EpisodeFilterController extends FilterController {
         lblTimeRange.setMinWidth(0);
         vBoxTimeRange.getChildren().addAll(h, slTimeRange);
 
+        //Genre
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
+        //Textfelder
+        VBox vBoxTxt = new VBox();
+        vBoxTxt.getChildren().addAll(new Label("Titel:"), txtTitle);
+        vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
+
+        //Profile
+        VBox vBoxEdit = new VBox(15);
+        vBoxEdit.setPadding(new Insets(5, 0, 0, 0));
         Separator sp2 = new Separator();
         sp2.getStyleClass().add("pseperator3");
+        vBoxEdit.getChildren().addAll(new EpisodeFilterControllerClearFilter(),
+                sp2, new EpisodeFilterControllerProfiles());
+
         final VBox vBoxFilter = getVBoxTop();
-        vBoxFilter.setPadding(new Insets(0, 5, 0, 5));
-        vBoxFilter.setSpacing(5);
-        vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTitle);
-
-        VBox vBoxSpace = new VBox(0);
-        vBoxSpace.setPadding(new Insets(5));
-
-        VBox vBoxEdit = new VBox(10);
-        vBoxEdit.getChildren().addAll(vBoxSpace, clearFilter, sp2, profiles);
-        vBoxFilter.getChildren().add(vBoxEdit);
+        vBoxFilter.setPadding(new Insets(5));
+        vBoxFilter.setSpacing(15);
+        vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt, vBoxEdit);
 
         initDaysFilter();
         initTable();

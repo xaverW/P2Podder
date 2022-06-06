@@ -50,21 +50,21 @@ public class DownloadFilterController extends FilterController {
         this.progData = ProgData.getInstance();
 
         VBox vBoxTable = new VBox();
-        vBoxTable.getChildren().addAll(/*new Label("Podcast:"),*/ tableView);
+        vBoxTable.getChildren().addAll(tableView);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         VBox.setVgrow(vBoxTable, Priority.ALWAYS);
-
-        VBox vBoxTitle = new VBox();
-        vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
+        VBox vBoxTitle = new VBox();
+        vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
+
         final VBox vBoxFilter = getVBoxTop();
-        vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
+        vBoxFilter.setPadding(new Insets(5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxTable, /*vBoxTimeRange,*/ vBoxGenre, vBoxTitle);
+        vBoxFilter.getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
 
         addButton();
         initTable();
@@ -82,15 +82,15 @@ public class DownloadFilterController extends FilterController {
         hBoxAll.getChildren().addAll(btnClearFilter);
 
         Separator separator = new Separator();
-        separator.getStyleClass().add("pseperator1");
+        separator.getStyleClass().add("pseperator2");
 
         final VBox vBoxFilter = getVBoxTop();
-        VBox vBoxSpace = new VBox(0);
-        vBoxSpace.setPadding(new Insets(5));
-        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
+//        VBox vBoxSpace = new VBox(0);
+//        vBoxSpace.setPadding(new Insets(5));
+//        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
 
         VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(vBoxSpace, separator, hBoxAll);
+        vBox.getChildren().addAll(separator, hBoxAll);
         vBoxFilter.getChildren().add(vBox);
     }
 
