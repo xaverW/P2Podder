@@ -25,11 +25,14 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfos;
 import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class PodPaneController extends PAccordionPane {
     private TextField txtPodDest = new TextField();
     private PToggleSwitch tglDelFile = new PToggleSwitch("");
     private CheckBox chkAsk = new CheckBox("Vorher immer fragen");
+
     private final Stage stage;
 
     public PodPaneController(Stage stage) {
@@ -64,8 +68,8 @@ public class PodPaneController extends PAccordionPane {
 
     private void makeConfig(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
         TitledPane tpConfig = new TitledPane("Speicherordner", gridPane);
@@ -91,26 +95,39 @@ public class PodPaneController extends PAccordionPane {
             txtPodDest.setText(ProgInfos.getStandardPodDestString());
         });
 
-        tglDelFile.disableProperty().bindBidirectional(chkAsk.selectedProperty());
         tglDelFile.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE);
         chkAsk.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE_ASK);
+        chkAsk.disableProperty().bind(ProgConfig.SYSTEM_DELETE_EPISODE_FILE.not());
+
+
+        final Button btnCleanHelp = PButton.helpButton(stage, "Speicherordner aufräumen", HelpText.DEST_DIR_CLEAN);
+        Button btnClean = new Button("Aufräumen");
+        btnClean.setTooltip(new Tooltip("Dateien ohne entsprechende Episode löschen."));
+        btnClean.setOnAction(a -> DownloadFactory.cleanUpDownloadDir());
 
         int row = 0;
         gridPane.add(new Label("Ordner:"), 0, ++row);
         gridPane.add(txtPodDest, 1, row);
-        gridPane.add(btnFile, 2, row);
-        gridPane.add(btnReset, 3, row);
-        gridPane.add(btnHelp, 4, row);
+        HBox hBox = new HBox(10);
+        hBox.getChildren().addAll(btnFile, btnReset);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        gridPane.add(hBox, 2, row);
+        gridPane.add(btnHelp, 3, row);
         gridPane.add(new Label(), 0, ++row);
 
-        gridPane.add(new Label("Bei gelöschten Episoden auch die zugehörige Datei löschen"), 0, ++row, 2, 1);
-        gridPane.add(tglDelFile, 2, row, 3, 1);
+        gridPane.add(new Label("Beim Löschen von Episoden auch die zugehörige Datei löschen"), 0, ++row, 2, 1);
+        gridPane.add(tglDelFile, 2, row, 2, 1);
         gridPane.add(chkAsk, 1, ++row);
-
         GridPane.setHalignment(tglDelFile, HPos.RIGHT);
+        gridPane.add(new Label(), 0, ++row);
+
+        gridPane.add(new Label("Downloadordner jetzt aufräumen"), 0, ++row, 2, 1);
+        gridPane.add(btnClean, 2, row);
+        gridPane.add(btnCleanHelp, 3, row);
+        GridPane.setHalignment(btnClean, HPos.RIGHT);
+
+
 //        gridPane.setGridLinesVisible(true);
-
-
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize(),

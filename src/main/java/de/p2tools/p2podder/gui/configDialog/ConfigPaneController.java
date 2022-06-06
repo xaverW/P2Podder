@@ -68,7 +68,7 @@ public class ConfigPaneController extends PAccordionPane {
 
     private final PToggleSwitch tglUpdatePodcastDaily = new PToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
     private final PToggleSwitch tglStartDownload = new PToggleSwitch("und den Download der Episoden gleich starten");
-    private final PToggleSwitch tglSmallButton = new PToggleSwitch("In den Tabellen nur kleine Buttons anzeigen:");
+    private final PToggleSwitch tglSmallButton = new PToggleSwitch("In den Tabellen nur kleine Buttons anzeigen");
 
     private TextField txtUserAgent;
     private final PToggleSwitch tglEnableLog = new PToggleSwitch("Ein Logfile anlegen:");

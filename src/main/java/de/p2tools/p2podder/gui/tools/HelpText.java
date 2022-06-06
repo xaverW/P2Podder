@@ -141,10 +141,14 @@ public class HelpText {
             "Klick darauf ins neue Logfile geschrieben." +
             "\n";
 
-    public static final String DEST_DIR = "Hier wird der Speicherort der Podcasts angegeben." +
+    public static final String DEST_DIR = "Hier wird der Speicherort für die Episoden der Podcasts angegeben." +
             P2LibConst.LINE_SEPARATORx2 +
-            "Podcasts werden geladen und in diesem Ordner gespeichert. Dort werden dann auch die Podcasts " +
+            "Episoden werden geladen und in diesem Ordner gespeichert. Dort werden dann auch die Episoden " +
             "zum Abspielen gesucht." +
+            "\n";
+
+    public static final String DEST_DIR_CLEAN = "Im Ordner (Speicherort der Episoden der Podcasts) werden alle " +
+            "Dateien gelöscht, für die es keine Episode gibt." +
             "\n";
 
     public static final String DEST_DIR_EPISODES = "Hier wird der Speicherort der Episoden angegeben." +
