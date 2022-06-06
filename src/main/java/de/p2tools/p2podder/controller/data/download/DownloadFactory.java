@@ -17,21 +17,32 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PSizeTools;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
+import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import de.p2tools.p2podder.gui.dialog.DownloadFileDelDialogController;
 import de.p2tools.p2podder.gui.tools.FileNameUtils;
 import javafx.scene.control.Label;
 import org.apache.commons.lang3.SystemUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DownloadFactory {
 
@@ -65,6 +76,76 @@ public class DownloadFactory {
 
         if (found) {
             ProgData.getInstance().downloadList.setDownloadsChanged();
+        }
+    }
+
+    public static void cleanUpDownloadDir() {
+        File destDir = new File(ProgConfig.SYSTEM_POD_DIR.getValueSafe());
+        if (!destDir.exists()) {
+            PAlert.showInfoAlert("Downloads aufräumen",
+                    "Dateien ohne Episode suchen",
+                    "Das Verzeichnis mit den Downloads existiert nicht!");
+            return;
+        }
+
+        ArrayList<File> fileList = new ArrayList<>();
+        ArrayList<File> delList = new ArrayList<>();
+
+        //====================================
+        //search files
+        try (Stream<Path> walk = Files.walk(destDir.toPath())) {
+            fileList.addAll(walk.filter(Files::isRegularFile)
+                    .map(path -> path.toFile())
+                    .collect(Collectors.toList()));
+        } catch (IOException e) {
+            PLog.errorLog(456201247, e);
+        }
+
+        for (File file : fileList) {
+            boolean found = false;
+
+            for (Episode episode : ProgData.getInstance().episodeList) {
+                String ePath = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+                String fPath = file.getPath();
+                if (ePath.equals(fPath)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                delList.add(file);
+            }
+        }
+
+        //==========================
+        //delete Files
+        if (delList.isEmpty()) {
+            //alles sauber
+            PAlert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen", "Es wurden keine " +
+                    "Dateien ohne passende Episode, gefunden.");
+            return;
+        }
+
+        DownloadFileDelDialogController downloadFileDelDialogController =
+                new DownloadFileDelDialogController(ProgData.getInstance(), delList);
+        if (downloadFileDelDialogController.isOk()) {
+
+            delList.stream().forEach(delFile -> {
+                try {
+                    if (delFile.exists()) {
+                        PLog.sysLog("Episode (Datei) löschen: " + delFile.getAbsolutePath());
+                        if (!delFile.delete()) {
+                            throw new Exception();
+                        }
+                    }
+                } catch (final Exception ex) {
+                    PAlert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen",
+                            "Das löschen der Datei: " + P2LibConst.LINE_SEPARATOR
+                                    + delFile.getAbsolutePath() + P2LibConst.LINE_SEPARATOR +
+                                    " hat nicht geklappt!");
+                    PLog.errorLog(901254123, "Fehler beim löschen: " + delFile.getAbsolutePath());
+                }
+            });
         }
     }
 

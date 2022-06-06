@@ -66,6 +66,7 @@ public class DownloadMenu {
                 "markierten Download löschen", "markierten Download löschen", new ProgIcons().ICON_TOOLBAR_EPISODE_DEL);
         final ToolBarButton btDownloadClear = new ToolBarButton(vBox,
                 "Downloads aufräumen", "Liste der Downloads aufräumen", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_CLEAN);
+
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
 
@@ -133,13 +134,17 @@ public class DownloadMenu {
         MenuItem miCopyUrl = new MenuItem("Download-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.downloadGui.getDownloadGuiController().copyUrl());
 
+        MenuItem miCleanDownloadDir = new MenuItem("Downloadverzeichnis aufräumen");
+        miCleanDownloadDir.setOnAction(a -> DownloadFactory.cleanUpDownloadDir());
+
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
 
         mb.getItems().addAll(miDownloadStart, miDownloadStop, miStopAll, miDownloadChange,
-                miDownloadDel, miDownloadDelAll, miCopyUrl);
+                miDownloadDel, miDownloadDelAll, miCopyUrl, miCleanDownloadDir);
+
         mb.getItems().add(new SeparatorMenuItem());
         mb.getItems().addAll(miShowFilter, miShowInfo);
         vBox.getChildren().add(mb);

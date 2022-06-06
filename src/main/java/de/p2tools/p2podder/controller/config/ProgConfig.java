@@ -107,6 +107,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO = addStr("system-size-dialog-episode-info", "600:800");
     public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL = addStr("system-size-dialog-episode-info-small", "600:300");
     public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_DEL = addStr("system-size-dialog-episode-del");
+    public static StringProperty SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL = addStr("system-size-dialog-download-del");
 
     public static StringProperty SYSTEM_PATH_VLC = addStr("system-path-vlc", SetFactory.getTemplatePathVlc());
 

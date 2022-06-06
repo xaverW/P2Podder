@@ -26,7 +26,6 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfos;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.tools.HelpText;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -40,7 +39,6 @@ public class PodPaneController extends PAccordionPane {
 
     private final ProgData progData;
 
-    StringProperty propPodDir = ProgConfig.SYSTEM_POD_DIR;
     private TextField txtPodDest = new TextField();
     private PToggleSwitch tglDelFile = new PToggleSwitch("");
     private CheckBox chkAsk = new CheckBox("Vorher immer fragen");
@@ -56,7 +54,6 @@ public class PodPaneController extends PAccordionPane {
 
     public void close() {
         super.close();
-        txtPodDest.textProperty().unbindBidirectional(ProgConfig.SYSTEM_USERAGENT);
     }
 
     public Collection<TitledPane> createPanes() {
@@ -75,7 +72,7 @@ public class PodPaneController extends PAccordionPane {
         result.add(tpConfig);
 
         final Button btnHelp = PButton.helpButton(stage, "Speicherordner Podcasts", HelpText.DEST_DIR);
-        txtPodDest.textProperty().bindBidirectional(propPodDir);
+        txtPodDest.textProperty().bindBidirectional(ProgConfig.SYSTEM_POD_DIR);
         if (txtPodDest.getText().isEmpty()) {
             txtPodDest.setText(ProgInfos.getStandardPodDestString());
         }
