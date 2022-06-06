@@ -106,12 +106,26 @@ public class DownloadFilterController extends FilterController {
     }
 
     public void initFilter() {
+        tableView.setRowFactory(tv -> {
+            TableRow<Podcast> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    tableView.getSelectionModel().clearSelection();
+                }
+            });
+            return row;
+        });
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (tableView.getSelectionModel().isEmpty()) {
+                progData.filterDownload.setPodcastId(0);
+
+            } else if (newValue != null) {
                 long l = tableView.getSelectionModel().getSelectedItem().getId();
                 progData.filterDownload.setPodcastId(l);
             }
         });
+
         progData.downloadList.addListener((v, o, n) -> {
             Platform.runLater(() -> {
                 Podcast sel = tableView.getSelectionModel().getSelectedItem();
@@ -123,6 +137,7 @@ public class DownloadFilterController extends FilterController {
                 }
             });
         });
+
         tableView.getItems().addAll(DownloadFactory.getPodcastList());
 
         cboGenre.getItems().addAll(progData.downloadList.getGenreList());

@@ -146,19 +146,32 @@ public class EpisodeFilterController extends FilterController {
         episodeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         episodeColumn.setCellFactory(cellFactory);
         episodeColumn.getStyleClass().add("alignCenterLeft");
-
         tableView.getColumns().addAll(episodeColumn);
         tableView.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    public void initFilter() {
+    private void initFilter() {
+        tableView.setRowFactory(tv -> {
+            TableRow<Podcast> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    tableView.getSelectionModel().clearSelection();
+                }
+            });
+            return row;
+        });
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //ist für das Klicken in der Tabelle
-            if (newValue != null && oldValue != newValue) {
+            if (tableView.getSelectionModel().isEmpty()) {
+                progData.storedFilters.getActFilterSettings().setPodcastId(0);
+
+            } else if (newValue != null && oldValue != newValue) {
                 progData.storedFilters.getActFilterSettings().setPodcastId(newValue.getId());
             }
         });
+
         progData.storedFilters.getActFilterSettings().podcastIdProperty().addListener((u, o, n) -> {
             //ist für den Wechsel gespeicherter Filter
             Podcast podcast = progData.podcastList.getPodcastById(n.longValue());
@@ -168,6 +181,7 @@ public class EpisodeFilterController extends FilterController {
                 tableView.getSelectionModel().clearSelection();
             }
         });
+
         progData.episodeList.addListener((v, o, n) -> {
             //ist für das Hinzufügen/Löschen von Episoden
             Platform.runLater(() -> {
@@ -180,6 +194,7 @@ public class EpisodeFilterController extends FilterController {
                 }
             });
         });
+
         tableView.getItems().addAll(progData.episodeList.getPodcastList());
 
         cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
