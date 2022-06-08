@@ -27,12 +27,12 @@ import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.controller.data.download.DownloadList;
 import de.p2tools.p2podder.controller.data.episode.EpisodeList;
 import de.p2tools.p2podder.controller.data.podcast.PodcastList;
+import de.p2tools.p2podder.controller.filter.DownloadFilter;
+import de.p2tools.p2podder.controller.filter.EpisodeFilter;
+import de.p2tools.p2podder.controller.filter.PodcastFilter;
 import de.p2tools.p2podder.controller.history.HistoryList;
 import de.p2tools.p2podder.controller.starterDownload.DownloadStarterFactory;
 import de.p2tools.p2podder.controller.starterEpisode.EpisodeStarterFactory;
-import de.p2tools.p2podder.controller.storedFilter.FilterDownload;
-import de.p2tools.p2podder.controller.storedFilter.FilterPodcast;
-import de.p2tools.p2podder.controller.storedFilter.StoredFilters;
 import de.p2tools.p2podder.controller.worker.EpisodeInfos;
 import de.p2tools.p2podder.controller.worker.StationInfos;
 import de.p2tools.p2podder.controller.worker.Worker;
@@ -76,8 +76,9 @@ public class ProgData {
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
     public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;
-    public final FilterDownload filterDownload;
-    public final FilterPodcast filterPodcast;
+    public final EpisodeFilter episodeFilter;
+    public final DownloadFilter downloadFilter;
+    public final PodcastFilter podcastFilter;
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
     public EpisodeInfos episodeInfos;
@@ -87,7 +88,6 @@ public class ProgData {
     public Worker worker;
     public EpisodeStarterFactory episodeStarterFactory;
     public final ProgTray progTray;
-    public StoredFilters storedFilters; // gespeicherte Filterprofile
 
     // Programmdaten
 
@@ -106,9 +106,9 @@ public class ProgData {
         pShortcut = new P2PodderShortCuts();
         eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
-        storedFilters = new StoredFilters(this);
-        filterDownload = new FilterDownload();
-        filterPodcast = new FilterPodcast();
+        episodeFilter = new EpisodeFilter(true);
+        downloadFilter = new DownloadFilter();
+        podcastFilter = new PodcastFilter();
 
         episodeList = new EpisodeList(this);
         episodeStartingList = new EpisodeList(this);

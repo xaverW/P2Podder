@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -29,7 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class PodcastFilterController extends FilterController {
+public class PodcastFilterController extends FilterPane {
 
     private final Button btnClearFilter = new Button("");
     private final ComboBox<String> cboGenre = new ComboBox<>();
@@ -51,7 +51,7 @@ public class PodcastFilterController extends FilterController {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-        final VBox vBoxFilter = getVBoxTop();
+        final VBox vBoxFilter = getVBoxFilter();
         vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
         vBoxFilter.setSpacing(15);
         vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTxt);
@@ -62,7 +62,7 @@ public class PodcastFilterController extends FilterController {
 
     private void addButton() {
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
-        btnClearFilter.setOnAction(a -> progData.filterPodcast.clearFilter());
+        btnClearFilter.setOnAction(a -> progData.podcastFilter.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 
         HBox hBoxAll = new HBox(5);
@@ -73,11 +73,7 @@ public class PodcastFilterController extends FilterController {
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
 
-        final VBox vBoxFilter = getVBoxTop();
-//        VBox vBoxSpace = new VBox(0);
-//        vBoxSpace.setPadding(new Insets(5));
-//        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
-
+        final VBox vBoxFilter = getVBoxFilter();
         VBox vBox = new VBox(10);
         vBox.getChildren().addAll(separator, hBoxAll);
         vBoxFilter.getChildren().add(vBox);
@@ -92,17 +88,17 @@ public class PodcastFilterController extends FilterController {
                 if (cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
                 } else {
-                    progData.filterPodcast.clearFilter();
+                    progData.podcastFilter.clearFilter();
                 }
             });
         });
-        cboGenre.valueProperty().bindBidirectional(progData.filterPodcast.genreProperty());
+        cboGenre.valueProperty().bindBidirectional(progData.podcastFilter.genreProperty());
 
-        txtName.textProperty().bindBidirectional(progData.filterPodcast.nameProperty());
+        txtName.textProperty().bindBidirectional(progData.podcastFilter.nameProperty());
         FilterCheckRegEx fName = new FilterCheckRegEx(txtName);
         txtName.textProperty().addListener((observable, oldValue, newValue) -> fName.checkPattern());
 
-        txtUrl.textProperty().bindBidirectional(progData.filterPodcast.urlProperty());
+        txtUrl.textProperty().bindBidirectional(progData.podcastFilter.urlProperty());
         FilterCheckRegEx fUrl = new FilterCheckRegEx(txtUrl);
         txtUrl.textProperty().addListener((observable, oldValue, newValue) -> fUrl.checkPattern());
     }

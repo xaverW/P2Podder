@@ -26,9 +26,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
-public class EpisodeFilterControllerClearFilter extends VBox {
+public class EpisodeFilterControllerClearFilter extends HBox {
 
     private final Button btnClearFilter = new Button("");
     private final Button btnGoBack = new Button("");
@@ -37,21 +36,21 @@ public class EpisodeFilterControllerClearFilter extends VBox {
     private final ProgData progData;
 
     public EpisodeFilterControllerClearFilter() {
-        super();
+        super(5);
         progData = ProgData.getInstance();
         progData.stationFilterControllerClearFilter = this;
-        setSpacing(5);
         addButton();
     }
 
     private void addButton() {
         btnGoBack.setGraphic(new ProgIcons().ICON_BUTTON_BACKWARD);
-        btnGoBack.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goBackward());
-        btnGoBack.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().backwardProperty().not());
+        btnGoBack.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goBackward());
+        btnGoBack.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
+
         btnGoForward.setGraphic(new ProgIcons().ICON_BUTTON_FORWARD);
-        btnGoForward.setOnAction(a -> progData.storedFilters.getStoredFiltersForwardBackward().goForward());
-        btnGoForward.disableProperty().bind(progData.storedFilters.getStoredFiltersForwardBackward().forwardProperty().not());
+        btnGoForward.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goForward());
+        btnGoForward.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
@@ -65,13 +64,11 @@ public class EpisodeFilterControllerClearFilter extends VBox {
 
         final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
-        HBox hBoxAll = new HBox(5);
-        hBoxAll.getChildren().addAll(hBox, btnClearFilter, btnHelp);
-        getChildren().addAll(hBoxAll);
+        getChildren().addAll(hBox, btnClearFilter, btnHelp);
     }
 
     private void clearFilter() {
         PDuration.onlyPing("Filter löschen");
-        progData.storedFilters.clearFilter();
+        progData.episodeFilter.clearFilter();
     }
 }

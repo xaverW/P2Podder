@@ -22,7 +22,7 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -36,7 +36,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 
-public class DownloadFilterController extends FilterController {
+public class DownloadFilterController extends FilterPane {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
@@ -61,7 +61,7 @@ public class DownloadFilterController extends FilterController {
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
-        final VBox vBoxFilter = getVBoxTop();
+        final VBox vBoxFilter = getVBoxFilter();
         vBoxFilter.setPadding(new Insets(5));
         vBoxFilter.setSpacing(15);
         vBoxFilter.getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
@@ -84,11 +84,7 @@ public class DownloadFilterController extends FilterController {
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
 
-        final VBox vBoxFilter = getVBoxTop();
-//        VBox vBoxSpace = new VBox(0);
-//        vBoxSpace.setPadding(new Insets(5));
-//        VBox.setVgrow(vBoxSpace, Priority.ALWAYS);
-
+        final VBox vBoxFilter = getVBoxFilter();
         VBox vBox = new VBox(10);
         vBox.getChildren().addAll(separator, hBoxAll);
         vBoxFilter.getChildren().add(vBox);
@@ -118,11 +114,11 @@ public class DownloadFilterController extends FilterController {
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (tableView.getSelectionModel().isEmpty()) {
-                progData.filterDownload.setPodcastId(0);
+                progData.downloadFilter.setPodcastId(0);
 
             } else if (newValue != null) {
                 long l = tableView.getSelectionModel().getSelectedItem().getId();
-                progData.filterDownload.setPodcastId(l);
+                progData.downloadFilter.setPodcastId(l);
             }
         });
 
@@ -153,9 +149,9 @@ public class DownloadFilterController extends FilterController {
                 }
             });
         });
-        cboGenre.valueProperty().bindBidirectional(progData.filterDownload.genreProperty());
+        cboGenre.valueProperty().bindBidirectional(progData.downloadFilter.genreProperty());
 
-        txtTitle.textProperty().bindBidirectional(progData.filterDownload.titleProperty());
+        txtTitle.textProperty().bindBidirectional(progData.downloadFilter.titleProperty());
         FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
         txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
     }
@@ -210,7 +206,7 @@ public class DownloadFilterController extends FilterController {
 
     public void clearFilter(boolean clearTable) {
         PDuration.onlyPing("Filter löschen");
-        progData.filterDownload.clearFilter();
+        progData.downloadFilter.clearFilter();
         if (clearTable) {
             tableView.getSelectionModel().clearSelection();
         }

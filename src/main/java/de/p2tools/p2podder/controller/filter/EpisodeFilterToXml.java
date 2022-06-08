@@ -14,9 +14,9 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
-public class SelectedFilterToXml {
+public class EpisodeFilterToXml {
 
     public static final String SELECTED_FILTER_NAME = "name";
     public static final String SELECTED_FILTER_PODCAST_ID = "podcastId";

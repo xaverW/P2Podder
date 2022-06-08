@@ -178,10 +178,10 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void initFilter() {
-        rbAll.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isAllProperty());
-        rbNew.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isNewProperty());
-        rbRunning.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().isRunningProperty());
-        rbWasShown.selectedProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().wasShownProperty());
+        rbAll.selectedProperty().bindBidirectional(progData.episodeFilter.isAllProperty());
+        rbNew.selectedProperty().bindBidirectional(progData.episodeFilter.isNewProperty());
+        rbRunning.selectedProperty().bindBidirectional(progData.episodeFilter.isRunningProperty());
+        rbWasShown.selectedProperty().bindBidirectional(progData.episodeFilter.wasShownProperty());
     }
 
     private void initTable() {

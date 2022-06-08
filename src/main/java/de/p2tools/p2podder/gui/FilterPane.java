@@ -14,25 +14,19 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneV;
+import javafx.beans.property.BooleanProperty;
+import javafx.scene.layout.VBox;
 
-public class InitStoredFilter {
+public class FilterPane extends PClosePaneV {
 
-    public static void initFilter() {
-        ProgData progData = ProgData.getInstance();
+    public FilterPane(BooleanProperty divOn) {
+        super(divOn, true);
+    }
 
-        //========================================================
-        SelectedFilter sf = new SelectedFilter("Nachrichten");
-        sf.setGenre("Nachrichten");
-        sf.setTimeRange(20);
-        progData.storedFilters.getStoredFilterList().add(sf);
-
-        //========================================================
-        sf = new SelectedFilter("Linux");
-        sf.setGenre("Linux");
-        sf.setTimeRange(20);
-        progData.storedFilters.getStoredFilterList().add(sf);
+    public VBox getVBoxFilter() {
+        return getVBoxAll();
     }
 }

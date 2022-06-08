@@ -52,7 +52,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
 
         this.filteredList = new FilteredList<>(this, p -> true);
         this.episodeSortedList = new SortedList<>(filteredList);
-        progData.storedFilters.filterChangeProperty().addListener((observable, oldValue, newValue) -> filter()); // Filmfilter (User) haben sich geändert
     }
 
     @Override
@@ -102,10 +101,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
 
     public void sort() {
         Collections.sort(this);
-    }
-
-    public void filter() {
-        filteredList.setPredicate(progData.storedFilters.getActFilterSettings().getPredicateEpisode());
     }
 
     @Override

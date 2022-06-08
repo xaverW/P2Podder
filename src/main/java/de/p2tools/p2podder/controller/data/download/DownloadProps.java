@@ -126,7 +126,7 @@ public class DownloadProps extends PDataSample<Download> {
         this.state.set(state);
         Platform.runLater(() -> {
             guiState.setValue(state);
-            ProgData.getInstance().filterDownload.setPredicate();
+            ProgData.getInstance().downloadFilter.setPredicate();
         });
     }
 

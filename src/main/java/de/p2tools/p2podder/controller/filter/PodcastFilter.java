@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -25,13 +25,13 @@ import javafx.beans.property.StringProperty;
 import java.util.Locale;
 import java.util.function.Predicate;
 
-public class FilterPodcast {
+public class PodcastFilter {
 
     private StringProperty genre = new SimpleStringProperty("");
     private StringProperty name = new SimpleStringProperty("");
     private StringProperty url = new SimpleStringProperty("");
 
-    public FilterPodcast() {
+    public PodcastFilter() {
         genre.addListener((observable, oldValue, newValue) -> setPredicate());
         name.addListener((observable, oldValue, newValue) -> setPredicate());
         url.addListener((observable, oldValue, newValue) -> setPredicate());
@@ -44,20 +44,37 @@ public class FilterPodcast {
         setPredicate();
     }
 
+    public void setGenre(String genre) {
+        if (genre == null) {
+            genre = "";
+        }
+        this.genre.setValue(genre);
+        setPredicate();
+    }
 
     public StringProperty genreProperty() {
         return genre;
+    }
+
+    public void setName(String name) {
+        this.name.setValue(name.trim().toLowerCase(Locale.ROOT));
+        setPredicate();
     }
 
     public StringProperty nameProperty() {
         return name;
     }
 
+    public void setUrl(String url) {
+        this.url.setValue(url.trim().toLowerCase(Locale.ROOT));
+        setPredicate();
+    }
+
     public StringProperty urlProperty() {
         return url;
     }
 
-    public Predicate<Podcast> getPredicate() {
+    private Predicate<Podcast> getPredicate() {
         Predicate<Podcast> predicate = podcast -> true;
 
         if (!genre.getValueSafe().isEmpty()) {
@@ -76,23 +93,5 @@ public class FilterPodcast {
 
     private void setPredicate() {
         ProgData.getInstance().podcastList.filteredListSetPred(getPredicate());
-    }
-
-    public void setGenre(String genre) {
-        if (genre == null) {
-            genre = "";
-        }
-        this.genre.setValue(genre);
-        setPredicate();
-    }
-
-    public void setName(String name) {
-        this.name.setValue(name.trim().toLowerCase(Locale.ROOT));
-        setPredicate();
-    }
-
-    public void setUrl(String url) {
-        this.url.setValue(url.trim().toLowerCase(Locale.ROOT));
-        setPredicate();
     }
 }

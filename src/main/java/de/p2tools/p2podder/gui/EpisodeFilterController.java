@@ -21,7 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.storedFilter.FilterCheckRegEx;
+import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -36,7 +36,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 
-public class EpisodeFilterController extends FilterController {
+public class EpisodeFilterController extends FilterPane {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
@@ -76,18 +76,16 @@ public class EpisodeFilterController extends FilterController {
         vBoxTxt.getChildren().addAll(new Label("Titel:"), txtTitle);
         vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
-        //Profile
-        VBox vBoxEdit = new VBox(15);
-        vBoxEdit.setPadding(new Insets(5, 0, 0, 0));
-        Separator sp2 = new Separator();
-        sp2.getStyleClass().add("pseperator3");
-        vBoxEdit.getChildren().addAll(new EpisodeFilterControllerClearFilter(),
-                sp2, new EpisodeFilterControllerProfiles());
-
-        final VBox vBoxFilter = getVBoxTop();
+        final VBox vBoxFilter = getVBoxFilter();
         vBoxFilter.setPadding(new Insets(5));
         vBoxFilter.setSpacing(15);
-        vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt, vBoxEdit);
+        vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
+
+        Separator separator = new Separator();
+        separator.getStyleClass().add("pseperator2");
+        VBox vBox = new VBox(10);
+        vBox.getChildren().addAll(separator, new EpisodeFilterControllerClearFilter());
+        vBoxFilter.getChildren().add(vBox);
 
         initDaysFilter();
         initTable();
@@ -118,10 +116,10 @@ public class EpisodeFilterController extends FilterController {
         slTimeRange.valueProperty().addListener((o, oldV, newV) -> {
             setLabelSlider();
             if (!slTimeRange.isValueChanging()) {
-                progData.storedFilters.getActFilterSettings().setTimeRange((int) slTimeRange.getValue());
+                progData.episodeFilter.setTimeRange((int) slTimeRange.getValue());
             }
         });
-        slTimeRange.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().timeRangeProperty());
+        slTimeRange.valueProperty().bindBidirectional(progData.episodeFilter.timeRangeProperty());
         slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> setLabelSlider());
     }
 
@@ -160,14 +158,14 @@ public class EpisodeFilterController extends FilterController {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //ist für das Klicken in der Tabelle
             if (tableView.getSelectionModel().isEmpty()) {
-                progData.storedFilters.getActFilterSettings().setPodcastId(0);
+                progData.episodeFilter.setPodcastId(0);
 
             } else if (newValue != null && oldValue != newValue) {
-                progData.storedFilters.getActFilterSettings().setPodcastId(newValue.getId());
+                progData.episodeFilter.setPodcastId(newValue.getId());
             }
         });
 
-        progData.storedFilters.getActFilterSettings().podcastIdProperty().addListener((u, o, n) -> {
+        progData.episodeFilter.podcastIdProperty().addListener((u, o, n) -> {
             //ist für den Wechsel gespeicherter Filter
             Podcast podcast = progData.podcastList.getPodcastById(n.longValue());
             if (podcast != null) {
@@ -185,14 +183,14 @@ public class EpisodeFilterController extends FilterController {
                 if (tableView.getItems().contains(sel)) {
                     tableView.getSelectionModel().select(sel);
                 } else {
-                    progData.storedFilters.getActFilterSettings().setPodcastId(0);
+                    progData.episodeFilter.setPodcastId(0);
                 }
             });
         });
 
         tableView.getItems().addAll(progData.episodeList.getPodcastList());
 
-        cboGenre.valueProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().genreProperty());
+        cboGenre.valueProperty().bindBidirectional(progData.episodeFilter.genreProperty());
         progData.episodeList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
                 //kann durch Downloads außer der Reihe sein!!
@@ -202,17 +200,17 @@ public class EpisodeFilterController extends FilterController {
                 } else if (cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
                 } else {
-                    progData.storedFilters.clearFilter();
+                    progData.episodeFilter.clearFilter();
                 }
             });
         });
         cboGenre.getItems().addAll(progData.episodeList.getGenreList());
 
-        txtTitle.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().titleProperty());
+        txtTitle.textProperty().bindBidirectional(progData.episodeFilter.titleProperty());
         FilterCheckRegEx fT = new FilterCheckRegEx(txtTitle);
         txtTitle.textProperty().addListener((observable, oldValue, newValue) -> fT.checkPattern());
 
-        txtDescription.textProperty().bindBidirectional(progData.storedFilters.getActFilterSettings().descriptionProperty());
+        txtDescription.textProperty().bindBidirectional(progData.episodeFilter.descriptionProperty());
         FilterCheckRegEx fD = new FilterCheckRegEx(txtDescription);
         txtDescription.textProperty().addListener((observable, oldValue, newValue) -> fD.checkPattern());
     }

@@ -14,70 +14,72 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2Lib.tools.log.PDebugLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.function.Predicate;
 
-public class SelectedFilter extends SelectedFilterProps {
+public class EpisodeFilter extends EpisodeFilterProps {
+    private EpisodeFilterForwardBackward episodeFilterForwardBackward = null; // gespeicherte Filterprofile
 
-    private final BooleanProperty filterChange = new SimpleBooleanProperty(false);
-    private boolean reportChange = true;
-
-    public SelectedFilter() {
-        initFilter();
-        setName("Filter");
+    public EpisodeFilter() {
+        new EpisodeFilter(false);
     }
 
-    public SelectedFilter(String name) {
-        initFilter();
-        setName(name);
-    }
-
-    public BooleanProperty filterChangeProperty() {
-        return filterChange;
-    }
-
-    private void initFilter() {
-        clearFilter();
-        podcastIdProperty().addListener(l -> reportFilterChange());
-        genreProperty().addListener(l -> reportFilterChange());
-        titleProperty().addListener(l -> reportFilterChange());
-        descriptionProperty().addListener(l -> reportFilterChange());
-        timeRangeProperty().addListener(l -> reportFilterChange());
-        isAllProperty().addListener(l -> reportFilterChange());
-        isNewProperty().addListener(l -> reportFilterChange());
-        isRunningProperty().addListener(l -> reportFilterChange());
-        wasShownProperty().addListener(l -> reportFilterChange());
-    }
-
-    private void reportFilterChange() {
-        if (reportChange) {
-            Platform.runLater(() -> {
-                PDebugLog.sysLog("reportFilterChange");
-                filterChange.setValue(!filterChange.getValue());
-            });
+    public EpisodeFilter(boolean init) {
+        if (init) {
+            episodeFilterForwardBackward = new EpisodeFilterForwardBackward(this);
+            initFilter();
         }
     }
 
     public void clearFilter() {
         // alle Filter löschen
         setPodcastId(0);
+        setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
         setGenre("");
         setTitle("");
         setDescription("");
-        setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
     }
 
-    public Predicate<Episode> getPredicateEpisode() {
+    public EpisodeFilterForwardBackward getEpisodeFilterForwardBackward() {
+        return episodeFilterForwardBackward;
+    }
+
+    private void initFilter() {
+        podcastIdProperty().addListener(l -> setPredicate());
+        timeRangeProperty().addListener(l -> setPredicate());
+        genreProperty().addListener(l -> setPredicate());
+        titleProperty().addListener(l -> setPredicate());
+        descriptionProperty().addListener(l -> setPredicate());
+
+        isAllProperty().addListener(l -> setPredicate());
+        isNewProperty().addListener(l -> setPredicate());
+        isRunningProperty().addListener(l -> setPredicate());
+        wasShownProperty().addListener(l -> setPredicate());
+    }
+
+    public void setPredicate(boolean stop) {
+        //setzen und merken :)
+        if (!stop) {
+            episodeFilterForwardBackward.addNewFilter();
+        }
+        ProgData.getInstance().episodeList.filteredListSetPred(getPredicateEpisode());
+    }
+
+    public void setPredicate() {
+        setPredicate(false);
+    }
+
+    public void print() {
+        EpisodeFilterFactory.printFilter(this);
+    }
+
+    private Predicate<Episode> getPredicateEpisode() {
         Predicate<Episode> predicate = episode -> true;
 
         Filter fTitle = new Filter(getTitle(), true);

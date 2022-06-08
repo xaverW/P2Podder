@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import javafx.application.Platform;
@@ -36,7 +36,7 @@ public class FilterCheckRegEx {
     }
 
     public void checkPattern() {
-        // Hintergrund ändern wenn eine RegEx
+        //Hintergrund ändern, wenn eine RegEx
         final String text = tf.getText();
         if (!Filter.isPattern(text)) {
             // kein RegEx

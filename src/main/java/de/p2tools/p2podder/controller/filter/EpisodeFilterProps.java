@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
@@ -23,12 +23,9 @@ import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class SelectedFilterProps extends PDataSample<SelectedFilter> implements Comparable<SelectedFilter> {
+public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Comparable<EpisodeFilter> {
 
     public static String TAG = "SelectedFilter";
-
-    private final StringProperty name = new SimpleStringProperty();
-
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty title = new SimpleStringProperty("");
@@ -39,25 +36,23 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
     private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
     private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
 
-
     public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isRunning, wasShown};
-    public StringProperty[] sfStringPropArr = {name, genre, title, description};
+    public StringProperty[] sfStringPropArr = {genre, title, description};
     public IntegerProperty[] sfIntegerPropArr = {timeRange};
     public LongProperty[] sfLongPropArr = {podcastId};
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("name", SelectedFilterToXml.SELECTED_FILTER_GENRE, name));
-        list.add(new ConfigLongPropExtra("podcastId", SelectedFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
-        list.add(new ConfigStringPropExtra("genre", SelectedFilterToXml.SELECTED_FILTER_GENRE, genre));
-        list.add(new ConfigStringPropExtra("title", SelectedFilterToXml.SELECTED_FILTER_TITLE, title));
-        list.add(new ConfigStringPropExtra("description", SelectedFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
-        list.add(new ConfigIntPropExtra("timeRange", SelectedFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
-        list.add(new ConfigBoolPropExtra("isAll", SelectedFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
-        list.add(new ConfigBoolPropExtra("isRunning", SelectedFilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
-        list.add(new ConfigBoolPropExtra("finalized", SelectedFilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
-        list.add(new ConfigBoolPropExtra("finalized", SelectedFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
+        list.add(new ConfigLongPropExtra("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
+        list.add(new ConfigStringPropExtra("genre", EpisodeFilterToXml.SELECTED_FILTER_GENRE, genre));
+        list.add(new ConfigStringPropExtra("title", EpisodeFilterToXml.SELECTED_FILTER_TITLE, title));
+        list.add(new ConfigStringPropExtra("description", EpisodeFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
+        list.add(new ConfigIntPropExtra("timeRange", EpisodeFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
+        list.add(new ConfigBoolPropExtra("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
+        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
+        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
+        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }
@@ -65,18 +60,6 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
     @Override
     public String getTag() {
         return TAG;
-    }
-
-    public String getName() {
-        return name.get();
-    }
-
-    public StringProperty nameProperty() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
     }
 
     public long getPodcastId() {
@@ -193,7 +176,7 @@ public class SelectedFilterProps extends PDataSample<SelectedFilter> implements 
     }
 
     @Override
-    public int compareTo(SelectedFilter o) {
+    public int compareTo(EpisodeFilter o) {
         return title.getValue().compareTo(o.getTitle());
     }
 }

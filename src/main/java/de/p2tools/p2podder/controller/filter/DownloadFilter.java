@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.Download;
@@ -23,7 +23,7 @@ import javafx.beans.property.*;
 
 import java.util.function.Predicate;
 
-public class FilterDownload {
+public class DownloadFilter {
 
     private LongProperty podcastId = new SimpleLongProperty(0);
     private StringProperty genre = new SimpleStringProperty("");
@@ -34,7 +34,7 @@ public class FilterDownload {
     private boolean running = false;
     private boolean finalized = false;
 
-    public FilterDownload() {
+    public DownloadFilter() {
         podcastId.addListener((observable, oldValue, newValue) -> setPredicate());
         genre.addListener((observable, oldValue, newValue) -> setPredicate());
         title.addListener((observable, oldValue, newValue) -> setPredicate());
@@ -53,6 +53,11 @@ public class FilterDownload {
             finalized = true;
             setPredicate();
         });
+    }
+
+    public void setPodcastId(long podcastId) {
+        this.podcastId.setValue(podcastId);
+        setPredicate();
     }
 
     public LongProperty podcastIdProperty() {
@@ -79,6 +84,10 @@ public class FilterDownload {
         return isFinalized;
     }
 
+    public void setPredicate() {
+        ProgData.getInstance().downloadList.filteredListSetPred(getPredicate());
+    }
+
     public void clearFilter() {
         this.podcastId.setValue(0);
         this.genre.setValue("");
@@ -86,7 +95,7 @@ public class FilterDownload {
         setPredicate();
     }
 
-    public Predicate<Download> getPredicate() {
+    private Predicate<Download> getPredicate() {
         Predicate<Download> predicate = download -> true;
 
         if (podcastId.getValue() > 0) {
@@ -106,14 +115,5 @@ public class FilterDownload {
             predicate = predicate.and(download -> download.isStateFinalized());
         }
         return predicate;
-    }
-
-    public void setPredicate() {
-        ProgData.getInstance().downloadList.filteredListSetPred(getPredicate());
-    }
-
-    public void setPodcastId(long podcastId) {
-        this.podcastId.setValue(podcastId);
-        setPredicate();
     }
 }

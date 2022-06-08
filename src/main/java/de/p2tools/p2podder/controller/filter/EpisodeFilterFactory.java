@@ -15,41 +15,26 @@
  */
 
 
-package de.p2tools.p2podder.controller.storedFilter;
+package de.p2tools.p2podder.controller.filter;
 
 import java.util.ArrayList;
 
-public class SelectedFilterFactory {
+public class EpisodeFilterFactory {
 
-    public static SelectedFilter getFilterCopy(SelectedFilter sfFrom) {
-        SelectedFilter sf = new SelectedFilter();
-        copyFilter(sfFrom, sf);
-        return sf;
-    }
-
-    public static void copyFilter(SelectedFilter sfFrom, SelectedFilter sfTo) {
-        sfTo.setName(sfFrom.getName());
+    public static EpisodeFilter copyFilter(EpisodeFilter sfFrom, EpisodeFilter sfTo) {
         sfTo.setPodcastId(sfFrom.getPodcastId());
         sfTo.setGenre(sfFrom.getGenre());
         sfTo.setTitle(sfFrom.getTitle());
         sfTo.setDescription(sfFrom.getDescription());
         sfTo.setTimeRange(sfFrom.getTimeRange());
-//        sfTo.setIsAll(sfFrom.isIsAll());
-//        sfTo.setIsNew(sfFrom.isIsNew());
-//        sfTo.setIsRunning(sfFrom.isIsRunning());
-//        sfTo.setWasShown(sfFrom.isWasShown());
+        return sfTo;
     }
 
-    public static boolean compareFilterWithoutNameOfFilter(SelectedFilter sfFrom, SelectedFilter sfTo) {
+    public static boolean compareFilter(EpisodeFilter sfFrom, EpisodeFilter sfTo) {
         if (sfFrom == null || sfTo == null) {
             return false;
         }
 
-        for (int i = 0; i < sfFrom.sfBooleanPropArr.length; i++) {
-            if (sfFrom.sfBooleanPropArr[i].get() != sfTo.sfBooleanPropArr[i].get()) {
-                return false;
-            }
-        }
         for (int i = 0; i < sfFrom.sfIntegerPropArr.length; i++) {
             if (sfFrom.sfIntegerPropArr[i].get() != sfTo.sfIntegerPropArr[i].get()) {
                 return false;
@@ -60,29 +45,23 @@ public class SelectedFilterFactory {
                 return false;
             }
         }
-        // nur die Filter (nicht den Namen) vergleichen
-        for (int i = 1; i < sfFrom.sfStringPropArr.length; i++) {
+        for (int i = 0; i < sfFrom.sfStringPropArr.length; i++) {
             if (!sfFrom.sfStringPropArr[i].getValueSafe().equals(sfTo.sfStringPropArr[i].getValueSafe())) {
                 return false;
             }
         }
-
         return true;
     }
 
-    public static ArrayList<String> printFilter(SelectedFilter sf) {
+    public static ArrayList<String> printFilter(EpisodeFilter sf) {
         ArrayList<String> list = new ArrayList<>();
-        list.add("name " + sf.getName());
-        list.add(" ");
         list.add("podcastId " + sf.getPodcastId());
         list.add("genre " + sf.getGenre());
-        list.add("title " + sf.getTitle());
-        list.add("description " + sf.getDescription());
-        list.add("timeRange " + sf.getTimeRange());
-//        list.add("isAll " + sf.isIsAll());
-//        list.add("isNew " + sf.isIsNew());
-//        list.add("isRunning " + sf.isIsRunning());
-//        list.add("wasShown " + sf.isWasShown());
+//        list.add("title " + sf.getTitle());
+//        list.add("description " + sf.getDescription());
+//        list.add("timeRange " + sf.getTimeRange());
+        list.add(" ");
+        list.stream().forEach(s -> System.out.println(s));
         return list;
     }
 }
