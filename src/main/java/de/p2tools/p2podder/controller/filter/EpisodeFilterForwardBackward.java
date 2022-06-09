@@ -16,12 +16,15 @@
 
 package de.p2tools.p2podder.controller.filter;
 
+import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+
+import java.util.Date;
 
 public final class EpisodeFilterForwardBackward {
 
@@ -30,6 +33,7 @@ public final class EpisodeFilterForwardBackward {
     private final BooleanProperty forward = new SimpleBooleanProperty(false);
     private boolean stopInput = false;
     private int idx = 0;
+    private Date date = new Date();
 
     // ist die Liste der zuletzt verwendeten Filter
     private final ObservableList<EpisodeFilter> filterListBackward = FXCollections.observableArrayList();
@@ -85,6 +89,12 @@ public final class EpisodeFilterForwardBackward {
     }
 
     private boolean checkIsTheSame(EpisodeFilter ep, EpisodeFilter act) {
+        if (PDateFactory.diffInSeconds(date) > 3) {
+            date = new Date();
+            //dann wars ein gewollter Filter
+            return false;
+        }
+
         if (ep.getPodcastId() != act.getPodcastId()) {
             return false;
         }
