@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
+import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -28,62 +29,17 @@ public final class EpisodeFilterForwardBackward {
     private final BooleanProperty backward = new SimpleBooleanProperty(false);
     private final BooleanProperty forward = new SimpleBooleanProperty(false);
     private boolean stopInput = false;
+    private int idx = 0;
 
     // ist die Liste der zuletzt verwendeten Filter
     private final ObservableList<EpisodeFilter> filterListBackward = FXCollections.observableArrayList();
-    private final ObservableList<EpisodeFilter> filterListForward = FXCollections.observableArrayList();
 
     public EpisodeFilterForwardBackward(EpisodeFilter actFilter) {
         this.actFilter = actFilter;
         filterListBackward.add(new EpisodeFilter());
-        filterListBackward.addListener((ListChangeListener<EpisodeFilter>) c ->
-                backward.setValue(checkBack()));
-
-        filterListForward.addListener((ListChangeListener<EpisodeFilter>) c ->
-                forward.setValue(!filterListForward.isEmpty()));
-    }
-
-    private boolean checkBack() {
-        if (filterListBackward.isEmpty()) {
-            return false;
-        }
-
-        if (filterListBackward.size() == 1) {
-            if (!EpisodeFilterFactory.compareFilter(actFilter, filterListBackward.get(0))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        //dann wird schon ein passender dabei sein :)
-        return true;
-    }
-
-
-    public void addNewFilter() {
-        if (stopInput) {
-            return;
-        }
-
-        if (filterListBackward.isEmpty()) {
-//            filterListBackward.add(new EpisodeFilter(false));
-            filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter()));
-            return;
-        }
-
-        EpisodeFilter ep = filterListBackward.get(filterListBackward.size() - 1); //ist der letzte
-        if (!EpisodeFilterFactory.compareFilter(actFilter, ep)) {
-
-            //nicht den gleichen wieder eintragen
-//            if (checkB(ep, actFilter)) {
-//                //dann nur austauschen
-//                filterListBackward.remove(filterListBackward.size() - 1); //ist der letzte
-//                filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter(false)));
-//            } else {
-            filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter()));
-//            }
-        }
+        filterListBackward.addListener((ListChangeListener<EpisodeFilter>) c -> {
+            setIdx(filterListBackward.size() - 1);
+        });
     }
 
     public BooleanProperty backwardProperty() {
@@ -94,7 +50,41 @@ public final class EpisodeFilterForwardBackward {
         return forward;
     }
 
-    private boolean checkB(EpisodeFilter ep, EpisodeFilter act) {
+    public void addNewFilter() {
+        if (stopInput) {
+            return;
+        }
+
+        while (filterListBackward.size() > ProgConst.EPISODE_FILTER_MAX_BACKWARD_SIZE) {
+            filterListBackward.remove(0);
+        }
+        if (filterListBackward.isEmpty()) {
+            filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter()));
+            return;
+        }
+
+        EpisodeFilter ep = filterListBackward.get(filterListBackward.size() - 1); //ist der letzte
+        if (!EpisodeFilterFactory.compareFilter(actFilter, ep)) {
+            if (checkIsTheSame(ep, actFilter)) {
+                //dann nur austauschen und nicht den gleichen wieder eintragen
+                filterListBackward.remove(filterListBackward.size() - 1); //ist der letzte
+                filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter(false)));
+            } else {
+                filterListBackward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter()));
+                setIdx(filterListBackward.size() - 1);//User hat neuen Filter geklickt
+            }
+        }
+    }
+
+    public void goBackward() {
+        go(true);
+    }
+
+    public void goForward() {
+        go(false);
+    }
+
+    private boolean checkIsTheSame(EpisodeFilter ep, EpisodeFilter act) {
         if (ep.getPodcastId() != act.getPodcastId()) {
             return false;
         }
@@ -102,47 +92,109 @@ public final class EpisodeFilterForwardBackward {
             return false;
         }
         if (ep.getTimeRange() != act.getTimeRange()) {
-            return true;
+            if (ep.getTimeRange() == ProgConst.FILTER_TIME_RANGE_ALL_VALUE ||
+                    act.getTimeRange() == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
+                //das erste Mal eintragen
+                return false;
+            } else {
+                return true;
+            }
         }
         if (!ep.getTitle().equals(act.getTitle())) {
-            return true;
+            if (ep.getTitle().isEmpty() || act.getTitle().isEmpty()) {
+                //das erste Mal eintragen
+                return false;
+            } else {
+                return true;
+            }
         }
+
         if (!ep.getDescription().equals(act.getDescription())) {
-            return true;
+            if (ep.getDescription().isEmpty() || act.getDescription().isEmpty()) {
+                //das erste Mal eintragen
+                return false;
+            } else {
+                return true;
+            }
         }
+
         return false;
     }
 
-    public void goBackward() {
+    private void go(boolean back) {
         if (filterListBackward.isEmpty()) {
             //dann gibts noch keine
+            checkButton();
             return;
         }
 
-        while (!filterListBackward.isEmpty()) {
-            EpisodeFilter ep = filterListBackward.remove(filterListBackward.size() - 1);//ist die letzte Einstellung, wahrscheinlich die aktuelle
+        if (back) {
+            if (idx >= filterListBackward.size()) {
+                setIdx(filterListBackward.size() - 1);//auf den letzten Wert setzen
+            }
+        } else {
+            if (idx <= 0) {
+                setIdx(0);//ist der "erste" Wert
+            }
+        }
+
+        while (back ? idx >= 0 : idx < filterListBackward.size()) {
+            EpisodeFilter ep = filterListBackward.get(idx);
             if (EpisodeFilterFactory.compareFilter(actFilter, ep)) {
                 //dann ist die aktuelle Einstellung
+                setIdx(back ? --idx : ++idx);
                 continue;
             }
-//            stopInput = true;
-            filterListForward.add(EpisodeFilterFactory.copyFilter(actFilter, new EpisodeFilter()));
+            stopInput = true;
             setActFilterSettings(ep);
-//            stopInput = false;
+            stopInput = false;
             break;
         }
+        checkButton();
     }
 
-    public void goForward() {
-        if (filterListForward.isEmpty()) {
-            // dann gibts noch keine
-            return;
+
+    private void setIdx(int i) {
+        idx = i;
+        System.out.println("idx: " + idx);
+        checkButton();
+    }
+
+    private void checkButton() {
+        backward.setValue(checkBackward());
+        forward.setValue(checkForward());
+    }
+
+    private boolean checkBackward() {
+        if (idx == 0) {
+            //dann sind wir schon am Ende
+            return false;
+        }
+        return check();
+    }
+
+    private boolean checkForward() {
+        if (idx >= filterListBackward.size() - 1) {
+            //dann sind wir schon wieder am Anfang
+            return false;
+        }
+        return check();
+    }
+
+    private boolean check() {
+        if (filterListBackward.isEmpty()) {
+            return false;
+        }
+        if (filterListBackward.size() == 1) {
+            if (!EpisodeFilterFactory.compareFilter(actFilter, filterListBackward.get(0))) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        final EpisodeFilter sf = filterListForward.remove(filterListForward.size() - 1);//ist die letzte Einstellung
-        stopInput = true;
-        setActFilterSettings(sf);
-        stopInput = false;
+        //dann wird schon ein passender dabei sein :)
+        return true;
     }
 
     private void setActFilterSettings(EpisodeFilter sf) {
