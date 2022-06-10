@@ -34,7 +34,6 @@ import de.p2tools.p2podder.controller.history.HistoryList;
 import de.p2tools.p2podder.controller.starterDownload.DownloadStarterFactory;
 import de.p2tools.p2podder.controller.starterEpisode.EpisodeStarterFactory;
 import de.p2tools.p2podder.controller.worker.EpisodeInfos;
-import de.p2tools.p2podder.controller.worker.StationInfos;
 import de.p2tools.p2podder.controller.worker.Worker;
 import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeFilterControllerClearFilter;
@@ -82,7 +81,7 @@ public class ProgData {
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
     public EpisodeInfos episodeInfos;
-    public StationInfos stationInfos;
+//    public StationInfos stationInfos;
 
     // Worker
     public Worker worker;
@@ -123,7 +122,7 @@ public class ProgData {
         downloadStarterFactory = new DownloadStarterFactory(this);
 
         episodeInfos = new EpisodeInfos(this);
-        stationInfos = new StationInfos(this);
+//        stationInfos = new StationInfos(this);
         progTray = new ProgTray(this);
 
         historyDownloads = new HistoryList(ProgConst.FILE_FINISHED_DOWNLOADS,

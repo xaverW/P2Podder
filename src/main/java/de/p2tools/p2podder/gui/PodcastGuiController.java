@@ -91,7 +91,7 @@ public class PodcastGuiController extends AnchorPane {
         tableView.refresh();
     }
 
-    public int getStationCount() {
+    public int getPodcastShown() {
         return tableView.getItems().size();
     }
 

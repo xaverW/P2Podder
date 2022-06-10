@@ -66,11 +66,11 @@ public class StationInfos {
         clean();
         for (final Podcast podcast : progData.podcastList) {
             ++amount;
-            if (podcast.getStart() != null) {
-                ++started;
-            } else {
-                ++notStarted;
-            }
+//            if (podcast.getStart() != null) {
+//                ++started;
+//            } else {
+            ++notStarted;
+//            }
         }
         PDuration.counterStop("generateInfos");
     }

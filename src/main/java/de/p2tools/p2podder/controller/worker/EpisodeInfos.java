@@ -62,7 +62,6 @@ public class EpisodeInfos {
         }
 
         PDuration.counterStart("generateInfos");
-        // generiert die Anzahl Favoriten
         clean();
         for (final Episode episode : progData.episodeList) {
             ++amount;
@@ -76,7 +75,6 @@ public class EpisodeInfos {
     }
 
     private synchronized void clean() {
-        //DonwloadInfos
         amount = 0;
         notStarted = 0;
         started = 0;

@@ -19,14 +19,13 @@ package de.p2tools.p2podder.controller.worker;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadListFactory;
-import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class InfoFactory {
 
-    private static final String SEPARATOR = "  ||  ";
+    private static final String SEPARATOR = "   |   ";
     private static final NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
     private static final ProgData progData = ProgData.getInstance();
 
@@ -35,25 +34,24 @@ public class InfoFactory {
 
     public static String getInfosEpisode() {
         String textLinks;
-        String sumEpisodeListStr = numberFormat.format(progData.episodeList.size());
-        String sumEpisodeShownStr = numberFormat.format(progData.episodeGui.getEpisodeGuiController().getEpisodesShown());
+        final int sumEpisodeList = progData.episodeList.size();
+        final int sumEpisodesShown = progData.episodeGui.getEpisodeGuiController().getEpisodesShown();
+        String sumEpisodeListStr = numberFormat.format(sumEpisodeList);
+        String sumEpisodeShownStr = numberFormat.format(sumEpisodesShown);
 
         // Anzahl der Episoden
-        if (progData.episodeGui.getEpisodeGuiController().getEpisodesShown() == 1) {
+        if (sumEpisodesShown == 1) {
             textLinks = "1 Episode";
         } else {
             textLinks = sumEpisodeShownStr + " Episoden";
         }
-
-        // weitere Infos anzeigen
-        if (progData.episodeList.size() != progData.episodeGui.getEpisodeGuiController().getEpisodesShown()) {
-            textLinks += " (Insgesamt: " + sumEpisodeListStr;
-            textLinks += ")";
+        if (sumEpisodeList != sumEpisodesShown) {
+            textLinks += " (Insgesamt: " + sumEpisodeListStr + ")";
         }
 
         if (progData.episodeInfos.getAmount() > 0) {
-            // nur wenn ein Favorite läuft, wartet, ..
-            textLinks += getRunningInfos();
+            //nur wenn eine Episode läuft
+            textLinks += getEpisodeRunningInfos();
         }
 
         return textLinks;
@@ -62,74 +60,87 @@ public class InfoFactory {
     public static synchronized String getInfosPodcasts() {
         String textLinks;
         final int sumPodcastsList = progData.podcastList.size();
-        final int sumPodcastsShown = progData.podcastGui.getPodcastGuiController().getStationCount();
-        final int runs = progData.episodeList.getListOfStartsNotFinished(EpisodeConstants.SRC_BUTTON).size();
-
-        String sumPodcastListStr = numberFormat.format(sumPodcastsShown);
-        String sumPodcastShownStr = numberFormat.format(sumPodcastsList);
+        final int sumPodcastsShown = progData.podcastGui.getPodcastGuiController().getPodcastShown();
+        final String sumPodcastListStr = numberFormat.format(sumPodcastsList);
+        final String sumPodcastShownStr = numberFormat.format(sumPodcastsShown);
 
         // Anzahl der Podcasts
-        textLinks = sumPodcastListStr + " Podcasts";
+        if (sumPodcastsShown == 1) {
+            textLinks = "1 Podcast";
+        } else {
+            textLinks = sumPodcastShownStr + " Podcasts";
+        }
         if (sumPodcastsList != sumPodcastsShown) {
-            textLinks += " (Insgesamt: " + sumPodcastShownStr + " )";
-        }
-        // laufende Programme
-        if (runs == 1) {
-            textLinks += SEPARATOR;
-            textLinks += (runs + " laufende Podcast");
-        } else if (runs > 1) {
-            textLinks += SEPARATOR;
-            textLinks += (runs + " laufende Podcasts");
+            textLinks += " (Insgesamt: " + sumPodcastListStr + " )";
         }
 
-        // auch die Favoriten anzeigen
-        if (progData.episodeInfos.getAmount() > 0) {
-            textLinks += SEPARATOR;
-
-            // Anzahl der Favoriten
-            if (progData.episodeInfos.getAmount() == 1) {
-                textLinks += "1 Episode";
-            } else {
-                textLinks += progData.episodeInfos.getAmount() + " Episoden";
-            }
-            textLinks += getRunningInfos();
-        }
+        // auch die Episoden anzeigen
+        textLinks += addEpisodeInfos();
 
         return textLinks;
     }
 
     public static String getInfosDownloads() {
         String textLinks;
-        String sumDownloadListStr = numberFormat.format(progData.downloadList.size());
+        final int sumDownloadsList = progData.downloadList.size();
+        final int sumDownloadsShown = progData.downloadGui.getDownloadGuiController().getDownloadsShown();
+        final long running = DownloadListFactory.countRunningDownloads();
+        final String sumDownloadListStr = numberFormat.format(sumDownloadsList);
+        final String sumDownloadShownStr = numberFormat.format(sumDownloadsShown);
 
         // Anzahl der Downloads
-        if (progData.downloadList.getSize() == 1) {
+        if (sumDownloadsShown == 1) {
             textLinks = "1 Download";
         } else {
-            textLinks = sumDownloadListStr + " Downloads";
+            textLinks = sumDownloadShownStr + " Downloads";
+        }
+        if (sumDownloadsList != sumDownloadsShown) {
+            textLinks += " (Insgesamt: " + sumDownloadListStr + " )";
         }
 
-        long running = DownloadListFactory.countRunningDownloads();
-        if (running > 0) {
-            textLinks += " (Laufende: " + running + " )";
+        // laufende Programme
+        if (running == 1) {
+            textLinks += SEPARATOR;
+            textLinks += (running + " gestarteter Download");
+        } else if (running > 1) {
+            textLinks += SEPARATOR;
+            textLinks += (running + " gestartete Downloads");
         }
 
+        // auch die Episoden anzeigen
+        textLinks += addEpisodeInfos();
         return textLinks;
     }
 
-    private static synchronized String getRunningInfos() {
-        String textLinks = " || ";
+    private static String addEpisodeInfos() {
+        String txt = "";
+        if (progData.episodeInfos.getAmount() > 0) {
+            txt += SEPARATOR;
+
+            // Anzahl der Episoden
+            if (progData.episodeInfos.getAmount() == 1) {
+                txt += "1 Episode";
+            } else {
+                txt += progData.episodeInfos.getAmount() + " Episoden";
+            }
+            //und noch die laufenden Episoden
+            txt += getEpisodeRunningInfos();
+        }
+        return txt;
+    }
+
+    private static synchronized String getEpisodeRunningInfos() {
+        String textLinks = SEPARATOR;
         int running = 0;
         running = progData.episodeInfos.getStarted();
-        running += progData.stationInfos.getStarted();
         if (running == 0) {
             textLinks = "";
 
         } else if (running == 1) {
-            textLinks += "1 Episode läuft";
+            textLinks += "1 Episode gestartet";
 
         } else {
-            textLinks += running + " Episoden laufen";
+            textLinks += running + " Episoden gestartet";
         }
 
         return textLinks;

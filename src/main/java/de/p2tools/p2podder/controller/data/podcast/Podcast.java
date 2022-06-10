@@ -20,11 +20,10 @@ import de.p2tools.p2Lib.tools.PIndex;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.starterEpisode.Start;
 
 public class Podcast extends PodcastProps {
 
-    private Start start = null;
+//    private Start start = null;
 
     public Podcast() {
         setId(PIndex.getIndex());
@@ -34,13 +33,13 @@ public class Podcast extends PodcastProps {
         setDate();
     }
 
-    public Start getStart() {
-        return start;
-    }
-
-    public void setStart(Start start) {
-        this.start = start;
-    }
+//    public Start getStart() {
+//        return start;
+//    }
+//
+//    public void setStart(Start start) {
+//        this.start = start;
+//    }
 
     private void setDate() {
         podcastDate.setPLocalDateNow();

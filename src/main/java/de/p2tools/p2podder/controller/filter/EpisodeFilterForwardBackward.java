@@ -90,10 +90,10 @@ public final class EpisodeFilterForwardBackward {
 
     private boolean checkIsTheSame(EpisodeFilter ep, EpisodeFilter act) {
         if (PDateFactory.diffInSeconds(date) > 3) {
-            date = new Date();
             //dann wars ein gewollter Filter
             return false;
         }
+        date = new Date();
 
         if (ep.getPodcastId() != act.getPodcastId()) {
             return false;
