@@ -28,7 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class DownloadInfoDialogController extends PDialogExtra {
@@ -36,12 +36,8 @@ public class DownloadInfoDialogController extends PDialogExtra {
     private Button btnOk = new Button("_Ok");
 
     private final GridPane gridPane = new GridPane();
-    private final VBox vBoxAllEpisode = new VBox();
-
-    private final HBox hBoxTop = new HBox();
     private Download download;
     private final ProgData progData;
-    private boolean stopGradeListener = false;
 
     public DownloadInfoDialogController(ProgData progData, Download dowdownloadloadArrayList) {
         super(progData.primaryStage, ProgConfig.EPISODE_DIALOG_EDIT_SIZE,
@@ -76,6 +72,7 @@ public class DownloadInfoDialogController extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         int row = 0;
         gridAdd(DownloadFieldNames.DOWNLOAD_NO, download.getNo() + "", row);
@@ -95,6 +92,7 @@ public class DownloadInfoDialogController extends PDialogExtra {
         taDescription.setText(download.getDescription());
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DESCRIPTION + ":"), 0, row);
         gridPane.add(taDescription, 1, row, 3, 1);
+        GridPane.setVgrow(taDescription, Priority.ALWAYS);
 
         ++row;
         gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, download.getPdownloadSize().getSizeString() + " MB",

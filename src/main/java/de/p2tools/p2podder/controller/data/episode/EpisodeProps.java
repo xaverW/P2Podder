@@ -33,7 +33,6 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final StringProperty episodeTitle = new SimpleStringProperty("");
     private final StringProperty podcastName = new SimpleStringProperty("");
     private final StringProperty genre = new SimpleStringProperty("");
-    private final StringProperty country = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty duration = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
@@ -56,8 +55,6 @@ public class EpisodeProps extends PDataSample<Episode> {
         list.add(new ConfigStringPropExtra("podcastName", EpisodeFieldNames.EPISODE_TITLE, podcastName));
         list.add(new ConfigStringPropExtra("genre", EpisodeFieldNames.EPISODE_GENRE, genre));
 
-        list.add(new ConfigStringPropExtra("country", EpisodeFieldNames.EPISODE_COUNTRY, country));
-        list.add(new ConfigStringPropExtra("language", EpisodeFieldNames.EPISODE_COUNTRY, language));
         list.add(new ConfigStringPropExtra("duration", EpisodeFieldNames.EPISODE_DESCRIPTION, duration));
         list.add(new ConfigStringPropExtra("description", EpisodeFieldNames.EPISODE_DESCRIPTION, description));
         list.add(new ConfigStringPropExtra("fileName", EpisodeFieldNames.EPISODE_FILE_NAME, fileName));
@@ -124,30 +121,6 @@ public class EpisodeProps extends PDataSample<Episode> {
 
     public void setGenre(String genre) {
         this.genre.set(genre);
-    }
-
-    public String getCountry() {
-        return country.get();
-    }
-
-    public StringProperty countryProperty() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country.set(country);
-    }
-
-    public String getLanguage() {
-        return language.get();
-    }
-
-    public StringProperty languageProperty() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language.set(language);
     }
 
     public String getDuration() {

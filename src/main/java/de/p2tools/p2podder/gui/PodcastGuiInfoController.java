@@ -33,7 +33,8 @@ import javafx.scene.text.FontWeight;
 
 public class PodcastGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
-    private final Label lblTitle = new Label("");
+    private final Label lblTitle = new Label("Titel: ");
+    private final Label title = new Label("");
     private final Label lblWebsite = new Label("Website: ");
     private final Label lblUrl = new Label("Podcast-URL: ");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
@@ -52,7 +53,7 @@ public class PodcastGuiInfoController extends PClosePaneH {
         getVBoxAll().getChildren().addAll(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
-        lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
+        title.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
         lblUrl.setMinWidth(Region.USE_PREF_SIZE);
 
@@ -63,7 +64,8 @@ public class PodcastGuiInfoController extends PClosePaneH {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPane.add(lblTitle, 0, row, 2, 1);
+        gridPane.add(lblTitle, 0, row);
+        gridPane.add(title, 1, row);
 
         gridPane.add(lblWebsite, 0, ++row);
         gridPane.add(hyperlinkWebsite, 1, row);
@@ -75,13 +77,13 @@ public class PodcastGuiInfoController extends PClosePaneH {
     public void setStation(Podcast podcast) {
         this.podcast = podcast;
         if (podcast == null) {
-            lblTitle.setText("");
+            title.setText("");
             hyperlinkWebsite.setUrl("");
             hyperlinkUrl.setUrl("");
             return;
         }
 
-        lblTitle.setText(podcast.getName() /*+ "  -  " + podAbo.arr[PodAboXml.STATION_COUNTRY]*/);
+        title.setText(podcast.getName() /*+ "  -  " + podAbo.arr[PodAboXml.STATION_COUNTRY]*/);
         hyperlinkWebsite.setUrl(podcast.getWebsite());
         hyperlinkUrl.setUrl(podcast.getUrl());
     }

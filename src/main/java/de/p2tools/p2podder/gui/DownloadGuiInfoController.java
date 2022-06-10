@@ -34,7 +34,8 @@ import javafx.scene.text.FontWeight;
 
 public class DownloadGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
-    private final Label lblTitle = new Label("");
+    private final Label lblTitle = new Label("Titel: ");
+    private final Label title = new Label("");
     private final Label lblWebsite = new Label("Website: ");
     private final Label lblUrl = new Label("Download-URL: ");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
@@ -54,7 +55,7 @@ public class DownloadGuiInfoController extends PClosePaneH {
     public void initInfo() {
         getVBoxAll().getChildren().add(gridPane);
 
-        lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
+        title.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
         lblUrl.setMinWidth(Region.USE_PREF_SIZE);
 
@@ -69,7 +70,8 @@ public class DownloadGuiInfoController extends PClosePaneH {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPane.add(lblTitle, 0, row, 2, 1);
+        gridPane.add(lblTitle, 0, row);
+        gridPane.add(title, 1, row);
 
         gridPane.add(lblWebsite, 0, ++row);
         gridPane.add(hyperlinkWebsite, 1, row);
@@ -91,14 +93,14 @@ public class DownloadGuiInfoController extends PClosePaneH {
 
         this.download = down;
         if (download == null) {
-            lblTitle.setText("");
+            title.setText("");
             hyperlinkWebsite.setUrl("");
             hyperlinkUrl.setUrl("");
             taDescription.setText("");
             return;
         }
 
-        lblTitle.setText(download.getEpisodeTitle() + "  -  " + download.getGenre());
+        title.setText(download.getEpisodeTitle() + "  -  " + download.getGenre());
         hyperlinkWebsite.setUrl(download.getEpisodeWebsite());
         hyperlinkUrl.setUrl(download.getEpisodeUrl());
         taDescription.textProperty().bindBidirectional(download.descriptionProperty());

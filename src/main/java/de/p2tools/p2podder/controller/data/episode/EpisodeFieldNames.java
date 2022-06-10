@@ -27,7 +27,6 @@ public class EpisodeFieldNames {
     public static final String EPISODE_GENRE = "Genre";
     public static final String EPISODE_BUTTON1 = "";
     public static final String EPISODE_BUTTON2 = "";
-    public static final String EPISODE_COUNTRY = "Land";
     public static final String EPISODE_DURATION = "Dauer";
     public static final String EPISODE_DESCRIPTION = "Beschreibung";
 
@@ -48,17 +47,16 @@ public class EpisodeFieldNames {
     public static final int EPISODE_GENRE_NO = 5;
     public static final int EPISODE_BUTTON1_NO = 6;
     public static final int EPISODE_BUTTON2_NO = 7;
-    public static final int EPISODE_COUNTRY_NO = 8;
-    public static final int EPISODE_DURATION_NO = 9;
-    public static final int EPISODE_DESCRIPTION_NO = 10;
+    public static final int EPISODE_DURATION_NO = 8;
+    public static final int EPISODE_DESCRIPTION_NO = 9;
 
-    public static final int EPISODE_FILE_NAME_NO = 11;
-    public static final int EPISODE_FILE_PATH_NO = 12;
-    public static final int EPISODE_FILE_SIZE_NO = 13;
-    public static final int EPISODE_URL_NO = 14;
-    public static final int EPISODE_WEBSITE_NO = 15;
-    public static final int EPISODE_DATE_NO = 16;
-    public static final int EPISODE_DATE_LONG_NO = 17;
+    public static final int EPISODE_FILE_NAME_NO = 10;
+    public static final int EPISODE_FILE_PATH_NO = 11;
+    public static final int EPISODE_FILE_SIZE_NO = 12;
+    public static final int EPISODE_URL_NO = 13;
+    public static final int EPISODE_WEBSITE_NO = 14;
+    public static final int EPISODE_DATE_NO = 15;
+    public static final int EPISODE_DATE_LONG_NO = 16;
 
     public static final String[] COLUMN_NAMES = {
             EPISODE_NO,
@@ -68,7 +66,6 @@ public class EpisodeFieldNames {
             EPISODE_PODCAST_ID,
             EPISODE_GENRE,
             EPISODE_BUTTON1, EPISODE_BUTTON2,
-            EPISODE_COUNTRY,
             EPISODE_DURATION,
             EPISODE_DESCRIPTION,
 

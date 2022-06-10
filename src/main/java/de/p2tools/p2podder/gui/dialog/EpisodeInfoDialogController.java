@@ -222,11 +222,6 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_GENRE_NO], 0, row);
                     gridPane.add(lblCont[EpisodeFieldNames.EPISODE_GENRE_NO], 1, row++);
                     break;
-                case EpisodeFieldNames.EPISODE_COUNTRY_NO:
-                    if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
-                    gridPane.add(textTitle[EpisodeFieldNames.EPISODE_COUNTRY_NO], 0, row);
-                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_COUNTRY_NO], 1, row++);
-                    break;
                 case EpisodeFieldNames.EPISODE_DURATION_NO:
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DURATION_NO], 0, row);
                     gridPane.add(lblCont[EpisodeFieldNames.EPISODE_DURATION_NO], 1, row++);
@@ -250,12 +245,12 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                 case EpisodeFieldNames.EPISODE_URL_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_URL_NO], 0, row);
-                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_URL_NO], 1, row++);
+                    gridPane.add(pHyperlinkUrl, 1, row++);
                     break;
                 case EpisodeFieldNames.EPISODE_WEBSITE_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_WEBSITE_NO], 0, row);
-                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_WEBSITE_NO], 1, row++);
+                    gridPane.add(pHyperlinkWebsite, 1, row++);
                     break;
                 case EpisodeFieldNames.EPISODE_DATE_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
@@ -293,25 +288,23 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                     case EpisodeFieldNames.EPISODE_DURATION_NO:
                         lblCont[i].setText(episode.getDuration());
                         break;
-
                     case EpisodeFieldNames.EPISODE_DESCRIPTION_NO:
                         lblCont[i].setText(episode.getDescription());
                         break;
-
                     case EpisodeFieldNames.EPISODE_FILE_NAME_NO:
                         lblCont[i].setText(episode.getFileName());
                         break;
-
                     case EpisodeFieldNames.EPISODE_FILE_PATH_NO:
                         lblCont[i].setText(episode.getFilePath());
                         break;
-
                     case EpisodeFieldNames.EPISODE_URL_NO:
                         pHyperlinkUrl.setUrl(episode.getEpisodeUrl());
                         break;
-
                     case EpisodeFieldNames.EPISODE_WEBSITE_NO:
                         pHyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
+                        break;
+                    case EpisodeFieldNames.EPISODE_DATE_NO:
+                        lblCont[i].setText(episode.getPubDate().toString());
                         break;
                 }
             }

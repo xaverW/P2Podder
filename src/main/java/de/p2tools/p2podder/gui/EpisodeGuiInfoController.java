@@ -26,13 +26,16 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class EpisodeGuiInfoController extends PClosePaneH {
     private final GridPane gridPane = new GridPane();
-    private final Label lblTitle = new Label("");
+    private final Label lblTitle = new Label("Titel: ");
+    private final Label title = new Label("");
     private final Label lblWebsite = new Label("Website: ");
     private final Label lblUrl = new Label("Episoden-URL: ");
     private final PHyperlink hyperlinkWebsite = new PHyperlink("",
@@ -52,7 +55,7 @@ public class EpisodeGuiInfoController extends PClosePaneH {
     public void initInfo() {
         getVBoxAll().getChildren().add(gridPane);
 
-        lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
+        title.setFont(Font.font(null, FontWeight.BOLD, -1));
         lblWebsite.setMinWidth(Region.USE_PREF_SIZE);
         lblUrl.setMinWidth(Region.USE_PREF_SIZE);
 
@@ -67,7 +70,8 @@ public class EpisodeGuiInfoController extends PClosePaneH {
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPane.add(lblTitle, 0, row, 2, 1);
+        gridPane.add(lblTitle, 0, row);
+        gridPane.add(title, 1, row);
 
         gridPane.add(lblWebsite, 0, ++row);
         gridPane.add(hyperlinkWebsite, 1, row);
@@ -77,6 +81,8 @@ public class EpisodeGuiInfoController extends PClosePaneH {
 
         gridPane.add(lblDescription, 0, ++row);
         gridPane.add(taDescription, 1, row);
+        GridPane.setVgrow(taDescription, Priority.ALWAYS);
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
     }
 
     public void setEpisode(Episode episode) {
@@ -86,14 +92,14 @@ public class EpisodeGuiInfoController extends PClosePaneH {
 
         this.episode = episode;
         if (episode == null) {
-            lblTitle.setText("");
+            title.setText("");
             hyperlinkWebsite.setUrl("");
             hyperlinkUrl.setUrl("");
             taDescription.setText("");
             return;
         }
 
-        lblTitle.setText(episode.getEpisodeTitle() + "  -  " + episode.getCountry());
+        title.setText(episode.getEpisodeTitle());
         hyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
         hyperlinkUrl.setUrl(episode.getEpisodeUrl());
         taDescription.textProperty().bindBidirectional(episode.descriptionProperty());

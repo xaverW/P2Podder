@@ -31,6 +31,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 public class PodcastEditDialogController extends PDialogExtra {
 
@@ -109,6 +110,7 @@ public class PodcastEditDialogController extends PDialogExtra {
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize());
+        VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         int grid = 0;
         for (int i = 0; i < PodcastNames.MAX_ELEM; ++i) {
@@ -135,6 +137,7 @@ public class PodcastEditDialogController extends PDialogExtra {
                     textArea.setPrefColumnCount(1);
                     textArea.textProperty().bindBidirectional(podcast.properties[i]);
                     gridPane.add(textArea, 1, grid);
+                    GridPane.setVgrow(textArea, Priority.ALWAYS);
                     break;
                 case PodcastNames.PODCAST_GENRE_NO:
                     cboGenre.valueProperty().bindBidirectional(podcast.properties[i]);
