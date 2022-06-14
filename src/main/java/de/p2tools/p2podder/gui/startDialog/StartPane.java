@@ -82,33 +82,39 @@ public class StartPane {
         iv.setSmooth(true);
         iv.setImage(im);
 
-        Label text = new Label("1) Hier können die angezeigten" + P2LibConst.LINE_SEPARATOR +
-                "Episoden gefiltert werden." +
+        Label text = new Label(
+                "1) Hier kann die Programmoberfläche" + P2LibConst.LINE_SEPARATOR +
+                        "umgeschaltet werden. Es wird ein kleineres" + P2LibConst.LINE_SEPARATOR +
+                        "Fenster nur mit den Episoden, angezeigt." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "2) Die Ansicht der Episoden, Podcasts und" + P2LibConst.LINE_SEPARATOR +
-                "der Downloads wird hier umgeschaltet." +
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "2) Die Ansicht der Episoden, Podcasts und" + P2LibConst.LINE_SEPARATOR +
+                        "der Downloads wird hier umgeschaltet." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "3) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
-                "die Programmeinstellungen." +
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "3) In dem Menü befinden sich" + P2LibConst.LINE_SEPARATOR +
+                        "die Programmeinstellungen." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "4) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
-                "Spalten in der Tabelle" + P2LibConst.LINE_SEPARATOR +
-                "ein- und ausgeblendet werden." +
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "4) Mit dem Pluszeichen können" + P2LibConst.LINE_SEPARATOR +
+                        "Spalten in der Tabelle" + P2LibConst.LINE_SEPARATOR +
+                        "ein- und ausgeblendet werden." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "5) In dem Menü können Episoden" + P2LibConst.LINE_SEPARATOR +
-                "gestartet und verarbeitet werden." +
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "5) In dem Menü können Episoden" + P2LibConst.LINE_SEPARATOR +
+                        "gestartet und verarbeitet werden." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "6) Damit können Episoden gestartet" + P2LibConst.LINE_SEPARATOR +
-                "und gestoppt werden." +
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "6) Damit können Episoden gestartet" + P2LibConst.LINE_SEPARATOR +
+                        "und gestoppt werden." +
 
-                P2LibConst.LINE_SEPARATORx2 +
-                "7) Damit können Episoden" + P2LibConst.LINE_SEPARATOR +
-                "gelöscht werden.");
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "7) Damit können Episoden" + P2LibConst.LINE_SEPARATOR +
+                        "gelöscht werden." +
+
+                        P2LibConst.LINE_SEPARATORx2 +
+                        "8) Hier können die angezeigten" + P2LibConst.LINE_SEPARATOR +
+                        "Episoden gefiltert werden.");
 
         hBox.getChildren().addAll(iv, text);
         TitledPane tpConfig = new TitledPane("Infos zur Programmoberfläche der Episoden", hBox);
