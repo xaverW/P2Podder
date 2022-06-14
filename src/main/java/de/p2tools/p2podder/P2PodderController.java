@@ -37,6 +37,7 @@ import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
+import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,7 +47,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
 public class P2PodderController extends StackPane {
-    private Button btnEmpty = new Button("");
+    private Button btnSmallPodder = new Button("");
     private Button btnEpisodes = new Button("Episoden");
     private Button btnPodcasts = new Button("Podcasts");
     private Button btnDownloads = new Button("Downloads");
@@ -58,9 +59,9 @@ public class P2PodderController extends StackPane {
     private PMaskerPane maskerPane = new PMaskerPane();
     private PodcastBarController podcastBarController;
 
-    private Pane paneEpisodes;
-    private Pane panePodcasts;
-    private Pane paneDownloads;
+    private Pane paneEpisodeGui;
+    private Pane panePodcastGui;
+    private Pane paneDownloadGui;
 
     private final ProgData progData;
 
@@ -86,13 +87,13 @@ public class P2PodderController extends StackPane {
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnEpisodes, btnPodcasts, btnDownloads);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnEmpty, tilePaneStationFavourite, menuButton);
+            hBoxTop.getChildren().addAll(btnSmallPodder, tilePaneStationFavourite, menuButton);
 
             // Center
-            paneEpisodes = episodeGui.pack();
-            panePodcasts = podcastGui.pack();
-            paneDownloads = downloadGui.pack();
-            stackPaneCont.getChildren().addAll(paneEpisodes, panePodcasts, paneDownloads);
+            paneEpisodeGui = episodeGui.pack();
+            panePodcastGui = podcastGui.pack();
+            paneDownloadGui = downloadGui.pack();
+            stackPaneCont.getChildren().addAll(paneEpisodeGui, panePodcastGui, paneDownloadGui);
 
             // Statusbar
             podcastBarController = new PodcastBarController(progData);
@@ -111,13 +112,13 @@ public class P2PodderController extends StackPane {
                 @Override
                 public void finished(EventLoadPodcastList event) {
                     Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                    if (node != null && node == paneEpisodes) {
+                    if (node != null && node == paneEpisodeGui) {
                         progData.episodeGui.getEpisodeGuiController().isShown();
                     }
-                    if (node != null && node == panePodcasts) {
+                    if (node != null && node == panePodcastGui) {
                         progData.podcastGui.getPodcastGuiController().isShown();
                     }
-                    if (node != null && node == paneDownloads) {
+                    if (node != null && node == paneDownloadGui) {
                         progData.downloadGui.getDownloadGuiController().isShown();
                     }
                 }
@@ -149,9 +150,11 @@ public class P2PodderController extends StackPane {
     }
 
     private void initButton() {
-        btnEmpty.setVisible(false);
-        btnEmpty.setMaxWidth(Double.MAX_VALUE);
-        btnEmpty.getStyleClass().add("btnTabEasy");
+        btnSmallPodder.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));
+        btnSmallPodder.setOnAction(e -> selPanelSmallRadio());
+        btnSmallPodder.setMaxWidth(Double.MAX_VALUE);
+        btnSmallPodder.getStyleClass().add("btnTab");
+        btnSmallPodder.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_PODDER_24);
 
         btnEpisodes.setTooltip(new Tooltip("Episoden anzeigen"));
         btnEpisodes.setOnAction(e -> selPanelEpisode());
@@ -167,7 +170,7 @@ public class P2PodderController extends StackPane {
 
         btnEpisodes.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodes)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -176,7 +179,7 @@ public class P2PodderController extends StackPane {
         });
         btnPodcasts.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcasts)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -185,7 +188,7 @@ public class P2PodderController extends StackPane {
         });
         btnDownloads.setOnMouseClicked(mouseEvent -> {
             if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloads)) {
+                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -200,7 +203,7 @@ public class P2PodderController extends StackPane {
         miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
 
         final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuitFactory.quit(true));
+        miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
         PShortcutWorker.addShortCut(miQuit, P2PodderShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");
@@ -245,12 +248,21 @@ public class P2PodderController extends StackPane {
                 new SeparatorMenuItem(), miQuit);
     }
 
+    private void selPanelSmallRadio() {
+        if (maskerPane.isVisible()) {
+            return;
+        }
+
+        progData.primaryStage.close();
+        new SmallPodderGuiPack(progData);
+    }
+
     private void selPanelEpisode() {
         ProgConfig.SYSTEM_LAST_TAB.set(ProgConst.LAST_TAB_STATION_EPISODE);
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodes)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
             // dann ist der 2. Klick
             episodeGui.closeSplit();
             return;
@@ -260,7 +272,7 @@ public class P2PodderController extends StackPane {
 
     private void initPanelEpisode() {
         setButtonStyle(btnEpisodes);
-        paneEpisodes.toFront();
+        paneEpisodeGui.toFront();
         progData.episodeGui.getEpisodeGuiController().isShown();
         podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.EPISODE);
     }
@@ -270,7 +282,7 @@ public class P2PodderController extends StackPane {
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcasts)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
             // dann ist der 2. Klick
             podcastGui.closeSplit();
             return;
@@ -280,7 +292,7 @@ public class P2PodderController extends StackPane {
 
     private void initPanelPodcast() {
         setButtonStyle(btnPodcasts);
-        panePodcasts.toFront();
+        panePodcastGui.toFront();
         progData.podcastGui.getPodcastGuiController().isShown();
         podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.PODCAST);
     }
@@ -290,7 +302,7 @@ public class P2PodderController extends StackPane {
         if (maskerPane.isVisible()) {
             return;
         }
-        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloads)) {
+        if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
             // dann ist der 2. Klick
             downloadGui.closeSplit();
             return;
@@ -300,7 +312,7 @@ public class P2PodderController extends StackPane {
 
     private void initPanelDownload() {
         setButtonStyle(btnDownloads);
-        paneDownloads.toFront();
+        paneDownloadGui.toFront();
         progData.downloadGui.getDownloadGuiController().isShown();
         podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.DOWNLOAD);
     }

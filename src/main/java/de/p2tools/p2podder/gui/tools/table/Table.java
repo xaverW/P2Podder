@@ -28,7 +28,7 @@ import javafx.scene.control.TableView;
 
 public class Table {
     public enum TABLE {
-        EPISODE, PODCAST, DOWNLOAD
+        EPISODE, PODCAST, DOWNLOAD, SMALL_EPISODE
     }
 
     private static final String SORT_ASCENDING = "ASCENDING";
@@ -55,7 +55,7 @@ public class Table {
             btn.setMaxHeight(ProgConst.TABLE_SMALL_BUTTON);
         }
     }
-    
+
     public static void refresh_table(TableView table) {
         for (int i = 0; i < table.getColumns().size(); i++) {
             ((TableColumn) (table.getColumns().get(i))).setVisible(false);
@@ -164,6 +164,14 @@ public class Table {
                 confOrder = ProgConfig.EPISODE_GUI_TABLE_ORDER;
                 break;
 
+            case SMALL_EPISODE:
+                confWidth = ProgConfig.SMALL_EPISODE_GUI_TABLE_WIDTH;
+                confSort = ProgConfig.SMALL_EPISODE_GUI_TABLE_SORT;
+                confUpDown = ProgConfig.SMALL_EPISODE_GUI_TABLE_UP_DOWN;
+                confVis = ProgConfig.SMALL_EPISODE_GUI_TABLE_VIS;
+                confOrder = ProgConfig.SMALL_EPISODE_GUI_TABLE_ORDER;
+                break;
+
             case PODCAST:
                 confWidth = ProgConfig.PODCAST_GUI_TABLE_WIDTH;
                 confSort = ProgConfig.PODCAST_GUI_TABLE_SORT;
@@ -190,6 +198,9 @@ public class Table {
                 break;
             case DOWNLOAD:
                 tArray = new TableDownload(ProgData.getInstance()).initDownloadColumn(table);
+                break;
+            case SMALL_EPISODE:
+                tArray = new TableSmallEpisode(ProgData.getInstance()).initEpisodeColumn(table);
                 break;
             case EPISODE:
             default:
@@ -240,6 +251,7 @@ public class Table {
         switch (eTable) {
             case PODCAST:
             case DOWNLOAD:
+            case SMALL_EPISODE:
             case EPISODE:
             default:
                 resetTable();

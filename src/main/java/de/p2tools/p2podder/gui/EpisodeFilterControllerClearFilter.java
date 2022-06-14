@@ -29,10 +29,6 @@ import javafx.scene.layout.Priority;
 
 public class EpisodeFilterControllerClearFilter extends HBox {
 
-    private final Button btnClearFilter = new Button("");
-    private final Button btnGoBack = new Button("");
-    private final Button btnGoForward = new Button("");
-
     private final ProgData progData;
 
     public EpisodeFilterControllerClearFilter() {
@@ -43,27 +39,41 @@ public class EpisodeFilterControllerClearFilter extends HBox {
     }
 
     private void addButton() {
+        Button btnClearFilter = new Button("");
+        Button btnGoBack = new Button("");
+        Button btnGoForward = new Button("");
+        Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
+
+        btnHelp.getStyleClass().add("btnSmallPodder");
+
+        btnGoBack.getStyleClass().add("btnSmallPodder");
         btnGoBack.setGraphic(new ProgIcons().ICON_BUTTON_BACKWARD);
         btnGoBack.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
+        btnGoForward.getStyleClass().add("btnSmallPodder");
         btnGoForward.setGraphic(new ProgIcons().ICON_BUTTON_FORWARD);
         btnGoForward.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
+        btnClearFilter.getStyleClass().add("btnSmallPodder");
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
         btnClearFilter.setOnAction(a -> clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
+
+        btnGoBack.setMaxHeight(Double.MAX_VALUE);
+        btnGoForward.setMaxHeight(Double.MAX_VALUE);
+        btnClearFilter.setMaxHeight(Double.MAX_VALUE);
+        btnHelp.setMaxHeight(Double.MAX_VALUE);
 
         HBox hBox = new HBox(5);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().addAll(btnGoBack, btnGoForward);
         HBox.setHgrow(hBox, Priority.ALWAYS);
 
-        final Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
-
+        setAlignment(Pos.CENTER_RIGHT);
         getChildren().addAll(hBox, btnClearFilter, btnHelp);
     }
 

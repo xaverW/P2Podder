@@ -191,8 +191,8 @@ public class EpisodeGuiController extends AnchorPane {
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         new Table().setTable(tableView, Table.TABLE.EPISODE);
 
-        tableView.setItems(progData.episodeList.getEpisodeSortedList());
-        progData.episodeList.getEpisodeSortedList().comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(progData.episodeList.getSortedList());
+        progData.episodeList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {

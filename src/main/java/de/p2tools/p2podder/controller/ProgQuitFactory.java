@@ -21,6 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class ProgQuitFactory {
 
@@ -44,8 +45,8 @@ public class ProgQuitFactory {
      *
      * @param showOptionTerminate show options dialog when stations are running
      */
-    public static void quit(boolean showOptionTerminate) {
-        if (quit_(showOptionTerminate)) {
+    public static void quit(Stage stage, boolean showOptionTerminate) {
+        if (quit_(stage, showOptionTerminate)) {
 
             // dann jetzt beenden -> Thüss
             Platform.runLater(() -> {
@@ -56,13 +57,13 @@ public class ProgQuitFactory {
         }
     }
 
-    private static boolean quit_(boolean showOptionTerminate) {
+    private static boolean quit_(Stage stage, boolean showOptionTerminate) {
         // erst mal prüfen ob noch Episoden laufen
         if (ProgData.getInstance().episodeList.countStartedAndRunningEpisode() > 0) {
             // und ob der Dialog angezeigt werden soll
             if (showOptionTerminate) {
                 QuitDialogController quitDialogController;
-                quitDialogController = new QuitDialogController();
+                quitDialogController = new QuitDialogController(stage);
                 if (!quitDialogController.canTerminate()) {
                     return false;
                 }

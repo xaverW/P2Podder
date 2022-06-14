@@ -27,6 +27,7 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -140,7 +141,15 @@ public class ProgTray {
         }));
 
         miAbout.addActionListener(e -> Platform.runLater(() -> AboutDialogController.getInstanceAndShow()));
-        miQuit.addActionListener(e -> Platform.runLater(() -> ProgQuitFactory.quit(true)));
+        miQuit.addActionListener(e -> Platform.runLater(() -> {
+            Stage stage = null;
+            if (progData.smallEpisodeGuiController != null) {
+                stage = progData.smallEpisodeGuiController.getSmallRadioGuiPack().getStage();
+            } else if (progData.primaryStage.isShowing()) {
+                stage = progData.primaryStage;
+            }
+            ProgQuitFactory.quit(stage, true);
+        }));
 
         PopupMenu popupMenu = new PopupMenu();
         popupMenu.add(miMaxMin);

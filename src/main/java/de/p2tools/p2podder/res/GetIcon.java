@@ -39,7 +39,7 @@ public class GetIcon {
         return getImage(strIcon, PATH_PROGRAM, 0, 0);
     }
 
-    public static Image getImage(String strIcon, String path, int w, int h) {
+    private static Image getImage(String strIcon, String path, int w, int h) {
         Image icon;
         icon = getStdImage(strIcon, path, w, h);
         return icon;

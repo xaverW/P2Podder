@@ -192,6 +192,7 @@ public class TableDownload {
 
                 if (item <= DownloadConstants.STATE_STOPPED) {
                     btnDownStart = new Button("");
+                    btnDownStart.getStyleClass().add("btnSmallPodder");
                     btnDownStart.setTooltip(new Tooltip("Download starten"));
                     btnDownStart.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_START));
                     btnDownStart.setOnAction((ActionEvent event) -> {
@@ -200,6 +201,7 @@ public class TableDownload {
                     });
 
                     btnDownBack = new Button("");
+                    btnDownBack.getStyleClass().add("btnSmallPodder");
                     btnDownBack.setTooltip(new Tooltip("Download zurückstellen, beim nächsten Suchen wieder anzeigen"));
                     btnDownBack.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_BACK));
                     btnDownBack.setOnAction(event -> {
@@ -208,6 +210,7 @@ public class TableDownload {
                     });
 
                     btnDownDel = new Button("");
+                    btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
                     btnDownDel.setOnAction(event -> {
@@ -223,6 +226,7 @@ public class TableDownload {
 
                 } else if (item < DownloadConstants.STATE_FINISHED) {
                     btnDownStop = new Button("");
+                    btnDownStop.getStyleClass().add("btnSmallPodder");
                     btnDownStop.setTooltip(new Tooltip("Download stoppen"));
                     btnDownStop.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_STOP));
                     btnDownStop.setOnAction((ActionEvent event) -> {
@@ -258,6 +262,7 @@ public class TableDownload {
 
                 } else if (item == DownloadConstants.STATE_ERROR) {
                     btnDownStart = new Button("");
+                    btnDownStart.getStyleClass().add("btnSmallPodder");
                     btnDownStart.setTooltip(new Tooltip("Download wider starten"));
                     btnDownStart.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_START));
                     btnDownStart.setOnAction((ActionEvent event) -> {
@@ -268,6 +273,7 @@ public class TableDownload {
                     });
 
                     btnDownDel = new Button("");
+                    btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
                     btnDownDel.setOnAction(event -> {

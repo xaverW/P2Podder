@@ -40,7 +40,9 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     private int no = 0;
 
     private final FilteredList<Episode> filteredList;
-    private final SortedList<Episode> episodeSortedList;
+    private final SortedList<Episode> sortedList;
+    private final FilteredList<Episode> smallFilteredList;
+    private final SortedList<Episode> smallSortedList;
 
     private BooleanProperty episodeChanged = new SimpleBooleanProperty(true);
     private ObservableList<String> genreList = FXCollections.observableArrayList();
@@ -51,7 +53,10 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         this.episodeStartsFactory = new EpisodeStartsFactory(progData, this);
 
         this.filteredList = new FilteredList<>(this, p -> true);
-        this.episodeSortedList = new SortedList<>(filteredList);
+        this.sortedList = new SortedList<>(filteredList);
+
+        this.smallFilteredList = new FilteredList<>(this, p -> true);
+        this.smallSortedList = new SortedList<>(smallFilteredList);
     }
 
     @Override
@@ -87,16 +92,20 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         PDuration.counterStop("initList");
     }
 
-    public FilteredList<Episode> getFilteredList() {
-        return filteredList;
+    public SortedList<Episode> getSortedList() {
+        return sortedList;
     }
 
-    public SortedList<Episode> getEpisodeSortedList() {
-        return episodeSortedList;
+    public SortedList<Episode> getSmallSortedList() {
+        return smallSortedList;
     }
 
     public synchronized void filteredListSetPred(Predicate<Episode> predicate) {
         filteredList.setPredicate(predicate);
+    }
+
+    public synchronized void smallFilteredListSetPred(Predicate<Episode> predicate) {
+        smallFilteredList.setPredicate(predicate);
     }
 
     public void sort() {

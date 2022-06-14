@@ -35,6 +35,30 @@ import java.util.Optional;
 
 public class EpisodeFactory {
 
+    public static Optional<Episode> getSel() {
+        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+            return ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        } else {
+            return ProgData.getInstance().smallEpisodeGuiController.getSel();
+        }
+    }
+
+    public static ArrayList<Episode> getSelList() {
+        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+            return ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList();
+        } else {
+            return ProgData.getInstance().smallEpisodeGuiController.getSelList();
+        }
+    }
+
+    public static void refreshTable() {
+        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+            ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
+        } else {
+            ProgData.getInstance().smallEpisodeGuiController.tableRefresh();
+        }
+    }
+
     public static boolean episodeIsRunning(Episode episode) {
         if (episode.getStart() != null) {
             return true;
@@ -48,7 +72,7 @@ public class EpisodeFactory {
     }
 
     public static void copyUrl() {
-        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        final Optional<Episode> episode = getSel();
         if (episode.isPresent()) {
             return;
         }
@@ -56,14 +80,14 @@ public class EpisodeFactory {
     }
 
     public static void playEpisode() {
-        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        final Optional<Episode> episode = getSel();
         if (episode.isPresent()) {
             EpisodeFactory.playEpisode(episode.get());
         }
     }
 
     public static void playSelEpisode() {
-        playEpisode(ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList(), null);
+        playEpisode(getSelList(), null);
     }
 
     public static void playEpisode(Episode episode) {
@@ -98,7 +122,7 @@ public class EpisodeFactory {
 
     public static void stopEpisode() {
         //bezieht sich auf die markierte Episode
-        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        final Optional<Episode> episode = getSel();
         if (episode.isPresent()) {
             stopEpisode(episode.get());
         }
@@ -130,7 +154,7 @@ public class EpisodeFactory {
 
     public static void delEpisode() {
         //Menü: markierte Episoden löschen
-        final Optional<Episode> episode = ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
+        final Optional<Episode> episode = getSel();
         if (episode.isPresent()) {
             delEpisode(episode.get());
         }
@@ -154,7 +178,7 @@ public class EpisodeFactory {
 
     public static void delSelEpisode() {
         //Menü: Alle markierten Episoden löschen
-        delEpisodes(ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList());
+        delEpisodes(getSelList());
     }
 
     private static void delEpisodes(List<Episode> episodeList) {
@@ -205,9 +229,8 @@ public class EpisodeFactory {
             final Start start = new Start(setData, episode);
             episode.setStart(start);
             ProgData.getInstance().episodeStartingList.add(episode);
-
             ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
-            ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
+            refreshTable();
         }
     }
 
@@ -222,6 +245,6 @@ public class EpisodeFactory {
         });
 
         ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
-        ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
+        refreshTable();
     }
 }

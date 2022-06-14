@@ -31,7 +31,6 @@ import javafx.scene.layout.VBox;
 
 public class PodcastFilterController extends FilterPane {
 
-    private final Button btnClearFilter = new Button("");
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final TextField txtName = new TextField();
     private final TextField txtUrl = new TextField();
@@ -61,6 +60,8 @@ public class PodcastFilterController extends FilterPane {
     }
 
     private void addButton() {
+        Button btnClearFilter = new Button("");
+        btnClearFilter.getStyleClass().add("btnSmallPodder");
         btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
         btnClearFilter.setOnAction(a -> progData.podcastFilter.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));

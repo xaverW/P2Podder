@@ -26,6 +26,9 @@ public class ProgIcons {
     public final Image ICON_DIALOG_EIN_SW = GetIcon.getImage(ProgConfig.SYSTEM_DARK_THEME.get() ? "dialog-ein.png" : "dialog-ein-sw.png");
     public final Image IMAGE_ACHTUNG_64 = GetIcon.getImage("achtung_64.png");
 
+    public final ImageView ICON_TOOLBAR_SMALL_PODDER_24 = GetIcon.getImageView("toolbar-menu-smallPodder-24.png", 24, 24);
+    public final ImageView ICON_TOOLBAR_SMALL_PODDER_20 = GetIcon.getImageView("toolbar-menu-smallPodder-20.png", 20, 20);
+    public final ImageView ICON_BUTTON_FILTER = GetIcon.getImageView("button-filter.png", 25, 20);
     public final ImageView ICON_BUTTON_CLEAR_FILTER = GetIcon.getImageView("button-clear-filter.png", 25, 20);
     public final ImageView ICON_BUTTON_RESET = GetIcon.getImageView("button-reset.png", 14, 14);
     public final ImageView ICON_BUTTON_EDIT_FILTER = GetIcon.getImageView("button-edit-filter.png", 16, 16);
@@ -40,6 +43,7 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_STOP = GetIcon.getImageView("button-stop.png", 16, 16);
     public final ImageView ICON_BUTTON_NEXT = GetIcon.getImageView("button-next.png", 16, 16);
     public final ImageView ICON_BUTTON_PREV = GetIcon.getImageView("button-prev.png", 16, 16);
+    public final ImageView ICON_BUTTON_RANDOM = GetIcon.getImageView("button-random.png", 16, 16);
     public final ImageView ICON_BUTTON_REMOVE = GetIcon.getImageView("button-remove.png", 16, 16);
     public final ImageView ICON_BUTTON_ADD = GetIcon.getImageView("button-add.png", 16, 16);
     public final ImageView ICON_BUTTON_MOVE_DOWN = GetIcon.getImageView("button-move-down.png", 16, 16);

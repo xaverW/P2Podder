@@ -37,11 +37,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TableEpisode {
+public class TableSmallEpisode {
 
     private final ProgData progData;
 
-    public TableEpisode(ProgData progData) {
+    public TableSmallEpisode(ProgData progData) {
         this.progData = progData;
     }
 

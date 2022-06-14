@@ -25,7 +25,9 @@ import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.ProgStartFactory;
 import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
+import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -97,7 +99,7 @@ public class P2Podder extends Application {
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(e -> {
                 e.consume();
-                ProgQuitFactory.quit(true);
+                ProgQuitFactory.quit(primaryStage, true);
             });
 
             scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
@@ -109,7 +111,14 @@ public class P2Podder extends Application {
             if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage)) {
                 primaryStage.centerOnScreen();
             }
-            primaryStage.show();
+
+            if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
+                //dann gleich mit smallRadio starten
+                Platform.runLater(() -> new SmallPodderGuiPack(progData));
+            } else {
+                primaryStage.show();
+            }
+
         } catch (final Exception e) {
             e.printStackTrace();
         }

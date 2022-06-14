@@ -29,6 +29,7 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeList;
 import de.p2tools.p2podder.controller.data.podcast.PodcastList;
 import de.p2tools.p2podder.controller.filter.DownloadFilter;
 import de.p2tools.p2podder.controller.filter.EpisodeFilter;
+import de.p2tools.p2podder.controller.filter.EpisodeFilterSmall;
 import de.p2tools.p2podder.controller.filter.PodcastFilter;
 import de.p2tools.p2podder.controller.history.HistoryList;
 import de.p2tools.p2podder.controller.starterDownload.DownloadStarterFactory;
@@ -40,6 +41,8 @@ import de.p2tools.p2podder.gui.EpisodeFilterControllerClearFilter;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
+import de.p2tools.p2podder.gui.smallPodderGui.SmallEpisodeGuiController;
+import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
 import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
@@ -72,16 +75,20 @@ public class ProgData {
     public P2PodderController p2PodderController = null;
 
     public EpisodeGui episodeGui = null;
+    public SmallEpisodeGuiController smallEpisodeGuiController = null;
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
     public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;
     public final EpisodeFilter episodeFilter;
+    public final EpisodeFilterSmall episodeFilterSmall;
     public final DownloadFilter downloadFilter;
     public final PodcastFilter podcastFilter;
 
     public EpisodeInfoDialogController episodeInfoDialogController = null;
     public EpisodeInfos episodeInfos;
-//    public StationInfos stationInfos;
+
+    //SmallGui
+    public SmallPodderGuiPack smallPodderGuiPack = null;
 
     // Worker
     public Worker worker;
@@ -89,7 +96,6 @@ public class ProgData {
     public final ProgTray progTray;
 
     // Programmdaten
-
     public EpisodeList episodeList; //sind die gespeicherten Episoden
     public EpisodeList episodeStartingList; //sind die Episoden die gestartet werden sollen
     public PodcastList podcastList; //sind die Podcasts
@@ -98,6 +104,7 @@ public class ProgData {
     public SetDataList setDataList;
     public HistoryList historyDownloads; //erfolgreich geladenen Downloads
     public HistoryList historyEpisodes; //gehörte Episoden
+
     // Programmdaten
     boolean oneSecond = false;
 
@@ -106,6 +113,7 @@ public class ProgData {
         eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
         episodeFilter = new EpisodeFilter(true);
+        episodeFilterSmall = new EpisodeFilterSmall(true);
         downloadFilter = new DownloadFilter();
         podcastFilter = new PodcastFilter();
 

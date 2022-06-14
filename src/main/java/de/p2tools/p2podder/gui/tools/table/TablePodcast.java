@@ -124,6 +124,7 @@ public class TablePodcast {
 
                 final Button btnUpdate;
                 btnUpdate = new Button("");
+                btnUpdate.getStyleClass().add("btnSmallPodder");
                 btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
                 btnUpdate.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_PODCAST_UPDATE));
                 btnUpdate.setOnAction(event -> {
@@ -132,6 +133,7 @@ public class TablePodcast {
 
                 final Button btnDel;
                 btnDel = new Button("");
+                btnDel.getStyleClass().add("btnSmallPodder");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
                 btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_PODCAST_DEL));
                 btnDel.setOnAction(event -> {

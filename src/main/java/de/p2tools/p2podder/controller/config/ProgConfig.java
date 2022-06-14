@@ -109,6 +109,11 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_DEL = addStr("system-size-dialog-episode-del");
     public static StringProperty SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL = addStr("system-size-dialog-download-del");
 
+    //Gui SmallPodder
+    public static BooleanProperty SYSTEM_SMALL_PODDER = addBool("system-small-podder", false);
+    public static StringProperty SMALL_PODDER_SIZE = addStr("small-podder-size");
+
+
     public static StringProperty SYSTEM_PATH_VLC = addStr("system-path-vlc", SetFactory.getTemplatePathVlc());
 
     // Download
@@ -153,6 +158,15 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty EPISODE_GUI_TABLE_VIS = addStr("episode-gui-table-vis");
     public static StringProperty EPISODE_GUI_TABLE_ORDER = addStr("episode-gui-table-order");
     public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBool("episode-show-notification", Boolean.TRUE);
+
+    //Gui SmallEpisode
+    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDouble("small-episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStr("small-episode-gui-table-width");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStr("small-episode-gui-table-sort");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStr("small-episode-gui-table-up-down");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_VIS = addStr("small-episode-gui-table-vis");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_ORDER = addStr("small-episode-gui-table-order");
+    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBool("small-episode-gui-filter-on", Boolean.TRUE);
 
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
