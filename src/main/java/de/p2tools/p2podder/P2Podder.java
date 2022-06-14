@@ -78,8 +78,8 @@ public class P2Podder extends Application {
             progData.p2PodderController = new P2PodderController();
 
             scene = new Scene(progData.p2PodderController,
-                    PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI_SCENE),
-                    PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI_SCENE));
+                    PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
+                    PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
 
             addThemeCss(); // und jetzt noch für die neue Scene
             ProgColorList.setColorTheme();
@@ -102,13 +102,13 @@ public class P2Podder extends Application {
                 ProgQuitFactory.quit(primaryStage, true);
             });
 
-            scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
-            scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
-            primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
-            primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage, scene));
+            scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+            scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+            primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+            primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
 
             //Pos setzen
-            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI_SCENE, primaryStage)) {
+            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage)) {
                 primaryStage.centerOnScreen();
             }
 
