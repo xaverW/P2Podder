@@ -21,7 +21,6 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DownloadListFactory {
     private static boolean found = false;
@@ -34,16 +33,15 @@ public class DownloadListFactory {
      *
      * @return A list with all station objects.
      */
-    static synchronized List<Download> getListOfDownloadsNotFinished() {
-        final List<Download> downloads = new ArrayList<>();
-
-        downloads.addAll(ProgData.getInstance().downloadList.stream()
-                .filter(download -> download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStatedRunning())
-                .collect(Collectors.toList()));
-
-        return downloads;
-    }
-
+//    static synchronized List<Download> getListOfDownloadsNotFinished() {
+//        final List<Download> downloads = new ArrayList<>();
+//
+//        downloads.addAll(ProgData.getInstance().downloadList.stream()
+//                .filter(download -> download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStatedRunning())
+//                .collect(Collectors.toList()));
+//
+//        return downloads;
+//    }
     public static synchronized long countRunningDownloads() {
         long count = ProgData.getInstance().downloadList.stream()
                 .filter(download -> download.isStarted()).count();

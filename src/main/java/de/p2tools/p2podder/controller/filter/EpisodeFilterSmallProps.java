@@ -32,10 +32,11 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final BooleanProperty isAll = new SimpleBooleanProperty(true);//dient nur dazu, dass die anderen ausgeschaltet werden
     private final BooleanProperty isNew = new SimpleBooleanProperty(false);
+    private final BooleanProperty isStarted = new SimpleBooleanProperty(false);
     private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
     private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
 
-    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isRunning, wasShown};
+    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isStarted, isRunning, wasShown};
     public LongProperty[] sfLongPropArr = {podcastId};
 
     @Override
@@ -43,9 +44,10 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigLongPropExtra("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
         list.add(new ConfigBoolPropExtra("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
-        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
-        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
-        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
+        list.add(new ConfigBoolPropExtra("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
+        list.add(new ConfigBoolPropExtra("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStarted));
+        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
+        list.add(new ConfigBoolPropExtra("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }
@@ -89,6 +91,18 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
 
     public void setIsNew(boolean isNew) {
         this.isNew.set(isNew);
+    }
+
+    public boolean isIsStarted() {
+        return isStarted.get();
+    }
+
+    public BooleanProperty isStartedProperty() {
+        return isStarted;
+    }
+
+    public void setIsStarted(boolean isStarted) {
+        this.isStarted.set(isStarted);
     }
 
     public boolean isIsRunning() {

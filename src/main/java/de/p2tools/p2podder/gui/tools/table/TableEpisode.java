@@ -50,7 +50,8 @@ public class TableEpisode {
 
         final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
-        ProgColorList.EPISODE_RUN.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
+        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
+        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
         ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
 
@@ -227,11 +228,12 @@ public class TableEpisode {
                 hbox.setPadding(new Insets(0, 2, 0, 2));
 
                 Episode episode = getTableView().getItems().get(getIndex());
-                final boolean playing = EpisodeFactory.episodeIsRunning(episode);
+                final boolean started = EpisodeFactory.episodeIsStarted(episode);
+                final boolean running = EpisodeFactory.episodeIsRunning(episode);
                 final boolean error = episode.getStart() != null ? episode.getStart().getStartStatus().isStateError() : false;
                 final boolean set = progData.setDataList.size() > 1;
 
-                if (playing) {
+                if (started || running) {
                     //dann stoppen
                     final Button btnStop;
                     btnStop = new Button("");
@@ -293,26 +295,29 @@ public class TableEpisode {
 
                 setGraphic(hbox);
                 final boolean history = progData.historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
-                setCellStyle(this, episode.isNew(), playing, error, history);
+                setCellStyle(this, episode.isNew(), started, running, error, history);
             }
         };
         return cell;
     };
 
-    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean playing, boolean error, boolean history) {
+    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
+                              boolean error, boolean history) {
         TableRow<Episode> currentRow = cell.getTableRow();
         if (currentRow == null) {
             return;
         }
 
-        if (playing) {
-            currentRow.setStyle(ProgColorList.EPISODE_RUN.getCssBackgroundAndSel());
+        if (started && !running) {
+            currentRow.setStyle(ProgColorList.EPISODE_STARTED.getCssBackgroundAndSel());
+        } else if (running) {
+            currentRow.setStyle(ProgColorList.EPISODE_RUNNING.getCssBackgroundAndSel());
         } else if (error) {
             currentRow.setStyle(ProgColorList.EPISODE_ERROR.getCssBackgroundAndSel());
         } else {
             currentRow.setStyle("");
         }
-        if (!error && !playing && history) {
+        if (!error && !started && !running && history) {
             currentRow.setStyle(ProgColorList.EPISODE_HISTORY.getCssBackgroundAndSel());
         }
     }

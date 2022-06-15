@@ -53,7 +53,8 @@ public class SmallEpisodeGuiController extends AnchorPane {
     private final TableView<Episode> tableView = new TableView<>();
 
     private final RadioButton rbAll = new RadioButton("alle");
-    private final RadioButton rbRunning = new RadioButton("gestartete");
+    private final RadioButton rbStarted = new RadioButton("gestartete");
+    private final RadioButton rbRunning = new RadioButton("läuft");
     private final RadioButton rbWasShown = new RadioButton("gehörte");
     private final RadioButton rbNew = new RadioButton("neue");
 
@@ -82,6 +83,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
 
         ToggleGroup tg = new ToggleGroup();
         rbAll.setToggleGroup(tg);
+        rbStarted.setToggleGroup(tg);
         rbRunning.setToggleGroup(tg);
         rbWasShown.setToggleGroup(tg);
         rbNew.setToggleGroup(tg);
@@ -89,7 +91,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
         HBox hBoxTopFilter = new HBox();
         hBoxTopFilter.setPadding(new Insets(5));
         hBoxTopFilter.setSpacing(15);
-        hBoxTopFilter.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbRunning, rbWasShown);
+        hBoxTopFilter.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown);
 
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
@@ -153,6 +155,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
     private void initFilter() {
         rbAll.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isAllProperty());
         rbNew.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isNewProperty());
+        rbStarted.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isStartedProperty());
         rbRunning.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isRunningProperty());
         rbWasShown.selectedProperty().bindBidirectional(progData.episodeFilterSmall.wasShownProperty());
     }

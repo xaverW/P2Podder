@@ -40,6 +40,7 @@ public class EpisodeFilterSmall extends EpisodeFilterSmallProps {
 
         isAllProperty().addListener(l -> setPredicate());
         isNewProperty().addListener(l -> setPredicate());
+        isStartedProperty().addListener(l -> setPredicate());
         isRunningProperty().addListener(l -> setPredicate());
         wasShownProperty().addListener(l -> setPredicate());
     }
@@ -57,6 +58,9 @@ public class EpisodeFilterSmall extends EpisodeFilterSmallProps {
         }
         if (isIsNew()) {
             predicate = predicate.and(episode -> episode.isNew());
+        }
+        if (isIsStarted()) {
+            predicate = predicate.and(episode -> EpisodeFactory.episodeIsStarted(episode));
         }
         if (isIsRunning()) {
             predicate = predicate.and(episode -> EpisodeFactory.episodeIsRunning(episode));

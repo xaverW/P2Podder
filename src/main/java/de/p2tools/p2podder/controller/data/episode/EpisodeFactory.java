@@ -59,8 +59,16 @@ public class EpisodeFactory {
         }
     }
 
-    public static boolean episodeIsRunning(Episode episode) {
+    public static boolean episodeIsStarted(Episode episode) {
         if (episode.getStart() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean episodeIsRunning(Episode episode) {
+        if (episode.getStart() != null && episode.getStart().getStartStatus().isStatedRunning()) {
             return true;
         } else {
             return false;
@@ -130,7 +138,7 @@ public class EpisodeFactory {
 
     public static void stopEpisode(Episode episode) {
         //eine Episode stopnnen
-        if (episodeIsRunning(episode)) {
+        if (episodeIsStarted(episode)) {
             if (episode.getStart().getStartStatus().isStatedRunning()) {
                 episode.getStart().getStartStatus().setStateStopped();
                 episode.getStart().setNo(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
@@ -225,7 +233,6 @@ public class EpisodeFactory {
     private static synchronized void startFileWithProgram(Episode episode, SetData setData) {
         final String filePathName = episode.getFilePath();
         if (!filePathName.isEmpty()) {
-
             final Start start = new Start(setData, episode);
             episode.setStart(start);
             ProgData.getInstance().episodeStartingList.add(episode);

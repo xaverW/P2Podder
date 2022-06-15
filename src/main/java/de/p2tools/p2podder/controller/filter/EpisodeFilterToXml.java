@@ -25,8 +25,9 @@ public class EpisodeFilterToXml {
     public static final String SELECTED_FILTER_DESCRIPTION = "description";
     public static final String SELECTED_FILTER_TIME_RANGE = "timeRange";
     public static final String SELECTED_FILTER_IS_ALL = "isAll";
+    public static final String SELECTED_FILTER_IS_NEW = "isNew";
+    public static final String SELECTED_FILTER_IS_STARTED = "isStarted";
     public static final String SELECTED_FILTER_IS_RUNNING = "isRunning";
-    public static final String SELECTED_FILTER_IS_FINALIZED = "isFinalized";
     public static final String SELECTED_FILTER_WAS_SHOWN = "wasShown";
 
     public static final int FILTER_NAME = 0;
@@ -36,9 +37,10 @@ public class EpisodeFilterToXml {
     public static final int FILTER_DESCRIPTION = 4;
     public static final int FILTER_TIME_RANGE = 5;
     public static final int FILTER_IS_ALL = 6;
-    public static final int FILTER_IS_RUNNING = 7;
-    public static final int FILTER_IS_FINALIZED = 8;
-    public static final int FILTER_WAS_SHOWN = 9;
+    public static final int FILTER_IS_NEW = 7;
+    public static final int FILTER_IS_STATED = 8;
+    public static final int FILTER_IS_RUNNING = 9;
+    public static final int FILTER_WAS_SHOWN = 10;
 
     public static final String[] XML_NAMES = {
             "name",
@@ -48,8 +50,9 @@ public class EpisodeFilterToXml {
             "description",
             "timeRange",
             "isAll",
+            "isNew",
+            "isStarted",
             "isRunning",
-            "isFinalized",
             "wasShown"
     };
 

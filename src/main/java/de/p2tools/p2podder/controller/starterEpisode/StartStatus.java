@@ -23,7 +23,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class StartStatus {
 
     // Stati
-    public static final int STATE_INIT = 0; //nicht gestart
+    public static final int STATE_INIT = 0; //nicht gestartet
     public static final int STATE_RUNNING = 1; //läuft
     public static final int STATE_STOPPED = 4; //abgebrochen
     public static final int STATE_ERROR = 5; //fehlerhaft

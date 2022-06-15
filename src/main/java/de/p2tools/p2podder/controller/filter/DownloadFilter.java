@@ -29,7 +29,7 @@ public class DownloadFilter {
     private StringProperty genre = new SimpleStringProperty("");
     private StringProperty title = new SimpleStringProperty("");
     private BooleanProperty isAll = new SimpleBooleanProperty(true);
-    private BooleanProperty isRunning = new SimpleBooleanProperty(false);
+    private BooleanProperty isStarted = new SimpleBooleanProperty(false);
     private BooleanProperty isFinalized = new SimpleBooleanProperty(false);
     private boolean running = false;
     private boolean finalized = false;
@@ -43,7 +43,7 @@ public class DownloadFilter {
             finalized = false;
             setPredicate();
         });
-        isRunning.addListener((observable, oldValue, newValue) -> {
+        isStarted.addListener((observable, oldValue, newValue) -> {
             running = true;
             finalized = false;
             setPredicate();
@@ -76,8 +76,8 @@ public class DownloadFilter {
         return isAll;
     }
 
-    public BooleanProperty isRunningProperty() {
-        return isRunning;
+    public BooleanProperty isStartedProperty() {
+        return isStarted;
     }
 
     public BooleanProperty isFinalizedProperty() {

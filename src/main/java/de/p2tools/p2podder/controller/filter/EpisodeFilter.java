@@ -40,10 +40,10 @@ public class EpisodeFilter extends EpisodeFilterProps {
     public void clearFilter() {
         // alle Filter löschen
         setPodcastId(0);
-        setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
         setGenre("");
         setTitle("");
         setDescription("");
+        setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
     }
 
     public EpisodeFilterForwardBackward getEpisodeFilterForwardBackward() {
@@ -52,13 +52,14 @@ public class EpisodeFilter extends EpisodeFilterProps {
 
     private void initFilter() {
         podcastIdProperty().addListener(l -> setPredicate());
-        timeRangeProperty().addListener(l -> setPredicate());
         genreProperty().addListener(l -> setPredicate());
         titleProperty().addListener(l -> setPredicate());
         descriptionProperty().addListener(l -> setPredicate());
+        timeRangeProperty().addListener(l -> setPredicate());
 
         isAllProperty().addListener(l -> setPredicate());
         isNewProperty().addListener(l -> setPredicate());
+        isStartetProperty().addListener(l -> setPredicate());
         isRunningProperty().addListener(l -> setPredicate());
         wasShownProperty().addListener(l -> setPredicate());
     }
@@ -88,6 +89,7 @@ public class EpisodeFilter extends EpisodeFilterProps {
         if (getPodcastId() > 0) {
             predicate = predicate.and(episode -> episode.podcastIdProperty().getValue().equals(getPodcastId()));
         }
+
         if (getGenre() != null && !getGenre().isEmpty()) {
             predicate = predicate.and(episode -> episode.genreProperty().getValue().equals(getGenre()));
         }
@@ -100,8 +102,13 @@ public class EpisodeFilter extends EpisodeFilterProps {
         if (getTimeRange() != ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
             predicate = predicate.and(episode -> episode.checkDays(getTimeRange()));
         }
+
+
         if (isIsNew()) {
             predicate = predicate.and(episode -> episode.isNew());
+        }
+        if (isIsStartet()) {
+            predicate = predicate.and(episode -> EpisodeFactory.episodeIsStarted(episode));
         }
         if (isIsRunning()) {
             predicate = predicate.and(episode -> EpisodeFactory.episodeIsRunning(episode));

@@ -33,10 +33,11 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     private final IntegerProperty timeRange = new SimpleIntegerProperty(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
     private final BooleanProperty isAll = new SimpleBooleanProperty(true);//dient nur dazu, dass die anderen ausgeschaltet werden
     private final BooleanProperty isNew = new SimpleBooleanProperty(false);
+    private final BooleanProperty isStartet = new SimpleBooleanProperty(false);
     private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
     private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
 
-    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isRunning, wasShown};
+    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isStartet, isRunning, wasShown};
     public StringProperty[] sfStringPropArr = {genre, title, description};
     public IntegerProperty[] sfIntegerPropArr = {timeRange};
     public LongProperty[] sfLongPropArr = {podcastId};
@@ -50,9 +51,10 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
         list.add(new ConfigStringPropExtra("description", EpisodeFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
         list.add(new ConfigIntPropExtra("timeRange", EpisodeFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
         list.add(new ConfigBoolPropExtra("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
-        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isNew));
-        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_IS_FINALIZED, isRunning));
-        list.add(new ConfigBoolPropExtra("finalized", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
+        list.add(new ConfigBoolPropExtra("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
+        list.add(new ConfigBoolPropExtra("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStartet));
+        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
+        list.add(new ConfigBoolPropExtra("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }
@@ -144,6 +146,18 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
 
     public void setIsNew(boolean isNew) {
         this.isNew.set(isNew);
+    }
+
+    public boolean isIsStartet() {
+        return isStartet.get();
+    }
+
+    public BooleanProperty isStartetProperty() {
+        return isStartet;
+    }
+
+    public void setIsStartet(boolean isStartet) {
+        this.isStartet.set(isStartet);
     }
 
     public boolean isIsRunning() {

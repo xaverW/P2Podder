@@ -48,7 +48,8 @@ public class EpisodeGuiController extends AnchorPane {
     private EpisodeGuiInfoController episodeGuiInfoController;
 
     private final RadioButton rbAll = new RadioButton("alle");
-    private final RadioButton rbRunning = new RadioButton("gestartete");
+    private final RadioButton rbStarted = new RadioButton("gestartete");
+    private final RadioButton rbRunning = new RadioButton("läuft");
     private final RadioButton rbWasShown = new RadioButton("gehörte");
     private final RadioButton rbNew = new RadioButton("neue");
 
@@ -67,6 +68,7 @@ public class EpisodeGuiController extends AnchorPane {
 
         ToggleGroup tg = new ToggleGroup();
         rbAll.setToggleGroup(tg);
+        rbStarted.setToggleGroup(tg);
         rbRunning.setToggleGroup(tg);
         rbWasShown.setToggleGroup(tg);
         rbNew.setToggleGroup(tg);
@@ -74,7 +76,7 @@ public class EpisodeGuiController extends AnchorPane {
         HBox hBoxDown = new HBox();
         hBoxDown.setPadding(new Insets(5));
         hBoxDown.setSpacing(15);
-        hBoxDown.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbRunning, rbWasShown);
+        hBoxDown.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown);
 
         vBox.getChildren().addAll(hBoxDown, scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -180,6 +182,7 @@ public class EpisodeGuiController extends AnchorPane {
     private void initFilter() {
         rbAll.selectedProperty().bindBidirectional(progData.episodeFilter.isAllProperty());
         rbNew.selectedProperty().bindBidirectional(progData.episodeFilter.isNewProperty());
+        rbStarted.selectedProperty().bindBidirectional(progData.episodeFilter.isStartetProperty());
         rbRunning.selectedProperty().bindBidirectional(progData.episodeFilter.isRunningProperty());
         rbWasShown.selectedProperty().bindBidirectional(progData.episodeFilter.wasShownProperty());
     }

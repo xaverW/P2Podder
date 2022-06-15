@@ -34,9 +34,13 @@ public class ProgColorList extends PColorList {
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240), "Tabelle Episoden, neue");
 
-    public static final PColorData EPISODE_RUN = addNewKey("COLOR__EPISODE_RUN",
+    public static final PColorData EPISODE_STARTED = addNewKey("COLOR__EPISODE_STARTED",
             Color.rgb(255, 245, 176),
-            Color.rgb(174, 150, 85), "Tabelle Episoden, läuft");
+            Color.rgb(174, 150, 85), "Tabelle Episoden, gestartet");
+
+    public static final PColorData EPISODE_RUNNING = addNewKey("COLOR__EPISODE_RUNNING",
+            Color.rgb(108, 205, 84),
+            Color.rgb(57, 204, 91), "Tabelle Episoden, läuft");
 
     public static final PColorData EPISODE_ERROR = addNewKey("COLOR__EPISODE_ERROR",
             Color.rgb(255, 233, 233),
@@ -72,7 +76,7 @@ public class ProgColorList extends PColorList {
             Color.rgb(225, 255, 225), Color.rgb(128, 179, 213), "Filter ist RegEx");
     public static final PColorData FILTER_REGEX_ERROR = addNewKey("COLOR_FILTER_REGEX_ERROR",
             Color.rgb(255, 230, 230), Color.rgb(170, 0, 0), "Filter ist Regex, fehlerhaft");
-    
+
     public static void setColorTheme() {
         final boolean dark = ProgConfig.SYSTEM_DARK_THEME.get();
         for (int i = 0; i < getColorList().size(); ++i) {
