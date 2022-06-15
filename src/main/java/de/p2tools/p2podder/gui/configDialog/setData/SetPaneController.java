@@ -83,7 +83,7 @@ public class SetPaneController extends AnchorPane {
     }
 
     public void close() {
-        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(split);
+//        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(split);
     }
 
     public void selectTableFirst() {

@@ -52,7 +52,7 @@ public class StylePane {
     }
 
     public void close() {
-        tglStyle.selectedProperty().unbindBidirectional(styleProperty);
+//        tglStyle.selectedProperty().unbindBidirectional(styleProperty);
         int size = spinnerAnz.getValue();
         ProgConfig.SYSTEM_STYLE_SIZE.setValue(size);
 
