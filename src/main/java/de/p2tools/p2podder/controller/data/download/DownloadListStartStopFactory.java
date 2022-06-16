@@ -30,9 +30,19 @@ public class DownloadListStartStopFactory {
     private DownloadListStartStopFactory() {
     }
 
+    /**
+     * eine Liste Downloads aus der "Downloadliste" zurückstellen
+     */
+    public static synchronized boolean putBackDownloads() {
+        ArrayList<Download> list = ProgData.getInstance().downloadGui.getDownloadGuiController().getSelList();
+        if (list == null || list.isEmpty()) {
+            return false;
+        }
+        return putBackDownloads(list);
+    }
 
     /**
-     * eine Liste Downloads aus der "Dwonloadliste"  zurückstellen
+     * eine Liste Downloads aus der "Downloadliste" zurückstellen
      *
      * @param list
      */

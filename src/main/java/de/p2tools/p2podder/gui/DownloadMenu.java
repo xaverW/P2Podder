@@ -28,7 +28,6 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class DownloadMenu {
     final private VBox vBox;
@@ -76,22 +75,9 @@ public class DownloadMenu {
                 progData.downloadList.startDownloads(downloadList, false);
             }
         });
-
-        btStartAll.setOnAction(a -> {
-            DownloadFactory.startAllDownloads();
-        });
-
-        btStop.setOnAction(a -> {
-            progData.downloadList.stopAllDownloads();
-        });
-
-        btBack.setOnAction(a -> {
-            Optional<Download> optionalDownload = progData.downloadGui.getDownloadGuiController().getSel();
-            if (optionalDownload.isPresent()) {
-                progData.downloadList.putBackDownloads(optionalDownload.get());
-            }
-        });
-
+        btStartAll.setOnAction(a -> DownloadFactory.startAllDownloads());
+        btStop.setOnAction(a -> progData.downloadList.stopAllDownloads());
+        btBack.setOnAction(a -> DownloadListStartStopFactory.putBackDownloads());
         btDel.setOnAction(a -> {
             ArrayList<Download> optionalDownload = progData.downloadGui.getDownloadGuiController().getSelList();
             if (!optionalDownload.isEmpty()) {
