@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.PFileSize;
-import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -48,7 +47,7 @@ public class TableEpisode {
     public TableColumn[] initEpisodeColumn(TableView table) {
         table.getColumns().clear();
 
-        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
+//        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
         ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
         ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
@@ -101,7 +100,6 @@ public class TableEpisode {
         podcastNameColumn.setPrefWidth(180);
         titleColumn.setPrefWidth(180);
         genreColumn.setPrefWidth(100);
-//        startColumn.setPrefWidth(50);
         datumColumn.setPrefWidth(100);
         sizeColumn.setPrefWidth(120);
         fileColumn.setPrefWidth(200);

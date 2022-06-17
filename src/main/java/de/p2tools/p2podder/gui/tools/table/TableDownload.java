@@ -235,6 +235,7 @@ public class TableDownload {
                     });
 
                     btnDownDel = new Button("");
+                    btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
                     btnDownDel.setOnAction(event -> {
@@ -249,6 +250,7 @@ public class TableDownload {
 
                 } else if (item == DownloadConstants.STATE_FINISHED) {
                     btnOpenDirectory = new Button();
+                    btnOpenDirectory.getStyleClass().add("btnSmallPodder");
                     btnOpenDirectory.setTooltip(new Tooltip("Ordner mit gespeichertem Film öffnen"));
                     btnOpenDirectory.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR));
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {

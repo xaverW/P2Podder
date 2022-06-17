@@ -101,7 +101,6 @@ public class TableSmallEpisode {
         podcastNameColumn.setPrefWidth(180);
         titleColumn.setPrefWidth(180);
         genreColumn.setPrefWidth(100);
-//        startColumn.setPrefWidth(50);
         datumColumn.setPrefWidth(100);
         sizeColumn.setPrefWidth(120);
         fileColumn.setPrefWidth(200);
@@ -130,6 +129,7 @@ public class TableSmallEpisode {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
+
                     } else if (episode.isNew()) {
                         //neue Episode
                         for (int i = 0; i < getChildren().size(); i++) {
@@ -301,7 +301,8 @@ public class TableSmallEpisode {
         return cell;
     };
 
-    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running, boolean error, boolean history) {
+    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
+                              boolean error, boolean history) {
         TableRow<Episode> currentRow = cell.getTableRow();
         if (currentRow == null) {
             return;
