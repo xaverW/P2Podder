@@ -39,8 +39,8 @@ public class ProgColorList extends PColorList {
             Color.rgb(174, 150, 85), "Tabelle Episoden, gestartet");
 
     public static final PColorData EPISODE_RUNNING = addNewKey("COLOR__EPISODE_RUNNING",
-            Color.rgb(115, 182, 105),
-            Color.rgb(120, 198, 108), "Tabelle Episoden, läuft");
+            Color.rgb(206, 255, 202),
+            Color.rgb(79, 129, 74), "Tabelle Episoden, läuft");
 
     public static final PColorData EPISODE_ERROR = addNewKey("COLOR__EPISODE_ERROR",
             Color.rgb(255, 233, 233),
@@ -73,7 +73,8 @@ public class ProgColorList extends PColorList {
 
     // Filter wenn RegEx
     public static final PColorData FILTER_REGEX = addNewKey("COLOR_FILTER_REGEX",
-            Color.rgb(225, 255, 225), Color.rgb(128, 179, 213), "Filter ist RegEx");
+            Color.rgb(206, 255, 202),
+            Color.rgb(79, 129, 74), "Filter ist RegEx");
     public static final PColorData FILTER_REGEX_ERROR = addNewKey("COLOR_FILTER_REGEX_ERROR",
             Color.rgb(255, 230, 230), Color.rgb(170, 0, 0), "Filter ist Regex, fehlerhaft");
 
