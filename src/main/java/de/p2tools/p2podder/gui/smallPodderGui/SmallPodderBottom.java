@@ -38,6 +38,7 @@ public class SmallPodderBottom {
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
     private final Button btnStart = new Button("");
+    private final Button btnPlayNext = new Button("");
     private final Button btnStop = new Button("");
     private Button btnRadio;
     private final HBox hBoxBottom;
@@ -58,7 +59,7 @@ public class SmallPodderBottom {
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
         Separator sp = new Separator(Orientation.VERTICAL);
         sp.setPadding(new Insets(0, 5, 0, 5));
-        hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnStop);
+        hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnPlayNext, btnStop);
         hBoxBottom.getChildren().addAll(btnRadio, btnShowFilter, btnClearFilter, hBoxSpace1, hBoxButton);
         return hBoxBottom;
     }
@@ -100,6 +101,11 @@ public class SmallPodderBottom {
         btnStart.getStyleClass().add("btnSmallPodder");
         btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
         btnStart.setOnAction(event -> smallEpisodeGuiController.playEpisode());
+
+        btnPlayNext.setTooltip(new Tooltip("Nächste gestartete Episode abspielen"));
+        btnPlayNext.getStyleClass().add("btnSmallPodder");
+        btnPlayNext.setGraphic(new ProgIcons().ICON_BUTTON_PLAY_NEXT);
+        btnPlayNext.setOnAction(event -> EpisodeFactory.playNextEpisode(progData.smallPodderGuiPack.getStage()));
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
         btnStop.getStyleClass().add("btnSmallPodder");

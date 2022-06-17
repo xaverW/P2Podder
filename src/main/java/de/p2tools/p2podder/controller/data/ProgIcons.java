@@ -39,6 +39,7 @@ public class ProgIcons {
     public final ImageView ICON_BUTTON_QUIT = GetIcon.getImageView("button-quit.png", 16, 16);
     public final ImageView ICON_BUTTON_FILE_OPEN = GetIcon.getImageView("button-file-open.png", 16, 16);
     public final ImageView ICON_BUTTON_PLAY = GetIcon.getImageView("button-play.png", 16, 16);
+    public final ImageView ICON_BUTTON_PLAY_NEXT = GetIcon.getImageView("button-play-next.png", 16, 16);
     public final ImageView ICON_BUTTON_STOP_PLAY = GetIcon.getImageView("button-stop-play.png", 16, 16);
     public final ImageView ICON_BUTTON_STOP = GetIcon.getImageView("button-stop.png", 16, 16);
     public final ImageView ICON_BUTTON_NEXT = GetIcon.getImageView("button-next.png", 16, 16);
@@ -79,6 +80,7 @@ public class ProgIcons {
     public final ImageView ICON_TOOLBAR_DOWNLOAD_START_ALL = GetIcon.getImageView("toolbar-download-start-all.png", 32, 32);
     public final ImageView ICON_TOOLBAR_DOWNLOAD_STOP = GetIcon.getImageView("toolbar-download-stop.png", 32, 32);
     public final ImageView ICON_TOOLBAR_EPISODE_START = GetIcon.getImageView("toolbar-episode-start.png", 32, 32);
+    public final ImageView ICON_TOOLBAR_EPISODE_PLAY_NEXT = GetIcon.getImageView("toolbar-episode-play-next.png", 32, 32);
     public final ImageView ICON_TOOLBAR_EPISODE_STOP = GetIcon.getImageView("toolbar-episode-stop.png", 32, 32);
     public final ImageView ICON_TOOLBAR_PODCAST_UPDATE = GetIcon.getImageView("toolbar-podcast-update.png", 32, 32);
     public final ImageView ICON_TOOLBAR_PODCAST_DEL = GetIcon.getImageView("toolbar-podcast-del.png", 32, 32);

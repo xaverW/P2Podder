@@ -17,6 +17,7 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -27,6 +28,7 @@ import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterEpisode.Start;
 import de.p2tools.p2podder.gui.dialog.EpisodeDelDialogController;
 import de.p2tools.p2podder.gui.dialog.NoSetDialogController;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -146,6 +148,29 @@ public class EpisodeFactory {
                 //dann ist er angelegt aber noch nicht gestartet
                 episode.setStart(null);
             }
+        }
+    }
+
+
+    public static void playNextEpisode() {
+        //alle laufenden Episoden stoppen
+        playNextEpisode(ProgData.getInstance().primaryStage);
+    }
+
+    public static void playNextEpisode(Stage stage) {
+        //alle laufenden Episoden stoppen
+        stopRunningEpisode();
+
+        if (ProgData.getInstance().episodeStartingList.isEmpty()) {
+            PAlert.showErrorAlert(stage, "Keine Episoden", "Es sind keine weiteren " +
+                    "Episoden gestartet");
+        }
+    }
+
+    public static void stopRunningEpisode() {
+        //alle laufenden Episoden stoppen
+        if (ProgData.getInstance().episodeStarterFactory.getRunningEpisode() != null) {
+            stopEpisode(ProgData.getInstance().episodeStarterFactory.getRunningEpisode());
         }
     }
 

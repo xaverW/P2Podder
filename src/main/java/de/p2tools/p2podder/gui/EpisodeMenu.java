@@ -48,6 +48,9 @@ public class EpisodeMenu {
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
                 "Markierte Episoden abspielen", "Markierte Episoden abspielen", new ProgIcons().ICON_TOOLBAR_EPISODE_START);
+        final ToolBarButton btPlayNext = new ToolBarButton(vBox,
+                "Nächste gestartete Episoden abspielen", "Nächste gestartete Episoden abspielen",
+                new ProgIcons().ICON_TOOLBAR_EPISODE_PLAY_NEXT);
         final ToolBarButton btStop = new ToolBarButton(vBox,
                 "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", new ProgIcons().ICON_TOOLBAR_EPISODE_STOP);
         final ToolBarButton btDel = new ToolBarButton(vBox,
@@ -56,6 +59,7 @@ public class EpisodeMenu {
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
 
         btStart.setOnAction(a -> EpisodeFactory.playSelEpisode());
+        btPlayNext.setOnAction(a -> EpisodeFactory.playNextEpisode());
         btStop.setOnAction(a -> EpisodeFactory.stopAllEpisode());
         btDel.setOnAction(a -> EpisodeFactory.delSelEpisode());
         btInfo.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
@@ -70,6 +74,9 @@ public class EpisodeMenu {
         final MenuItem miEpisodeStart = new MenuItem("Episode abspielen");
         miEpisodeStart.setOnAction(a -> EpisodeFactory.playEpisode());
         PShortcutWorker.addShortCut(miEpisodeStart, P2PodderShortCuts.SHORTCUT_EPOSODE_START);
+
+        final MenuItem miEpisodePlayNext = new MenuItem("Nächste Episode abspielen");
+        miEpisodePlayNext.setOnAction(a -> EpisodeFactory.playNextEpisode());
 
         final MenuItem miEpisodeStop = new MenuItem("Episode stoppen");
         miEpisodeStop.setOnAction(a -> EpisodeFactory.stopEpisode());
@@ -87,7 +94,7 @@ public class EpisodeMenu {
         MenuItem miCopyUrl = new MenuItem("Episoden-URL kopieren");
         miCopyUrl.setOnAction(a -> EpisodeFactory.copyUrl());
 
-        mb.getItems().addAll(miEpisodeStart, miEpisodeStop, miStopAll, miEpisodeDel,
+        mb.getItems().addAll(miEpisodeStart, miEpisodePlayNext, miEpisodeStop, miStopAll, miEpisodeDel,
                 miDelShown, new SeparatorMenuItem(), miCopyUrl);
 
         mb.getItems().add(new SeparatorMenuItem());

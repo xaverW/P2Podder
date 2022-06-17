@@ -40,7 +40,6 @@ public class P2PodderShortCuts {
                     "Podcast speichern",
                     "Der markierte Podcast in der Tabelle \"Podcast\" wird gespeichert.");
 
-    // Tabelle Favoriten
     public static final PShortcut SHORTCUT_EPOSODE_START =
             new PShortcut(ProgConfig.SHORTCUT_EPISODE_START, ProgConfig.SHORTCUT_EPISODE_START_INIT,
                     "Episode abspielen",
