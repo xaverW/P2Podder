@@ -39,8 +39,8 @@ public class ProgColorList extends PColorList {
             Color.rgb(174, 150, 85), "Tabelle Episoden, gestartet");
 
     public static final PColorData EPISODE_RUNNING = addNewKey("COLOR__EPISODE_RUNNING",
-            Color.rgb(108, 205, 84),
-            Color.rgb(57, 204, 91), "Tabelle Episoden, läuft");
+            Color.rgb(115, 182, 105),
+            Color.rgb(120, 198, 108), "Tabelle Episoden, läuft");
 
     public static final PColorData EPISODE_ERROR = addNewKey("COLOR__EPISODE_ERROR",
             Color.rgb(255, 233, 233),
