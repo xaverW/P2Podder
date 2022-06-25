@@ -23,8 +23,6 @@ import de.p2tools.p2Lib.tools.log.PLog;
 
 public class Podcast extends PodcastProps {
 
-//    private Start start = null;
-
     public Podcast() {
         setId(PIndex.getIndex());
     }
@@ -32,14 +30,6 @@ public class Podcast extends PodcastProps {
     public void init() {
         setDate();
     }
-
-//    public Start getStart() {
-//        return start;
-//    }
-//
-//    public void setStart(Start start) {
-//        this.start = start;
-//    }
 
     private void setDate() {
         podcastDate.setPLocalDateNow();

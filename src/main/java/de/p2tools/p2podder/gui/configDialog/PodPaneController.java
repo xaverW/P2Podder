@@ -25,7 +25,6 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfos;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -33,6 +32,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -43,8 +43,9 @@ public class PodPaneController extends PAccordionPane {
     private final ProgData progData;
 
     private TextField txtPodDest = new TextField();
-    private PToggleSwitch tglDelFile = new PToggleSwitch("");
-    private CheckBox chkAsk = new CheckBox("Vorher immer fragen");
+
+    private final PToggleSwitch tglUpdatePodcastDaily = new PToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
+    private final PToggleSwitch tglStartDownload = new PToggleSwitch("und den Download der Episoden gleich starten");
 
     private final Stage stage;
 
@@ -95,18 +96,20 @@ public class PodPaneController extends PAccordionPane {
             txtPodDest.setText(ProgInfos.getStandardPodDestString());
         });
 
-        tglDelFile.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE);
-        chkAsk.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE_ASK);
-        chkAsk.disableProperty().bind(ProgConfig.SYSTEM_DELETE_EPISODE_FILE.not());
-
-
-        final Button btnCleanHelp = PButton.helpButton(stage, "Speicherordner aufräumen", HelpText.DEST_DIR_CLEAN);
-        Button btnClean = new Button("Aufräumen");
-        btnClean.setTooltip(new Tooltip("Dateien ohne entsprechende Episode löschen."));
-        btnClean.setOnAction(a -> DownloadFactory.cleanUpDownloadDir());
+        tglUpdatePodcastDaily.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY);
+        tglStartDownload.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_START_DAILY_DOWNLOAD);
+        tglStartDownload.disableProperty().bind(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.not());
+        tglUpdatePodcastDaily.selectedProperty().addListener((u, o, n) -> {
+            if (!tglUpdatePodcastDaily.isSelected()) {
+                tglStartDownload.setSelected(false);
+            }
+        });
+        final Button btnHelpLoadStationList = PButton.helpButton(stage, "Nach neuen Episoden suchen",
+                HelpText.LOAD_PODCASTS_EVERY_DAYS);
+        GridPane.setHalignment(btnHelpLoadStationList, HPos.RIGHT);
 
         int row = 0;
-        gridPane.add(new Label("Ordner:"), 0, ++row);
+        gridPane.add(new Label("Ordner:"), 0, row);
         gridPane.add(txtPodDest, 1, row);
         HBox hBox = new HBox(10);
         hBox.getChildren().addAll(btnFile, btnReset);
@@ -115,19 +118,15 @@ public class PodPaneController extends PAccordionPane {
         gridPane.add(btnHelp, 3, row);
         gridPane.add(new Label(), 0, ++row);
 
-        gridPane.add(new Label("Beim Löschen von Episoden auch die zugehörige Datei löschen"), 0, ++row, 2, 1);
-        gridPane.add(tglDelFile, 2, row, 2, 1);
-        gridPane.add(chkAsk, 1, ++row);
-        GridPane.setHalignment(tglDelFile, HPos.RIGHT);
-        gridPane.add(new Label(), 0, ++row);
+        gridPane.add(tglUpdatePodcastDaily, 0, ++row, 3, 1);
+        gridPane.add(btnHelpLoadStationList, 3, row);
 
-        gridPane.add(new Label("Downloadordner jetzt aufräumen"), 0, ++row, 2, 1);
-        gridPane.add(btnClean, 2, row);
-        gridPane.add(btnCleanHelp, 3, row);
-        GridPane.setHalignment(btnClean, HPos.RIGHT);
+        hBox = new HBox();
+        hBox.getChildren().addAll(new Label("    "), tglStartDownload);
+        HBox.setHgrow(tglStartDownload, Priority.ALWAYS);
+        gridPane.add(hBox, 0, ++row, 3, 1);
 
 
-//        gridPane.setGridLinesVisible(true);
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize(),

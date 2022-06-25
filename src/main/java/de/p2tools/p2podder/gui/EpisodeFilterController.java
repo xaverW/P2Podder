@@ -53,7 +53,7 @@ public class EpisodeFilterController extends FilterPane {
 
         //Tabelle
         VBox vBoxTable = new VBox();
-        vBoxTable.getChildren().addAll(/*new Label("Podcast:"),*/ tableView);
+        vBoxTable.getChildren().addAll(tableView);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         VBox.setVgrow(vBoxTable, Priority.ALWAYS);
 
@@ -175,7 +175,7 @@ public class EpisodeFilterController extends FilterPane {
             }
         });
 
-        progData.episodeList.addListener((v, o, n) -> {
+        progData.episodeList.getPodcastList().addListener((ListChangeListener<Podcast>) c -> {
             //ist für das Hinzufügen/Löschen von Episoden
             Platform.runLater(() -> {
                 Podcast sel = tableView.getSelectionModel().getSelectedItem();
@@ -187,7 +187,6 @@ public class EpisodeFilterController extends FilterPane {
                 }
             });
         });
-
         tableView.getItems().addAll(progData.episodeList.getPodcastList());
 
         cboGenre.valueProperty().bindBidirectional(progData.episodeFilter.genreProperty());

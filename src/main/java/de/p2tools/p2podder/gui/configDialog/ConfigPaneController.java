@@ -41,7 +41,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -66,8 +65,6 @@ public class ConfigPaneController extends PAccordionPane {
     BooleanProperty propLog = ProgConfig.SYSTEM_LOG_ON;
     StringProperty propLogDir = ProgConfig.SYSTEM_LOG_DIR;
 
-    private final PToggleSwitch tglUpdatePodcastDaily = new PToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
-    private final PToggleSwitch tglStartDownload = new PToggleSwitch("und den Download der Episoden gleich starten");
     private final PToggleSwitch tglSmallButton = new PToggleSwitch("In den Tabellen nur kleine Buttons anzeigen");
 
     private TextField txtUserAgent;
@@ -125,22 +122,9 @@ public class ConfigPaneController extends PAccordionPane {
         result.add(tpConfig);
 
         tglSmallButton.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW);
-        tglUpdatePodcastDaily.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY);
-        tglStartDownload.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_START_DAILY_DOWNLOAD);
-        tglStartDownload.disableProperty().bind(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.not());
-        tglUpdatePodcastDaily.selectedProperty().addListener((u, o, n) -> {
-            if (!tglUpdatePodcastDaily.isSelected()) {
-                tglStartDownload.setSelected(false);
-            }
-        });
-        final Button btnHelpLoadStationList = PButton.helpButton(stage, "Nach neuen Episoden suchen",
-                HelpText.LOAD_PODCASTS_EVERY_DAYS);
         final Button btnHelpSize = PButton.helpButton(stage, "Nur kleine Button anzeigen",
                 HelpText.SMALL_BUTTON);
-        GridPane.setHalignment(btnHelpLoadStationList, HPos.RIGHT);
         GridPane.setHalignment(btnHelpSize, HPos.RIGHT);
-
-
         final Button btnHelpUserAgent = PButton.helpButton(stage, "User Agent festlegen",
                 HelpText.USER_AGENT);
         GridPane.setHalignment(btnHelpUserAgent, HPos.RIGHT);
@@ -174,19 +158,9 @@ public class ConfigPaneController extends PAccordionPane {
 
 
         int row = 0;
-        gridPane.add(tglUpdatePodcastDaily, 0, ++row, 2, 1);
-        gridPane.add(btnHelpLoadStationList, 2, row);
-
-        HBox hBox = new HBox();
-        hBox.getChildren().addAll(new Label("    "), tglStartDownload);
-        HBox.setHgrow(tglStartDownload, Priority.ALWAYS);
-        gridPane.add(hBox, 0, ++row, 2, 1);
-
-        gridPane.add(new Label(" "), 0, ++row);
-        gridPane.add(tglSmallButton, 0, ++row, 2, 1);
+        gridPane.add(tglSmallButton, 0, row, 2, 1);
         gridPane.add(btnHelpSize, 2, row);
 
-        gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(new Label("User Agent:"), 0, ++row);
         gridPane.add(txtUserAgent, 1, row);

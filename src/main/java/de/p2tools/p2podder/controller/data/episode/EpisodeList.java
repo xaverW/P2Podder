@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.tools.GermanStringSorter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -45,6 +46,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     private final SortedList<Episode> smallSortedList;
 
     private BooleanProperty episodeChanged = new SimpleBooleanProperty(true);
+    private ObservableList<Podcast> podcastList = FXCollections.observableArrayList();
     private ObservableList<String> genreList = FXCollections.observableArrayList();
 
     public EpisodeList(ProgData progData) {
@@ -88,7 +90,11 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         }
         countEpisodes();
         genGenreList();
-        this.addListener((v, o, n) -> genGenreList());
+        genPodcastList();
+        this.addListener((v, o, n) -> {
+            genGenreList();
+            genPodcastList();
+        });
         PDuration.counterStop("initList");
     }
 
@@ -185,41 +191,45 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         return episodeStartsFactory.getListOfStartsNotFinished(source);
     }
 
-    public synchronized List<Podcast> getPodcastList() {
-        PDuration.counterStart("getPodcastList");
+    public synchronized ObservableList<Podcast> getPodcastList() {
+        return podcastList;
+    }
 
-        final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
-        ArrayList<Podcast> arrayList = new ArrayList<>();
+    private synchronized void genPodcastList() {
+        PDuration.counterStart("genPodcastList");
+        PLog.sysLog("Episoden: genPodcastList");
+        final LinkedHashSet<Podcast> hashSet = new LinkedHashSet<>(10);
+        final ArrayList<Podcast> items = new ArrayList<>();
         stream().forEach((episode) -> {
-            String podcastName = episode.getPodcastName();
             Podcast podcast = progData.podcastList.getPodcastById(episode.getPodcastId());
-            if (podcast != null && !hashSet.contains(podcastName)) {
-                hashSet.add(podcastName);
-                arrayList.add(podcast);
+            if (podcast != null && !hashSet.contains(podcast)) {
+                hashSet.add(podcast);
+                items.add(podcast);
             }
         });
-
+        Collections.sort(items);
+        podcastList.setAll(items);
         PDuration.counterStop("getPodcastList");
-        return arrayList;
     }
 
     public synchronized ObservableList<String> getGenreList() {
         return genreList;
     }
 
-    public synchronized void genGenreList() {
+    private synchronized void genGenreList() {
         PDuration.counterStart("genGenreList");
         PLog.sysLog("Episoden: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
-        ArrayList<String> arrayList = new ArrayList<>();
+        final ArrayList<String> items = new ArrayList<>();
         stream().forEach((episode) -> {
-            String podcastName = episode.getGenre();
-            if (!hashSet.contains(podcastName)) {
-                hashSet.add(podcastName);
-                arrayList.add(podcastName);
+            String genre = episode.getGenre();
+            if (!hashSet.contains(genre)) {
+                hashSet.add(genre);
+                items.add(genre);
             }
         });
-        genreList.setAll(arrayList);
+        Collections.sort(items, new GermanStringSorter());
+        genreList.setAll(items);
         PDuration.counterStop("genGenreList");
     }
 }

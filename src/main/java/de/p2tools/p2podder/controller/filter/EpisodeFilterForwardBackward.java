@@ -166,7 +166,6 @@ public final class EpisodeFilterForwardBackward {
 
     private void setIdx(int i) {
         idx = i;
-        System.out.println("idx: " + idx);
         checkButton();
     }
 

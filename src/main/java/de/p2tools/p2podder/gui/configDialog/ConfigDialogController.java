@@ -43,6 +43,7 @@ public class ConfigDialogController extends PDialogExtra {
     private final ProgData progData;
 
     ConfigPaneController configPane;
+    EpisodePaneController episodePaneController;
     PodPaneController podPane;
     SetPaneController setPane;
 
@@ -82,6 +83,7 @@ public class ConfigDialogController extends PDialogExtra {
 
     public void close() {
         configPane.close();
+        episodePaneController.close();
         podPane.close();
         setPane.close();
 
@@ -95,6 +97,12 @@ public class ConfigDialogController extends PDialogExtra {
             Tab tab = new Tab("Allgemein");
             tab.setClosable(false);
             tab.setContent(configPane);
+            tabPane.getTabs().add(tab);
+
+            episodePaneController = new EpisodePaneController(getStage());
+            tab = new Tab("Episoden");
+            tab.setClosable(false);
+            tab.setContent(episodePaneController);
             tabPane.getTabs().add(tab);
 
             podPane = new PodPaneController(getStage());
