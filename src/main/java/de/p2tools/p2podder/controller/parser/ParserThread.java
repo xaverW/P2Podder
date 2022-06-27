@@ -17,9 +17,12 @@
 
 package de.p2tools.p2podder.controller.parser;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ import java.util.List;
 public class ParserThread {
     private final ProgData progData;
     private Parser parser = new Parser();
+    private boolean andStartDownload = false;
 
     public ParserThread(ProgData progData) {
         this.progData = progData;
@@ -39,6 +43,11 @@ public class ParserThread {
     }
 
     public void parse(List<Podcast> podcastList) {
+        parse(podcastList, false);
+    }
+
+    public void parse(List<Podcast> podcastList, boolean andStartDownload) {
+        this.andStartDownload = andStartDownload;
         parser.addPodcast(podcastList);
         new Thread(parser).start();
     }
@@ -67,6 +76,7 @@ public class ParserThread {
         @Override
         public void run() {
             try {
+                //erst mal parsen
                 for (Podcast podcast : podcastList) {
                     if (stop) {
                         break;
@@ -74,6 +84,31 @@ public class ParserThread {
                     PLog.sysLog("Parse Podcast: " + podcast.getName());
                     ParseRss.parse(progData, podcast);
                 }
+
+                //und dann noch starten, falls gewünscht
+                if (!andStartDownload || progData.downloadList.isEmpty()) {
+                    return;
+                }
+
+                //dann die Downloads auch noch starten
+                PLog.sysLog("Downloads: " + progData.downloadList.getSize() + ", jetzt noch starten");
+                if (progData.downloadList.size() < 15) {
+                    //wenn nicht zu viele, dann sofort starten
+                    DownloadFactory.startAllDownloads();
+                    return;
+                }
+
+
+                Platform.runLater(() -> {
+                    //dann vorher auf jeden Fall fragen
+                    PAlert.BUTTON button = PAlert.showAlert_yes_no(progData.primaryStage, "Download der Episoden",
+                            "Viele Episoden gefunden", "Es wurden " + progData.downloadList.size() +
+                                    " Episoden gefunden. Sollen die gefundenen Episoden jetzt " +
+                                    "geladen werden?");
+                    if (button.equals(PAlert.BUTTON.YES)) {
+                        DownloadFactory.startAllDownloads();
+                    }
+                });
             } catch (final Exception ignored) {
             }
         }
