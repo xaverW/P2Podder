@@ -72,11 +72,8 @@ public class ResetDialogController extends PDialogExtra {
 
         BigButton setButton = new BigButton(new ProgIcons().ICON_BUTTON_QUIT,
                 "Einstellungen zum Abspielen zurücksetzen",
-                "Es werden alle Programmsets (auch eigene)" + P2LibConst.LINE_SEPARATOR +
-                        "gelöscht und die Standardsets" + P2LibConst.LINE_SEPARATOR +
-                        " wieder angelegt." +
-                        P2LibConst.LINE_SEPARATORx2 +
-                        "Blacklist bleibt erhalten.");
+                "Es werden alle Programmsets (auch eigene) gelöscht" + P2LibConst.LINE_SEPARATOR +
+                        "und die Standardsets wieder angelegt.");
         setButton.setOnAction(e -> {
             Platform.runLater(() -> {
                 ImportSetDialogController importSetDialogController = new ImportSetDialogController(progData);
@@ -88,10 +85,8 @@ public class ResetDialogController extends PDialogExtra {
         // alle Einstellungen
         BigButton allButton = new BigButton(new ProgIcons().ICON_BUTTON_QUIT, "" +
                 "Alle Einstellungen zurücksetzen!",
-                "Alle Einstellungen gehen verloren." + P2LibConst.LINE_SEPARATORx2 +
-                        "ACHTUNG" + P2LibConst.LINE_SEPARATOR +
-                        "es werden auch eigene Sets" + P2LibConst.LINE_SEPARATOR +
-                        "und die Blacklist gelöscht.");
+                "ACHTUNG!" + P2LibConst.LINE_SEPARATOR +
+                        "Alle Einstellungen gehen verloren!");
         allButton.setOnAction(e -> {
             Text t = new Text("ALLE");
             t.setFont(Font.font(null, FontWeight.BOLD, -1));

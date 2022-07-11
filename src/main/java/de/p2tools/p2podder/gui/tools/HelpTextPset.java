@@ -25,7 +25,7 @@ public class HelpTextPset {
             "\n";
 
     public static final String HELP_PSET = "\n" +
-            "Ein Set ist ein Satz von Hilfsprogrammen, an welches eine URL einer Episode übergeben wird. " +
+            "Ein Set ist ein Satz von Hilfsprogrammen, an welches ein Pfad zu einer Episode übergeben wird. " +
             "Mit dem Programm wird dann die Episode abgespielt.\n" +
             "\n" +
             "\n" +
@@ -34,7 +34,7 @@ public class HelpTextPset {
             "===\n" +
             "\n" +
             "Hier werden die Programme zum jeweiligen Set eingetragen. Sind mehrere Programme eingetragen, " +
-            "kann man zu jedem Programm über die Felder Präfix und Suffix wählen, für welche URL ein Programm " +
+            "kann man zu jedem Programm über die Felder Präfix und Suffix wählen, für welchen Dateinamen ein Programm " +
             "zuständig ist.\n" +
             "\n" +
             "\"Programm\": In dem Feld steht NUR!! das Programm: \"Pfad/Programmdatei\"\n" +
@@ -42,14 +42,14 @@ public class HelpTextPset {
             "\"Schalter\": In diesem Feld werden die Programmschalter angegeben, die das Programm zum Start braucht. " +
             "Mögliche Parameter sind:\n" +
             "\n" +
-            "Diese Angaben werden durch die URL ersetzt:\n" +
-            "%f ist die URL der Episode (Original-URL)\n" +
+            "Diese Angaben werden durch den Pfad ersetzt:\n" +
+            "%f ist der Pfad/Datei der Episode\n" +
             "\n" +
             "==================================================\n" +
             "Beispiel für den VLC:\n" +
             "Programm: \"/usr/bin/vlc\"\n" +
             "Schalter: \"%f --play-and-exit :http-user-agent=\"Mozilla/5.0\"\n" +
             "\n" +
-            "Hier wird %f durch die URL der Episode ersetzt. " +
+            "Hier wird %f durch dem Pfad/Datei der Episode ersetzt. " +
             "\n";
 }

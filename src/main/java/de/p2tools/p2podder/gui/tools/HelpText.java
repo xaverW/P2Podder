@@ -70,20 +70,11 @@ public class HelpText {
                     P2LibConst.LINE_SEPARATOR;
 
     public static final String GUI_STATION_FILTER =
-            P2LibConst.LINE_SEPARATOR +
-                    "Beim Feld \"URL\" muss der Filter in der URL " +
-                    "der Episode ODER der Website der Episode enthalten sein." +
-                    P2LibConst.LINE_SEPARATOR +
-                    FILTER_EXACT +
-                    P2LibConst.LINE_SEPARATOR +
+            FILTER_EXACT +
                     P2LibConst.LINE_SEPARATOR +
                     "Filterprofile:" + P2LibConst.LINE_SEPARATOR +
-                    "==================" + P2LibConst.LINE_SEPARATOR +
-                    "Mit den Buttons unten, kann man eingestellte Filter speichern " +
-                    "und auch wieder abrufen. So wird der gespeicherte Zustand genau " +
-                    "wieder hergestellt. Ist der Profilname im Auswahlfeld unterstrichen, " +
-                    "besagt das, dass die aktuellen Filtereinstellungen unverändert sind und " +
-                    "denen des Profils entsprechen." +
+                    "Mit den Buttons unten (Pfeil nach rechts/links), kann man die verwendeten Filter " +
+                    "\"vor- und zurückspulen\"." +
                     "\n";
 
     public static final String GUI_STATIONS_EDIT_FILTER = "Hier können die angezeigten Filter " +
@@ -170,7 +161,7 @@ public class HelpText {
                     P2LibConst.LINE_SEPARATORx2 +
                     "Damit werden alle Sets (auch eigene), die zum Abspielen der " +
                     "Episoden gebraucht werden, gelöscht. Anschließend wird das aktuelle Standardset eingerichtet. " +
-                    "Es kann dann direkt damit weitergearbeitet werden. Blacklist bleibt erhalten." +
+                    "Es kann dann direkt damit weitergearbeitet werden." +
                     P2LibConst.LINE_SEPARATORx2 +
                     "Das sollte vor dem kompletten Zurücksetzen des Programms versucht werden. " +
 
