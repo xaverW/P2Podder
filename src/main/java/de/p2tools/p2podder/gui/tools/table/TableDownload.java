@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.POpen;
-import de.p2tools.p2Lib.tools.GermanStringIntSorter;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -52,10 +51,8 @@ public class TableDownload {
     public TableColumn[] initDownloadColumn(TableView table) {
         table.getColumns().clear();
 
-        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> table.refresh());
-        ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> table.refresh());
-        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
+        //todo
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
 
         final TableColumn<Download, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -125,7 +122,6 @@ public class TableDownload {
         remainingColumn.setPrefWidth(120);
         speedColumn.setPrefWidth(100);
         pdownloadSizeColumn.setPrefWidth(100);
-//        datumColumn.setPrefWidth(120);
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(250);
         urlColumn.setPrefWidth(350);
@@ -145,19 +141,60 @@ public class TableDownload {
             public void updateItem(Download download, boolean empty) {
                 super.updateItem(download, empty);
 
-                if (download == null || empty) {
-                    setStyle("");
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
 
-                } else {
+                if (download != null && !empty) {
+
                     if (download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(download.getDownloadStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
+                    }
 
-                    } else {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle("");
-                        }
+                    switch (download.getState()) {
+                        case DownloadConstants.STATE_STARTED_WAITING:
+                            if (ProgColorList.DOWNLOAD_WAIT_BG.isUse()) {
+                                setStyle(ProgColorList.DOWNLOAD_WAIT_BG.getCssBackgroundAndSel());
+                            }
+                            if (ProgColorList.DOWNLOAD_WAIT.isUse()) {
+                                for (int i = 0; i < getChildren().size(); i++) {
+                                    getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_WAIT.getCssFont());
+                                }
+                            }
+                            break;
+                        case DownloadConstants.STATE_STARTED_RUN:
+                            if (ProgColorList.DOWNLOAD_RUN_BG.isUse()) {
+                                setStyle(ProgColorList.DOWNLOAD_RUN_BG.getCssBackgroundAndSel());
+                            }
+                            if (ProgColorList.DOWNLOAD_RUN.isUse()) {
+                                for (int i = 0; i < getChildren().size(); i++) {
+                                    getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_RUN.getCssFont());
+                                }
+                            }
+                            break;
+                        case DownloadConstants.STATE_FINISHED:
+                            if (ProgColorList.DOWNLOAD_FINISHED_BG.isUse()) {
+                                setStyle(ProgColorList.DOWNLOAD_FINISHED_BG.getCssBackgroundAndSel());
+                            }
+                            if (ProgColorList.DOWNLOAD_FINISHED.isUse()) {
+                                for (int i = 0; i < getChildren().size(); i++) {
+                                    getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_FINISHED.getCssFont());
+                                }
+                            }
+                            break;
+                        case DownloadConstants.STATE_ERROR:
+                            if (ProgColorList.DOWNLOAD_ERROR_BG.isUse()) {
+                                setStyle(ProgColorList.DOWNLOAD_ERROR_BG.getCssBackgroundAndSel());
+                            }
+                            if (ProgColorList.DOWNLOAD_ERROR.isUse()) {
+                                for (int i = 0; i < getChildren().size(); i++) {
+                                    getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_ERROR.getCssFont());
+                                }
+                            }
+                            break;
                     }
                 }
             }
@@ -292,38 +329,10 @@ public class TableDownload {
                     setGraphic(null);
                     setText(null);
                 }
-
-                setCellStyle(this, item);
             }
         };
         return cell;
     };
-
-    private void setCellStyle(TableCell<Download, Integer> cell, Integer item) {
-        TableRow<Download> currentRow = cell.getTableRow();
-        if (currentRow == null) {
-            return;
-        }
-
-        switch (item) {
-            case DownloadConstants.STATE_INIT:
-            case DownloadConstants.STATE_STOPPED:
-                currentRow.setStyle("");
-                break;
-            case DownloadConstants.STATE_STARTED_WAITING:
-                currentRow.setStyle(ProgColorList.DOWNLOAD_WAIT.getCssBackgroundAndSel());
-                break;
-            case DownloadConstants.STATE_STARTED_RUN:
-                currentRow.setStyle(ProgColorList.DOWNLOAD_RUN.getCssBackgroundAndSel());
-                break;
-            case DownloadConstants.STATE_FINISHED:
-                currentRow.setStyle(ProgColorList.DOWNLOAD_FINISHED.getCssBackgroundAndSel());
-                break;
-            case DownloadConstants.STATE_ERROR:
-                currentRow.setStyle(ProgColorList.DOWNLOAD_ERROR.getCssBackgroundAndSel());
-                break;
-        }
-    }
 
     private Callback<TableColumn<Download, Double>, TableCell<Download, Double>> cellFactoryProgress
             = (final TableColumn<Download, Double> param) -> {

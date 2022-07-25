@@ -17,11 +17,12 @@
 package de.p2tools.p2podder.gui.configDialog;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.configDialog.setData.SetPaneController;
-import de.p2tools.p2podder.gui.tools.Listener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -86,8 +87,8 @@ public class ConfigDialogController extends PDialogExtra {
         episodePaneController.close();
         podPane.close();
         setPane.close();
-
-        Listener.notify(Listener.EREIGNIS_SETDATA_CHANGED, ConfigDialogController.class.getSimpleName());
+        ProgData.getInstance().pEventHandler.notifyGuiEvent(new RunEvent(Events.event(Events.EREIGNIS_SETDATA_CHANGED),
+                ColorPane.class));
         super.close();
     }
 

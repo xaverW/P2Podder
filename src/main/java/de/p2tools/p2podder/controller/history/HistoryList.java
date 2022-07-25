@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.episode.Episode;
-import de.p2tools.p2podder.gui.tools.Listener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -93,7 +92,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
                         " gelöscht werden?")) {
             clearList();
             historyWorker.deleteHistoryFile();
-            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
+//            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
         }
     }
 
@@ -273,7 +272,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
             // und nur dann wurde was gelöscht und muss geschreiben werden
             replaceThisList(newHistoryList);
             writeToFile(newHistoryList, false);
-            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
+//            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
         }
 
         PDuration.counterStop("History: removeFromHistory");

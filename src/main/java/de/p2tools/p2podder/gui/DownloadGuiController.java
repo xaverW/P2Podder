@@ -19,12 +19,14 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
 import de.p2tools.p2podder.gui.dialog.DownloadInfoDialogController;
-import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -220,10 +222,17 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, DownloadGuiController.class.getSimpleName()) {
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.EREIGNIS_SETDATA_CHANGED)) {
             @Override
-            public void pingFx() {
-                tableView.refresh();
+            public void ping(RunEvent runEvent) {
+                Table.refresh_table(tableView);
+            }
+        });
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+            @Override
+            public void ping(RunEvent runEvent) {
+                System.out.println("colors changed");
+                Table.refresh_table(tableView);
             }
         });
     }
@@ -258,6 +267,7 @@ public class DownloadGuiController extends AnchorPane {
         new Table().setTable(tableView, Table.TABLE.DOWNLOAD);
         tableView.setItems(progData.downloadList.getSortedList());
         progData.downloadList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());
+        Table.refresh_table(tableView);
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {

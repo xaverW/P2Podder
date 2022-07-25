@@ -216,7 +216,7 @@ public class ProgConfig extends PDataProgConfig {
         ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramTools.getCompileDate());
 
         configFile.addConfigs(ProgConfig.getInstance());
-        configFile.addConfigs(ProgColorList.getConfigsData());
+        configFile.addConfigs(ProgColorList.getInstance());
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().podcastList);
         configFile.addConfigs(ProgData.getInstance().downloadList);

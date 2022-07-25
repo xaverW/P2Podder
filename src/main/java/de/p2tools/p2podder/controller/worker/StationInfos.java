@@ -18,9 +18,11 @@
 package de.p2tools.p2podder.controller.worker;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.gui.tools.Listener;
 
 public class StationInfos {
 
@@ -33,9 +35,15 @@ public class StationInfos {
 
     public StationInfos(ProgData progData) {
         this.progData = progData;
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, StationInfos.class.getSimpleName()) {
+//        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, StationInfos.class.getSimpleName()) {
+//            @Override
+//            public void ping() {
+//                generateInfos();
+//            }
+//        });
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.EREIGNIS_TIMER)) {
             @Override
-            public void ping() {
+            public void ping(RunEvent runEvent) {
                 generateInfos();
             }
         });

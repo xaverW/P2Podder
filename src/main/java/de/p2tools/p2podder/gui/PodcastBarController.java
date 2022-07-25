@@ -16,12 +16,12 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
-import de.p2tools.p2podder.controller.config.pEvent.EventLoadPodcastList;
 import de.p2tools.p2podder.controller.worker.InfoFactory;
-import de.p2tools.p2podder.gui.tools.Listener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -86,23 +86,9 @@ public class PodcastBarController extends AnchorPane {
         stackPane.getChildren().addAll(nonePane, episodePane, podcastPane, downloadPane);
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         nonePane.toFront();
-
-        progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.EREIGNIS_TIMER)) {
             @Override
-            public void start(EventLoadPodcastList event) {
-                stopTimer = true;
-            }
-
-            @Override
-            public void finished(EventLoadPodcastList event) {
-                stopTimer = false;
-                setStatusbarIndex(statusbarIndex);
-            }
-        });
-
-        Listener.addListener(new Listener(Listener.EREIGNIS_TIMER, PodcastBarController.class.getSimpleName()) {
-            @Override
-            public void pingFx() {
+            public void ping(RunEvent runEvent) {
                 try {
                     if (!stopTimer) {
                         setStatusbarIndex(statusbarIndex);

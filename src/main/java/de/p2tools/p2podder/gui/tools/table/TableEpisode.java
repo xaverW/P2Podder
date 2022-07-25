@@ -47,12 +47,8 @@ public class TableEpisode {
     public TableColumn[] initEpisodeColumn(TableView table) {
         table.getColumns().clear();
 
-//        final GermanStringIntSorter sorter = GermanStringIntSorter.getInstance();
+        //todo
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
-        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
-        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
-        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
-        ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> Table.refresh_table(table));
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -120,22 +116,74 @@ public class TableEpisode {
             public void updateItem(Episode episode, boolean empty) {
                 super.updateItem(episode, empty);
 
-                if (episode == null || empty) {
-                    setStyle("");
+                setStyle("");
+                for (int i = 0; i < getChildren().size(); i++) {
+                    getChildren().get(i).setStyle("");
+                }
 
-                } else {
+                if (episode != null && !empty) {
+
+                    final boolean started = EpisodeFactory.episodeIsStarted(episode);
+                    final boolean running = EpisodeFactory.episodeIsRunning(episode);
+                    final boolean error = episode.getStart() != null ? episode.getStart().getStartStatus().isStateError() : false;
+                    final boolean history = progData.historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
+
                     if (episode.getStart() != null && episode.getStart().getStartStatus().isStateError()) {
                         Tooltip tooltip = new Tooltip();
                         tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
                         setTooltip(tooltip);
+                    }
+
+
+                    if (error) {
+                        if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
+                            setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.EPISODE_ERROR.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.EPISODE_ERROR.getCssFont());
+                            }
+                        }
+
+                    } else if (started && !running) {
+                        if (ProgColorList.EPISODE_STARTED_BG.isUse()) {
+                            setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.EPISODE_STARTED.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.EPISODE_STARTED.getCssFont());
+                            }
+                        }
+
+                    } else if (running) {
+                        if (ProgColorList.EPISODE_RUNNING_BG.isUse()) {
+                            setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.EPISODE_RUNNING.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.EPISODE_RUNNING.getCssFont());
+                            }
+                        }
+
+                    } else if (!error && !started && !running && history) {
+                        if (ProgColorList.EPISODE_HISTORY_BG.isUse()) {
+                            setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.EPISODE_HISTORY.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.EPISODE_HISTORY.getCssFont());
+                            }
+                        }
+
                     } else if (episode.isNew()) {
                         //neue Episode
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.EPISODE_NEW.getCssFont());
+                        if (ProgColorList.EPISODE_NEW_BG.isUse()) {
+                            setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackgroundAndSel());
                         }
-                    } else {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle("");
+                        if (ProgColorList.EPISODE_NEW.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.EPISODE_NEW.getCssFont());
+                            }
                         }
                     }
                 }
@@ -292,33 +340,31 @@ public class TableEpisode {
                 hbox.getChildren().add(btnDel);
 
                 setGraphic(hbox);
-                final boolean history = progData.historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
-                setCellStyle(this, episode.isNew(), started, running, error, history);
             }
         };
         return cell;
     };
 
-    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
-                              boolean error, boolean history) {
-        TableRow<Episode> currentRow = cell.getTableRow();
-        if (currentRow == null) {
-            return;
-        }
-
-        if (started && !running) {
-            currentRow.setStyle(ProgColorList.EPISODE_STARTED.getCssBackgroundAndSel());
-        } else if (running) {
-            currentRow.setStyle(ProgColorList.EPISODE_RUNNING.getCssBackgroundAndSel());
-        } else if (error) {
-            currentRow.setStyle(ProgColorList.EPISODE_ERROR.getCssBackgroundAndSel());
-        } else {
-            currentRow.setStyle("");
-        }
-        if (!error && !started && !running && history) {
-            currentRow.setStyle(ProgColorList.EPISODE_HISTORY.getCssBackgroundAndSel());
-        }
-    }
+//    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
+//                              boolean error, boolean history) {
+//        TableRow<Episode> currentRow = cell.getTableRow();
+//        if (currentRow == null) {
+//            return;
+//        }
+//
+//        if (started && !running) {
+//            currentRow.setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackgroundAndSel());
+//        } else if (running) {
+//            currentRow.setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackgroundAndSel());
+//        } else if (error) {
+//            currentRow.setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackgroundAndSel());
+//        } else {
+//            currentRow.setStyle("");
+//        }
+//        if (!error && !started && !running && history) {
+//            currentRow.setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackgroundAndSel());
+//        }
+//    }
 
     private Callback<TableColumn<Episode, Integer>, TableCell<Episode, Integer>> cellFactoryNo
             = (final TableColumn<Episode, Integer> param) -> {

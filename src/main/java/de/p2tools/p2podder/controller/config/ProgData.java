@@ -19,9 +19,9 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.PEventHandler;
+import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2podder.P2PodderController;
-import de.p2tools.p2podder.controller.config.pEvent.EventNotifyLoadPodcastList;
-import de.p2tools.p2podder.controller.config.pEvent.PEventFactory;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.controller.data.download.DownloadList;
@@ -43,7 +43,6 @@ import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallPodderGui.SmallEpisodeGuiController;
 import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
-import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -63,10 +62,10 @@ public class ProgData {
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
 
     // zentrale Klassen
-    public EventNotifyLoadPodcastList eventNotifyLoadPodcastList;
+//    public EventNotifyLoadPodcastList eventNotifyLoadPodcastList;
     public P2PodderShortCuts pShortcut; // verwendete Shortcuts
 
-    public PEventFactory pEventFactory;
+    //    public PEventFactory pEventFactory;
     public DownloadStarterFactory downloadStarterFactory; // Klasse zum Ausführen der Programme (für die Downloads): VLC, flvstreamer, ...
 
     // Gui
@@ -108,9 +107,12 @@ public class ProgData {
     // Programmdaten
     boolean oneSecond = false;
 
+    public PEventHandler pEventHandler;
+
     private ProgData() {
+        pEventHandler = new PEventHandler();
         pShortcut = new P2PodderShortCuts();
-        eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
+//        eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
         episodeFilter = new EpisodeFilter(true);
         episodeFilterSmall = new EpisodeFilterSmall(true);
@@ -123,7 +125,7 @@ public class ProgData {
         downloadList = new DownloadList(this);
         setDataList = new SetDataList();
 
-        pEventFactory = new PEventFactory();
+//        pEventFactory = new PEventFactory();
 
         worker = new Worker(this);
         episodeStarterFactory = new EpisodeStarterFactory(this);
@@ -151,7 +153,7 @@ public class ProgData {
             if (oneSecond) {
                 doTimerWorkOneSecond();
             }
-            doTimerWorkHalfSecond();
+//            doTimerWorkHalfSecond();
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -161,12 +163,14 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        Listener.notify(Listener.EREIGNIS_TIMER, ProgData.class.getName());
+//        Listener.notify(Listener.EREIGNIS_TIMER, ProgData.class.getName());
+        ProgData.getInstance().pEventHandler.notifyGuiEvent(new RunEvent(Events.event(Events.EREIGNIS_TIMER),
+                this.getClass()));
     }
 
-    private void doTimerWorkHalfSecond() {
-        Listener.notify(Listener.EREIGNIS_TIMER_HALF_SECOND, ProgData.class.getName());
-    }
+//    private void doTimerWorkHalfSecond() {
+//        Listener.notify(Listener.EREIGNIS_TIMER_HALF_SECOND, ProgData.class.getName());
+//    }
 
     public synchronized static final ProgData getInstance(String dir) {
         if (!dir.isEmpty()) {

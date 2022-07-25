@@ -26,8 +26,6 @@ import de.p2tools.p2podder.controller.ProgSaveFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
-import de.p2tools.p2podder.controller.config.pEvent.EventLoadPodcastList;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.DownloadGui;
@@ -41,7 +39,6 @@ import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -108,21 +105,21 @@ public class P2PodderController extends StackPane {
             initMaskerPane();
             initButton();
             initMenu();
-            progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
-                @Override
-                public void finished(EventLoadPodcastList event) {
-                    Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-                    if (node != null && node == paneEpisodeGui) {
-                        progData.episodeGui.getEpisodeGuiController().isShown();
-                    }
-                    if (node != null && node == panePodcastGui) {
-                        progData.podcastGui.getPodcastGuiController().isShown();
-                    }
-                    if (node != null && node == paneDownloadGui) {
-                        progData.downloadGui.getDownloadGuiController().isShown();
-                    }
-                }
-            });
+//            progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
+//                @Override
+//                public void finished(EventLoadPodcastList event) {
+//                    Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
+//                    if (node != null && node == paneEpisodeGui) {
+//                        progData.episodeGui.getEpisodeGuiController().isShown();
+//                    }
+//                    if (node != null && node == panePodcastGui) {
+//                        progData.podcastGui.getPodcastGuiController().isShown();
+//                    }
+//                    if (node != null && node == paneDownloadGui) {
+//                        progData.downloadGui.getDownloadGuiController().isShown();
+//                    }
+//                }
+//            });
             switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
                 case ProgConst.LAST_TAB_STATION_EPISODE:
                 default:

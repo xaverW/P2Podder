@@ -130,7 +130,7 @@ public class ConfigPane {
         txtPlayer.textProperty().addListener((observable, oldValue, newValue) -> {
             File file = new File(txtPlayer.getText());
             if (!file.exists() || !file.isFile()) {
-                txtPlayer.setStyle(ProgColorList.EPISODE_ERROR.getCssBackground());
+                txtPlayer.setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackground());
             } else {
                 txtPlayer.setStyle("");
             }

@@ -17,10 +17,10 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.configFile.pConfData.PColorData;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PTextAreaIgnoreTab;
-import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -32,8 +32,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class PodcastEditDialogController extends PDialogExtra {
+
+    // DialogPodcast
+    private static final PColorData PODCAST_NAME_ERROR = new PColorData("COLOR_PODCAST_NAME_ERROR",
+            Color.rgb(255, 233, 233), Color.rgb(200, 183, 183));
 
     private final GridPane gridPane = new GridPane();
     private final Button btnOk = new Button("_Ok");
@@ -164,13 +169,13 @@ public class PodcastEditDialogController extends PDialogExtra {
     private void addCheck(TextField txtF) {
         txtF.textProperty().addListener((observable, oldValue, newValue) -> {
             if (txtF.getText().isEmpty()) {
-                txtF.setStyle(ProgColorList.PODCAST_NAME_ERROR.getCssBackground());
+                txtF.setStyle(PODCAST_NAME_ERROR.getCssBackground());
             } else {
                 txtF.setStyle("");
             }
         });
         if (txtF.getText().isEmpty()) {
-            txtF.setStyle(ProgColorList.PODCAST_NAME_ERROR.getCssBackground());
+            txtF.setStyle(PODCAST_NAME_ERROR.getCssBackground());
         } else {
             txtF.setStyle("");
         }

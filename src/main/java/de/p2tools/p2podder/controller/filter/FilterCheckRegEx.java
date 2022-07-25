@@ -17,11 +17,21 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2podder.controller.config.ProgColorList;
+import de.p2tools.p2Lib.configFile.pConfData.PColorData;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+
 
 public class FilterCheckRegEx {
+
+
+    // Filter wenn RegEx
+    private static final PColorData FILTER_REGEX = new PColorData("COLOR_FILTER_REGEX",
+            Color.rgb(206, 255, 202), Color.rgb(79, 129, 74));
+    private static final PColorData FILTER_REGEX_ERROR = new PColorData("COLOR_FILTER_REGEX_ERROR",
+            Color.rgb(255, 230, 230), Color.rgb(170, 0, 0));
+
     private final int COUNTER_MAX = 2_500;
 
     private TextField tf;
@@ -49,13 +59,13 @@ public class FilterCheckRegEx {
                 // aber falsch
                 colorRed = true;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + ProgColorList.FILTER_REGEX_ERROR.getColorLightToWeb() + ";");
+                tf.setStyle("-fx-control-inner-background: " + FILTER_REGEX_ERROR.getColorLightToWeb() + ";");
 
             } else {
                 // RegEx OK
                 colorRed = false;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + ProgColorList.FILTER_REGEX.getColorLightToWeb() + ";");
+                tf.setStyle("-fx-control-inner-background: " + FILTER_REGEX.getColorLightToWeb() + ";");
             }
 
             if (colorThread != null) {

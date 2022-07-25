@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
- * https://www.p2tools.de
+ * P2tools Copyright (C) 2022 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -14,22 +14,18 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.controller.getNewStationList;
 
-import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
+package de.p2tools.p2podder.controller.config;
 
-import javax.swing.event.EventListenerList;
+import de.p2tools.p2Lib.tools.events.Event;
 
-public class ReadPodcast {
-    //bis jetzt nur einer: RadioBrowser
+public class Events {
 
-    private final EventListenerList eventListenerList;
+    public static int COLORS_CHANGED = 0;
+    public static int EREIGNIS_SETDATA_CHANGED = 1;
+    public static int EREIGNIS_TIMER = 2;
 
-    public ReadPodcast() {
-        eventListenerList = new EventListenerList();
-    }
-
-    public void addAdListener(EventListenerPodcastList listener) {
-        eventListenerList.add(EventListenerPodcastList.class, listener);
+    public static Event event(int i) {
+        return new Event(i, "");
     }
 }

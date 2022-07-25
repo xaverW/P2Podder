@@ -19,7 +19,6 @@ package de.p2tools.p2podder.controller.history;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.gui.tools.Listener;
 import javafx.beans.property.BooleanProperty;
 
 import java.io.BufferedWriter;
@@ -64,8 +63,6 @@ public class HistoryWriteToFile implements Runnable {
 
         // und jetzt schreiben
         writeHistoryDataToFile(list, append);
-
-        Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryWriteToFile.class.getSimpleName());
         PDuration.counterStop("History: Thread: HistoryWriteToFile");
     }
 

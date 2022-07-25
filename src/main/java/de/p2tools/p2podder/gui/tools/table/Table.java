@@ -21,6 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
@@ -57,10 +58,12 @@ public class Table {
     }
 
     public static void refresh_table(TableView table) {
-        for (int i = 0; i < table.getColumns().size(); i++) {
-            ((TableColumn) (table.getColumns().get(i))).setVisible(false);
-            ((TableColumn) (table.getColumns().get(i))).setVisible(true);
-        }
+        Platform.runLater(() -> {
+            for (int i = 0; i < table.getColumns().size(); i++) {
+                ((TableColumn) (table.getColumns().get(i))).setVisible(false);
+                ((TableColumn) (table.getColumns().get(i))).setVisible(true);
+            }
+        });
     }
 
     public void saveTable(TableView ta, TABLE eTable) {

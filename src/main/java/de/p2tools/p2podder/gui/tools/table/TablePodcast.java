@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
@@ -43,9 +42,8 @@ public class TablePodcast {
     public TableColumn[] initStationColumn(TableView table) {
         table.getColumns().clear();
 
-        // bei Farbänderung der Schriftfarbe klappt es damit besser: Table.refresh_table(table)
+        //todo
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> table.refresh());
-        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> table.refresh());
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -80,25 +78,25 @@ public class TablePodcast {
         genreColumn.setPrefWidth(120);
         websiteColumn.setPrefWidth(350);
         urlColumn.setPrefWidth(350);
-        addRowFact(table);
+//        addRowFact(table);
 
         return new TableColumn[]{
                 nrColumn, nameColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/
         };
     }
 
-    private void addRowFact(TableView<Podcast> table) {
-        table.setRowFactory(tableview -> new TableRow<>() {
-            @Override
-            public void updateItem(Podcast podcast, boolean empty) {
-                super.updateItem(podcast, empty);
-
-                if (podcast == null || empty) {
-                    setStyle("");
-                }
-            }
-        });
-    }
+//    private void addRowFact(TableView<Podcast> table) {
+//        table.setRowFactory(tableview -> new TableRow<>() {
+//            @Override
+//            public void updateItem(Podcast podcast, boolean empty) {
+//                super.updateItem(podcast, empty);
+////
+////                if (podcast == null || empty) {
+////                    setStyle("");
+////                }
+//            }
+//        });
+//    }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactoryStart
             = (final TableColumn<Podcast, String> param) -> {

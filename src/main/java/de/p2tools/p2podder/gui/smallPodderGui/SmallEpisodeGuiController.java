@@ -19,11 +19,13 @@ package de.p2tools.p2podder.gui.smallPodderGui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2Lib.tools.events.RunEvent;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import de.p2tools.p2podder.gui.tools.Listener;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -322,10 +324,10 @@ public class SmallEpisodeGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        Listener.addListener(new Listener(Listener.EREIGNIS_SETDATA_CHANGED, SmallEpisodeGuiController.class.getSimpleName()) {
+        progData.pEventHandler.addListener(new PListener(Events.event(Events.EREIGNIS_SETDATA_CHANGED)) {
             @Override
-            public void pingFx() {
-                tableView.refresh();
+            public void ping(RunEvent runEvent) {
+                Table.refresh_table(tableView);
             }
         });
     }

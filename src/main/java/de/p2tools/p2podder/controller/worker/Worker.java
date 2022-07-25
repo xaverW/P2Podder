@@ -17,8 +17,6 @@
 package de.p2tools.p2podder.controller.worker;
 
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.pEvent.EventListenerPodcastList;
-import de.p2tools.p2podder.controller.config.pEvent.EventLoadPodcastList;
 
 public class Worker extends Thread {
 
@@ -27,32 +25,32 @@ public class Worker extends Thread {
     public Worker(ProgData progData) {
         this.progData = progData;
 
-        progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
-            @Override
-            public void start(EventLoadPodcastList event) {
-                if (event.progress == EventListenerPodcastList.PROGRESS_INDETERMINATE) {
-                    progData.maskerPane.setMaskerVisible(true, false);
-                } else {
-                    progData.maskerPane.setMaskerVisible(true, true);
-                }
-                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-            }
-
-            @Override
-            public void progress(EventLoadPodcastList event) {
-                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-            }
-
-            @Override
-            public void loaded(EventLoadPodcastList event) {
-                progData.maskerPane.setMaskerVisible(true, false);
-                progData.maskerPane.setMaskerProgress(EventListenerPodcastList.PROGRESS_INDETERMINATE, "Podcasts verarbeiten");
-            }
-
-            @Override
-            public void finished(EventLoadPodcastList event) {
-                progData.maskerPane.setMaskerVisible(false);
-            }
-        });
+//        progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
+//            @Override
+//            public void start(EventLoadPodcastList event) {
+//                if (event.progress == EventListenerPodcastList.PROGRESS_INDETERMINATE) {
+//                    progData.maskerPane.setMaskerVisible(true, false);
+//                } else {
+//                    progData.maskerPane.setMaskerVisible(true, true);
+//                }
+//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+//            }
+//
+//            @Override
+//            public void progress(EventLoadPodcastList event) {
+//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
+//            }
+//
+//            @Override
+//            public void loaded(EventLoadPodcastList event) {
+//                progData.maskerPane.setMaskerVisible(true, false);
+//                progData.maskerPane.setMaskerProgress(EventListenerPodcastList.PROGRESS_INDETERMINATE, "Podcasts verarbeiten");
+//            }
+//
+//            @Override
+//            public void finished(EventLoadPodcastList event) {
+//                progData.maskerPane.setMaskerVisible(false);
+//            }
+//        });
     }
 }
