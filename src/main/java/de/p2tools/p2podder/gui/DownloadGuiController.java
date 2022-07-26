@@ -19,8 +19,8 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.events.PListener;
-import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -152,7 +152,6 @@ public class DownloadGuiController extends AnchorPane {
 
     public void deleteDownloads(boolean all) {
         if (all) {
-            System.out.println("alle löschen");
             final ArrayList<Download> list = getSelList();
             if (list.isEmpty()) {
                 return;
@@ -170,7 +169,6 @@ public class DownloadGuiController extends AnchorPane {
             }
 
         } else {
-            System.out.println("einen löschen");
             final Optional<Download> download = getSel();
             if (download.isPresent()) {
                 deleteDownloads(download.get());
@@ -222,16 +220,15 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.event(Events.EREIGNIS_SETDATA_CHANGED)) {
+        progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
-            public void ping(RunEvent runEvent) {
+            public void ping(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.event(Events.COLORS_CHANGED)) {
+        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(RunEvent runEvent) {
-                System.out.println("colors changed");
+            public void ping(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });

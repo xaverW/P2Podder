@@ -51,12 +51,6 @@ public final class Download extends DownloadProps {
         String path = PFileUtils.addsPath(ProgConfig.SYSTEM_POD_DIR.getValueSafe(), podcast.getGenre());
         String name = PUrlTools.getFileName(episodeUri);
         DownloadProgram.makeProgParameter(this, name, path);
-//        getPdownloadSize().addListener(new ChangeListener<PFileSize>() {
-//            @Override
-//            public void changed(ObservableValue<? extends PFileSize> observable, PFileSize oldValue, PFileSize newValue) {
-//                System.out.println("PFileSize: " + newValue.getSizeS());
-//            }
-//        });
     }
 
     //==============================================

@@ -19,8 +19,8 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.events.Event;
 import de.p2tools.p2Lib.tools.events.PEventHandler;
-import de.p2tools.p2Lib.tools.events.RunEvent;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetDataList;
@@ -62,10 +62,7 @@ public class ProgData {
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
 
     // zentrale Klassen
-//    public EventNotifyLoadPodcastList eventNotifyLoadPodcastList;
     public P2PodderShortCuts pShortcut; // verwendete Shortcuts
-
-    //    public PEventFactory pEventFactory;
     public DownloadStarterFactory downloadStarterFactory; // Klasse zum Ausführen der Programme (für die Downloads): VLC, flvstreamer, ...
 
     // Gui
@@ -112,7 +109,6 @@ public class ProgData {
     private ProgData() {
         pEventHandler = new PEventHandler();
         pShortcut = new P2PodderShortCuts();
-//        eventNotifyLoadPodcastList = new EventNotifyLoadPodcastList();
 
         episodeFilter = new EpisodeFilter(true);
         episodeFilterSmall = new EpisodeFilterSmall(true);
@@ -125,14 +121,11 @@ public class ProgData {
         downloadList = new DownloadList(this);
         setDataList = new SetDataList();
 
-//        pEventFactory = new PEventFactory();
-
         worker = new Worker(this);
         episodeStarterFactory = new EpisodeStarterFactory(this);
         downloadStarterFactory = new DownloadStarterFactory(this);
 
         episodeInfos = new EpisodeInfos(this);
-//        stationInfos = new StationInfos(this);
         progTray = new ProgTray(this);
 
         historyDownloads = new HistoryList(ProgConst.FILE_FINISHED_DOWNLOADS,
@@ -153,8 +146,6 @@ public class ProgData {
             if (oneSecond) {
                 doTimerWorkOneSecond();
             }
-//            doTimerWorkHalfSecond();
-
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setDelay(Duration.seconds(5));
@@ -163,20 +154,7 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-//        Listener.notify(Listener.EREIGNIS_TIMER, ProgData.class.getName());
-        ProgData.getInstance().pEventHandler.notifyGuiEvent(new RunEvent(Events.event(Events.EREIGNIS_TIMER),
-                this.getClass()));
-    }
-
-//    private void doTimerWorkHalfSecond() {
-//        Listener.notify(Listener.EREIGNIS_TIMER_HALF_SECOND, ProgData.class.getName());
-//    }
-
-    public synchronized static final ProgData getInstance(String dir) {
-        if (!dir.isEmpty()) {
-            configDir = dir;
-        }
-        return getInstance();
+        ProgData.getInstance().pEventHandler.notifyListenerGui(new Event(Events.EREIGNIS_TIMER));
     }
 
     public synchronized static final ProgData getInstance() {

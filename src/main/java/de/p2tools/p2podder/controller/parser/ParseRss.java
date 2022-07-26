@@ -95,8 +95,6 @@ public class ParseRss {
                         if (null != enclosure) {
                             uri = enclosure.getUrl();
                             size = enclosure.getLength();
-//                            String s = enclosure.getType();
-//                            System.out.println("Length: " + l + " Type: " + s + " URL: " + enclosure.getUrl());
                             break;
                         }
                     }
@@ -107,8 +105,6 @@ public class ParseRss {
                 download.setDuration(duration);
 
                 downloads.add(download);
-//                System.out.println("author : " + author);
-//                System.out.println("Title : " + title);
             }
             if (!downloads.isEmpty()) {
                 progData.downloadList.addNewDownloads(downloads);

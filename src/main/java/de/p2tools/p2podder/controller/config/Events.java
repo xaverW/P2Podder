@@ -17,15 +17,9 @@
 
 package de.p2tools.p2podder.controller.config;
 
-import de.p2tools.p2Lib.tools.events.Event;
-
 public class Events {
 
     public static int COLORS_CHANGED = 0;
     public static int EREIGNIS_SETDATA_CHANGED = 1;
     public static int EREIGNIS_TIMER = 2;
-
-    public static Event event(int i) {
-        return new Event(i, "");
-    }
 }
