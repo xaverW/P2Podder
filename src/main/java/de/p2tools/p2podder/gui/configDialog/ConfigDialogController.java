@@ -87,7 +87,7 @@ public class ConfigDialogController extends PDialogExtra {
         episodePaneController.close();
         podPane.close();
         setPane.close();
-        ProgData.getInstance().pEventHandler.notifyListenerGui(new Event(Events.EREIGNIS_SETDATA_CHANGED));
+        ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.EREIGNIS_SETDATA_CHANGED));
         super.close();
     }
 

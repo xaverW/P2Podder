@@ -88,7 +88,7 @@ public class PodcastBarController extends AnchorPane {
         nonePane.toFront();
         progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_TIMER) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 try {
                     if (!stopTimer) {
                         setStatusbarIndex(statusbarIndex);

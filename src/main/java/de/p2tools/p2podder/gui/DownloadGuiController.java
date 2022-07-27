@@ -222,13 +222,13 @@ public class DownloadGuiController extends AnchorPane {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });
         progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
             @Override
-            public void ping(Event runEvent) {
+            public void pingGui(Event runEvent) {
                 Table.refresh_table(tableView);
             }
         });
