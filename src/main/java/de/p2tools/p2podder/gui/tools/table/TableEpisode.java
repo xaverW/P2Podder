@@ -32,7 +32,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -242,7 +241,7 @@ public class TableEpisode {
                     for (int i = 0; i < EpisodeConstants.MAX_EPISODE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_GRADE.getUrl()));
+                            l.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_GRADE.getImageView());
                             hBox.getChildren().add(l);
                         }
                     }
@@ -285,7 +284,7 @@ public class TableEpisode {
                     btnStop = new Button("");
                     btnStop.getStyleClass().add("btnSmallPodder");
                     btnStop.setTooltip(new Tooltip("Episode stoppen"));
-                    btnStop.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_STOP_PLAY));
+                    btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
                         EpisodeFactory.stopEpisode(episode);
                         getTableView().getSelectionModel().clearSelection();
@@ -316,7 +315,7 @@ public class TableEpisode {
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().add("btnSmallPodder");
                     btnPlay.setTooltip(new Tooltip("Episode abspielen"));
-                    btnPlay.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_PLAY));
+                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         EpisodeFactory.playEpisode(episode);
                         getTableView().getSelectionModel().clearSelection();
@@ -331,7 +330,7 @@ public class TableEpisode {
                 btnDel = new Button("");
                 btnDel.getStyleClass().add("btnSmallPodder");
                 btnDel.setTooltip(new Tooltip("Episode löschen"));
-                btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_DEL));
+                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     EpisodeFactory.delEpisode(episode);
                 });

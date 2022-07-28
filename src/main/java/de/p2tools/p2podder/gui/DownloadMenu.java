@@ -53,21 +53,21 @@ public class DownloadMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierte Downloads starten", "markierten Download starten", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_START);
+                "markierte Downloads starten", "markierten Download starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START.getImageView());
         final ToolBarButton btStartAll = new ToolBarButton(vBox,
-                "alle Downloads starten", "alle Downloads starten", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_START_ALL);
+                "alle Downloads starten", "alle Downloads starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Downloads stoppen", "alle laufenden Downloads stoppen", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_STOP);
+                "alle laufenden Downloads stoppen", "alle laufenden Downloads stoppen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
 
         final ToolBarButton btBack = new ToolBarButton(vBox,
-                "markierte Downloads zurückstellen", "markierte Downloads zurückstellen", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_BACK);
+                "markierte Downloads zurückstellen", "markierte Downloads zurückstellen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierten Download löschen", "markierten Download löschen", new ProgIcons().ICON_TOOLBAR_EPISODE_DEL);
+                "markierten Download löschen", "markierten Download löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
         final ToolBarButton btDownloadClear = new ToolBarButton(vBox,
-                "Downloads aufräumen", "Liste der Downloads aufräumen", new ProgIcons().ICON_TOOLBAR_DOWNLOAD_CLEAN);
+                "Downloads aufräumen", "Liste der Downloads aufräumen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_CLEAN.getImageView());
 
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
 
         btStart.setOnAction(a -> {
             List<Download> downloadList = progData.downloadGui.getDownloadGuiController().getSelList();
@@ -93,7 +93,7 @@ public class DownloadMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Download-Menü anzeigen"));
-        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
+        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miDownloadStart = new MenuItem("Download starten");

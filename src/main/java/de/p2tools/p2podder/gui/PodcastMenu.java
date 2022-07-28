@@ -53,13 +53,13 @@ public class PodcastMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btUpdate = new ToolBarButton(vBox,
-                "Alle Podcasts aktualisieren", "Alle Podcasts aktualisieren", new ProgIcons().ICON_TOOLBAR_PODCAST_UPDATE);
+                "Alle Podcasts aktualisieren", "Alle Podcasts aktualisieren", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_UPDATE.getImageView());
         final ToolBarButton btnAdd = new ToolBarButton(vBox,
-                "Einen neuen Podcast anlegen", "Einen neuen Podcast anlegen", new ProgIcons().ICON_TOOLBAR_PODCAST_ADD);
+                "Einen neuen Podcast anlegen", "Einen neuen Podcast anlegen", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_ADD.getImageView());
         final ToolBarButton btnDel = new ToolBarButton(vBox,
-                "Markierten Podcast löschen", "Markierten Podcast löschen", new ProgIcons().ICON_TOOLBAR_PODCAST_DEL);
+                "Markierten Podcast löschen", "Markierten Podcast löschen", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
@@ -75,7 +75,7 @@ public class PodcastMenu {
     private void initPodcastMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Podcastmenü anzeigen"));
-        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
+        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miUpdate = new MenuItem("markierte Podcasts aktualisieren");

@@ -47,16 +47,16 @@ public class EpisodeMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierte Episoden abspielen", "Markierte Episoden abspielen", new ProgIcons().ICON_TOOLBAR_EPISODE_START);
+                "Markierte Episoden abspielen", "Markierte Episoden abspielen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_START.getImageView());
         final ToolBarButton btPlayNext = new ToolBarButton(vBox,
                 "Nächste gestartete Episoden abspielen", "Nächste gestartete Episoden abspielen",
-                new ProgIcons().ICON_TOOLBAR_EPISODE_PLAY_NEXT);
+                ProgIcons.Icons.ICON_TOOLBAR_EPISODE_PLAY_NEXT.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", new ProgIcons().ICON_TOOLBAR_EPISODE_STOP);
+                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_STOP.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierte Episoden löschen", "Markierte Episoden löschen", new ProgIcons().ICON_TOOLBAR_EPISODE_DEL);
+                "Markierte Episoden löschen", "Markierte Episoden löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", new ProgIcons().ICON_TOOLBAR_INFO);
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
 
         btStart.setOnAction(a -> EpisodeFactory.playSelEpisode());
         btPlayNext.setOnAction(a -> EpisodeFactory.playNextEpisode());
@@ -68,7 +68,7 @@ public class EpisodeMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Episoden-Menü anzeigen"));
-        mb.setGraphic(new ProgIcons().ICON_TOOLBAR_MENU);
+        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miEpisodeStart = new MenuItem("Episode abspielen");

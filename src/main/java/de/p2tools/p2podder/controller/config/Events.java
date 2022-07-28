@@ -18,8 +18,8 @@
 package de.p2tools.p2podder.controller.config;
 
 public class Events {
-
-    public static int COLORS_CHANGED = 0;
-    public static int EREIGNIS_SETDATA_CHANGED = 1;
-    public static int EREIGNIS_TIMER = 2;
+    private static int count = 0;
+    public static int EREIGNIS_TIMER = ++count;
+    public static int COLORS_CHANGED = count;
+    public static int EREIGNIS_SETDATA_CHANGED = ++count;
 }

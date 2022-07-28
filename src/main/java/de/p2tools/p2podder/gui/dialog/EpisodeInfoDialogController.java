@@ -55,9 +55,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     private final ImageView ivNew = new ImageView();
 
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
     private Episode episode;
     private final ProgData progData;
@@ -112,23 +112,23 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         });
 
         btnPrev.setTooltip(new Tooltip("weniger Informationen zur Episode anzeigen"));
-        btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
+        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             progData.episodeGui.getEpisodeGuiController().setPreviousStation();
         });
 
         btnNext.setTooltip(new Tooltip("weniger Informationen zur Episode anzeigen"));
-        btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
+        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             progData.episodeGui.getEpisodeGuiController().setNextStation();
         });
 
         btnStart.setTooltip(new Tooltip("Episode abspielen"));
-        btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
+        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> EpisodeFactory.playEpisode());
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
-        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);
+        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
 
         initUrl();
@@ -314,7 +314,8 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     private void setBtnUpDownToolTip() {
         btnUpDown.setTooltip(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue() ? new Tooltip("weniger Informationen zur Episode anzeigen") :
                 new Tooltip("mehr Informationen zur Episode anzeigen"));
-        btnUpDown.setGraphic(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue() ? new ProgIcons().ICON_BUTTON_UP : new ProgIcons().ICON_BUTTON_DOWN);
+        btnUpDown.setGraphic(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue() ?
+                ProgIcons.Icons.ICON_BUTTON_UP.getImageView() : ProgIcons.Icons.ICON_BUTTON_DOWN.getImageView());
     }
 
     private void initUrl() {

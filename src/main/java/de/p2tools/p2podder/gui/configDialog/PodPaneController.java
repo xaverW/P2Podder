@@ -87,10 +87,10 @@ public class PodPaneController extends PAccordionPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
-        btnFile.setGraphic(new ProgIcons().ICON_BUTTON_FILE_OPEN);
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(new ProgIcons().ICON_BUTTON_PROPOSE);
+        btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Podcasts wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtPodDest.setText(ProgInfos.getStandardPodDestString());

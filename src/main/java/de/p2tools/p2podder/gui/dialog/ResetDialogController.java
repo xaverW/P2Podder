@@ -63,14 +63,14 @@ public class ResetDialogController extends PDialogExtra {
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
         // Set zurücksetzen
-        BigButton cancelButton = new BigButton(new ProgIcons().ICON_BUTTON_QUIT,
+        BigButton cancelButton = new BigButton(ProgIcons.Icons.ICON_BUTTON_QUIT.getImageView(),
                 "Nichts ändern", "");
         cancelButton.setOnAction(e -> close());
 
         final Button btnHelp = PButton.helpButton(this.getStage(), "Programm zurücksetzen",
                 HelpText.RESET_DIALOG);
 
-        BigButton setButton = new BigButton(new ProgIcons().ICON_BUTTON_QUIT,
+        BigButton setButton = new BigButton(ProgIcons.Icons.ICON_BUTTON_QUIT.getImageView(),
                 "Einstellungen zum Abspielen zurücksetzen",
                 "Es werden alle Programmsets (auch eigene) gelöscht" + P2LibConst.LINE_SEPARATOR +
                         "und die Standardsets wieder angelegt.");
@@ -83,7 +83,7 @@ public class ResetDialogController extends PDialogExtra {
         });
 
         // alle Einstellungen
-        BigButton allButton = new BigButton(new ProgIcons().ICON_BUTTON_QUIT, "" +
+        BigButton allButton = new BigButton(ProgIcons.Icons.ICON_BUTTON_QUIT.getImageView(), "" +
                 "Alle Einstellungen zurücksetzen!",
                 "ACHTUNG!" + P2LibConst.LINE_SEPARATOR +
                         "Alle Einstellungen gehen verloren!");
@@ -111,7 +111,7 @@ public class ResetDialogController extends PDialogExtra {
             }
         });
 
-        gridPane.add(new ProgIcons().ICON_DIALOG_QUIT, 0, 0, 1, 1);
+        gridPane.add(ProgIcons.Icons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(btnHelp, 2, 1);

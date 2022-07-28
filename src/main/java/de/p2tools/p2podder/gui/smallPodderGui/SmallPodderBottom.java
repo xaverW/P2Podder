@@ -70,46 +70,46 @@ public class SmallPodderBottom {
         btnRadio.setOnAction(e -> progData.smallPodderGuiPack.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().add("btnTab");
-        btnRadio.setGraphic(new ProgIcons().ICON_TOOLBAR_SMALL_PODDER_20);
+        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
 
         btnShowFilter.setTooltip(new Tooltip("Filter anzeigen/ausblenden"));
         btnShowFilter.getStyleClass().add("btnSmallPodder");
-        btnShowFilter.setGraphic(new ProgIcons().ICON_BUTTON_FILTER);
+        btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILTER.getImageView());
         btnShowFilter.setOnAction(event -> ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.setValue(!ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.get()));
 
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.getStyleClass().add("btnSmallPodder");
-        btnClearFilter.setGraphic(new ProgIcons().ICON_BUTTON_CLEAR_FILTER);
+        btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(event -> progData.episodeFilterSmall.clearFilter());
 
         btnRandom.setTooltip(new Tooltip("Eine Episode per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallPodder");
-        btnRandom.setGraphic(new ProgIcons().ICON_BUTTON_RANDOM);
+        btnRandom.setGraphic(ProgIcons.Icons.ICON_BUTTON_RANDOM.getImageView());
         btnRandom.setOnAction(event -> smallEpisodeGuiController.playRandomStation());
 
         btnPrev.setTooltip(new Tooltip("vorherige Episode auswählen"));
         btnPrev.getStyleClass().add("btnSmallPodder");
-        btnPrev.setGraphic(new ProgIcons().ICON_BUTTON_PREV);
+        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> smallEpisodeGuiController.setPreviousEpisode());
 
         btnNext.setTooltip(new Tooltip("nächste Episode auswählen"));
         btnNext.getStyleClass().add("btnSmallPodder");
-        btnNext.setGraphic(new ProgIcons().ICON_BUTTON_NEXT);
+        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> smallEpisodeGuiController.setNextEpisode());
 
         btnStart.setTooltip(new Tooltip("Episode abspielen"));
         btnStart.getStyleClass().add("btnSmallPodder");
-        btnStart.setGraphic(new ProgIcons().ICON_BUTTON_PLAY);
+        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> smallEpisodeGuiController.playEpisode());
 
         btnPlayNext.setTooltip(new Tooltip("Nächste gestartete Episode abspielen"));
         btnPlayNext.getStyleClass().add("btnSmallPodder");
-        btnPlayNext.setGraphic(new ProgIcons().ICON_BUTTON_PLAY_NEXT);
+        btnPlayNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY_NEXT.getImageView());
         btnPlayNext.setOnAction(event -> EpisodeFactory.playNextEpisode(progData.smallPodderGuiPack.getStage()));
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
         btnStop.getStyleClass().add("btnSmallPodder");
-        btnStop.setGraphic(new ProgIcons().ICON_BUTTON_STOP_PLAY);
+        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
     }
 }

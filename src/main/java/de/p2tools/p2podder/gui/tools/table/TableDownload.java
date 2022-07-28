@@ -33,7 +33,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -231,7 +230,7 @@ public class TableDownload {
                     btnDownStart = new Button("");
                     btnDownStart.getStyleClass().add("btnSmallPodder");
                     btnDownStart.setTooltip(new Tooltip("Download starten"));
-                    btnDownStart.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_START));
+                    btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
                         Download download = getTableView().getItems().get(getIndex());
                         progData.downloadList.startDownloads(download);
@@ -240,7 +239,7 @@ public class TableDownload {
                     btnDownBack = new Button("");
                     btnDownBack.getStyleClass().add("btnSmallPodder");
                     btnDownBack.setTooltip(new Tooltip("Download zurückstellen, beim nächsten Suchen wieder anzeigen"));
-                    btnDownBack.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_BACK));
+                    btnDownBack.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_BACK.getImageView());
                     btnDownBack.setOnAction(event -> {
                         Download download = getTableView().getItems().get(getIndex());
                         progData.downloadList.putBackDownloads(download);
@@ -249,7 +248,7 @@ public class TableDownload {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
+                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         Download download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -265,7 +264,7 @@ public class TableDownload {
                     btnDownStop = new Button("");
                     btnDownStop.getStyleClass().add("btnSmallPodder");
                     btnDownStop.setTooltip(new Tooltip("Download stoppen"));
-                    btnDownStop.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_STOP));
+                    btnDownStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_STOP.getImageView());
                     btnDownStop.setOnAction((ActionEvent event) -> {
                         Download download = getTableView().getItems().get(getIndex());
                         download.stopDownload();
@@ -274,7 +273,7 @@ public class TableDownload {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
+                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         Download download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -289,10 +288,10 @@ public class TableDownload {
                     btnOpenDirectory = new Button();
                     btnOpenDirectory.getStyleClass().add("btnSmallPodder");
                     btnOpenDirectory.setTooltip(new Tooltip("Ordner mit gespeichertem Film öffnen"));
-                    btnOpenDirectory.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR));
+                    btnOpenDirectory.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {
                         Download download = getTableView().getItems().get(getIndex());
-                        POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+                        POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
                     });
 
                     Table.setButtonSize(btnOpenDirectory);
@@ -303,7 +302,7 @@ public class TableDownload {
                     btnDownStart = new Button("");
                     btnDownStart.getStyleClass().add("btnSmallPodder");
                     btnDownStart.setTooltip(new Tooltip("Download wider starten"));
-                    btnDownStart.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_START));
+                    btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
                         Download download = getTableView().getItems().get(getIndex());
                         List<Download> list = new ArrayList<>();
@@ -314,7 +313,7 @@ public class TableDownload {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().add("btnSmallPodder");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL));
+                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         Download download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -428,7 +427,7 @@ public class TableDownload {
                     for (int i = 0; i < DownloadConstants.MAX_EPISODE_GRADE; ++i) {
                         if (item.longValue() > i) {
                             Label l = new Label();
-                            l.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_EPISODE_GRADE.getUrl()));
+                            l.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_GRADE.getImageView());
                             hBox.getChildren().add(l);
                         }
                     }

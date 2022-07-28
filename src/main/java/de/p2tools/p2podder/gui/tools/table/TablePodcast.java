@@ -27,7 +27,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -124,7 +123,7 @@ public class TablePodcast {
                 btnUpdate = new Button("");
                 btnUpdate.getStyleClass().add("btnSmallPodder");
                 btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
-                btnUpdate.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_PODCAST_UPDATE));
+                btnUpdate.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_UPDATE.getImageView());
                 btnUpdate.setOnAction(event -> {
                     new ParserThread(progData).parse(podcast);
                 });
@@ -133,7 +132,7 @@ public class TablePodcast {
                 btnDel = new Button("");
                 btnDel.getStyleClass().add("btnSmallPodder");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
-                btnDel.setGraphic(new ImageView(ProgIcons.IMAGE_TABLE_PODCAST_DEL));
+                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     progData.podcastList.removePodcast(podcast);
                 });

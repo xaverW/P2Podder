@@ -97,10 +97,10 @@ public class ConfigPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
-        btnFile.setGraphic(new ProgIcons().ICON_BUTTON_FILE_OPEN);
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(new ProgIcons().ICON_BUTTON_PROPOSE);
+        btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Episoden wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtPodDest.setText(ProgInfos.getStandardPodDestString());
@@ -119,7 +119,7 @@ public class ConfigPane {
 
         PHyperlink hyperlink = new PHyperlink(stage,
                 ProgConst.ADRESSE_WEBSITE_VLC,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, new ProgIcons().ICON_BUTTON_FILE_OPEN);
+                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnFind = new Button("suchen");
         btnFind.setOnAction(event -> {
@@ -141,7 +141,7 @@ public class ConfigPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
-        btnFile.setGraphic(new ProgIcons().ICON_BUTTON_FILE_OPEN);
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
 
         final Button btnHelp = PButton.helpButton(stage,
