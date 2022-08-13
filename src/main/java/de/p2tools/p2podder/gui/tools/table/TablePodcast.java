@@ -30,19 +30,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TablePodcast {
+public class TablePodcast extends PTable<Podcast> {
 
     private final ProgData progData;
 
-    public TablePodcast(ProgData progData) {
+    public TablePodcast(Table.TABLE_ENUM table_enum, ProgData progData) {
+        super(table_enum);
+        this.table_enum = table_enum;
         this.progData = progData;
+
+        initFileRunnerColumn();
     }
 
-    public TableColumn[] initStationColumn(TableView table) {
-        table.getColumns().clear();
+    public Table.TABLE_ENUM getETable() {
+        return table_enum;
+    }
+
+    public void resetTable() {
+        initFileRunnerColumn();
+        Table.resetTable(this);
+    }
+
+    private void initFileRunnerColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         //todo
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> table.refresh());
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -77,15 +95,14 @@ public class TablePodcast {
         genreColumn.setPrefWidth(120);
         websiteColumn.setPrefWidth(350);
         urlColumn.setPrefWidth(350);
-//        addRowFact(table);
 
-        return new TableColumn[]{
-                nrColumn, nameColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/
-        };
+//        addRowFact();
+        getColumns().addAll(
+                nrColumn, nameColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/);
     }
 
-//    private void addRowFact(TableView<Podcast> table) {
-//        table.setRowFactory(tableview -> new TableRow<>() {
+//    private void addRowFact() {
+//        setRowFactory(tableview -> new TableRow<>() {
 //            @Override
 //            public void updateItem(Podcast podcast, boolean empty) {
 //                super.updateItem(podcast, empty);

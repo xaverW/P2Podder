@@ -18,19 +18,18 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.Download;
-import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TableDownload;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TableView;
 
 public class DownloadGuiTableContextMenu {
 
     private final ProgData progData;
     private final DownloadGuiController downloadGuiController;
-    private final TableView tableView;
+    private final TableDownload tableView;
 
-    public DownloadGuiTableContextMenu(ProgData progData, DownloadGuiController downloadGuiController, TableView tableView) {
+    public DownloadGuiTableContextMenu(ProgData progData, DownloadGuiController downloadGuiController, TableDownload tableView) {
         this.progData = progData;
         this.downloadGuiController = downloadGuiController;
         this.tableView = tableView;
@@ -67,7 +66,7 @@ public class DownloadGuiTableContextMenu {
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
-        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.DOWNLOAD));
+        resetTable.setOnAction(a -> tableView.resetTable());
 
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);

@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.POpen;
-import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -40,19 +39,37 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableDownload {
+public class TableDownload extends PTable<Download> {
 
     private final ProgData progData;
 
-    public TableDownload(ProgData progData) {
+    public TableDownload(Table.TABLE_ENUM table_enum, ProgData progData) {
+        super(table_enum);
+        this.table_enum = table_enum;
         this.progData = progData;
+
+        initFileRunnerColumn();
     }
 
-    public TableColumn[] initDownloadColumn(TableView table) {
-        table.getColumns().clear();
+    public Table.TABLE_ENUM getETable() {
+        return table_enum;
+    }
+
+    public void resetTable() {
+        initFileRunnerColumn();
+        Table.resetTable(this);
+    }
+
+    private void initFileRunnerColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         //todo
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> PTableFactory.refreshTable(table));
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Download, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -126,17 +143,15 @@ public class TableDownload {
         pathColumn.setPrefWidth(250);
         urlColumn.setPrefWidth(350);
 
-        addRowFact(table);
+        addRowFact();
 
-        return new TableColumn[]{
-                noColumn, genreColumn, podcastNameColumn, titleColumn,
+        getColumns().addAll(noColumn, genreColumn, podcastNameColumn, titleColumn,
                 startColumn, progressColumn, remainingColumn, speedColumn,
-                pdownloadSizeColumn, durationColumn, datumColumn, fileColumn, pathColumn, urlColumn
-        };
+                pdownloadSizeColumn, durationColumn, datumColumn, fileColumn, pathColumn, urlColumn);
     }
 
-    private void addRowFact(TableView<Download> table) {
-        table.setRowFactory(tableview -> new TableRow<>() {
+    private void addRowFact() {
+        setRowFactory(tableview -> new TableRow<>() {
             @Override
             public void updateItem(Download download, boolean empty) {
                 super.updateItem(download, empty);

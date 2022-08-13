@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.PFileSize;
-import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -36,19 +35,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class TableEpisode {
+public class TableEpisode extends PTable<Episode> {
 
     private final ProgData progData;
 
-    public TableEpisode(ProgData progData) {
+    public TableEpisode(Table.TABLE_ENUM table_enum, ProgData progData) {
+        super(table_enum);
+        this.table_enum = table_enum;
         this.progData = progData;
+
+        initFileRunnerColumn();
     }
 
-    public TableColumn[] initEpisodeColumn(TableView table) {
-        table.getColumns().clear();
+    public Table.TABLE_ENUM getETable() {
+        return table_enum;
+    }
+
+    public void resetTable() {
+        initFileRunnerColumn();
+        Table.resetTable(this);
+    }
+
+    private void initFileRunnerColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         //todo
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> PTableFactory.refreshTable(table));
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -101,17 +118,15 @@ public class TableEpisode {
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(350);
 
-        addRowFact(table);
-
-        return new TableColumn[]{
+        addRowFact();
+        getColumns().addAll(
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
                 startColumn, datumColumn, durationColumn,
-                sizeColumn, fileColumn, pathColumn
-        };
+                sizeColumn, fileColumn, pathColumn);
     }
 
-    private void addRowFact(TableView<Episode> table) {
-        table.setRowFactory(tableview -> new TableRow<>() {
+    private void addRowFact() {
+        setRowFactory(tableview -> new TableRow<>() {
             @Override
             public void updateItem(Episode episode, boolean empty) {
                 super.updateItem(episode, empty);

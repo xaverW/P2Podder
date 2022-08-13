@@ -25,6 +25,7 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TableEpisode;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -46,7 +47,7 @@ public class EpisodeGuiController extends AnchorPane {
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final TableView<Episode> tableView = new TableView<>();
+    private final TableEpisode tableView;
     private EpisodeGuiInfoController episodeGuiInfoController;
 
     private final RadioButton rbAll = new RadioButton("alle");
@@ -60,6 +61,7 @@ public class EpisodeGuiController extends AnchorPane {
 
     public EpisodeGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TableEpisode(Table.TABLE_ENUM.EPISODE, progData);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -120,7 +122,7 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.EPISODE);
+        Table.saveTable(tableView, Table.TABLE_ENUM.EPISODE);
     }
 
     public ArrayList<Episode> getSelList() {
@@ -196,11 +198,7 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.EPISODE);
+        Table.setTable(tableView);
 
         tableView.setItems(progData.episodeList.getSortedList());
         progData.episodeList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());

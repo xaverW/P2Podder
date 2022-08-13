@@ -16,38 +16,39 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
+import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
-import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.tools.Data;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class Table {
-    public enum TABLE {
+    public enum TABLE_ENUM {
         EPISODE, PODCAST, DOWNLOAD, SMALL_EPISODE
     }
 
     private static final String SORT_ASCENDING = "ASCENDING";
     private static final String SORT_DESCENDING = "DESCENDING";
-    private String width = "";
-    private String sort = "";
-    private String upDown = "";
-    private String vis = "";
-    private String order = "";
+    private static String width = "";
+    private static String sort = "";
+    private static String upDown = "";
+    private static String vis = "";
+    private static String order = "";
 
-    private int maxSpalten;
-    private double[] breite;
-    private boolean[] visAr;
+    private static int maxSpalten;
+    private static double[] breite;
+    private static boolean[] visAr;
+    private static TableColumn[] tArray;
 
-    private StringProperty confWidth; //Spaltenbreite
-    private StringProperty confSort; //"Sortieren"  der Tabelle nach Spalte
-    private StringProperty confUpDown; //Sortierung UP oder Down
-    private StringProperty confVis; //Spalte ist sichtbar
-    private StringProperty confOrder; //"Reihenfolge" der Spalten
+    private static StringProperty confWidth; //Spaltenbreite
+    private static StringProperty confSort; //"Sortieren"  der Tabelle nach Spalte
+    private static StringProperty confUpDown; //Sortierung UP oder Down
+    private static StringProperty confVis; //Spalte ist sichtbar
+    private static StringProperty confOrder; //"Reihenfolge" der Spalten
 
     public static void setButtonSize(Control btn) {
         if (ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.get()) {
@@ -56,52 +57,11 @@ public class Table {
         }
     }
 
-    public void saveTable(TableView ta, TABLE eTable) {
-        // Tabellendaten sichern
-        TableView<Data> table = ta;
-
-        initConf(eTable);
-        maxSpalten = table.getColumns().size();
-
-        table.getColumns().stream().forEach(c -> {
-            width += c.getWidth() + ",";
-            vis += c.isVisible() + ",";
-        });
-
-        table.getSortOrder().stream().forEach(so -> {
-            sort += so.getText() + ",";
-        });
-
-        if (table.getSortOrder().size() > 0) {
-            table.getSortOrder().stream().forEach(so -> {
-                upDown += (so.getSortType().equals(TableColumn.SortType.ASCENDING) ? SORT_ASCENDING : SORT_DESCENDING) + ",";
-            });
-        }
-
-        table.getColumns().stream().forEach(c -> {
-            order += c.getText() + ",";
-        });
-
-        confWidth.setValue(width);
-        confVis.setValue(vis);
-        confSort.setValue(sort);
-        confUpDown.setValue(upDown);
-        confOrder.setValue(order);
-    }
-
-    public void resetTable(TableView ta, TABLE eTable) {
-        reset(ta, eTable);
-        setTable(ta, eTable);
-    }
-
-    public void setTable(TableView ta, TABLE eTable) {
+    public static void setTable(PTable table) {
         // Tabelle setzen
-        TableView<Data> table = ta;
         try {
-
-            initConf(eTable);
-            initColumn(eTable, table);
-
+            initConf(table.getETable());
+            initColumn(table);
 
             maxSpalten = table.getColumns().size();
             breite = getDoubleArray(maxSpalten);
@@ -109,18 +69,18 @@ public class Table {
 
             if (!confWidth.get().isEmpty()) {
                 width = confWidth.get();
-                if (readArr(width, breite)) {
+                if (arrLesen(width, breite)) {
                     for (int i = 0; i < breite.length; ++i) {
-                        table.getColumns().get(i).setPrefWidth(breite[i]);
+                        ((TableColumn) table.getColumns().get(i)).setPrefWidth(breite[i]);
                     }
                 }
             }
 
             if (!confVis.get().isEmpty()) {
                 vis = confVis.get();
-                if (readArr(vis, visAr)) {
+                if (arrLesen(vis, visAr)) {
                     for (int i = 0; i < visAr.length; ++i) {
-                        table.getColumns().get(i).setVisible(visAr[i]);
+                        ((TableColumn) table.getColumns().get(i)).setVisible(visAr[i]);
                     }
                 }
             }
@@ -133,9 +93,12 @@ public class Table {
 
                 for (int i = 0; i < arSort.length; ++i) {
                     String s = arSort[i];
-                    TableColumn co = table.getColumns().stream().filter(c -> c.getText().equals(s)).findFirst().get();
-                    table.getSortOrder().add(co);
+                    ObservableList<TableColumn> l = table.getColumns();
+                    TableColumn co = l.stream()
+                            .filter(c -> c.getText().equals(s))
+                            .findFirst().get();
 
+                    table.getSortOrder().add(co);
                     if (arSort.length == arSortUp.length) {
                         co.setSortType(arSortUp[i].equals(SORT_ASCENDING) ? TableColumn.SortType.ASCENDING : TableColumn.SortType.DESCENDING);
                     }
@@ -143,12 +106,52 @@ public class Table {
             }
         } catch (final Exception ex) {
             PLog.errorLog(642103218, ex.getMessage());
-            reset(ta, eTable);
+            resetTable(table);
         }
     }
 
-    private void initConf(TABLE eTable) {
-        switch (eTable) {
+    public static void saveTable(TableView table, TABLE_ENUM table_enum) {
+        initConf(table_enum);
+        maxSpalten = table.getColumns().size();
+        width = "";
+        sort = "";
+        upDown = "";
+        vis = "";
+        order = "";
+
+        ObservableList<TableColumn> columns = table.getColumns();
+        columns.stream().forEach(c -> {
+            width += c.getWidth() + ",";
+            vis += String.valueOf(c.isVisible()) + ",";
+        });
+        ObservableList<TableColumn> sortOrder = table.getSortOrder();
+        sortOrder.stream().forEach(so -> {
+            sort += so.getText() + ",";
+        });
+        if (table.getSortOrder().size() > 0) {
+            sortOrder.stream().forEach(so -> {
+                upDown += (so.getSortType().equals(TableColumn.SortType.ASCENDING) ? SORT_ASCENDING : SORT_DESCENDING) + ",";
+            });
+        }
+        columns.stream().forEach(c -> {
+            order += c.getText() + ",";
+        });
+
+        confWidth.set(width);
+        confVis.set(vis);
+        confSort.set(sort);
+        confUpDown.set(upDown);
+        confOrder.set(order);
+    }
+
+    public static void resetTable(PTable ta) {
+        initConf(ta.getETable());
+        reset(ta);
+        setTable(ta);
+    }
+
+    private static void initConf(TABLE_ENUM table_enum) {
+        switch (table_enum) {
             case EPISODE:
                 confWidth = ProgConfig.EPISODE_GUI_TABLE_WIDTH;
                 confSort = ProgConfig.EPISODE_GUI_TABLE_SORT;
@@ -183,76 +186,50 @@ public class Table {
         }
     }
 
-    private void initColumn(TABLE eTable, TableView<Data> table) {
-        TableColumn[] tArray;
-        switch (eTable) {
-            case PODCAST:
-                tArray = new TablePodcast(ProgData.getInstance()).initStationColumn(table);
-                break;
-            case DOWNLOAD:
-                tArray = new TableDownload(ProgData.getInstance()).initDownloadColumn(table);
-                break;
-            case SMALL_EPISODE:
-                tArray = new TableSmallEpisode(ProgData.getInstance()).initEpisodeColumn(table);
-                break;
-            case EPISODE:
-            default:
-                tArray = new TableEpisode(ProgData.getInstance()).initEpisodeColumn(table);
-                break;
-        }
+    private static void initColumn(TableView<PDataSample> table) {
+        tArray = table.getColumns().toArray(TableColumn[]::new);
+        table.getColumns().clear();
 
-        final String order = confOrder.get();
+        String order = confOrder.get();
         String[] arOrder = order.split(",");
-
         if (confOrder.get().isEmpty() || arOrder.length != tArray.length) {
             // dann gibts keine Einstellungen oder die Anzahl der Spalten hat sich geändert
             for (TableColumn tc : tArray) {
                 table.getColumns().add(tc);
             }
-
         } else {
-            addColumn(arOrder, table, tArray);
+            for (int i = 0; i < arOrder.length; ++i) {
+                String s = arOrder[i];
+                for (TableColumn tc : tArray) {
+                    if (s.equals(tc.getText())) {
+                        if (!table.getColumns().contains(tc)) {
+                            //aus Fehlern wird man klug :(
+                            table.getColumns().add(tc);
+                        }
+                    }
+                }
+            }
         }
-
         table.getColumns().stream().forEach(c -> c.setSortable(true));
         table.getColumns().stream().forEach(c -> c.setVisible(true));
     }
 
-    private void addColumn(String[] arOrder, TableView<Data> table, TableColumn[] tArray) {
-        for (String s : arOrder) {
-            for (TableColumn tc : tArray) {
-
-                if (s.equals(tc.getText()) && !table.getColumns().contains(tc)) {
-                    table.getColumns().add(tc);
-                }
-
-            }
-        }
-
-        // Spalten deren Name sich geändert hat, wurden nicht gefunden
-        // (beim Versionswechsel kann das vorkommen)
-        for (TableColumn tc : tArray) {
-            if (!table.getColumns().contains(tc)) {
-                table.getColumns().add(tc);
-            }
-        }
-    }
-
-    private void reset(TableView ta, TABLE eTable) {
-        initConf(eTable);
+    private static void reset(TableView ta) {
         maxSpalten = ta.getColumns().size();
-        switch (eTable) {
-            case PODCAST:
-            case DOWNLOAD:
-            case SMALL_EPISODE:
-            case EPISODE:
-            default:
-                resetTable();
+
+        String set = "";
+        for (int i = 0; i < maxSpalten; ++i) {
+            set += Boolean.TRUE + ",";
         }
+        confVis.set(set);
+
+        confWidth.set("");
+        confSort.set("");
+        confUpDown.set("");
+        confOrder.set("");
     }
 
-    private boolean readArr(String s, double[] arr) {
-        String sub;
+    private static boolean arrLesen(String s, double[] arr) {
         String[] sarr = s.split(",");
         if (maxSpalten != sarr.length) {
             // dann hat sich die Anzahl der Spalten der Tabelle geändert: Versionswechsel
@@ -269,8 +246,7 @@ public class Table {
         return true;
     }
 
-    private boolean readArr(String s, boolean[] arr) {
-        String sub;
+    private static boolean arrLesen(String s, boolean[] arr) {
         String[] sarr = s.split(",");
         if (maxSpalten != sarr.length) {
             // dann hat sich die Anzahl der Spalten der Tabelle geändert: Versionswechsel
@@ -287,7 +263,7 @@ public class Table {
         return true;
     }
 
-    private boolean readArr(String s, String[] arr) {
+    private static boolean arrLesen(String s, String[] arr) {
         arr = s.split(",");
         if (maxSpalten != arr.length) {
             // dann hat sich die Anzahl der Spalten der Tabelle geändert: Versionswechsel
@@ -296,7 +272,7 @@ public class Table {
         return true;
     }
 
-    private int countString(String s) {
+    private static int countString(String s) {
         int ret = 0;
         for (int i = 0; i < s.length(); ++i) {
             if (s.charAt(i) == ',') {
@@ -306,38 +282,20 @@ public class Table {
         return ++ret;
     }
 
-    private double[] getDoubleArray(int count) {
-        final double[] arr = new double[count];
+    private static double[] getDoubleArray(int anzahl) {
+        final double[] arr = new double[anzahl];
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = -1;
         }
         return arr;
     }
 
-    private boolean[] getBoolArray(int count) {
-        final boolean[] arr = new boolean[count];
+    private static boolean[] getBoolArray(int anzahl) {
+        final boolean[] arr = new boolean[anzahl];
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = true;
         }
         return arr;
     }
-
-    private void resetTable() {
-        String[] visArray = new String[maxSpalten];
-        String set = "";
-
-        for (int i = 0; i < maxSpalten; ++i) {
-            visArray[i] = Boolean.TRUE.toString();
-        }
-
-        for (int i = 0; i < maxSpalten; ++i) {
-            set += visArray[i] + ",";
-        }
-
-        confWidth.setValue("");
-        confVis.setValue(set);
-        confSort.setValue("");
-        confUpDown.setValue("");
-        confOrder.setValue("");
-    }
 }
+

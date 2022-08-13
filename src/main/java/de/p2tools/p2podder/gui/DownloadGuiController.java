@@ -28,6 +28,7 @@ import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
 import de.p2tools.p2podder.gui.dialog.DownloadInfoDialogController;
 import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TableDownload;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -50,7 +51,7 @@ public class DownloadGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<Download> tableView = new TableView<>();
+    private final TableDownload tableView;
     private final RadioButton rbAll = new RadioButton("alle");
     private final RadioButton rbRunning = new RadioButton("gestartet");
     private final RadioButton rbFinalized = new RadioButton("abgeschlossen");
@@ -65,6 +66,7 @@ public class DownloadGuiController extends AnchorPane {
 
     public DownloadGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TableDownload(Table.TABLE_ENUM.DOWNLOAD, progData);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -191,7 +193,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.DOWNLOAD);
+        Table.saveTable(tableView, Table.TABLE_ENUM.DOWNLOAD);
     }
 
     public ArrayList<Download> getSelList() {
@@ -257,11 +259,8 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.DOWNLOAD);
+        Table.setTable(tableView);
+
         tableView.setItems(progData.downloadList.getSortedList());
         progData.downloadList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());
         PTableFactory.refreshTable(tableView);

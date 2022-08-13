@@ -25,6 +25,7 @@ import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.parser.ParserThread;
 import de.p2tools.p2podder.gui.dialog.PodcastEditDialogController;
 import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TablePodcast;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -32,7 +33,9 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -47,7 +50,7 @@ public class PodcastGuiController extends AnchorPane {
 
     private final TilePane tilePaneButton = new TilePane();
     private PodcastGuiInfoController podcastGuiInfoController;
-    private final TableView<Podcast> tableView = new TableView<>();
+    private final TablePodcast tableView;
 
     private final ProgData progData;
     private boolean bound = false;
@@ -60,6 +63,8 @@ public class PodcastGuiController extends AnchorPane {
 
     public PodcastGuiController() {
         progData = ProgData.getInstance();
+        tableView = new TablePodcast(Table.TABLE_ENUM.PODCAST, progData);
+
         sortedList = progData.podcastList.getSortedList();
         sortedList.addListener((ListChangeListener<Podcast>) c -> {
             selectPodcast();
@@ -171,7 +176,7 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.PODCAST);
+        Table.saveTable(tableView, Table.TABLE_ENUM.PODCAST);
     }
 
     public void refreshTable() {
@@ -251,13 +256,7 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
-        new Table().setTable(tableView, Table.TABLE.PODCAST);
+        Table.setTable(tableView);
 
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());

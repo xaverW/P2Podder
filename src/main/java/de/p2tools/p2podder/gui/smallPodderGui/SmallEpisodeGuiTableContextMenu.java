@@ -14,23 +14,23 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui;
+package de.p2tools.p2podder.gui.smallPodderGui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import de.p2tools.p2podder.gui.tools.table.TableEpisode;
+import de.p2tools.p2podder.gui.tools.table.TableSmallEpisode;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-public class EpisodeGuiTableContextMenu {
+public class SmallEpisodeGuiTableContextMenu {
 
     private final ProgData progData;
-    private final EpisodeGuiController episodeGuiController;
-    private final TableEpisode tableView;
+    private final SmallEpisodeGuiController episodeGuiController;
+    private final TableSmallEpisode tableView;
 
-    public EpisodeGuiTableContextMenu(ProgData progData, EpisodeGuiController episodeGuiController, TableEpisode tableView) {
+    public SmallEpisodeGuiTableContextMenu(ProgData progData, SmallEpisodeGuiController episodeGuiController, TableSmallEpisode tableView) {
         this.progData = progData;
         this.episodeGuiController = episodeGuiController;
         this.tableView = tableView;

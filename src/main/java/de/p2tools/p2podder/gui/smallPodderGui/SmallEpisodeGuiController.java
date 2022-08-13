@@ -27,12 +27,14 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TableSmallEpisode;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -50,7 +52,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
     private SmallEpisodeFilterController smallEpisodeFilterController;
 
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<Episode> tableView = new TableView<>();
+    private final TableSmallEpisode tableView;
 
     private final RadioButton rbAll = new RadioButton("alle");
     private final RadioButton rbStarted = new RadioButton("gestartete");
@@ -67,6 +69,8 @@ public class SmallEpisodeGuiController extends AnchorPane {
     public SmallEpisodeGuiController(SmallPodderGuiPack smallPodderGuiPack) {
         this.smallPodderGuiPack = smallPodderGuiPack;
         progData = ProgData.getInstance();
+        tableView = new TableSmallEpisode(Table.TABLE_ENUM.SMALL_EPISODE, progData);
+
         smallEpisodeFilterController = new SmallEpisodeFilterController();
 
         AnchorPane.setLeftAnchor(vBoxAll, 0.0);
@@ -168,7 +172,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
     }
 
     public void saveTable() {
-        new Table().saveTable(tableView, Table.TABLE.SMALL_EPISODE);
+        Table.saveTable(tableView, Table.TABLE_ENUM.SMALL_EPISODE);
     }
 
     public ArrayList<Episode> getSelList() {
@@ -226,11 +230,7 @@ public class SmallEpisodeGuiController extends AnchorPane {
     }
 
     private void initTable() {
-        tableView.setTableMenuButtonVisible(true);
-        tableView.setEditable(false);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        new Table().setTable(tableView, Table.TABLE.SMALL_EPISODE);
+        Table.setTable(tableView);
 
         tableView.setItems(progData.episodeList.getSmallSortedList());
         progData.episodeList.getSmallSortedList().comparatorProperty().bind(tableView.comparatorProperty());
@@ -248,6 +248,20 @@ public class SmallEpisodeGuiController extends AnchorPane {
             if (PTableFactory.SPACE_SHIFT.match(event)) {
                 PTableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
+            }
+        });
+        tableView.setOnMousePressed(m -> {
+            if (m.getButton().equals(MouseButton.SECONDARY)) {
+                final Optional<Episode> optionalDownload = getSel(false);
+                Episode episode;
+                if (optionalDownload.isPresent()) {
+                    episode = optionalDownload.get();
+                } else {
+                    episode = null;
+                }
+                ContextMenu contextMenu =
+                        new SmallEpisodeGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
+                tableView.setContextMenu(contextMenu);
             }
         });
     }

@@ -19,19 +19,18 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TablePodcast;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TableView;
 
 public class PodcastGuiTableContextMenu {
 
     private final ProgData progData;
     private final PodcastGuiController podcastGuiController;
-    private final TableView tableView;
+    private final TablePodcast tableView;
 
-    public PodcastGuiTableContextMenu(ProgData progData, PodcastGuiController podcastGuiController, TableView tableView) {
+    public PodcastGuiTableContextMenu(ProgData progData, PodcastGuiController podcastGuiController, TablePodcast tableView) {
         this.progData = progData;
         this.podcastGuiController = podcastGuiController;
         this.tableView = tableView;
@@ -64,7 +63,7 @@ public class PodcastGuiTableContextMenu {
         contextMenu.getItems().addAll(miStart, miDel, miCopyUrl, miStationInfo);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
-        resetTable.setOnAction(a -> new Table().resetTable(tableView, Table.TABLE.PODCAST));
+        resetTable.setOnAction(a -> tableView.resetTable());
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
     }
