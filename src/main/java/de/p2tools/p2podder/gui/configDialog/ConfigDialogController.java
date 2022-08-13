@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.configDialog;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -87,7 +87,7 @@ public class ConfigDialogController extends PDialogExtra {
         episodePaneController.close();
         podPane.close();
         setPane.close();
-        ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.EREIGNIS_SETDATA_CHANGED));
+        ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_SETDATA_CHANGED));
         super.close();
     }
 

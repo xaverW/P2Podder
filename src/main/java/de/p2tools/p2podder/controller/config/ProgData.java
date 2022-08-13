@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PEventHandler;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
@@ -154,7 +154,7 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.EREIGNIS_TIMER));
+        ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_TIMER));
     }
 
     public synchronized static final ProgData getInstance() {

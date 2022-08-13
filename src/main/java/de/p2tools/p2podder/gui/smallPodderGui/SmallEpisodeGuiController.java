@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.smallPodderGui;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -219,8 +219,8 @@ public class SmallEpisodeGuiController extends AnchorPane {
     private void initListener() {
         progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
-            public void pingGui(Event runEvent) {
-                Table.refresh_table(tableView);
+            public void pingGui(PEvent runEvent) {
+                PTableFactory.refreshTable(tableView);
             }
         });
     }

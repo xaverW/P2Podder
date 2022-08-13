@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.Events;
@@ -88,7 +88,7 @@ public class PodcastBarController extends AnchorPane {
         nonePane.toFront();
         progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_TIMER) {
             @Override
-            public void pingGui(Event runEvent) {
+            public void pingGui(PEvent runEvent) {
                 try {
                     if (!stopTimer) {
                         setStatusbarIndex(statusbarIndex);

@@ -175,7 +175,7 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     public void refreshTable() {
-        Table.refresh_table(tableView);
+        PTableFactory.refreshTable(tableView);
     }
 
     public ArrayList<Podcast> getSelList() {

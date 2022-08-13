@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.POpen;
+import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -51,7 +52,7 @@ public class TableDownload {
         table.getColumns().clear();
 
         //todo
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> Table.refresh_table(table));
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> PTableFactory.refreshTable(table));
 
         final TableColumn<Download, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));

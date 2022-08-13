@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.PColorFactory;
-import de.p2tools.p2Lib.tools.events.Event;
+import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
@@ -72,13 +72,13 @@ public class ColorPane {
         initTableColor(tableView);
         tglDarkTheme.selectedProperty().addListener((u, o, n) -> {
             tableView.refresh();
-            ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.COLORS_CHANGED));
+            ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.COLORS_CHANGED));
         });
 
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
             ProgColorList.resetAllColor();
-            ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.COLORS_CHANGED));
+            ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.COLORS_CHANGED));
         });
         HBox hBox = new HBox();
         hBox.getChildren().add(button);
@@ -154,7 +154,7 @@ public class ColorPane {
                 checkBox.setSelected(pColorData.isUse());
                 checkBox.setOnAction(a -> {
                     pColorData.setUse(checkBox.isSelected());
-                    ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.COLORS_CHANGED));
                 });
                 hbox.getChildren().add(checkBox);
                 setGraphic(hbox);
@@ -190,7 +190,7 @@ public class ColorPane {
                 colorPicker.setOnAction(a -> {
                     Color fxColor = colorPicker.getValue();
                     PColorDataBlack.setColor(fxColor);
-                    ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.COLORS_CHANGED));
                 });
                 hbox.getChildren().addAll(colorPicker);
                 setGraphic(hbox);
@@ -269,7 +269,7 @@ public class ColorPane {
                 final Button button = new Button("Reset");
                 button.setOnAction(a -> {
                     PColorDataBlack.resetColor();
-                    ProgData.getInstance().pEventHandler.notifyListener(new Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.COLORS_CHANGED));
                 });
 
                 hbox.getChildren().add(button);
