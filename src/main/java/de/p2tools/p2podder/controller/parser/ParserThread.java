@@ -38,17 +38,24 @@ public class ParserThread {
     }
 
     public void parse(Podcast podcast) {
+        //der wird immer geparst, ist ja explizit aufgerufen worden
         parser.addPodcast(podcast);
         new Thread(parser).start();
     }
 
     public void parse(List<Podcast> podcastList) {
+        //hier werden nur die "eingeschalteten" Pods geparst
         parse(podcastList, false);
     }
 
     public void parse(List<Podcast> podcastList, boolean andStartDownload) {
+        //hier werden nur die "eingeschalteten" Pods geparst
         this.andStartDownload = andStartDownload;
-        parser.addPodcast(podcastList);
+        podcastList.stream().forEach(p -> {
+            if (p.isActive()) {
+                parser.addPodcast(p);
+            }
+        });
         new Thread(parser).start();
     }
 

@@ -21,6 +21,7 @@ public class PodcastNames {
     public static final String PODCAST_NO = "Nr";
     public static final String PODCAST_ID = "Id";
     public static final String PODCAST_NAME = "Name";
+    public static final String PODCAST_ACTIVE = "Aktiv";
     public static final String PODCAST_GENRE = "Genre";
     public static final String PODCAST_DESCRIPTION = "Beschreibung";
     public static final String PODCAST_NUMBER = "Anzahl";
@@ -31,17 +32,19 @@ public class PodcastNames {
     public static final int PODCAST_NO_NO = 0;
     public static final int PODCAST_ID_NO = 1;
     public static final int PODCAST_NAME_NO = 2;
-    public static final int PODCAST_GENRE_NO = 3;
-    public static final int PODCAST_DESCRIPTION_NO = 4;
-    public static final int PODCAST_NUMBER_NO = 5;
-    public static final int PODCAST_DATE_NO = 6;
-    public static final int PODCAST_WEBSITE_NO = 7;
-    public static final int PODCAST_URL_NO = 8;
+    public static final int PODCAST_ACTIVE_NO = 3;
+    public static final int PODCAST_GENRE_NO = 4;
+    public static final int PODCAST_DESCRIPTION_NO = 5;
+    public static final int PODCAST_NUMBER_NO = 6;
+    public static final int PODCAST_DATE_NO = 7;
+    public static final int PODCAST_WEBSITE_NO = 8;
+    public static final int PODCAST_URL_NO = 9;
 
     public static final String[] COLUMN_NAMES = {
             PodcastNames.PODCAST_NO,
             PodcastNames.PODCAST_ID,
             PodcastNames.PODCAST_NAME,
+            PodcastNames.PODCAST_ACTIVE,
             PodcastNames.PODCAST_GENRE,
             PodcastNames.PODCAST_DESCRIPTION,
             PodcastNames.PODCAST_NUMBER,

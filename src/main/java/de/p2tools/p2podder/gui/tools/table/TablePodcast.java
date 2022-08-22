@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
+import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -70,6 +71,11 @@ public class TablePodcast extends PTable<Podcast> {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.getStyleClass().add("alignCenterLeft");
 
+        final TableColumn<Podcast, Boolean> activeColumn = new TableColumn<>(PodcastNames.PODCAST_ACTIVE);
+        activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
+        activeColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
+        activeColumn.getStyleClass().add("alignCenter");
+
         final TableColumn<Podcast, String> genreColumn = new TableColumn<>(PodcastNames.PODCAST_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
@@ -98,21 +104,8 @@ public class TablePodcast extends PTable<Podcast> {
 
 //        addRowFact();
         getColumns().addAll(
-                nrColumn, nameColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/);
+                nrColumn, nameColumn, activeColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/);
     }
-
-//    private void addRowFact() {
-//        setRowFactory(tableview -> new TableRow<>() {
-//            @Override
-//            public void updateItem(Podcast podcast, boolean empty) {
-//                super.updateItem(podcast, empty);
-////
-////                if (podcast == null || empty) {
-////                    setStyle("");
-////                }
-//            }
-//        });
-//    }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactoryStart
             = (final TableColumn<Podcast, String> param) -> {
@@ -122,17 +115,11 @@ public class TablePodcast extends PTable<Podcast> {
             @Override
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (empty) {
                     setGraphic(null);
                     setText(null);
                     return;
                 }
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(4);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
 
                 Podcast podcast = getTableView().getItems().get(getIndex());
 
@@ -154,9 +141,24 @@ public class TablePodcast extends PTable<Podcast> {
                     progData.podcastList.removePodcast(podcast);
                 });
 
+                final Button btnActive;
+                btnActive = new Button("");
+                btnActive.getStyleClass().add("btnSmallPodder");
+                btnActive.setTooltip(new Tooltip("Podcast ein-/ausschalten"));
+                btnActive.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_SET_ACTIVE.getImageView());
+                btnActive.setOnAction(event -> {
+                    progData.worker.setPodcastActive(podcast);
+                });
+
                 Table.setButtonSize(btnUpdate);
                 Table.setButtonSize(btnDel);
-                hbox.getChildren().addAll(btnUpdate, btnDel);
+                Table.setButtonSize(btnActive);
+
+                final HBox hbox = new HBox();
+                hbox.setSpacing(5);
+                hbox.setAlignment(Pos.CENTER);
+                hbox.setPadding(new Insets(0, 2, 0, 2));
+                hbox.getChildren().addAll(btnUpdate, btnDel, btnActive);
                 setGraphic(hbox);
             }
         };

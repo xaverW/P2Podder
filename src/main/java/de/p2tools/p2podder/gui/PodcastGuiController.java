@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.parser.ParserThread;
 import de.p2tools.p2podder.gui.dialog.PodcastEditDialogController;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TablePodcast;
@@ -136,26 +135,6 @@ public class PodcastGuiController extends AnchorPane {
                 tableView.getSelectionModel().select(0);
             }
         });
-    }
-
-    public void updateSelectedPodcast() {
-        // Menü/Button podcast aktualisieren
-        final Optional<Podcast> podcast = getSel();
-        if (podcast.isPresent()) {
-            new ParserThread(progData).parse(podcast.get());
-        }
-    }
-
-    public void updatePodcast(boolean all) {
-        // Menü/Button podcast aktualisieren
-        if (all) {
-            new ParserThread(progData).parse(progData.podcastList);
-        } else {
-            ArrayList<Podcast> list = getSelList();
-            if (!list.isEmpty()) {
-                new ParserThread(progData).parse(list);
-            }
-        }
     }
 
     public void delPodcast() {

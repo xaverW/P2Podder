@@ -69,6 +69,7 @@ public class ProgIcons {
         IMAGE_TABLE_DOWNLOAD_OPEN_DIR("table-download-open-dir.png", 14, 14),
         IMAGE_TABLE_PODCAST_UPDATE("table-podcast-update.png", 14, 14),
         IMAGE_TABLE_PODCAST_DEL("table-podcast-del.png", 14, 14),
+        IMAGE_TABLE_PODCAST_SET_ACTIVE("table-podcast-set-active.png", 14, 14),
         IMAGE_TABLE_EPISODE_PLAY("table-episode-play.png", 14, 14),
         IMAGE_TABLE_EPISODE_STOP_PLAY("table-episode-stop-play.png", 14, 14),
 

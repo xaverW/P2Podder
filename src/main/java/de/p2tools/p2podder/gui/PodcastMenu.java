@@ -66,7 +66,7 @@ public class PodcastMenu {
         vBoxSpace.setMinHeight(10);
         vBox.getChildren().add(vBoxSpace);
 
-        btUpdate.setOnAction(a -> progData.podcastGui.getPodcastGuiController().updatePodcast(true));
+        btUpdate.setOnAction(a -> progData.worker.updatePodcast(true));
         btnAdd.setOnAction(a -> PodcastFactory.addNewPodcast());
         btnDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delPodcast());
         btInfo.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
@@ -79,11 +79,11 @@ public class PodcastMenu {
         mb.getStyleClass().add("btnFunctionWide");
 
         final MenuItem miUpdate = new MenuItem("markierte Podcasts aktualisieren");
-        miUpdate.setOnAction(a -> progData.podcastGui.getPodcastGuiController().updatePodcast(false));
+        miUpdate.setOnAction(a -> progData.worker.updatePodcast(false));
         PShortcutWorker.addShortCut(miUpdate, P2PodderShortCuts.SHORTCUT_UPDATE_PODCAST);
 
         final MenuItem miUpdateAll = new MenuItem("alle Podcasts aktualisieren");
-        miUpdateAll.setOnAction(a -> progData.podcastGui.getPodcastGuiController().updatePodcast(true));
+        miUpdateAll.setOnAction(a -> progData.worker.updatePodcast(true));
 
         final MenuItem miDel = new MenuItem("markierte Podcasts löschen");
         miDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(false));
@@ -91,7 +91,12 @@ public class PodcastMenu {
         final MenuItem miDelAll = new MenuItem("alle Podcasts löschen");
         miDelAll.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(true));
 
-        mb.getItems().addAll(miUpdate, miUpdateAll, miDel, miDelAll);
+        final MenuItem miSetActive = new MenuItem("markierte Podcasts einschalten");
+        miSetActive.setOnAction(a -> progData.worker.setPodcastActive(true));
+        final MenuItem miSetOffActive = new MenuItem("markierte Podcasts ausschalten");
+        miSetOffActive.setOnAction(a -> progData.worker.setPodcastActive(false));
+
+        mb.getItems().addAll(miUpdate, miUpdateAll, miDel, miDelAll, miSetActive, miSetOffActive);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);

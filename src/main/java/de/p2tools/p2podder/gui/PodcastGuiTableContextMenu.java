@@ -45,10 +45,15 @@ public class PodcastGuiTableContextMenu {
     private void getMenu(ContextMenu contextMenu, Podcast podcast) {
         // Start/Save
         MenuItem miStart = new MenuItem("Podcast aktualisieren");
-        miStart.setOnAction(a -> podcastGuiController.updateSelectedPodcast());
+        miStart.setOnAction(a -> progData.worker.updateSelectedPodcast());
 
         MenuItem miDel = new MenuItem("Podcast löschen");
         miDel.setOnAction(a -> podcastGuiController.delPodcast());
+
+        final MenuItem miSetActive = new MenuItem("Podcasts einschalten");
+        miSetActive.setOnAction(a -> progData.worker.setPodcastActive(true));
+        final MenuItem miSetOffActive = new MenuItem("Podcasts ausschalten");
+        miSetOffActive.setOnAction(a -> progData.worker.setPodcastActive(false));
 
         MenuItem miCopyUrl = new MenuItem("Podcast-URL kopieren");
         miCopyUrl.setOnAction(a -> PSystemUtils.copyToClipboard(podcast.getUrl()));
@@ -58,9 +63,13 @@ public class PodcastGuiTableContextMenu {
 
         miStart.setDisable(podcast == null);
         miDel.setDisable(podcast == null);
+        miSetActive.setDisable(podcast == null);
+        miSetOffActive.setDisable(podcast == null);
         miCopyUrl.setDisable(podcast == null);
         miStationInfo.setDisable(podcast == null);
-        contextMenu.getItems().addAll(miStart, miDel, miCopyUrl, miStationInfo);
+        boolean isActive = podcast != null && podcast.isActive();
+
+        contextMenu.getItems().addAll(miStart, miDel, isActive ? miSetOffActive : miSetActive, miCopyUrl, miStationInfo);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());

@@ -17,6 +17,11 @@
 package de.p2tools.p2podder.controller.worker;
 
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import de.p2tools.p2podder.controller.parser.ParserThread;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class Worker extends Thread {
 
@@ -24,33 +29,36 @@ public class Worker extends Thread {
 
     public Worker(ProgData progData) {
         this.progData = progData;
+    }
 
-//        progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
-//            @Override
-//            public void start(EventLoadPodcastList event) {
-//                if (event.progress == EventListenerPodcastList.PROGRESS_INDETERMINATE) {
-//                    progData.maskerPane.setMaskerVisible(true, false);
-//                } else {
-//                    progData.maskerPane.setMaskerVisible(true, true);
-//                }
-//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-//            }
-//
-//            @Override
-//            public void progress(EventLoadPodcastList event) {
-//                progData.maskerPane.setMaskerProgress(event.progress, event.text);
-//            }
-//
-//            @Override
-//            public void loaded(EventLoadPodcastList event) {
-//                progData.maskerPane.setMaskerVisible(true, false);
-//                progData.maskerPane.setMaskerProgress(EventListenerPodcastList.PROGRESS_INDETERMINATE, "Podcasts verarbeiten");
-//            }
-//
-//            @Override
-//            public void finished(EventLoadPodcastList event) {
-//                progData.maskerPane.setMaskerVisible(false);
-//            }
-//        });
+    public void setPodcastActive(boolean set) {
+        //ein/ausschalten
+        progData.podcastGui.getPodcastGuiController().getSelList()
+                .stream().forEach(p -> p.setActive(set));
+    }
+
+    public void setPodcastActive(Podcast podcast) {
+        //ein/ausschalten
+        podcast.setActive(!podcast.isActive());
+    }
+
+    public void updatePodcast(boolean all) {
+        // Menü/Button podcast aktualisieren
+        if (all) {
+            new ParserThread(progData).parse(progData.podcastList);
+        } else {
+            ArrayList<Podcast> list = progData.podcastGui.getPodcastGuiController().getSelList();
+            if (!list.isEmpty()) {
+                new ParserThread(progData).parse(list);
+            }
+        }
+    }
+
+    public void updateSelectedPodcast() {
+        // Menü/Button podcast aktualisieren
+        final Optional<Podcast> podcast = progData.podcastGui.getPodcastGuiController().getSel();
+        if (podcast.isPresent()) {
+            new ParserThread(progData).parse(podcast.get());
+        }
     }
 }

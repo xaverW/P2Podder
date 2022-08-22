@@ -16,10 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigIntPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigLongPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import javafx.beans.property.*;
@@ -35,6 +32,7 @@ public class PodcastProps extends PDataSample<Podcast> {
     public IntegerProperty no = new SimpleIntegerProperty();
     private final LongProperty id = new SimpleLongProperty();
     private final StringProperty name = new SimpleStringProperty("");
+    private final BooleanProperty active = new SimpleBooleanProperty(true);
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final IntegerProperty number = new SimpleIntegerProperty();
@@ -50,6 +48,7 @@ public class PodcastProps extends PDataSample<Podcast> {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigLongPropExtra("id", PodcastNames.PODCAST_ID, id));
         list.add(new ConfigStringPropExtra("name", PodcastNames.PODCAST_NAME, name));
+        list.add(new ConfigBoolPropExtra("activ", PodcastNames.PODCAST_ACTIVE, active));
         list.add(new ConfigStringPropExtra("genre", PodcastNames.PODCAST_GENRE, genre));
         list.add(new ConfigStringPropExtra("description", PodcastNames.PODCAST_DESCRIPTION, description));
         list.add(new ConfigIntPropExtra("number", PodcastNames.PODCAST_NUMBER, number));
@@ -60,7 +59,7 @@ public class PodcastProps extends PDataSample<Podcast> {
         return list.toArray(new Config[]{});
     }
 
-    public final Property[] properties = {no, id, name, genre,
+    public final Property[] properties = {no, id, name, active, genre,
             description, number, date, website, url};
 
     public String getStringOf(int i) {
@@ -106,6 +105,18 @@ public class PodcastProps extends PDataSample<Podcast> {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public boolean isActive() {
+        return active.get();
+    }
+
+    public BooleanProperty activeProperty() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active.set(active);
     }
 
     public int getNumber() {
