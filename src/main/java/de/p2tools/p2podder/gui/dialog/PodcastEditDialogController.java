@@ -119,7 +119,7 @@ public class PodcastEditDialogController extends PDialogExtra {
 
         int grid = 0;
         for (int i = 0; i < PodcastNames.MAX_ELEM; ++i) {
-            if (i == PodcastNames.PODCAST_ID_NO || i == PodcastNames.PODCAST_NUMBER_NO ||
+            if (/*i == PodcastNames.PODCAST_ID_NO || */i == PodcastNames.PODCAST_NUMBER_NO ||
                     i == PodcastNames.PODCAST_DATE_NO) {
                 continue;
             }
@@ -129,6 +129,12 @@ public class PodcastEditDialogController extends PDialogExtra {
             gridPane.add(lbl[i], 0, grid);
 
             switch (i) {
+                case PodcastNames.PODCAST_ID_NO:
+                    txt[i].setEditable(false);
+                    txt[i].setDisable(true);
+                    txt[i].setText(podcast.getId() + "");
+                    gridPane.add(txt[i], 1, grid);
+                    break;
                 case PodcastNames.PODCAST_NO_NO:
                     txt[i].setEditable(false);
                     txt[i].setDisable(true);
@@ -155,6 +161,11 @@ public class PodcastEditDialogController extends PDialogExtra {
                     addCheck(txt[i]);
                     txt[i].textProperty().bindBidirectional(podcast.properties[i]);
                     gridPane.add(txt[i], 1, grid);
+                    break;
+                case PodcastNames.PODCAST_ACTIVE_NO:
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.selectedProperty().bindBidirectional(podcast.properties[i]);
+                    gridPane.add(checkBox, 1, grid);
                     break;
                 default:
                     txt[i].textProperty().bindBidirectional(podcast.properties[i]);

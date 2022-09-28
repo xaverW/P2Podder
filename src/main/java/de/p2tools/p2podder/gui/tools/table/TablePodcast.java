@@ -60,7 +60,6 @@ public class TablePodcast extends PTable<Podcast> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-        //todo
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
@@ -99,12 +98,12 @@ public class TablePodcast extends PTable<Podcast> {
         nrColumn.setPrefWidth(50);
         nameColumn.setPrefWidth(150);
         genreColumn.setPrefWidth(120);
+        startColumn.setPrefWidth(120);
         websiteColumn.setPrefWidth(350);
         urlColumn.setPrefWidth(350);
 
-//        addRowFact();
         getColumns().addAll(
-                nrColumn, nameColumn, activeColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn/*, urlrColumn*/);
+                nrColumn, nameColumn, activeColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn);
     }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactoryStart

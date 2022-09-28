@@ -44,11 +44,11 @@ public class PodcastProps extends PDataSample<Podcast> {
     public PLocalDate podcastDate = new PLocalDate();
 
     @Override
-    public Config[] getConfigsArr() {
-        ArrayList<Config> list = new ArrayList<>();
+    public ConfigExtra[] getConfigsArr() {
+        ArrayList<ConfigExtra> list = new ArrayList<>();
         list.add(new ConfigLongPropExtra("id", PodcastNames.PODCAST_ID, id));
         list.add(new ConfigStringPropExtra("name", PodcastNames.PODCAST_NAME, name));
-        list.add(new ConfigBoolPropExtra("activ", PodcastNames.PODCAST_ACTIVE, active));
+        list.add(new ConfigBoolPropExtra("active", PodcastNames.PODCAST_ACTIVE, active));
         list.add(new ConfigStringPropExtra("genre", PodcastNames.PODCAST_GENRE, genre));
         list.add(new ConfigStringPropExtra("description", PodcastNames.PODCAST_DESCRIPTION, description));
         list.add(new ConfigIntPropExtra("number", PodcastNames.PODCAST_NUMBER, number));
@@ -56,7 +56,7 @@ public class PodcastProps extends PDataSample<Podcast> {
         list.add(new ConfigStringPropExtra("website", PodcastNames.PODCAST_WEBSITE, website));
         list.add(new ConfigStringPropExtra("url", PodcastNames.PODCAST_URL, url));
 
-        return list.toArray(new Config[]{});
+        return list.toArray(new ConfigExtra[]{});
     }
 
     public final Property[] properties = {no, id, name, active, genre,

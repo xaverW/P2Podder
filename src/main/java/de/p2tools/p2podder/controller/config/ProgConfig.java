@@ -93,8 +93,8 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_POD_DIR = addStr("system-pod-dir", "");
     public static BooleanProperty SYSTEM_LOG_ON = addBool("system-log-on", Boolean.TRUE);
     public static StringProperty SYSTEM_UPDATE_PODCAST_DATE = addStr("system-update-podcast-date"); // Datum der letzten Prüfung
-    public static BooleanProperty SYSTEM_UPDATE_PODCAST_DAILY = addBool("system-update-podcast-daily", Boolean.TRUE);
-    public static BooleanProperty SYSTEM_START_DAILY_DOWNLOAD = addBool("system-start-daily-download", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_UPDATE_PODCAST_DAILY = addBool("system-update-podcast-daily", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_START_DAILY_DOWNLOAD = addBool("system-start-daily-download", Boolean.FALSE);
     public static BooleanProperty SYSTEM_SMALL_BUTTON_TABLE_ROW = addBool("system-small-button-table-row", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");

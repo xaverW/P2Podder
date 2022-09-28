@@ -32,6 +32,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -64,7 +65,6 @@ public class TableEpisode extends PTable<Episode> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-        //todo
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
@@ -118,11 +118,11 @@ public class TableEpisode extends PTable<Episode> {
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(350);
 
-        addRowFact();
         getColumns().addAll(
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
                 startColumn, datumColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
+        addRowFact();
     }
 
     private void addRowFact() {
@@ -131,13 +131,18 @@ public class TableEpisode extends PTable<Episode> {
             public void updateItem(Episode episode, boolean empty) {
                 super.updateItem(episode, empty);
 
+                setOnMouseClicked(event -> {
+                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                        getSelectionModel().clearSelection();
+                    }
+                });
+
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {
                     getChildren().get(i).setStyle("");
                 }
 
                 if (episode != null && !empty) {
-
                     final boolean started = EpisodeFactory.episodeIsStarted(episode);
                     final boolean running = EpisodeFactory.episodeIsRunning(episode);
                     final boolean error = episode.getStart() != null ? episode.getStart().getStartStatus().isStateError() : false;
@@ -152,7 +157,7 @@ public class TableEpisode extends PTable<Episode> {
 
                     if (error) {
                         if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
-                            setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackgroundAndSel());
+                            setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackground());
                         }
                         if (ProgColorList.EPISODE_ERROR.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
@@ -162,7 +167,7 @@ public class TableEpisode extends PTable<Episode> {
 
                     } else if (started && !running) {
                         if (ProgColorList.EPISODE_STARTED_BG.isUse()) {
-                            setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackgroundAndSel());
+                            setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackground());
                         }
                         if (ProgColorList.EPISODE_STARTED.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
@@ -172,7 +177,7 @@ public class TableEpisode extends PTable<Episode> {
 
                     } else if (running) {
                         if (ProgColorList.EPISODE_RUNNING_BG.isUse()) {
-                            setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackgroundAndSel());
+                            setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackground());
                         }
                         if (ProgColorList.EPISODE_RUNNING.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
@@ -182,7 +187,7 @@ public class TableEpisode extends PTable<Episode> {
 
                     } else if (!error && !started && !running && history) {
                         if (ProgColorList.EPISODE_HISTORY_BG.isUse()) {
-                            setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackgroundAndSel());
+                            setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackground());
                         }
                         if (ProgColorList.EPISODE_HISTORY.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
@@ -193,7 +198,7 @@ public class TableEpisode extends PTable<Episode> {
                     } else if (episode.isNew()) {
                         //neue Episode
                         if (ProgColorList.EPISODE_NEW_BG.isUse()) {
-                            setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackgroundAndSel());
+                            setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackground());
                         }
                         if (ProgColorList.EPISODE_NEW.isUse()) {
                             for (int i = 0; i < getChildren().size(); i++) {
@@ -232,6 +237,7 @@ public class TableEpisode extends PTable<Episode> {
         };
         return cell;
     };
+
     private Callback<TableColumn<Episode, Integer>, TableCell<Episode, Integer>> cellFactoryGrade
             = (final TableColumn<Episode, Integer> param) -> {
 
@@ -360,27 +366,6 @@ public class TableEpisode extends PTable<Episode> {
         return cell;
     };
 
-//    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
-//                              boolean error, boolean history) {
-//        TableRow<Episode> currentRow = cell.getTableRow();
-//        if (currentRow == null) {
-//            return;
-//        }
-//
-//        if (started && !running) {
-//            currentRow.setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackgroundAndSel());
-//        } else if (running) {
-//            currentRow.setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackgroundAndSel());
-//        } else if (error) {
-//            currentRow.setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackgroundAndSel());
-//        } else {
-//            currentRow.setStyle("");
-//        }
-//        if (!error && !started && !running && history) {
-//            currentRow.setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackgroundAndSel());
-//        }
-//    }
-
     private Callback<TableColumn<Episode, Integer>, TableCell<Episode, Integer>> cellFactoryNo
             = (final TableColumn<Episode, Integer> param) -> {
 
@@ -407,6 +392,7 @@ public class TableEpisode extends PTable<Episode> {
         };
         return cell;
     };
+
     private Callback<TableColumn<Episode, PFileSize>, TableCell<Episode, PFileSize>> cellFactorySize
             = (final TableColumn<Episode, PFileSize> param) -> {
 

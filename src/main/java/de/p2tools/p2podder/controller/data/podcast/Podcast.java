@@ -16,10 +16,14 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
+import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.configFile.config.ConfigLongPropExtra;
 import de.p2tools.p2Lib.tools.PIndex;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 
 public class Podcast extends PodcastProps {
 
@@ -48,19 +52,35 @@ public class Podcast extends PodcastProps {
     }
 
     public void copyToMe(Podcast podcast) {
-        for (int i = 0; i < getConfigsArr().length; ++i) {
-            getConfigsArr()[i].setActValue(podcast.getConfigsArr()[i].getActValue());
-        }
+        Config[] conf = getConfigsArr();
+        Config[] podConf = podcast.getConfigsArr();
 
+        for (int i = 0; i < conf.length; ++i) {
+            conf[i].setActValue(podConf[i].getActValue());
+        }
         no = podcast.no;
         init(); //Datum und int-Werte setzen
     }
 
     public Podcast getCopy() {
         final Podcast ret = new Podcast();
-        for (int i = 0; i < getConfigsArr().length; ++i) {
-            ret.getConfigsArr()[i].setActValue(getConfigsArr()[i].getActValue());
+        Config[] conf = getConfigsArr();
+        Config[] retConf = ret.getConfigsArr();
+
+        for (int i = 0; i < conf.length; ++i) {
+            retConf[i].setActValue(conf[i].getActValue());
+
+            if (!conf[i].getActValue().equals(retConf[i].getActValue())) {
+                System.out.println("conf:    " + i + " - " + conf[i].getActValueString());
+                System.out.println("retConf: " + i + " - " + retConf[i].getActValueString());
+            }
         }
+
+        LongProperty lp = new SimpleLongProperty(5);
+        ConfigLongPropExtra clp = new ConfigLongPropExtra("test", "test", lp);
+        clp.setActValue(123);
+        System.out.println("clp: " + clp.getActValueString());
+
 
         ret.no = no;
         ret.init(); //Datum und int-Werte setzen

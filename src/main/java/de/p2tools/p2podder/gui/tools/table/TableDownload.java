@@ -68,7 +68,6 @@ public class TableDownload extends PTable<Download> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
-        //todo
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Download, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
@@ -143,11 +142,10 @@ public class TableDownload extends PTable<Download> {
         pathColumn.setPrefWidth(250);
         urlColumn.setPrefWidth(350);
 
-        addRowFact();
-
         getColumns().addAll(noColumn, genreColumn, podcastNameColumn, titleColumn,
                 startColumn, progressColumn, remainingColumn, speedColumn,
                 pdownloadSizeColumn, durationColumn, datumColumn, fileColumn, pathColumn, urlColumn);
+        addRowFact();
     }
 
     private void addRowFact() {
@@ -171,8 +169,9 @@ public class TableDownload extends PTable<Download> {
 
                     switch (download.getState()) {
                         case DownloadConstants.STATE_STARTED_WAITING:
+                            System.out.println(download.getPodcastId() + ": " + "STATE_STARTED_WAITING");
                             if (ProgColorList.DOWNLOAD_WAIT_BG.isUse()) {
-                                setStyle(ProgColorList.DOWNLOAD_WAIT_BG.getCssBackgroundAndSel());
+                                setStyle(ProgColorList.DOWNLOAD_WAIT_BG.getCssBackground());
                             }
                             if (ProgColorList.DOWNLOAD_WAIT.isUse()) {
                                 for (int i = 0; i < getChildren().size(); i++) {
@@ -181,8 +180,9 @@ public class TableDownload extends PTable<Download> {
                             }
                             break;
                         case DownloadConstants.STATE_STARTED_RUN:
+                            System.out.println(download.getPodcastId() + ": " + "STATE_STARTED_RUN");
                             if (ProgColorList.DOWNLOAD_RUN_BG.isUse()) {
-                                setStyle(ProgColorList.DOWNLOAD_RUN_BG.getCssBackgroundAndSel());
+                                setStyle(ProgColorList.DOWNLOAD_RUN_BG.getCssBackground());
                             }
                             if (ProgColorList.DOWNLOAD_RUN.isUse()) {
                                 for (int i = 0; i < getChildren().size(); i++) {
@@ -191,8 +191,9 @@ public class TableDownload extends PTable<Download> {
                             }
                             break;
                         case DownloadConstants.STATE_FINISHED:
+                            System.out.println(download.getPodcastId() + ": " + "STATE_FINISHED");
                             if (ProgColorList.DOWNLOAD_FINISHED_BG.isUse()) {
-                                setStyle(ProgColorList.DOWNLOAD_FINISHED_BG.getCssBackgroundAndSel());
+                                setStyle(ProgColorList.DOWNLOAD_FINISHED_BG.getCssBackground());
                             }
                             if (ProgColorList.DOWNLOAD_FINISHED.isUse()) {
                                 for (int i = 0; i < getChildren().size(); i++) {
@@ -201,8 +202,9 @@ public class TableDownload extends PTable<Download> {
                             }
                             break;
                         case DownloadConstants.STATE_ERROR:
+                            System.out.println(download.getPodcastId() + ": " + "STATE_ERROR");
                             if (ProgColorList.DOWNLOAD_ERROR_BG.isUse()) {
-                                setStyle(ProgColorList.DOWNLOAD_ERROR_BG.getCssBackgroundAndSel());
+                                setStyle(ProgColorList.DOWNLOAD_ERROR_BG.getCssBackground());
                             }
                             if (ProgColorList.DOWNLOAD_ERROR.isUse()) {
                                 for (int i = 0; i < getChildren().size(); i++) {
