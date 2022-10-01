@@ -16,141 +16,96 @@
 
 package de.p2tools.p2podder.gui.configDialog.setData;
 
-import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
+import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2podder.controller.config.ProgConst;
+import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.ProgramData;
 import de.p2tools.p2podder.controller.data.SetData;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
+import de.p2tools.p2podder.gui.tools.HelpTextPset;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Collection;
-
-public class ProgramPane {
-    TableView<ProgramData> tableView = new TableView<>();
+public class ProgramPane extends TitledPane {
     private SetData setData = null;
-    private final VBox vBox = new VBox(10);
+
+    private final TextField txtVisibleName = new TextField("");
+    private final PToggleSwitch tglStandarSet = new PToggleSwitch();
+    private ChangeListener changeListener;
+    private ChangeListener standardSetListener;
 
     private final GridPane gridPane = new GridPane();
-    private final TextField txtName = new TextField();
     private final TextField txtProgPath = new TextField();
     private final TextField txtProgSwitch = new TextField();
-    private final TextField txtPraefix = new TextField();
-    private final TextField txtSuffix = new TextField();
-    //    private final PToggleSwitch tglRestart = new PToggleSwitch("Restart:");
-    private ProgramData programData = null;
     private final Stage stage;
 
     public ProgramPane(Stage stage) {
         this.stage = stage;
+
+        ScrollPane scrollPane = new ScrollPane();
+        VBox vBox = new VBox(10);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(vBox);
+
+        this.setText("Einstellungen");
+        this.setCollapsible(false);
+        this.setContent(scrollPane);
+        this.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(this, Priority.ALWAYS);
+
+        makeProgs(vBox);
     }
 
     public void setSetDate(SetData setData) {
         this.setData = setData;
-        tableView.setItems(setData.getProgramList());
     }
 
     public void close() {
-        unbind();
+        unBindProgData();
     }
 
-    public void makeProgs(Collection<TitledPane> result) {
+    private void makeProgs(VBox vBox) {
         vBox.setFillWidth(true);
         vBox.setPadding(new Insets(10));
 
-        initTable();
+        addSetData(vBox);
         addConfigs(vBox);
-
-        TitledPane tpConfig = new TitledPane("Hilfsprogramme", vBox);
-        result.add(tpConfig);
-        tpConfig.setMaxHeight(Double.MAX_VALUE);
-        VBox.setVgrow(tpConfig, Priority.ALWAYS);
     }
 
-    private void initTable() {
-        final TableColumn<ProgramData, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        final TableColumn<ProgramData, String> progColumn = new TableColumn<>("Programm");
-        progColumn.setCellValueFactory(new PropertyValueFactory<>("progPath"));
-
-        final TableColumn<ProgramData, String> switchColumn = new TableColumn<>("Schalter");
-        switchColumn.setCellValueFactory(new PropertyValueFactory<>("progSwitch"));
-
-        final TableColumn<ProgramData, String> praefixColumn = new TableColumn<>("Präfix");
-        praefixColumn.setCellValueFactory(new PropertyValueFactory<>("praefix"));
-
-        final TableColumn<ProgramData, String> suffixColumn = new TableColumn<>("Suffix");
-        suffixColumn.setCellValueFactory(new PropertyValueFactory<>("suffix"));
-
-        tableView.setMinHeight(ProgConst.MIN_TABLE_HEIGHT);
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        tableView.getColumns().addAll(nameColumn, progColumn, switchColumn,
-                praefixColumn, suffixColumn/*, restartColumn*/);
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                Platform.runLater(this::setActProgramData));
-
-        Button btnDel = new Button("");
-        btnDel.setGraphic(ProgIcons.Icons.ICON_BUTTON_REMOVE.getImageView());
-        btnDel.setOnAction(event -> {
-            final ObservableList<ProgramData> sels = tableView.getSelectionModel().getSelectedItems();
-
-            if (sels == null || sels.isEmpty()) {
-                PAlert.showInfoNoSelection();
-            } else {
-                setData.getProgramList().removeAll(sels);
-                tableView.getSelectionModel().clearSelection();
+    private void addSetData(VBox vBox) {
+        changeListener = (observable, oldValue, newValue) -> ProgData.getInstance().setDataList.setListChanged();
+        standardSetListener = (observable, oldValue, newValue) -> {
+            if (setData != null) {
+                ProgData.getInstance().setDataList.setPlay(setData);
             }
-        });
+        };
 
-        Button btnNew = new Button("");
-        btnNew.setGraphic(ProgIcons.Icons.ICON_BUTTON_ADD.getImageView());
-        btnNew.setOnAction(event -> {
-            ProgramData progData = new ProgramData();
-            setData.getProgramList().add(progData);
+        // Name, Beschreibung
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
+        gridPane.setPadding(new Insets(20));
 
-            tableView.getSelectionModel().clearSelection();
-            tableView.getSelectionModel().select(progData);
-            tableView.scrollTo(progData);
-        });
+        int row = 0;
+        gridPane.add(new Label("Set Name:"), 0, row);
+        gridPane.add(txtVisibleName, 1, row, 2, 1);
 
-        Button btnUp = new Button("");
-        btnUp.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_UP.getImageView());
-        btnUp.setOnAction(event -> {
-            int sel = getSelectedLine();
-            if (sel >= 0) {
-                int newSel = setData.getProgramList().moveUp(sel, true);
-                tableView.getSelectionModel().clearSelection();
-                tableView.getSelectionModel().select(newSel);
-            }
-        });
+        final Button btnHelp = PButton.helpButton(stage, "Standardset", HelpTextPset.PSET_STANDARD);
+        gridPane.add(new Label("Standardset:"), 0, ++row);
+        gridPane.add(tglStandarSet, 1, row);
+        gridPane.add(btnHelp, 2, row);
 
-        Button btnDown = new Button("");
-        btnDown.setGraphic(ProgIcons.Icons.ICON_BUTTON_MOVE_DOWN.getImageView());
-        btnDown.setOnAction(event -> {
-            int sel = getSelectedLine();
-            if (sel >= 0) {
-                int newSel = setData.getProgramList().moveUp(sel, false);
-                tableView.getSelectionModel().clearSelection();
-                tableView.getSelectionModel().select(newSel);
-            }
-        });
-
-        HBox hBox = new HBox(10);
-        hBox.getChildren().addAll(btnNew, btnDel, btnUp, btnDown);
-
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        vBox.getChildren().addAll(tableView, hBox);
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
+                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+        vBox.getChildren().add(gridPane);
     }
 
     private void addConfigs(VBox vBox) {
@@ -165,62 +120,81 @@ public class ProgramPane {
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
         int row = 0;
-        gridPane.add(new Label("Name: "), 0, row);
-        gridPane.add(txtName, 1, row, 2, 1);
         gridPane.add(new Label("Programm: "), 0, ++row);
         gridPane.add(txtProgPath, 1, row);
         gridPane.add(btnFile, 2, row);
         gridPane.add(new Label("Schalter: "), 0, ++row);
         gridPane.add(txtProgSwitch, 1, row, 2, 1);
 
-        gridPane.add(new Label("Präfix: "), 0, ++row);
-        gridPane.add(txtPraefix, 1, row, 2, 1);
-        gridPane.add(new Label("Suffix: "), 0, ++row);
-        gridPane.add(txtSuffix, 1, row, 2, 1);
-
-//        gridPane.add(tglRestart, 0, ++row, 2, 1);
-
         gridPane.getColumnConstraints().addAll(new ColumnConstraints(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
         vBox.getChildren().add(gridPane);
-        gridPane.setDisable(true);
     }
 
-    private void setActProgramData() {
-        ProgramData programDataAct = tableView.getSelectionModel().getSelectedItem();
-        if (programDataAct == programData) {
-            return;
-        }
+    public void bindProgData(SetData setData) {
+        unBindProgData();
 
-        unbind();
+        this.setData = setData;
+        if (setData != null) {
+            txtVisibleName.textProperty().bindBidirectional(setData.visibleNameProperty());
+            txtVisibleName.textProperty().addListener(changeListener);
 
-        programData = programDataAct;
-        gridPane.setDisable(programData == null);
-        if (programData != null) {
-            txtName.textProperty().bindBidirectional(programData.nameProperty());
-            txtProgPath.textProperty().bindBidirectional(programData.progPathProperty());
-            txtProgSwitch.textProperty().bindBidirectional(programData.progSwitchProperty());
-            txtPraefix.textProperty().bindBidirectional(programData.praefixProperty());
-            txtSuffix.textProperty().bindBidirectional(programData.suffixProperty());
-        }
-    }
+            txtProgPath.textProperty().bindBidirectional(setData.programPathProperty());
+            txtProgPath.textProperty().addListener(changeListener);
 
-    private void unbind() {
-        if (programData != null) {
-            txtName.textProperty().unbindBidirectional(programData.nameProperty());
-            txtProgPath.textProperty().unbindBidirectional(programData.progPathProperty());
-            txtProgSwitch.textProperty().unbindBidirectional(programData.progSwitchProperty());
-            txtPraefix.textProperty().unbindBidirectional(programData.praefixProperty());
-            txtSuffix.textProperty().unbindBidirectional(programData.suffixProperty());
+            txtProgSwitch.textProperty().bindBidirectional(setData.programSwitchProperty());
+            txtProgSwitch.textProperty().addListener(changeListener);
+
+            tglStandarSet.selectedProperty().bindBidirectional(setData.standardSetProperty());
+            tglStandarSet.selectedProperty().addListener(standardSetListener);
         }
     }
 
-    private int getSelectedLine() {
-        final int sel = tableView.getSelectionModel().getSelectedIndex();
-        if (sel < 0) {
-            PAlert.showInfoNoSelection();
+    void unBindProgData() {
+        if (setData != null) {
+            txtVisibleName.textProperty().unbindBidirectional(setData.visibleNameProperty());
+            txtVisibleName.textProperty().removeListener(changeListener);
+
+            txtProgPath.textProperty().unbindBidirectional(setData.programPathProperty());
+            txtProgPath.textProperty().removeListener(changeListener);
+
+            txtProgSwitch.textProperty().unbindBidirectional(setData.programSwitchProperty());
+            txtProgSwitch.textProperty().removeListener(changeListener);
+
+            tglStandarSet.selectedProperty().unbindBidirectional(setData.standardSetProperty());
+            tglStandarSet.selectedProperty().removeListener(standardSetListener);
         }
-        return sel;
     }
+
+//    private void setActProgramData() {
+//        ProgramData programDataAct = tableView.getSelectionModel().getSelectedItem();
+//        if (programDataAct == programData) {
+//            return;
+//        }
+//
+//        unbind();
+//
+//        programData = programDataAct;
+//        gridPane.setDisable(programData == null);
+//        if (programData != null) {
+//            txtName.textProperty().bindBidirectional(programData.nameProperty());
+//            txtProgPath.textProperty().bindBidirectional(programData.progPathProperty());
+//            txtProgSwitch.textProperty().bindBidirectional(programData.progSwitchProperty());
+//        }
+//    }
+
+//    private void unbind() {
+////            txtName.textProperty().unbindBidirectional(programData.nameProperty());
+////            txtProgPath.textProperty().unbindBidirectional(programData.progPathProperty());
+////            txtProgSwitch.textProperty().unbindBidirectional(programData.progSwitchProperty());
+//    }
+
+//    private int getSelectedLine() {
+//        final int sel = tableView.getSelectionModel().getSelectedIndex();
+//        if (sel < 0) {
+//            PAlert.showInfoNoSelection();
+//        }
+//        return sel;
+//    }
 }

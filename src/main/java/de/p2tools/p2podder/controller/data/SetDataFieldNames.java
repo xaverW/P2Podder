@@ -21,15 +21,9 @@ public class SetDataFieldNames {
 
     public static final String ID = "Id";
     public static final String VISIBLE_NAME = "Name";
-    public static final String PRAEFIX_DIRECT = "Präfix";
-    public static final String SUFFIX_DIRECT = "Suffix";
-    public static final String IS_PLAY = "Abspielen";
-    public static final String DESCRIPTION = "Beschreibung";
-    public static final String ADD_ON = "Add-on";
-    public static final String DEST_PATH = "Zielpfad";
-    public static final String DEST_NAME = "Zieldateiname";
-    public static final String MAX_SIZE = "MaxLaenge";
-    public static final String MAX_FIELD = "MaxFeld";
+    public static final String STANARD_SET = "Abspielen";
+    public static final String PROGRAM_PATH = "Programm";
+    public static final String PROGRAM_SWITCH = "Schalter";
 
     private SetDataFieldNames() {
     }

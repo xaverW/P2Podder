@@ -49,16 +49,16 @@ public class SetDataList extends SetDataListWorker {
         //add and notify
         boolean play = false;
         for (final SetData sd : this) {
-            if (sd.isPlay()) {
+            if (sd.getStandardSet()) {
                 play = true;
                 break;
             }
         }
         if (play) {
             //gibt schon einen "play"
-            psetData.setPlay(false);
+            psetData.setStandardSet(false);
         } else {
-            psetData.setPlay(true);
+            psetData.setStandardSet(true);
         }
 
         final boolean ret = super.add(psetData);
@@ -81,20 +81,27 @@ public class SetDataList extends SetDataListWorker {
     private static boolean progReplacePattern(SetData pSet) {
         String vlc = "";
         // damit nur die Variablen abgefragt werden, die auch verwendet werden
-        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
-            final ProgramData prog = pSet.getProg(p);
-            if (prog.getProgPath().contains(PATTERN_PATH_VLC) || prog.getProgSwitch().contains(PATTERN_PATH_VLC)) {
-                vlc = getPathVlc();
-                break;
-            }
+        if (pSet.getProgramPath().contains(PATTERN_PATH_VLC) || pSet.getProgramSwitch().contains(PATTERN_PATH_VLC)) {
+            vlc = getPathVlc();
+
+            pSet.setProgramPath(pSet.getProgramPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
+            pSet.setProgramSwitch(pSet.getProgramSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
         }
 
-        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
-            final ProgramData prog = pSet.getProg(p);
-            //VLC
-            prog.setProgPath(prog.getProgPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
-            prog.setProgSwitch(prog.getProgSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
-        }
+//        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
+//            final ProgramData prog = pSet.getProg(p);
+//            if (prog.getProgPath().contains(PATTERN_PATH_VLC) || prog.getProgSwitch().contains(PATTERN_PATH_VLC)) {
+//                vlc = getPathVlc();
+//                break;
+//            }
+//        }
+
+//        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
+//            final ProgramData prog = pSet.getProg(p);
+//            //VLC
+//            prog.setProgPath(prog.getProgPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
+//            prog.setProgSwitch(prog.getProgSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
+//        }
         return true;
     }
 
@@ -122,13 +129,13 @@ public class SetDataList extends SetDataListWorker {
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
         for (final SetData setData : this) {
-            if (setData.isPlay()) {
+            if (setData.getStandardSet()) {
                 return setData;
             }
         }
         if (!this.isEmpty()) {
             SetData setData = this.get(0);
-            setData.setPlay(true);
+            setData.setStandardSet(true);
             return setData;
         }
         return null;
@@ -146,11 +153,11 @@ public class SetDataList extends SetDataListWorker {
     public void setPlay(SetData setData) {
         for (final SetData sData : this) {
             if (sData != setData) {
-                sData.setPlay(false);
+                sData.setStandardSet(false);
             }
         }
 
-        setData.setPlay(true);
+        setData.setStandardSet(true);
         setListChanged();
     }
 
@@ -177,10 +184,10 @@ public class SetDataList extends SetDataListWorker {
             for (int i = 0; i < configs.length; ++i) {
                 list.add("     | " + configs[i].getName() + ": " + configs[i].getActValueString());
             }
-            for (final ProgramData programData : setData.programList) {
-                list.add("     |");
-                programData.getStringDescription(list);
-            }
+//            for (final ProgramData programData : setData.programList) {
+//                list.add("     |");
+//                programData.getStringDescription(list);
+//            }
             list.add("     |_____________________________");
             list.add("");
         }

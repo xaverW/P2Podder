@@ -16,57 +16,25 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2Lib.configFile.config.*;
-import javafx.beans.property.*;
+import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
 public class SetDataProps extends SetDataBase {
 
-    final ProgramList programList = new ProgramList();
-
     private StringProperty id = new SimpleStringProperty("");
     private StringProperty visibleName = new SimpleStringProperty("");
-    private StringProperty prefix = new SimpleStringProperty("");
-    private StringProperty suffix = new SimpleStringProperty("");
-    private BooleanProperty play = new SimpleBooleanProperty(false);//ist das Standard-Set
-    private StringProperty description = new SimpleStringProperty("");
-    private StringProperty adOn = new SimpleStringProperty("");
-    private StringProperty destPath = new SimpleStringProperty("");
-    private StringProperty destName = new SimpleStringProperty("");
-    private IntegerProperty maxSize = new SimpleIntegerProperty(0);
-    private IntegerProperty maxField = new SimpleIntegerProperty(0);
+    private BooleanProperty standardSet = new SimpleBooleanProperty(false);//ist das Standard-Set
+    private StringProperty programPath = new SimpleStringProperty("");
+    private StringProperty programSwitch = new SimpleStringProperty("");
 
     public SetDataProps() {
-    }
-
-    public boolean addProg(ProgramData prog) {
-        return programList.add(prog);
-    }
-
-    public ProgramList getProgramList() {
-        return programList;
-    }
-
-    public ProgramData getProg(int i) {
-        return programList.get(i);
-    }
-
-    public boolean progsContainPath() {
-        // ein Programmschalter mit
-        // "**" (Pfad/Datei) oder %a (Pfad) oder %b (Datei)
-        // damit ist es ein Set zum Speichern
-        boolean ret = false;
-
-        for (ProgramData progData : programList) {
-            if (progData.getProgSwitch().contains("**")
-                    || progData.getProgSwitch().contains("%a")
-                    || progData.getProgSwitch().contains("%b")) {
-                ret = true;
-                break;
-            }
-        }
-        return ret;
     }
 
     @Override
@@ -79,16 +47,9 @@ public class SetDataProps extends SetDataBase {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigStringPropExtra("id", SetDataFieldNames.ID, id));
         list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.VISIBLE_NAME, visibleName));
-        list.add(new ConfigStringPropExtra("praefixDirect", SetDataFieldNames.PRAEFIX_DIRECT, prefix));
-        list.add(new ConfigStringPropExtra("suffixDirect", SetDataFieldNames.SUFFIX_DIRECT, suffix));
-        list.add(new ConfigBoolPropExtra("isPlay", SetDataFieldNames.IS_PLAY, play));
-        list.add(new ConfigStringPropExtra("description", SetDataFieldNames.DESCRIPTION, description));
-        list.add(new ConfigStringPropExtra("adOn", SetDataFieldNames.ADD_ON, adOn));
-        list.add(new ConfigStringPropExtra("destPath", SetDataFieldNames.DEST_PATH, destPath));
-        list.add(new ConfigStringPropExtra("destName", SetDataFieldNames.DEST_NAME, destName));
-        list.add(new ConfigIntPropExtra("maxSize", SetDataFieldNames.MAX_SIZE, maxSize));
-        list.add(new ConfigIntPropExtra("maxField", SetDataFieldNames.MAX_FIELD, maxField));
-        list.add(new ConfigPDataList(programList));
+        list.add(new ConfigBoolPropExtra("standardSet", SetDataFieldNames.STANARD_SET, standardSet));
+        list.add(new ConfigStringPropExtra("programPath", SetDataFieldNames.PROGRAM_PATH, programPath));
+        list.add(new ConfigStringPropExtra("programSwitch", SetDataFieldNames.PROGRAM_SWITCH, programSwitch));
 
         return list.toArray(new Config[]{});
     }
@@ -118,112 +79,40 @@ public class SetDataProps extends SetDataBase {
         this.visibleName.set(visibleName);
     }
 
-    public String getPrefix() {
-        return prefix.get();
+    public boolean getStandardSet() {
+        return standardSet.get();
     }
 
-    public StringProperty prefixProperty() {
-        return prefix;
+    public BooleanProperty standardSetProperty() {
+        return standardSet;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix.set(prefix);
+    public void setStandardSet(boolean standardSet) {
+        this.standardSet.set(standardSet);
     }
 
-    public String getSuffix() {
-        return suffix.get();
+    public String getProgramPath() {
+        return programPath.get();
     }
 
-    public StringProperty suffixProperty() {
-        return suffix;
+    public StringProperty programPathProperty() {
+        return programPath;
     }
 
-    public void setSuffix(String suffix) {
-        this.suffix.set(suffix);
+    public void setProgramPath(String programPath) {
+        this.programPath.set(programPath);
     }
 
-    public boolean isPlay() {
-        return play.get();
+    public String getProgramSwitch() {
+        return programSwitch.get();
     }
 
-    public BooleanProperty playProperty() {
-        return play;
+    public StringProperty programSwitchProperty() {
+        return programSwitch;
     }
 
-    public void setPlay(boolean play) {
-        this.play.set(play);
-    }
-
-    public String getDescription() {
-        return description.get();
-    }
-
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
-
-    public String getAdOn() {
-        return adOn.get();
-    }
-
-    public StringProperty adOnProperty() {
-        return adOn;
-    }
-
-    public void setAdOn(String adOn) {
-        this.adOn.set(adOn);
-    }
-
-    public String getDestPath() {
-        return destPath.get();
-    }
-
-    public StringProperty destPathProperty() {
-        return destPath;
-    }
-
-    public void setDestPath(String destPath) {
-        this.destPath.set(destPath);
-    }
-
-    public String getDestName() {
-        return destName.get();
-    }
-
-    public StringProperty destNameProperty() {
-        return destName;
-    }
-
-    public void setDestName(String destName) {
-        this.destName.set(destName);
-    }
-
-    public int getMaxSize() {
-        return maxSize.get();
-    }
-
-    public IntegerProperty maxSizeProperty() {
-        return maxSize;
-    }
-
-    public void setMaxSize(int maxSize) {
-        this.maxSize.set(maxSize);
-    }
-
-    public int getMaxField() {
-        return maxField.get();
-    }
-
-    public IntegerProperty maxFieldProperty() {
-        return maxField;
-    }
-
-    public void setMaxField(int maxField) {
-        this.maxField.set(maxField);
+    public void setProgramSwitch(String programSwitch) {
+        this.programSwitch.set(programSwitch);
     }
 
     @Override

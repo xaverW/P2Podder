@@ -177,15 +177,15 @@ public class PsetVorlagen {
                                 }
                             }
                             break;
-                        case ProgramData.TAG:
-                            if (psetData != null) {
-                                final ProgramData progData = new ProgramData();
-                                if (get(parser, ProgramData.TAG, ProgramData.XML_NAMES, progData.arr)) {
-                                    progData.setPropsFromXml();
-                                    psetData.addProg(progData);
-                                }
-                            }
-                            break;
+//                        case ProgramData.TAG:
+//                            if (psetData != null) {
+//                                final ProgramData progData = new ProgramData();
+//                                if (get(parser, ProgramData.TAG, ProgramData.XML_NAMES, progData.arr)) {
+//                                    progData.setPropsFromXml();
+//                                    psetData.addProg(progData);
+//                                }
+//                            }
+//                            break;
                     }
                 }
             }

@@ -26,14 +26,13 @@ public class SetDataBase extends PDataSample<SetData> {
     public static final int PROGRAMSET_PRAEFIX_DIRECT = 2;
     public static final int PROGRAMSET_SUFFIX_DIRECT = 3;
     public static final int PROGRAMSET_IST_ABSPIELEN = 4;
-    public static final int PROGRAMSET_BESCHREIBUNG = 5;
 
-    public static final int MAX_ELEM = 6;
+    public static final int MAX_ELEM = 5;
 
     public static final String[] COLUMN_NAMES = {"Name", "Setname", "Präfix", "Suffix",
-            "Abspielen", "Beschreibung"};
+            "Abspielen",};
     public static final String[] XML_NAMES = {"Name", "Setname", "Praefix", "Suffix",
-            "Abspielen", "Beschreibung"}; //ist im Set zum Download so festgesetzt
+            "Abspielen",}; //ist im Set zum Download so festgesetzt
 
     public String[] arr;
     public static final String TAG = "Programmset"; //ist im Set zum Download so festgesetzt

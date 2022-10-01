@@ -93,7 +93,7 @@ public class SetDataListWorker extends SimpleListProperty<SetData> implements PD
     }
 
     void checkSetDataName(SetData setData) {
-        // Id auf einmaligkeit prüfen und leere visibleNames füllen
+        // Id auf Einmaligkeit prüfen und leere visibleNames füllen
         // dient der geänderten Funktion -> SetData im Abo
         String setDataId = setData.getId();
         boolean found = false;

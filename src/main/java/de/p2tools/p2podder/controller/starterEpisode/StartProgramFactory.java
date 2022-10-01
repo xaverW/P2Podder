@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.controller.starterEpisode;
 
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.data.ProgramData;
 
 
 public class StartProgramFactory {
@@ -27,29 +26,41 @@ public class StartProgramFactory {
 
     public static boolean makeProgParameter(Start start) {
         try {
-            final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
-            if (programData == null) {
-                return false; //todo ist das gut da wenn kein Set???
-            }
+//            final ProgramData programData = start.getSetData().getProgForUrl(start.getUrl());
+//            if (programData == null) {
+//                return false; //todo ist das gut da wenn kein Set???
+//            }
+            String programName = start.getSetData().getVisibleName();
+            String program = start.getSetData().getProgramPath();
+            String programSwitch = start.getSetData().getProgramSwitch();
 
-            start.setProgram(programData.getName());
-            buildProgParameter(start, programData);
+            start.setProgram(programName);
+            buildProgParameter(start, program, programSwitch);
         } catch (final Exception ex) {
             PLog.errorLog(825600145, ex);
         }
         return true;
     }
 
-    private static void buildProgParameter(Start start, ProgramData program) {
-        String befehlsString = program.getProgrammAufruf();
-        befehlsString = replaceExec(start, befehlsString);
-        start.setProgramCall(befehlsString);
+    private static void buildProgParameter(Start start, String program, String programSwitch) {
+        String callString = program + " " + programSwitch;
+        callString = replaceExec(start, callString);
+        start.setProgramCall(callString);
 
-        String progArray = program.getProgrammAufrufArray();
+        String progArray = getProgrammAufrufArray(program, programSwitch);
         progArray = replaceExec(start, progArray);
         start.setProgramCallArray(progArray);
     }
 
+    private static String getProgrammAufrufArray(String program, String programSwitch) {
+        String ret;
+        ret = program;
+        final String[] ar = programSwitch.split(" ");
+        for (final String s : ar) {
+            ret = ret + StartRuntimeExec.TRENNER_PROG_ARRAY + s;
+        }
+        return ret;
+    }
 
     private static String replaceExec(Start start, String execString) {
         execString = execString.replace("%f", start.getUrl());

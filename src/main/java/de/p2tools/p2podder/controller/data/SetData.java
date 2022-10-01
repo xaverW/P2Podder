@@ -19,7 +19,6 @@ package de.p2tools.p2podder.controller.data;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.PIndex;
-import de.p2tools.p2podder.gui.tools.SetsPrograms;
 
 public class SetData extends SetDataProps {
 
@@ -42,9 +41,9 @@ public class SetData extends SetDataProps {
                 ret = false;
             }
         }
-        if (!programList.isEmpty()) {
-            ret = false;
-        }
+//        if (!programList.isEmpty()) {
+//            ret = false;
+//        }
         return ret;
     }
 
@@ -53,84 +52,35 @@ public class SetData extends SetDataProps {
         return getVisibleName().isEmpty();
     }
 
-    public boolean isLable() {
-        // wenn die Programmliste leer ist und einen Namen hat, ist es ein Lable
-        return programList.isEmpty() && !getVisibleName().isEmpty();
-    }
+//    public boolean isLable() {
+//        // wenn die Programmliste leer ist und einen Namen hat, ist es ein Lable
+//        return programList.isEmpty() && !getVisibleName().isEmpty();
+//    }
 
-    public String getDestFileName(String url) {
-        //gibt den Zieldateinamen für den Film zurück
-        final ProgramData progData = getProgUrl(url);
-        String ret = getDestName();
-        if (!checkDownloadDirect(url) && progData != null) {
-            // nur wenn kein direkter Download und ein passendes Programm
-            if (!progData.getDestName().isEmpty()) {
-                ret = progData.getDestName();
-            }
-        }
-        return ret;
-    }
-
-    public ProgramData getProgUrl(String url) {
-        //mit einer Url das Passende Programm finden
-        //passt nichts, wird das letzte Programm genommen
-        //ist nur ein Programm in der Liste wird dieses genommen
-        ProgramData ret = null;
-        if (programList.isEmpty()) {
-            // todo bei vielen Downloads beim Start kommt das für jeden Download
-//            new MTAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-//                    "Es ist kein Programm zum Download eingerichtet");
-        } else if (programList.size() == 1) {
-            ret = programList.get(0);
-        } else {
-            for (ProgramData progData : programList) {
-                if (progData.urlTesten(url)) {
-                    ret = progData;
-                    break;
-                }
-            }
-            if (!programList.isEmpty() && ret == null) {
-                ret = programList.get(programList.size() - 1);
-            }
-        }
-        return ret;
-    }
-
-    public boolean checkDownloadDirect(String url) {
-        //auf direkte prüfen, pref oder suf: wenn angegeben dann muss es stimmen
-        if (!getPrefix().isEmpty() || !getSuffix().isEmpty()) {
-            if (SetsPrograms.testPrefix(getPrefix(), url, true)
-                    && SetsPrograms.testPrefix(getSuffix(), url, false)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ProgramData getProgForUrl(String url) {
-        //mit einer Url das Passende Programm finden
-        //passt nichts, wird das letzte Programm genommen
-        //ist nur ein Programm in der Liste wird dieses genommen
-        ProgramData ret = null;
-        if (programList.isEmpty()) {
-            // todo bei vielen kommt das für jeden
-//            new MTAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-//                    "Es ist kein Programm zum Download eingerichtet");
-        } else if (programList.size() == 1) {
-            ret = programList.get(0);
-        } else {
-            for (ProgramData progData : programList) {
-                if (progData.urlTesten(url)) {
-                    ret = progData;
-                    break;
-                }
-            }
-            if (!programList.isEmpty() && ret == null) {
-                ret = programList.get(programList.size() - 1);
-            }
-        }
-        return ret;
-    }
+//    public ProgramData getProgForUrl(String url) {
+//        //mit einer Url das Passende Programm finden
+//        //passt nichts, wird das letzte Programm genommen
+//        //ist nur ein Programm in der Liste wird dieses genommen
+//        ProgramData ret = null;
+//        if (programList.isEmpty()) {
+//            // todo bei vielen kommt das für jeden
+////            new MTAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
+////                    "Es ist kein Programm zum Download eingerichtet");
+//        } else if (programList.size() == 1) {
+//            ret = programList.get(0);
+//        } else {
+//            for (ProgramData progData : programList) {
+//                if (progData.urlTesten(url)) {
+//                    ret = progData;
+//                    break;
+//                }
+//            }
+//            if (!programList.isEmpty() && ret == null) {
+//                ret = programList.get(programList.size() - 1);
+//            }
+//        }
+//        return ret;
+//    }
 
     public SetData copy() {
         final SetData ret = new SetData();
@@ -142,11 +92,11 @@ public class SetData extends SetDataProps {
         }
         ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
         ret.setVisibleName("Kopie-" + getVisibleName());
-        ret.setPlay(false);
+        ret.setStandardSet(false);
 
-        for (final ProgramData programData : getProgramList()) {
-            ret.addProg(programData.copy());
-        }
+//        for (final ProgramData programData : getProgramList()) {
+//            ret.addProg(programData.copy());
+//        }
         return ret;
     }
 
@@ -160,10 +110,10 @@ public class SetData extends SetDataProps {
             ret += "     | " + configs[i].getName() + ": " + configs[i].getActValueString() + P2LibConst.LINE_SEPARATOR;
         }
 
-        for (final ProgramData programData : programList) {
-            ret += "     |" + P2LibConst.LINE_SEPARATOR;
-            ret += programData.toString();
-        }
+//        for (final ProgramData programData : programList) {
+//            ret += "     |" + P2LibConst.LINE_SEPARATOR;
+//            ret += programData.toString();
+//        }
         ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
@@ -171,9 +121,6 @@ public class SetData extends SetDataProps {
     public void setPropsFromXml() {
         setId(arr[PROGRAMSET_ID]);
         setVisibleName(arr[PROGRAMSET_VISIBLE_NAME]);
-        setPrefix(arr[PROGRAMSET_PRAEFIX_DIRECT]);
-        setSuffix(arr[PROGRAMSET_SUFFIX_DIRECT]);
-        setPlay(Boolean.parseBoolean(arr[PROGRAMSET_IST_ABSPIELEN]));
-        setDescription(arr[PROGRAMSET_BESCHREIBUNG]);
+        setStandardSet(Boolean.parseBoolean(arr[PROGRAMSET_IST_ABSPIELEN]));
     }
 }
