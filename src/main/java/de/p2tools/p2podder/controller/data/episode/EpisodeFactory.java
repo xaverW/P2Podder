@@ -96,6 +96,13 @@ public class EpisodeFactory {
         }
     }
 
+    public static void playEpisode(SetData setData) {
+        final Optional<Episode> episode = getSel();
+        if (episode.isPresent()) {
+            EpisodeFactory.playEpisode(episode.get(), setData);
+        }
+    }
+
     public static void playSelEpisode() {
         playEpisode(getSelList(), null);
     }

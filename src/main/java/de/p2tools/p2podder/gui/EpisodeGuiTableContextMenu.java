@@ -17,10 +17,12 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.tools.table.TableEpisode;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
@@ -43,8 +45,25 @@ public class EpisodeGuiTableContextMenu {
     }
 
     private void getMenu(ContextMenu contextMenu, Episode episode) {
-        MenuItem miStart = new MenuItem("Episode abspielen");
-        miStart.setOnAction(a -> EpisodeFactory.playEpisode(episode));
+        final boolean moreSets = progData.setDataList.size() > 1;
+        if (moreSets) {
+            Menu miStartWithSet = new Menu("Episode abspielen, Programm auswählen");
+            miStartWithSet.setDisable(episode == null);
+            for (SetData set : progData.setDataList) {
+                MenuItem miStart = new MenuItem(set.getVisibleName());
+                miStart.setOnAction(a -> EpisodeFactory.playEpisode(episode, set));
+                miStartWithSet.getItems().add(miStart);
+                miStart.setDisable(episode == null);
+            }
+            contextMenu.getItems().addAll(miStartWithSet);
+
+        } else {
+            MenuItem miStart = new MenuItem("Episode abspielen");
+            miStart.setOnAction(a -> EpisodeFactory.playEpisode(episode));
+            miStart.setDisable(episode == null);
+            contextMenu.getItems().addAll(miStart);
+        }
+
         MenuItem miStop = new MenuItem("Episode stoppen");
         miStop.setOnAction(a -> EpisodeFactory.stopEpisode(episode));
         MenuItem miStopAll = new MenuItem("alle Episoden stoppen");
@@ -57,18 +76,15 @@ public class EpisodeGuiTableContextMenu {
         MenuItem miRemove = new MenuItem("Episode löschen");
         miRemove.setOnAction(a -> EpisodeFactory.delEpisode());
 
-        miStart.setDisable(episode == null);
         miStop.setDisable(episode == null);
         miStopAll.setDisable(episode == null);
         miCopyUrl.setDisable(episode == null);
         miChange.setDisable(episode == null);
         miRemove.setDisable(episode == null);
-
-        contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
+        contextMenu.getItems().addAll(miStop, miStopAll, miCopyUrl, miChange, miRemove);
 
         MenuItem resetTable = new MenuItem("Tabelle zurücksetzen");
         resetTable.setOnAction(a -> tableView.resetTable());
-
         contextMenu.getItems().add(new SeparatorMenuItem());
         contextMenu.getItems().addAll(resetTable);
     }

@@ -26,7 +26,6 @@ import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpTextPset;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -34,7 +33,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ListPane extends TitledPane {
 
@@ -53,7 +51,8 @@ public class ListPane extends TitledPane {
         progData = ProgData.getInstance();
 
         ScrollPane scrollPane = new ScrollPane();
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(5);
+        vBox.setPadding(new Insets(5));
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(vBox);
@@ -88,7 +87,6 @@ public class ListPane extends TitledPane {
         final TableColumn<SetData, Boolean> standardColumn = new TableColumn<>("Standard");
         standardColumn.setCellValueFactory(new PropertyValueFactory<>("standardSet"));
         standardColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
-//        standardColumn.setCellFactory(cellFactoryStart);
         standardColumn.getStyleClass().add("center");
 
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -191,48 +189,4 @@ public class ListPane extends TitledPane {
         }
         return sel;
     }
-
-    private Callback<TableColumn<SetData, Boolean>, TableCell<SetData, Boolean>> cellFactoryStart
-            = (final TableColumn<SetData, Boolean> param) -> {
-
-        final TableCell<SetData, Boolean> cell = new TableCell<SetData, Boolean>() {
-
-            @Override
-            public void updateItem(Boolean item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                final HBox hbox = new HBox(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-
-                SetData setData = getTableView().getItems().get(getIndex());
-
-                final PCheckBoxCell checkBox = new PCheckBoxCell();
-//                radioButton.setToggleGroup(toggleGroup);
-                checkBox.initCell(item.booleanValue());
-//                checkBox.setDisable(true);
-
-//                checkBox.setOnAction(event -> {
-//                    System.out.println("Set: " + setData.getVisibleName());
-//                    System.out.println("standard: " + setData.isStandardSet());
-//                    if (checkBox.isSelected()) {
-//                        progData.setDataList.setStandardSet(setData);
-//                    } else {
-//                        System.out.println("--");
-//                    }
-//                });
-
-                hbox.getChildren().addAll(checkBox);
-                setGraphic(hbox);
-
-            }
-        };
-        return cell;
-    };
 }

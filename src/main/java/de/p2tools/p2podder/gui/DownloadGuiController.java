@@ -53,7 +53,8 @@ public class DownloadGuiController extends AnchorPane {
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableDownload tableView;
     private final RadioButton rbAll = new RadioButton("alle");
-    private final RadioButton rbRunning = new RadioButton("gestartet");
+    private final RadioButton rbStarted = new RadioButton("gestartet");
+    private final RadioButton rbLoading = new RadioButton("lädt");
     private final RadioButton rbFinalized = new RadioButton("abgeschlossen");
 
     private DownloadGuiInfoController downloadGuiInfoController;
@@ -77,13 +78,14 @@ public class DownloadGuiController extends AnchorPane {
 
         ToggleGroup tg = new ToggleGroup();
         rbAll.setToggleGroup(tg);
-        rbRunning.setToggleGroup(tg);
+        rbStarted.setToggleGroup(tg);
+        rbLoading.setToggleGroup(tg);
         rbFinalized.setToggleGroup(tg);
 
         HBox hBoxDown = new HBox();
         hBoxDown.setPadding(new Insets(5));
         hBoxDown.setSpacing(15);
-        hBoxDown.getChildren().addAll(new Label("Downloads: "), rbAll, rbRunning, rbFinalized);
+        hBoxDown.getChildren().addAll(new Label("Downloads: "), rbAll, rbStarted, rbLoading, rbFinalized);
 
         vBox.getChildren().addAll(hBoxDown, scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -254,7 +256,8 @@ public class DownloadGuiController extends AnchorPane {
 
     private void initFilter() {
         rbAll.selectedProperty().bindBidirectional(progData.downloadFilter.isAllProperty());
-        rbRunning.selectedProperty().bindBidirectional(progData.downloadFilter.isStartedProperty());
+        rbStarted.selectedProperty().bindBidirectional(progData.downloadFilter.isStartedProperty());
+        rbLoading.selectedProperty().bindBidirectional(progData.downloadFilter.isStartedProperty());
         rbFinalized.selectedProperty().bindBidirectional(progData.downloadFilter.isFinalizedProperty());
     }
 

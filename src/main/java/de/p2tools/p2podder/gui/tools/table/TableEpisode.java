@@ -22,7 +22,6 @@ import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -298,7 +297,7 @@ public class TableEpisode extends PTable<Episode> {
                 final boolean started = EpisodeFactory.episodeIsStarted(episode);
                 final boolean running = EpisodeFactory.episodeIsRunning(episode);
                 final boolean error = episode.getStart() != null ? episode.getStart().getStartStatus().isStateError() : false;
-                final boolean set = progData.setDataList.size() > 1;
+                final boolean moreSets = progData.setDataList.size() > 1;
 
                 if (started || running) {
                     //dann stoppen
@@ -316,21 +315,6 @@ public class TableEpisode extends PTable<Episode> {
                     Table.setButtonSize(btnStop);
                     hbox.getChildren().add(btnStop);
 
-                } else if (set) {
-                    //läuft nix, mehre Sets
-                    final ComboBox<SetData> cboSet;
-                    cboSet = new ComboBox();
-                    cboSet.getStyleClass().add("combo-box-icon");
-                    cboSet.getItems().addAll(progData.setDataList);
-                    cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
-                        EpisodeFactory.playEpisode(episode, ne);
-                        getTableView().getSelectionModel().clearSelection();
-                        getTableView().getSelectionModel().select(getIndex());
-                    });
-
-                    Table.setButtonSize(cboSet);
-                    hbox.getChildren().add(cboSet);
-
                 } else {
                     //starten, nur ein Set
                     final Button btnPlay;
@@ -346,6 +330,39 @@ public class TableEpisode extends PTable<Episode> {
 
                     Table.setButtonSize(btnPlay);
                     hbox.getChildren().add(btnPlay);
+
+//                    if (moreSets) {
+//                        //läuft nix, mehre Sets
+//                        final ComboBox<SetData> cboSet;
+//                        cboSet = new ComboBox();
+//                        cboSet.getStyleClass().add("combo-box-icon");
+//                        cboSet.getItems().addAll(progData.setDataList);
+//                        cboSet.getSelectionModel().selectedItemProperty().addListener((v, ol, ne) -> {
+//                            EpisodeFactory.playEpisode(episode, ne);
+//                            getTableView().getSelectionModel().clearSelection();
+//                            getTableView().getSelectionModel().select(getIndex());
+//                        });
+//
+//                        Table.setButtonSize(cboSet);
+//                        hbox.getChildren().add(cboSet);
+//                    }
+                    
+
+//                } else {
+//                    //starten, nur ein Set
+//                    final Button btnPlay;
+//                    btnPlay = new Button("");
+//                    btnPlay.getStyleClass().add("btnSmallPodder");
+//                    btnPlay.setTooltip(new Tooltip("Episode abspielen"));
+//                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_PLAY.getImageView());
+//                    btnPlay.setOnAction((ActionEvent event) -> {
+//                        EpisodeFactory.playEpisode(episode);
+//                        getTableView().getSelectionModel().clearSelection();
+//                        getTableView().getSelectionModel().select(getIndex());
+//                    });
+//
+//                    Table.setButtonSize(btnPlay);
+//                    hbox.getChildren().add(btnPlay);
                 }
 
                 final Button btnDel;
