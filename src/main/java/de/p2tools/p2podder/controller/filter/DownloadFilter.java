@@ -30,26 +30,38 @@ public class DownloadFilter {
     private StringProperty title = new SimpleStringProperty("");
     private BooleanProperty isAll = new SimpleBooleanProperty(true);
     private BooleanProperty isStarted = new SimpleBooleanProperty(false);
+    private BooleanProperty isLoading = new SimpleBooleanProperty(false);
     private BooleanProperty isFinalized = new SimpleBooleanProperty(false);
     private boolean running = false;
+    private boolean loading = false;
     private boolean finalized = false;
 
     public DownloadFilter() {
         podcastId.addListener((observable, oldValue, newValue) -> setPredicate());
         genre.addListener((observable, oldValue, newValue) -> setPredicate());
         title.addListener((observable, oldValue, newValue) -> setPredicate());
+
         isAll.addListener((observable, oldValue, newValue) -> {
             running = false;
+            loading = false;
             finalized = false;
             setPredicate();
         });
         isStarted.addListener((observable, oldValue, newValue) -> {
             running = true;
+            loading = false;
+            finalized = false;
+            setPredicate();
+        });
+        isLoading.addListener((observable, oldValue, newValue) -> {
+            running = false;
+            loading = true;
             finalized = false;
             setPredicate();
         });
         isFinalized.addListener((observable, oldValue, newValue) -> {
             running = false;
+            loading = false;
             finalized = true;
             setPredicate();
         });
@@ -78,6 +90,10 @@ public class DownloadFilter {
 
     public BooleanProperty isStartedProperty() {
         return isStarted;
+    }
+
+    public BooleanProperty isLoadingProperty() {
+        return isLoading;
     }
 
     public BooleanProperty isFinalizedProperty() {
@@ -110,6 +126,9 @@ public class DownloadFilter {
         }
         if (running) {
             predicate = predicate.and(download -> download.isStarted());
+        }
+        if (loading) {
+            predicate = predicate.and(download -> download.isStateStartedRun());
         }
         if (finalized) {
             predicate = predicate.and(download -> download.isStateFinalized());

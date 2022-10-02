@@ -257,7 +257,7 @@ public class DownloadGuiController extends AnchorPane {
     private void initFilter() {
         rbAll.selectedProperty().bindBidirectional(progData.downloadFilter.isAllProperty());
         rbStarted.selectedProperty().bindBidirectional(progData.downloadFilter.isStartedProperty());
-        rbLoading.selectedProperty().bindBidirectional(progData.downloadFilter.isStartedProperty());
+        rbLoading.selectedProperty().bindBidirectional(progData.downloadFilter.isLoadingProperty());
         rbFinalized.selectedProperty().bindBidirectional(progData.downloadFilter.isFinalizedProperty());
     }
 
