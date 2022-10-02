@@ -18,6 +18,7 @@ package de.p2tools.p2podder.gui.configDialog.setData;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.PsetVorlagen;
@@ -84,13 +85,14 @@ public class ListPane extends TitledPane {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn()); //todo muss eindeutig sein
 
-        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
-        playColumn.setCellValueFactory(new PropertyValueFactory<>("standardSet"));
-        playColumn.setCellFactory(cellFactoryStart);
-        playColumn.getStyleClass().add("center");
+        final TableColumn<SetData, Boolean> standardColumn = new TableColumn<>("Standard");
+        standardColumn.setCellValueFactory(new PropertyValueFactory<>("standardSet"));
+        standardColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
+//        standardColumn.setCellFactory(cellFactoryStart);
+        standardColumn.getStyleClass().add("center");
 
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tableView.getColumns().addAll(nameColumn, playColumn);
+        tableView.getColumns().addAll(nameColumn, standardColumn);
         tableView.setItems(progData.setDataList);
 
         VBox.setVgrow(tableView, Priority.ALWAYS);
@@ -211,13 +213,22 @@ public class ListPane extends TitledPane {
 
                 SetData setData = getTableView().getItems().get(getIndex());
 
-                final RadioButton radioButton = new RadioButton("");
-                radioButton.setToggleGroup(toggleGroup);
-                radioButton.setSelected(item.booleanValue());
+                final PCheckBoxCell checkBox = new PCheckBoxCell();
+//                radioButton.setToggleGroup(toggleGroup);
+                checkBox.initCell(item.booleanValue());
+//                checkBox.setDisable(true);
 
-                radioButton.setOnAction(event -> progData.setDataList.setPlay(setData));
+//                checkBox.setOnAction(event -> {
+//                    System.out.println("Set: " + setData.getVisibleName());
+//                    System.out.println("standard: " + setData.isStandardSet());
+//                    if (checkBox.isSelected()) {
+//                        progData.setDataList.setStandardSet(setData);
+//                    } else {
+//                        System.out.println("--");
+//                    }
+//                });
 
-                hbox.getChildren().addAll(radioButton);
+                hbox.getChildren().addAll(checkBox);
                 setGraphic(hbox);
 
             }

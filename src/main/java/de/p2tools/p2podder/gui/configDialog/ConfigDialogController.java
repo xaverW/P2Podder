@@ -111,7 +111,7 @@ public class ConfigDialogController extends PDialogExtra {
             tab.setContent(podPane);
             tabPane.getTabs().add(tab);
 
-            setPane = new SetPaneController(getStage());
+            setPane = new SetPaneController(progData, getStage());
             tab = new Tab("Abspielen");
             tab.setClosable(false);
             tab.setContent(setPane);

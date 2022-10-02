@@ -49,7 +49,7 @@ public class SetDataList extends SetDataListWorker {
         //add and notify
         boolean play = false;
         for (final SetData sd : this) {
-            if (sd.getStandardSet()) {
+            if (sd.isStandardSet()) {
                 play = true;
                 break;
             }
@@ -129,7 +129,7 @@ public class SetDataList extends SetDataListWorker {
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
         for (final SetData setData : this) {
-            if (setData.getStandardSet()) {
+            if (setData.isStandardSet()) {
                 return setData;
             }
         }
@@ -150,7 +150,7 @@ public class SetDataList extends SetDataListWorker {
         return this;
     }
 
-    public void setPlay(SetData setData) {
+    public void setStandardSet(SetData setData) {
         for (final SetData sData : this) {
             if (sData != setData) {
                 sData.setStandardSet(false);

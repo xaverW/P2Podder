@@ -87,7 +87,7 @@ public class ImportSetDialogController extends PDialogExtra {
         vBoxPath.setStyle("-fx-background-color: -fx-background;");
 
         // nach Import
-        setPaneController = new SetPaneController(P2LibConst.primaryStage);
+        setPaneController = new SetPaneController(progData, P2LibConst.primaryStage);
         setPaneController.setMaxWidth(Double.MAX_VALUE);
         setPaneController.setMaxHeight(Double.MAX_VALUE);
         setPaneController.setStyle("-fx-background-color: -fx-background;");

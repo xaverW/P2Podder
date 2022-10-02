@@ -79,7 +79,7 @@ public class SetDataProps extends SetDataBase {
         this.visibleName.set(visibleName);
     }
 
-    public boolean getStandardSet() {
+    public boolean isStandardSet() {
         return standardSet.get();
     }
 

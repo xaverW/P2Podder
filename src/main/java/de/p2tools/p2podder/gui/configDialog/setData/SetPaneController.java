@@ -41,9 +41,9 @@ public class SetPaneController extends AnchorPane {
     private final Stage stage;
     DoubleProperty split = ProgConfig.CONFIG_DIALOG_SET_DIVIDER;
 
-    public SetPaneController(Stage stage) {
+    public SetPaneController(ProgData progData, Stage stage) {
         this.stage = stage;
-        progData = ProgData.getInstance();
+        this.progData = progData;
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
@@ -65,7 +65,7 @@ public class SetPaneController extends AnchorPane {
     }
 
     private void createPane() {
-        programPane = new ProgramPane(stage);
+        programPane = new ProgramPane(progData, stage);
         listPane = new ListPane(stage, this);
 
         splitPane.getItems().add(listPane);

@@ -19,15 +19,14 @@ package de.p2tools.p2podder.gui.configDialog.setData;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.gui.tools.HelpTextPset;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -37,17 +36,17 @@ public class ProgramPane extends TitledPane {
     private SetData setData = null;
 
     private final TextField txtVisibleName = new TextField("");
-    private final PToggleSwitch tglStandarSet = new PToggleSwitch();
     private ChangeListener changeListener;
-    private ChangeListener standardSetListener;
 
-    private final GridPane gridPane = new GridPane();
     private final TextField txtProgPath = new TextField();
     private final TextField txtProgSwitch = new TextField();
+    private final CheckBox cbxIsStandard = new CheckBox();
     private final Stage stage;
+    private ProgData progData;
 
-    public ProgramPane(Stage stage) {
+    public ProgramPane(ProgData progData, Stage stage) {
         this.stage = stage;
+        this.progData = progData;
 
         ScrollPane scrollPane = new ScrollPane();
         VBox vBox = new VBox(10);
@@ -77,58 +76,50 @@ public class ProgramPane extends TitledPane {
         vBox.setPadding(new Insets(10));
 
         addSetData(vBox);
-        addConfigs(vBox);
     }
 
     private void addSetData(VBox vBox) {
-        changeListener = (observable, oldValue, newValue) -> ProgData.getInstance().setDataList.setListChanged();
-        standardSetListener = (observable, oldValue, newValue) -> {
-            if (setData != null) {
-                ProgData.getInstance().setDataList.setPlay(setData);
-            }
-        };
+        changeListener = (observable, oldValue, newValue) -> progData.setDataList.setListChanged();
+        Button btnStandardSet = new Button("Standard");
+        btnStandardSet.setOnAction(a -> {
+            progData.setDataList.setStandardSet(setData);
+            cbxIsStandard.setSelected(setData.isStandardSet());
+        });
+
+        cbxIsStandard.setDisable(true);
+        cbxIsStandard.getStyleClass().add("checkbox-table");
 
         // Name, Beschreibung
         GridPane gridPane = new GridPane();
         gridPane.setHgap(15);
-        gridPane.setVgap(15);
+        gridPane.setVgap(5);
         gridPane.setPadding(new Insets(20));
+//        gridPane.setGridLinesVisible(true);
 
         int row = 0;
         gridPane.add(new Label("Set Name:"), 0, row);
-        gridPane.add(txtVisibleName, 1, row, 2, 1);
+        gridPane.add(txtVisibleName, 1, row, 3, 1);
+
+        final Button btnFile = new Button();
+        btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(progData.primaryStage, txtProgPath));
+        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
+        gridPane.add(new Label("Programm: "), 0, ++row);
+        gridPane.add(txtProgPath, 1, row, 2, 1);
+        gridPane.add(btnFile, 3, row);
+
+        gridPane.add(new Label("Schalter: "), 0, ++row);
+        gridPane.add(txtProgSwitch, 1, row, 3, 1);
 
         final Button btnHelp = PButton.helpButton(stage, "Standardset", HelpTextPset.PSET_STANDARD);
         gridPane.add(new Label("Standardset:"), 0, ++row);
-        gridPane.add(tglStandarSet, 1, row);
-        gridPane.add(btnHelp, 2, row);
+        gridPane.add(cbxIsStandard, 1, row);
+        gridPane.add(btnStandardSet, 2, row);
+        gridPane.add(btnHelp, 3, row);
+        GridPane.setHalignment(btnStandardSet, HPos.RIGHT);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(), PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
-        vBox.getChildren().add(gridPane);
-    }
-
-    private void addConfigs(VBox vBox) {
-        gridPane.getStyleClass().add("extra-pane");
-        gridPane.setHgap(15);
-        gridPane.setVgap(5);
-        gridPane.setPadding(new Insets(20));
-
-        final Button btnFile = new Button();
-        btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
-        btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
-
-        int row = 0;
-        gridPane.add(new Label("Programm: "), 0, ++row);
-        gridPane.add(txtProgPath, 1, row);
-        gridPane.add(btnFile, 2, row);
-        gridPane.add(new Label("Schalter: "), 0, ++row);
-        gridPane.add(txtProgSwitch, 1, row, 2, 1);
-
-        gridPane.getColumnConstraints().addAll(new ColumnConstraints(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
-
         vBox.getChildren().add(gridPane);
     }
 
@@ -146,8 +137,7 @@ public class ProgramPane extends TitledPane {
             txtProgSwitch.textProperty().bindBidirectional(setData.programSwitchProperty());
             txtProgSwitch.textProperty().addListener(changeListener);
 
-            tglStandarSet.selectedProperty().bindBidirectional(setData.standardSetProperty());
-            tglStandarSet.selectedProperty().addListener(standardSetListener);
+            cbxIsStandard.setSelected(setData.isStandardSet());
         }
     }
 
@@ -161,40 +151,7 @@ public class ProgramPane extends TitledPane {
 
             txtProgSwitch.textProperty().unbindBidirectional(setData.programSwitchProperty());
             txtProgSwitch.textProperty().removeListener(changeListener);
-
-            tglStandarSet.selectedProperty().unbindBidirectional(setData.standardSetProperty());
-            tglStandarSet.selectedProperty().removeListener(standardSetListener);
         }
+        cbxIsStandard.setSelected(false);
     }
-
-//    private void setActProgramData() {
-//        ProgramData programDataAct = tableView.getSelectionModel().getSelectedItem();
-//        if (programDataAct == programData) {
-//            return;
-//        }
-//
-//        unbind();
-//
-//        programData = programDataAct;
-//        gridPane.setDisable(programData == null);
-//        if (programData != null) {
-//            txtName.textProperty().bindBidirectional(programData.nameProperty());
-//            txtProgPath.textProperty().bindBidirectional(programData.progPathProperty());
-//            txtProgSwitch.textProperty().bindBidirectional(programData.progSwitchProperty());
-//        }
-//    }
-
-//    private void unbind() {
-////            txtName.textProperty().unbindBidirectional(programData.nameProperty());
-////            txtProgPath.textProperty().unbindBidirectional(programData.progPathProperty());
-////            txtProgSwitch.textProperty().unbindBidirectional(programData.progSwitchProperty());
-//    }
-
-//    private int getSelectedLine() {
-//        final int sel = tableView.getSelectionModel().getSelectedIndex();
-//        if (sel < 0) {
-//            PAlert.showInfoNoSelection();
-//        }
-//        return sel;
-//    }
 }
