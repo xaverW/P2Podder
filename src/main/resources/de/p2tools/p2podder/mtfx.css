@@ -68,6 +68,30 @@
 }
 
 
+/* Button Sender/Favoriten/History */
+.btnTabTop, .btnTabTop-sel{
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 50 50 50 50;
+    -fx-text-fill: black;
+    -fx-padding: 10 60 10 60;
+    -fx-text-fill: white;
+    -fx-background-color: -grad-notSel;
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
+}
+.btnTabTop:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+.btnTabTop-sel{
+    -fx-background-color: -grad-sel;
+    -fx-effect: dropshadow(three-pass-box, #404040, 5, 0.2 , 2 , 2 );
+}
+.btnTabTop-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+
+
+
 /*Button zum löschen der Filter*/
 .btnClearFilter {
     -fx-background-color: #6a7c9a, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;

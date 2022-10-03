@@ -75,7 +75,7 @@ public class P2PodderController extends StackPane {
         try {
             // Toolbar
             HBox hBoxTop = new HBox();
-            hBoxTop.setPadding(new Insets(10));
+            hBoxTop.setPadding(new Insets(10, 10, 10, 10));
             hBoxTop.setSpacing(20);
             hBoxTop.setAlignment(Pos.CENTER);
 
@@ -105,21 +105,6 @@ public class P2PodderController extends StackPane {
             initMaskerPane();
             initButton();
             initMenu();
-//            progData.eventNotifyLoadPodcastList.addListenerLoadPodcastList(new EventListenerPodcastList() {
-//                @Override
-//                public void finished(EventLoadPodcastList event) {
-//                    Node node = stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1);
-//                    if (node != null && node == paneEpisodeGui) {
-//                        progData.episodeGui.getEpisodeGuiController().isShown();
-//                    }
-//                    if (node != null && node == panePodcastGui) {
-//                        progData.podcastGui.getPodcastGuiController().isShown();
-//                    }
-//                    if (node != null && node == paneDownloadGui) {
-//                        progData.downloadGui.getDownloadGuiController().isShown();
-//                    }
-//                }
-//            });
             switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
                 case ProgConst.LAST_TAB_STATION_EPISODE:
                 default:
@@ -321,19 +306,19 @@ public class P2PodderController extends StackPane {
         btnDownloads.getStyleClass().clear();
 
         if (btnSel.equals(btnEpisodes)) {
-            btnEpisodes.getStyleClass().add("btnTabEasy-sel");
+            btnEpisodes.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnEpisodes.getStyleClass().add("btnTabEasy");
+            btnEpisodes.getStyleClass().add("btnTabTop");
         }
         if (btnSel.equals(btnPodcasts)) {
-            btnPodcasts.getStyleClass().add("btnTabEasy-sel");
+            btnPodcasts.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnPodcasts.getStyleClass().add("btnTabEasy");
+            btnPodcasts.getStyleClass().add("btnTabTop");
         }
         if (btnSel.equals(btnDownloads)) {
-            btnDownloads.getStyleClass().add("btnTabEasy-sel");
+            btnDownloads.getStyleClass().add("btnTabTop-sel");
         } else {
-            btnDownloads.getStyleClass().add("btnTabEasy");
+            btnDownloads.getStyleClass().add("btnTabTop");
         }
     }
 
