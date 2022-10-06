@@ -113,8 +113,8 @@ public class SetDataListWorker extends SimpleListProperty<SetData> implements PD
         } while (found);
 
         setData.setId(setDataId);
-        if (setData.getVisibleName().isEmpty()) {
-            setData.setVisibleName(setData.getId());
+        if (setData.getName().isEmpty()) {
+            setData.setName(setData.getId());
         }
     }
 }

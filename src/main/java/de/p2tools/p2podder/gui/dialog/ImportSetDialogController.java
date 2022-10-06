@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.PsetVorlagen;
+import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.configDialog.setData.SetPaneController;
 import de.p2tools.p2podder.gui.startDialog.PathPane;
@@ -110,7 +110,7 @@ public class ImportSetDialogController extends PDialogExtra {
 
         progData.setDataList.clear();
 
-        if (SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
+        if (SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
             PAlert.showInfoAlert("Set", "Set importieren", "Sets wurden importiert!", false);
         } else {
             PAlert.showErrorAlert("Set importieren", "Sets konnten nicht importiert werden!");

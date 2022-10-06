@@ -29,7 +29,7 @@ public class SetData extends SetDataProps {
     public SetData(String name) {
         //neue Pset sind immer gleich Button
         setId(PIndex.getIndexStr());
-        setVisibleName(name);
+        setName(name);
     }
 
     public boolean isEmpty() {
@@ -41,46 +41,8 @@ public class SetData extends SetDataProps {
                 ret = false;
             }
         }
-//        if (!programList.isEmpty()) {
-//            ret = false;
-//        }
         return ret;
     }
-
-    public boolean isFreeLine() {
-        //Wenn die Programmgruppe keinen Namen hat, leere Zeile
-        return getVisibleName().isEmpty();
-    }
-
-//    public boolean isLable() {
-//        // wenn die Programmliste leer ist und einen Namen hat, ist es ein Lable
-//        return programList.isEmpty() && !getVisibleName().isEmpty();
-//    }
-
-//    public ProgramData getProgForUrl(String url) {
-//        //mit einer Url das Passende Programm finden
-//        //passt nichts, wird das letzte Programm genommen
-//        //ist nur ein Programm in der Liste wird dieses genommen
-//        ProgramData ret = null;
-//        if (programList.isEmpty()) {
-//            // todo bei vielen kommt das für jeden
-////            new MTAlert().showInfoAlert("Kein Programm", "Programme einrichten!",
-////                    "Es ist kein Programm zum Download eingerichtet");
-//        } else if (programList.size() == 1) {
-//            ret = programList.get(0);
-//        } else {
-//            for (ProgramData progData : programList) {
-//                if (progData.urlTesten(url)) {
-//                    ret = progData;
-//                    break;
-//                }
-//            }
-//            if (!programList.isEmpty() && ret == null) {
-//                ret = programList.get(programList.size() - 1);
-//            }
-//        }
-//        return ret;
-//    }
 
     public SetData copy() {
         final SetData ret = new SetData();
@@ -91,12 +53,8 @@ public class SetData extends SetDataProps {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
         ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
-        ret.setVisibleName("Kopie-" + getVisibleName());
+        ret.setName("Kopie-" + getName());
         ret.setStandardSet(false);
-
-//        for (final ProgramData programData : getProgramList()) {
-//            ret.addProg(programData.copy());
-//        }
         return ret;
     }
 
@@ -109,18 +67,16 @@ public class SetData extends SetDataProps {
         for (int i = 0; i < configs.length; ++i) {
             ret += "     | " + configs[i].getName() + ": " + configs[i].getActValueString() + P2LibConst.LINE_SEPARATOR;
         }
-
-//        for (final ProgramData programData : programList) {
-//            ret += "     |" + P2LibConst.LINE_SEPARATOR;
-//            ret += programData.toString();
-//        }
         ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
 
     public void setPropsFromXml() {
-        setId(arr[PROGRAMSET_ID]);
-        setVisibleName(arr[PROGRAMSET_VISIBLE_NAME]);
-        setStandardSet(Boolean.parseBoolean(arr[PROGRAMSET_IST_ABSPIELEN]));
+        setId(arr[SET_ID]);
+        setName(arr[SET_NAME]);
+        setDescription(arr[SET_DESCRIPTION]);
+        setStandardSet(Boolean.parseBoolean(arr[SET_STANDARD_SET]));
+        setProgramPath(arr[SET_PROGRAM_PATH]);
+        setProgramSwitch(arr[SET_PROGRAM_SWITCH]);
     }
 }

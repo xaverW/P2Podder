@@ -29,7 +29,8 @@ import java.util.ArrayList;
 public class SetDataProps extends SetDataBase {
 
     private StringProperty id = new SimpleStringProperty("");
-    private StringProperty visibleName = new SimpleStringProperty("");
+    private StringProperty name = new SimpleStringProperty("");
+    private StringProperty description = new SimpleStringProperty("");
     private BooleanProperty standardSet = new SimpleBooleanProperty(false);//ist das Standard-Set
     private StringProperty programPath = new SimpleStringProperty("");
     private StringProperty programSwitch = new SimpleStringProperty("");
@@ -45,11 +46,12 @@ public class SetDataProps extends SetDataBase {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("id", SetDataFieldNames.ID, id));
-        list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.VISIBLE_NAME, visibleName));
-        list.add(new ConfigBoolPropExtra("standardSet", SetDataFieldNames.STANARD_SET, standardSet));
-        list.add(new ConfigStringPropExtra("programPath", SetDataFieldNames.PROGRAM_PATH, programPath));
-        list.add(new ConfigStringPropExtra("programSwitch", SetDataFieldNames.PROGRAM_SWITCH, programSwitch));
+        list.add(new ConfigStringPropExtra("id", ID, id));
+        list.add(new ConfigStringPropExtra("name", NAME, name));
+        list.add(new ConfigStringPropExtra("description", DESCRIPTION, description));
+        list.add(new ConfigBoolPropExtra("standardSet", STANDARD_SET, standardSet));
+        list.add(new ConfigStringPropExtra("programPath", PROGRAM_PATH, programPath));
+        list.add(new ConfigStringPropExtra("programSwitch", PROGRAM_SWITCH, programSwitch));
 
         return list.toArray(new Config[]{});
     }
@@ -67,16 +69,28 @@ public class SetDataProps extends SetDataBase {
         this.id.set(id);
     }
 
-    public String getVisibleName() {
-        return visibleName.get();
+    public String getName() {
+        return name.get();
     }
 
-    public StringProperty visibleNameProperty() {
-        return visibleName;
+    public StringProperty nameProperty() {
+        return name;
     }
 
-    public void setVisibleName(String visibleName) {
-        this.visibleName.set(visibleName);
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getDescription() {
+        return description.get();
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description.set(description);
     }
 
     public boolean isStandardSet() {
@@ -117,11 +131,11 @@ public class SetDataProps extends SetDataBase {
 
     @Override
     public String toString() {
-        return getVisibleName();
+        return getName();
     }
 
     @Override
     public int compareTo(SetData setData) {
-        return this.getVisibleName().compareTo(setData.getVisibleName());
+        return this.getName().compareTo(setData.getName());
     }
 }

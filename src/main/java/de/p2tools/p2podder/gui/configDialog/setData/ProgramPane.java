@@ -24,7 +24,6 @@ import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.gui.tools.HelpTextPset;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -35,7 +34,8 @@ import javafx.stage.Stage;
 public class ProgramPane extends TitledPane {
     private SetData setData = null;
 
-    private final TextField txtVisibleName = new TextField("");
+    private final TextField txtName = new TextField("");
+    private final TextArea taDescription = new TextArea();
     private ChangeListener changeListener;
 
     private final TextField txtProgPath = new TextField();
@@ -98,7 +98,13 @@ public class ProgramPane extends TitledPane {
 
         int row = 0;
         gridPane.add(new Label("Set Name:"), 0, row);
-        gridPane.add(txtVisibleName, 1, row, 3, 1);
+        gridPane.add(txtName, 1, row, 2, 1);
+
+        taDescription.setPrefRowCount(4);
+        taDescription.setWrapText(true);
+        taDescription.setEditable(false);
+        gridPane.add(new Label("Beschreibung:"), 0, ++row);
+        gridPane.add(taDescription, 1, row, 2, 1);
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(progData.primaryStage, txtProgPath));
@@ -107,19 +113,20 @@ public class ProgramPane extends TitledPane {
         gridPane.add(new Label("Programm: "), 0, ++row);
         gridPane.add(txtProgPath, 1, row, 2, 1);
         gridPane.add(btnFile, 3, row);
+        txtProgPath.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setHgrow(txtProgPath, Priority.ALWAYS);
 
         gridPane.add(new Label("Schalter: "), 0, ++row);
-        gridPane.add(txtProgSwitch, 1, row, 3, 1);
+        gridPane.add(txtProgSwitch, 1, row, 2, 1);
 
         final Button btnHelp = PButton.helpButton(stage, "Standardset", HelpTextPset.PSET_STANDARD);
         gridPane.add(new Label("Standardset:"), 0, ++row);
         gridPane.add(cbxIsStandard, 1, row);
         gridPane.add(btnStandardSet, 2, row);
         gridPane.add(btnHelp, 3, row);
-        GridPane.setHalignment(btnStandardSet, HPos.RIGHT);
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(), PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+                PColumnConstraints.getCcComputedSizeAndHgrowRight(), PColumnConstraints.getCcPrefSize());
         vBox.getChildren().add(gridPane);
     }
 
@@ -128,12 +135,13 @@ public class ProgramPane extends TitledPane {
 
         this.setData = setData;
         if (setData != null) {
-            txtVisibleName.textProperty().bindBidirectional(setData.visibleNameProperty());
-            txtVisibleName.textProperty().addListener(changeListener);
+            txtName.textProperty().bindBidirectional(setData.nameProperty());
+            txtName.textProperty().addListener(changeListener);
+            taDescription.textProperty().bindBidirectional(setData.descriptionProperty());
+            taDescription.textProperty().addListener(changeListener);
 
             txtProgPath.textProperty().bindBidirectional(setData.programPathProperty());
             txtProgPath.textProperty().addListener(changeListener);
-
             txtProgSwitch.textProperty().bindBidirectional(setData.programSwitchProperty());
             txtProgSwitch.textProperty().addListener(changeListener);
 
@@ -143,12 +151,13 @@ public class ProgramPane extends TitledPane {
 
     void unBindProgData() {
         if (setData != null) {
-            txtVisibleName.textProperty().unbindBidirectional(setData.visibleNameProperty());
-            txtVisibleName.textProperty().removeListener(changeListener);
+            txtName.textProperty().unbindBidirectional(setData.nameProperty());
+            txtName.textProperty().removeListener(changeListener);
+            taDescription.textProperty().unbindBidirectional(setData.descriptionProperty());
+            taDescription.textProperty().removeListener(changeListener);
 
             txtProgPath.textProperty().unbindBidirectional(setData.programPathProperty());
             txtProgPath.textProperty().removeListener(changeListener);
-
             txtProgSwitch.textProperty().unbindBidirectional(setData.programSwitchProperty());
             txtProgSwitch.textProperty().removeListener(changeListener);
         }

@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
@@ -211,9 +211,9 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
-        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramTools.getProgVersion());
-        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramTools.getBuild());
-        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramTools.getCompileDate());
+        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramToolFactory.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramToolFactory.getBuild());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramToolFactory.getCompileDate());
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getInstance());

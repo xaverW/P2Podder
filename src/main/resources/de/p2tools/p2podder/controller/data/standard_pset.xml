@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<P2Podder>
+
+    <setData>
+        <name>Abspielen</name>
+        <description>Standardset zum Abspielen der Episoden</description>
+        <programPath>PFAD_VLC</programPath>
+        <programSwitch>%f --play-and-exit :http-user-agent="Mozilla/5.0"</programSwitch>
+    </setData>
+
+</P2Podder>

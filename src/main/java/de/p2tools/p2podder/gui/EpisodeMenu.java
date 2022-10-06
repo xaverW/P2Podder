@@ -76,7 +76,7 @@ public class EpisodeMenu {
         if (moreSets) {
             Menu miStartWithSet = new Menu("Episode abspielen, Programm auswählen");
             for (SetData set : progData.setDataList) {
-                MenuItem miStart = new MenuItem(set.getVisibleName());
+                MenuItem miStart = new MenuItem(set.getName());
                 miStart.setOnAction(a -> EpisodeFactory.playEpisode(set));
                 miStartWithSet.getItems().add(miStart);
             }

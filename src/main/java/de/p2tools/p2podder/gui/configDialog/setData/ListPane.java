@@ -20,8 +20,8 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.PsetVorlagen;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpTextPset;
@@ -81,7 +81,7 @@ public class ListPane extends TitledPane {
         });
 
         final TableColumn<SetData, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn()); //todo muss eindeutig sein
 
         final TableColumn<SetData, Boolean> standardColumn = new TableColumn<>("Standard");
@@ -150,7 +150,7 @@ public class ListPane extends TitledPane {
         Button btnNewSet = new Button("Standardsets _anfügen");
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
-            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
+            if (!SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
                 PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });

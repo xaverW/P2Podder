@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools;
 
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolFactory;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -294,7 +294,7 @@ public class FileNameUtils {
     public static String removeIllegalCharacters(final String input, boolean isPath) {
         String ret = input;
 
-        switch (ProgramTools.getOs()) {
+        switch (ProgramToolFactory.getOs()) {
             case MAC:
             case LINUX:
                 //On OSX the VFS take care of writing correct filenames to FAT filesystems...

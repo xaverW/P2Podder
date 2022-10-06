@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools;
 
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolFactory;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -65,7 +65,7 @@ public class SetsPrograms {
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
         String path = "";
         try {
-            switch (ProgramTools.getOs()) {
+            switch (ProgramToolFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD;
@@ -103,7 +103,7 @@ public class SetsPrograms {
         final String PATH_WINDOWS_FLV = "bin\\flvstreamer_win32_latest.exe";
         String path = "";
         try {
-            switch (ProgramTools.getOs()) {
+            switch (ProgramToolFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD;
@@ -135,7 +135,7 @@ public class SetsPrograms {
         final String PATH_WINDOWS_FFMPEG = "bin\\ffmpeg.exe";
         String path = "";
         try {
-            switch (ProgramTools.getOs()) {
+            switch (ProgramToolFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD_FFMPEG;
@@ -163,7 +163,7 @@ public class SetsPrograms {
         String path;
         final String PATH_LINUX_SCRIPT = "bin/flv.sh";
         final String PATH_WINDOWS_SCRIPT = "bin\\flv.bat";
-        switch (ProgramTools.getOs()) {
+        switch (ProgramToolFactory.getOs()) {
             case LINUX:
                 path = ProgInfos.getPathJar() + PATH_LINUX_SCRIPT;
                 break;

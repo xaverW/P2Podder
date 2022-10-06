@@ -17,14 +17,14 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolFactory;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2podder.controller.config.*;
-import de.p2tools.p2podder.controller.data.PsetVorlagen;
+import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startDialog.StartDialogController;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
@@ -58,22 +58,14 @@ public class ProgStartFactory {
                 Platform.exit();
                 System.exit(0);
             }
-
-            //todo das ist noch nicht ganz klar ob dahin
-            Platform.runLater(() -> {
-                PDuration.onlyPing("Erster Start: PSet");
-                // kann ein Dialog aufgehen
-                final SetDataList pSet = new PsetVorlagen().getStandarset(true /*replaceMuster*/);
-                if (pSet != null) {
-                    progData.setDataList.addSetData(pSet);
-                    ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
-                }
-                PDuration.onlyPing("Erster Start: PSet geladen");
-            });
         }
         progData.episodeList.initList();
         progData.podcastList.initList();
         progData.downloadList.initList();
+        if (progData.setDataList.isEmpty()) {
+            //beim ersten Start oder wenn sie sonst fehlen
+            addStandarSets(progData);
+        }
 
         return firstProgramStart;
     }
@@ -93,6 +85,20 @@ public class ProgStartFactory {
         checkProgUpdate(progData);
     }
 
+    private static void addStandarSets(ProgData progData) {
+        Platform.runLater(() -> {
+            PDuration.onlyPing("Erster Start: PSet");
+            // kann ein Dialog aufgehen
+            final SetDataList pSet = ImportSetDataFactory.getStandarset();
+            if (pSet != null) {
+                progData.setDataList.addSetData(pSet);
+                ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
+            }
+            PDuration.onlyPing("Erster Start: PSet geladen");
+        });
+
+    }
+
     private static void startMsg() {
         ArrayList<String> list = new ArrayList<>();
         list.add("Verzeichnisse:");
@@ -108,9 +114,9 @@ public class ProgStartFactory {
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramTools.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolFactory.getProgVersion());
         }
     }
 

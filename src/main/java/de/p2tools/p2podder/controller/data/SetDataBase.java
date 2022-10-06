@@ -19,23 +19,26 @@ package de.p2tools.p2podder.controller.data;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 
 public class SetDataBase extends PDataSample<SetData> {
+    public static final int SET_ID = 0;
+    public static final int SET_NAME = 1;
+    public static final int SET_DESCRIPTION = 2;
+    public static final int SET_STANDARD_SET = 3;
+    public static final int SET_PROGRAM_PATH = 4;
+    public static final int SET_PROGRAM_SWITCH = 5;
 
-    //Tags Programmgruppen
-    public static final int PROGRAMSET_ID = 0;
-    public static final int PROGRAMSET_VISIBLE_NAME = 1;
-    public static final int PROGRAMSET_PRAEFIX_DIRECT = 2;
-    public static final int PROGRAMSET_SUFFIX_DIRECT = 3;
-    public static final int PROGRAMSET_IST_ABSPIELEN = 4;
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String DESCRIPTION = "description";
+    public static final String STANDARD_SET = "standard";
+    public static final String PROGRAM_PATH = "programPath";
+    public static final String PROGRAM_SWITCH = "programSwitch";
 
-    public static final int MAX_ELEM = 5;
-
-    public static final String[] COLUMN_NAMES = {"Name", "Setname", "Präfix", "Suffix",
-            "Abspielen",};
-    public static final String[] XML_NAMES = {"Name", "Setname", "Praefix", "Suffix",
-            "Abspielen",}; //ist im Set zum Download so festgesetzt
+    public static final int MAX_ELEM = 6;
+    public static final String[] XML_NAMES = {ID, NAME, DESCRIPTION, STANDARD_SET, PROGRAM_PATH,
+            PROGRAM_SWITCH}; //ist im Set zum Download so festgesetzt
 
     public String[] arr;
-    public static final String TAG = "Programmset"; //ist im Set zum Download so festgesetzt
+    public static final String TAG = "setData"; //ist im Set zum Download so festgesetzt
 
     public SetDataBase() {
         makeArray();
@@ -46,6 +49,6 @@ public class SetDataBase extends PDataSample<SetData> {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = "";
         }
-        arr[PROGRAMSET_IST_ABSPIELEN] = Boolean.toString(false);
+        arr[SET_STANDARD_SET] = Boolean.toString(false);
     }
 }
