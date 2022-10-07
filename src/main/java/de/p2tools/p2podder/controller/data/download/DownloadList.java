@@ -74,9 +74,6 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
         if (obj.getClass().equals(Download.class)) {
             Download d = (Download) obj;
             add(d);
-//            if (d.getSize() > 0) {
-//                d.getDownloadSize().setFileSize(d.getSize());
-//            }
         }
     }
 

@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.ProgramToolFactory;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
@@ -150,7 +150,6 @@ public class ProgConfig extends PDataProgConfig {
     public static DoubleProperty EPISODE_GUI_DIVIDER = addDouble("episode-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
     public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBool("episode-gui-divider-on", Boolean.TRUE);
     public static StringProperty EPISODE_DIALOG_EDIT_SIZE = addStr("episode-dialog-edit-size", "800:800");
-    public static StringProperty EPISODE_DIALOG_ADD_SIZE = addStr("episode-dialog-add-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStr("start-station-error-dialog-size", "");
     public static StringProperty EPISODE_GUI_TABLE_WIDTH = addStr("episode-gui-table-width");
     public static StringProperty EPISODE_GUI_TABLE_SORT = addStr("episode-gui-table-sort");
@@ -211,9 +210,9 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
-        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramToolFactory.getProgVersion());
-        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramToolFactory.getBuild());
-        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramToolFactory.getCompileDate());
+        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramToolsFactory.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramToolsFactory.getBuild());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramToolsFactory.getCompileDate());
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getInstance());

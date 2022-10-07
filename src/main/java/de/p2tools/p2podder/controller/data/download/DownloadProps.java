@@ -58,12 +58,6 @@ public class DownloadProps extends PDataSample<Download> {
     private final PLocalDateProperty pubDate = new PLocalDateProperty();
 
     DownloadProps() {
-//        pdownloadSize.addListener(new ChangeListener<Long>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Long> observable, Long oldValue, Long newValue) {
-//                System.out.println("downloadSize: " + pdownloadSize.getActFileSize());
-//            }
-//        });
     }
 
     @Override

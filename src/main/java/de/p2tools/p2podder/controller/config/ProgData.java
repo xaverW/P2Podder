@@ -129,9 +129,9 @@ public class ProgData {
         progTray = new ProgTray(this);
 
         historyDownloads = new HistoryList(ProgConst.FILE_FINISHED_DOWNLOADS,
-                ProgInfos.getSettingsDirectoryString());
+                ProgInfosFactory.getSettingsDirectoryString());
         historyEpisodes = new HistoryList(ProgConst.FILE_PLAYED_EPISODES,
-                ProgInfos.getSettingsDirectoryString());
+                ProgInfosFactory.getSettingsDirectoryString());
     }
 
     public void initProgData() {

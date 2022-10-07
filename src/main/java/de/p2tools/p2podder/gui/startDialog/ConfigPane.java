@@ -89,7 +89,7 @@ public class ConfigPane {
         }
         txtPodDest.textProperty().bindBidirectional(propPodDir);
         if (txtPodDest.getText().isEmpty()) {
-            txtPodDest.setText(ProgInfos.getStandardPodDestString());
+            txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
         }
 
         final Button btnFile = new Button();
@@ -103,7 +103,7 @@ public class ConfigPane {
         btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Episoden wieder herstellen"));
         btnReset.setOnAction(event -> {
-            txtPodDest.setText(ProgInfos.getStandardPodDestString());
+            txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
         });
 
         gridPane.add(txtPodDest, 0, ++row);

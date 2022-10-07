@@ -73,7 +73,6 @@ public class Main {
         if (maxMem < 200 * FileUtils.ONE_MB) {
             if (GraphicsEnvironment.isHeadless()) {
                 System.err.println("Die VM hat nicht genügend Arbeitsspeicher zugewiesen bekommen.");
-                System.err.println("Nutzen Sie den Startparameter -Xmx512M für Minimumspeicher");
             } else {
                 MTStartErrorWindow.main(args);
             }

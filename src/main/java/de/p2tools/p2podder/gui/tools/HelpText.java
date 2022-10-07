@@ -176,4 +176,37 @@ public class HelpText {
                     "und muss neu gestartet werden. Der neue Start beginnt " +
                     "mit dem Einrichtungsdialog." +
                     P2LibConst.LINE_SEPARATOR;
+    public static final String PSET_STANDARD = "Das Standardset wird zum Abspielen der Episoden " +
+            "verwendet. Es können auch weitere Sets angelegt werden. Beim Start kann man dann auswählen, " +
+            "mit welchem Set die Episode abgespielt werden soll. " +
+            "Ist nur ein Set angelegt, ist es immer das Standardset." +
+            "\n";
+    public static final String HELP_PSET = "\n" +
+            "Ein Set ist ein Satz von Hilfsprogrammen, an welches ein Pfad zu einer Episode übergeben wird. " +
+            "Mit dem Programm wird dann die Episode abgespielt.\n" +
+            "\n" +
+            "\n" +
+            "====================\n" +
+            "Hilfsprogramme:\n" +
+            "===\n" +
+            "\n" +
+            "Hier werden die Programme zum jeweiligen Set eingetragen. Sind mehrere Programme eingetragen, " +
+            "kann man zu jedem Programm über die Felder Präfix und Suffix wählen, für welchen Dateinamen ein Programm " +
+            "zuständig ist.\n" +
+            "\n" +
+            "\"Programm\": In dem Feld steht NUR!! das Programm: \"Pfad/Programmdatei\"\n" +
+            "\n" +
+            "\"Schalter\": In diesem Feld werden die Programmschalter angegeben, die das Programm zum Start braucht. " +
+            "Mögliche Parameter sind:\n" +
+            "\n" +
+            "Diese Angaben werden durch den Pfad ersetzt:\n" +
+            "%f ist der Pfad/Datei der Episode\n" +
+            "\n" +
+            "==================================================\n" +
+            "Beispiel für den VLC:\n" +
+            "Programm: \"/usr/bin/vlc\"\n" +
+            "Schalter: \"%f --play-and-exit :http-user-agent=\"Mozilla/5.0\"\n" +
+            "\n" +
+            "Hier wird %f durch dem Pfad/Datei der Episode ersetzt. " +
+            "\n";
 }

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2Lib.tools.ProgramToolFactory;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
@@ -40,7 +40,7 @@ public class ImportSetDataFactory {
 
         // liefert das Standard Programmset für das entsprechende BS
         InputStreamReader inReader;
-        switch (ProgramToolFactory.getOs()) {
+        switch (ProgramToolsFactory.getOs()) {
             case LINUX:
             case MAC:
             case WIN:
@@ -52,7 +52,7 @@ public class ImportSetDataFactory {
         setDataList = importPset(inReader);
 
         //und jetzt noch die dummy
-        switch (ProgramToolFactory.getOs()) {
+        switch (ProgramToolsFactory.getOs()) {
             case LINUX:
             case MAC:
             case WIN:

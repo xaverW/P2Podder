@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.configFile.WriteConfigFile;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 
 import java.nio.file.Path;
 
@@ -39,7 +39,7 @@ public class ProgSaveFactory {
         //sind die Programmeinstellungen
         PLog.sysLog("save progConfig");
 
-        final Path xmlFilePath = ProgInfos.getSettingsFile();
+        final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
         ConfigFile configFile = new ConfigFile(ProgConst.XML_START, xmlFilePath);
         ProgConfig.addConfigData(configFile);
 

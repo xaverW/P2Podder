@@ -24,7 +24,7 @@ import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -58,15 +58,15 @@ public class StylePane {
 
         if (changed) {
             if (styleProperty.get()) {
-                IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), size);
-                P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
+                IoReadWriteStyle.writeStyle(ProgInfosFactory.getStyleFile(), size);
+                P2LibInit.setStyleFile(ProgInfosFactory.getStyleFile().toString());
                 PLog.sysLog("Schriftgröße ändern: " + size);
             } else {
-                IoReadWriteStyle.writeStyle(ProgInfos.getStyleFile(), -1);
+                IoReadWriteStyle.writeStyle(ProgInfosFactory.getStyleFile(), -1);
                 P2LibInit.setStyleFile("");
                 PLog.sysLog("Schriftgröße nicht mehr ändern.");
             }
-            IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), progData.primaryStage.getScene());
+            IoReadWriteStyle.readStyle(ProgInfosFactory.getStyleFile(), progData.primaryStage.getScene());
         }
     }
 

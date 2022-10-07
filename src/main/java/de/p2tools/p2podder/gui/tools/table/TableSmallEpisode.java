@@ -354,33 +354,10 @@ public class TableSmallEpisode extends PTable<Episode> {
                 hbox.getChildren().add(btnDel);
 
                 setGraphic(hbox);
-//                final boolean history = progData.historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
-//                setCellStyle(this, episode.isNew(), started, running, error, history);
             }
         };
         return cell;
     };
-
-    private void setCellStyle(TableCell<Episode, Integer> cell, boolean isNew, boolean started, boolean running,
-                              boolean error, boolean history) {
-        TableRow<Episode> currentRow = cell.getTableRow();
-        if (currentRow == null) {
-            return;
-        }
-
-        if (started && !running) {
-            currentRow.setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackgroundAndSel());
-        } else if (running) {
-            currentRow.setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackgroundAndSel());
-        } else if (error) {
-            currentRow.setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackgroundAndSel());
-        } else {
-            currentRow.setStyle("");
-        }
-        if (!error && !started && !running && history) {
-            currentRow.setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackgroundAndSel());
-        }
-    }
 
     private Callback<TableColumn<Episode, Integer>, TableCell<Episode, Integer>> cellFactoryNo
             = (final TableColumn<Episode, Integer> param) -> {
@@ -408,6 +385,7 @@ public class TableSmallEpisode extends PTable<Episode> {
         };
         return cell;
     };
+
     private Callback<TableColumn<Episode, PFileSize>, TableCell<Episode, PFileSize>> cellFactorySize
             = (final TableColumn<Episode, PFileSize> param) -> {
 

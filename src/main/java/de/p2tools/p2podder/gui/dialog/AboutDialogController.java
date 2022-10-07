@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.dialogs.AboutDialog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 
 public class AboutDialogController extends AboutDialog {
@@ -31,7 +31,7 @@ public class AboutDialogController extends AboutDialog {
                 ProgConst.FILE_PROG_ICON, ProgConfig.SYSTEM_PROG_OPEN_URL,
                 ProgConfig.SYSTEM_DARK_THEME.getValue(),
                 new String[]{"Einstellungen:"},
-                new String[]{ProgInfos.getSettingsFile().toAbsolutePath().toString()}, true);
+                new String[]{ProgInfosFactory.getSettingsFile().toAbsolutePath().toString()}, true);
     }
 
     public synchronized static final AboutDialogController getInstanceAndShow() {

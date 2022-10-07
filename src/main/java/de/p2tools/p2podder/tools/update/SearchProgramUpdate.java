@@ -18,7 +18,7 @@ package de.p2tools.p2podder.tools.update;
 
 import de.p2tools.p2Lib.checkForActInfos.FoundAll;
 import de.p2tools.p2Lib.checkForActInfos.FoundSearchData;
-import de.p2tools.p2Lib.tools.ProgramToolFactory;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -80,8 +80,8 @@ public class SearchProgramUpdate {
                 ProgConst.URL_WEBSITE,
                 ProgConst.URL_WEBSITE_DOWNLOAD,
                 ProgConst.PROGRAM_NAME,
-                ProgramToolFactory.getProgVersion(),
-                ProgramToolFactory.getBuild(),
+                ProgramToolsFactory.getProgVersion(),
+                ProgramToolsFactory.getBuild(),
                 buildDate,
                 ProgConfig.SYSTEM_DOWNLOAD_DIR_NEW_VERSION,
                 showAllways

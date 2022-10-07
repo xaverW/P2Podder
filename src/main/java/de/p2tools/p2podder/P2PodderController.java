@@ -212,15 +212,10 @@ public class P2PodderController extends StackPane {
         final Menu mHelp = new Menu("Hilfe");
         mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
         if (ProgData.debug) {
-            final MenuItem miDebug = new MenuItem("Debug: Debugtools");
-            miDebug.setOnAction(event -> {
-                MTPTester mtpTester = new MTPTester(progData);
-                mtpTester.showDialog();
-            });
             final MenuItem miSave = new MenuItem("Debug: Alles Speichern");
             miSave.setOnAction(a -> ProgSaveFactory.saveAll());
 
-            mHelp.getItems().addAll(miDebug, miSave, new SeparatorMenuItem());
+            mHelp.getItems().addAll(miSave);
         }
 
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));

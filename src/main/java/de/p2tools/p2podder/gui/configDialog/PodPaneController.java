@@ -23,7 +23,7 @@ import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
@@ -79,7 +79,7 @@ public class PodPaneController extends PAccordionPane {
         final Button btnHelp = PButton.helpButton(stage, "Speicherordner Podcasts", HelpText.DEST_DIR);
         txtPodDest.textProperty().bindBidirectional(ProgConfig.SYSTEM_POD_DIR);
         if (txtPodDest.getText().isEmpty()) {
-            txtPodDest.setText(ProgInfos.getStandardPodDestString());
+            txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
         }
 
         final Button btnFile = new Button();
@@ -93,7 +93,7 @@ public class PodPaneController extends PAccordionPane {
         btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Podcasts wieder herstellen"));
         btnReset.setOnAction(event -> {
-            txtPodDest.setText(ProgInfos.getStandardPodDestString());
+            txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
         });
 
         tglUpdatePodcastDaily.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY);

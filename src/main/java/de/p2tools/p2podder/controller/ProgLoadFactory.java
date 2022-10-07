@@ -22,7 +22,10 @@ import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.config.*;
+import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
+import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.parser.ParserThread;
 
@@ -42,7 +45,6 @@ public class ProgLoadFactory {
             PLog.sysLog("-> konnte nicht geladen werden!");
             clearConfig();
         } else {
-            UpdateConfig.update(); // falls es ein Programmupdate gab, Configs anpassen
             PLog.sysLog("-> wurde gelesen!");
         }
         initP2Lib();
@@ -89,7 +91,7 @@ public class ProgLoadFactory {
     }
 
     private static boolean loadProgConfig() {
-        final Path path = ProgInfos.getSettingsFile();
+        final Path path = ProgInfosFactory.getSettingsFile();
         PLog.sysLog("Programmstart und ProgConfig laden von: " + path.toString());
         ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
 
@@ -101,7 +103,7 @@ public class ProgLoadFactory {
     }
 
     private static void initP2Lib() {
-        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfos.getUserAgent(),
+        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfosFactory.getUserAgent(),
                 ProgData.debug, ProgData.duration);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }

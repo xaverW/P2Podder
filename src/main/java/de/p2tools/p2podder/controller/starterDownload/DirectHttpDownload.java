@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
@@ -182,7 +182,7 @@ public class DirectHttpDownload extends Thread {
         HttpURLConnection connection = null;
         try {
             connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", ProgInfos.getUserAgent());
+            connection.setRequestProperty("User-Agent", ProgInfosFactory.getUserAgent());
             connection.setReadTimeout(TIMEOUT_LENGTH);
             connection.setConnectTimeout(TIMEOUT_LENGTH);
             if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
@@ -210,7 +210,7 @@ public class DirectHttpDownload extends Thread {
      */
     private void setupHttpConnection(HttpURLConnection conn) {
         conn.setRequestProperty("Range", "bytes=" + downloaded + '-');
-        conn.setRequestProperty("User-Agent", ProgInfos.getUserAgent());
+        conn.setRequestProperty("User-Agent", ProgInfosFactory.getUserAgent());
         conn.setDoInput(true);
         conn.setDoOutput(true);
     }

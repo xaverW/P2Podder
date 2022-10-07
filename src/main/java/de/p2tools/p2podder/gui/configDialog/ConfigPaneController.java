@@ -28,7 +28,7 @@ import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
@@ -185,7 +185,7 @@ public class ConfigPaneController extends PAccordionPane {
                 return;
             }
             if (newValue) {
-                PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
+                PLogger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
             } else {
                 PLogger.removeFileHandler();
             }
@@ -196,7 +196,7 @@ public class ConfigPaneController extends PAccordionPane {
         txtLogFile = new TextField();
         txtLogFile.textProperty().bindBidirectional(propLogDir);
         if (txtLogFile.getText().isEmpty()) {
-            txtLogFile.setText(ProgInfos.getLogDirectoryString());
+            txtLogFile.setText(ProgInfosFactory.getLogDirectoryString());
         }
 
         final Button btnFile = new Button();
@@ -210,7 +210,7 @@ public class ConfigPaneController extends PAccordionPane {
         btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_RESET.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für das Logfile wieder herstellen"));
         btnReset.setOnAction(event -> {
-            txtLogFile.setText(ProgInfos.getStandardLogDirectoryString());
+            txtLogFile.setText(ProgInfosFactory.getStandardLogDirectoryString());
         });
 
         final Button btnChange = new Button("_Pfad zum Logfile jetzt schon ändern");
@@ -219,7 +219,7 @@ public class ConfigPaneController extends PAccordionPane {
                 "ansonsten wird er erst beim nächsten\n" +
                 "Programmstart verwendet"));
         btnChange.setOnAction(event -> {
-            PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
+            PLogger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
             logfileChanged.setValue(false);
         });
 

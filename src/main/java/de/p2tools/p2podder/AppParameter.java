@@ -149,6 +149,4 @@ public class AppParameter {
         formatter.printHelp(ProgConst.PROGRAM_NAME, allowed);
 
     }
-
-
 }

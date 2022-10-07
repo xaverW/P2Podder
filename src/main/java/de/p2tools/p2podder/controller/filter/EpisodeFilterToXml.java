@@ -66,39 +66,6 @@ public class EpisodeFilterToXml {
         return array;
     }
 
-//    public static void setValueArray(SelectedFilter sf, String[] array) {
-//        // fürs Einselesen aus dem Configfile
-//
-//        sf.setName(array[FILTER_NAME]);
-//        sf.setChannelVis(Boolean.parseBoolean(array[FILTER_SENDER_VIS]));
-//        sf.setTitle(array[FILTER_TITLE]);
-//        parsInt(sf, array);
-//    }
-//
-//    private static void parsInt(SelectedFilter sf, String[] array) {
-//        // filter days
-//        if (array[FILTER_TIME_RANGE].equals(ProgConst.FILTER_ALL)) {
-//            sf.setTimeRange(FilmFilter.FILTER_TIME_RANGE_ALL_VALUE);
-//        } else {
-//            try {
-//                sf.setTimeRange(Integer.parseInt(array[FILTER_TIME_RANGE]));
-//            } catch (Exception ex) {
-//                sf.setTimeRange(FilmFilter.FILTER_TIME_RANGE_ALL_VALUE);
-//            }
-//        }
-//    }
-//
-//    public static String[] getValueArray(SelectedFilter sf) {
-//        // erstellt das Array der Filter fürs Schreiben ins Configfile
-//        final String[] array = getEmptyArray();
-//
-//        array[FILTER_NAME] = sf.getName();
-//        array[FILTER_SENDER_VIS] = String.valueOf(sf.isChannelVis());
-//        array[FILTER_SENDER] = sf.getChannel();
-//        array[FILTER_THEME_VIS] = String.valueOf(sf.isThemeVis());
-//        return array;
-//    }
-
     public static String[] getXmlArray() {
         // erstellt die XML-Namen fürs Lesen/Schreiben aus/ins Configfile
         final String[] array = getEmptyArray();

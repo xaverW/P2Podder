@@ -24,7 +24,7 @@ import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
-import de.p2tools.p2podder.gui.tools.HelpTextPset;
+import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -167,7 +167,7 @@ public class ListPane extends TitledPane {
         HBox.setHgrow(hBox, Priority.ALWAYS);
         hBox.getChildren().addAll(btnNew, btnDel, btnUp, btnDown);
 
-        final Button btnHelp = PButton.helpButton(stage, "Set", HelpTextPset.HELP_PSET);
+        final Button btnHelp = PButton.helpButton(stage, "Set", HelpText.HELP_PSET);
         HBox hBoxHlp = new HBox(10);
         hBoxHlp.getChildren().addAll(hBox, btnHelp);
 

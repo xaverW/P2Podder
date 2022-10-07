@@ -87,21 +87,6 @@ public class SetDataList extends SetDataListWorker {
             pSet.setProgramPath(pSet.getProgramPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
             pSet.setProgramSwitch(pSet.getProgramSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
         }
-
-//        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
-//            final ProgramData prog = pSet.getProg(p);
-//            if (prog.getProgPath().contains(PATTERN_PATH_VLC) || prog.getProgSwitch().contains(PATTERN_PATH_VLC)) {
-//                vlc = getPathVlc();
-//                break;
-//            }
-//        }
-
-//        for (int p = 0; p < pSet.getProgramList().size(); ++p) {
-//            final ProgramData prog = pSet.getProg(p);
-//            //VLC
-//            prog.setProgPath(prog.getProgPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
-//            prog.setProgSwitch(prog.getProgSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
-//        }
         return true;
     }
 
@@ -114,17 +99,6 @@ public class SetDataList extends SetDataListWorker {
         }
         return ProgConfig.SYSTEM_PATH_VLC.get();
     }
-
-//    public SetData getSetDataPlay(String id) {
-//        //liefert die Programmgruppe zum Abspielen
-//        //oder wenn nicht vorhanden, die Standard-Programmgruppe
-//        for (final SetData setData : this) {
-//            if (setData.getId().equals(id)) {
-//                return setData;
-//            }
-//        }
-//        return getSetDataPlay();
-//    }
 
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
@@ -184,10 +158,6 @@ public class SetDataList extends SetDataListWorker {
             for (int i = 0; i < configs.length; ++i) {
                 list.add("     | " + configs[i].getName() + ": " + configs[i].getActValueString());
             }
-//            for (final ProgramData programData : setData.programList) {
-//                list.add("     |");
-//                programData.getStringDescription(list);
-//            }
             list.add("     |_____________________________");
             list.add("");
         }

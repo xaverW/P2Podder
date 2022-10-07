@@ -85,8 +85,8 @@ public class P2Podder extends Application {
             ProgColorList.setColorTheme();
 
             if (ProgConfig.SYSTEM_STYLE.get()) {
-                P2LibInit.setStyleFile(ProgInfos.getStyleFile().toString());
-                IoReadWriteStyle.readStyle(ProgInfos.getStyleFile(), scene);
+                P2LibInit.setStyleFile(ProgInfosFactory.getStyleFile().toString());
+                IoReadWriteStyle.readStyle(ProgInfosFactory.getStyleFile(), scene);
             }
 
             ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {

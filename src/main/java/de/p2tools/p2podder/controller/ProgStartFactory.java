@@ -17,13 +17,16 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.ProgramToolFactory;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2podder.controller.config.*;
+import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
+import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startDialog.StartDialogController;
@@ -44,13 +47,12 @@ public class ProgStartFactory {
         boolean firstProgramStart = false;
         boolean loadOk = ProgLoadFactory.loadProgConfigData();
         if (ProgConfig.SYSTEM_LOG_ON.get()) {
-            PLogger.setFileHandler(ProgInfos.getLogDirectoryString());
+            PLogger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
         }
 
         if (!loadOk) {
             PDuration.onlyPing("Erster Start");
             firstProgramStart = true;
-            UpdateConfig.setUpdateDone(); //dann ists ja kein Programmupdate
 
             StartDialogController startDialogController = new StartDialogController();
             if (!startDialogController.isOk()) {
@@ -102,8 +104,8 @@ public class ProgStartFactory {
     private static void startMsg() {
         ArrayList<String> list = new ArrayList<>();
         list.add("Verzeichnisse:");
-        list.add("Programmpfad: " + ProgInfos.getPathJar());
-        list.add("Verzeichnis Einstellungen: " + ProgInfos.getSettingsDirectoryString());
+        list.add("Programmpfad: " + ProgInfosFactory.getPathJar());
+        list.add("Verzeichnis Einstellungen: " + ProgInfosFactory.getSettingsDirectoryString());
         list.add(PLog.LILNE2);
         list.add("");
         list.add("Programmsets:");
@@ -114,9 +116,9 @@ public class ProgStartFactory {
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolFactory.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolFactory.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
         }
     }
 

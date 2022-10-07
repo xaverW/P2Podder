@@ -28,20 +28,6 @@ public class DownloadListFactory {
     private DownloadListFactory() {
     }
 
-    /**
-     * Return a List of all loading but not yet finished downloads.
-     *
-     * @return A list with all station objects.
-     */
-//    static synchronized List<Download> getListOfDownloadsNotFinished() {
-//        final List<Download> downloads = new ArrayList<>();
-//
-//        downloads.addAll(ProgData.getInstance().downloadList.stream()
-//                .filter(download -> download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStatedRunning())
-//                .collect(Collectors.toList()));
-//
-//        return downloads;
-//    }
     public static synchronized long countRunningDownloads() {
         long count = ProgData.getInstance().downloadList.stream()
                 .filter(download -> download.isStarted()).count();

@@ -137,15 +137,6 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
 
         PDuration.counterStart("History: addDataToHistory");
         for (final Download download : downloadList) {
-            // auch wenn schon in der History, dann doch den Film als gesehen markieren
-//            if (bookmark && download.getFilm() != null) {
-//                download.getFilm().setBookmark(true);
-//
-//            } else if (download.getFilm() != null) {
-//                download.getFilm().setShown(true);
-//                download.getFilm().setActHist(true);
-//            }
-
             if (checkIfUrlAlreadyIn(download.getEpisodeUrl())) {
                 continue;
             }

@@ -26,9 +26,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.CodeSource;
 
-public class ProgInfos {
+public class ProgInfosFactory {
 
-    private ProgInfos() {
+    private ProgInfosFactory() {
     }
 
     public static String getUserAgent() {

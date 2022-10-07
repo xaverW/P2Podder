@@ -21,7 +21,7 @@ public class ProgConst {
     public static final String PROGRAM_NAME = "P2Podder";
     public static final String USER_AGENT_DEFAULT = PROGRAM_NAME;
     public static final int MAX_USER_AGENT_SIZE = 100;
-    public static final int SYSTEM_UPDATE_SATE = 0;
+    public static final int SYSTEM_UPDATE_STATE = 0;
 
     // settings file
     public static final String CONFIG_FILE = "p2podder.xml";
@@ -36,17 +36,12 @@ public class ProgConst {
     public static final String CSS_FILE_DARK_THEME = "de/p2tools/p2podder/mtfx-dark.css";
 
     public static final String FORMAT_ZIP = ".zip";
-    public static final String FORMAT_XZ = ".xz";
 
 
     // Website
     public static final String URL_WEBSITE = "https://www.p2tools.de/";
     public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2podder/download.html";
     public static final String URL_WEBSITE_HELP = "https://www.p2tools.de/p2podder/manual/";
-
-    // die URL der Sets, nicht mehr mit jeder Programmversion hochzählen, nur noch wenn notwendig
-    public static final String URL_WEB_CONFIG_DIRECTORY = "https://www.p2tools.de/extra/p2podder/v-1/";
-    public static final String URL_WEB_PROGRAM_SETS = URL_WEB_CONFIG_DIRECTORY + "pset-templates.xml";
 
     // ProgrammUrls
     public static final String ADRESSE_WEBSITE_VLC = "http://www.videolan.org";

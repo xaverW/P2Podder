@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetData;
-import de.p2tools.p2podder.gui.tools.HelpTextPset;
+import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -119,7 +119,7 @@ public class ProgramPane extends TitledPane {
         gridPane.add(new Label("Schalter: "), 0, ++row);
         gridPane.add(txtProgSwitch, 1, row, 2, 1);
 
-        final Button btnHelp = PButton.helpButton(stage, "Standardset", HelpTextPset.PSET_STANDARD);
+        final Button btnHelp = PButton.helpButton(stage, "Standardset", HelpText.PSET_STANDARD);
         gridPane.add(new Label("Standardset:"), 0, ++row);
         gridPane.add(cbxIsStandard, 1, row);
         gridPane.add(btnStandardSet, 2, row);
