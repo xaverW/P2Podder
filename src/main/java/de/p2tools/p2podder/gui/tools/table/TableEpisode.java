@@ -153,6 +153,18 @@ public class TableEpisode extends PTable<Episode> {
                         setTooltip(tooltip);
                     }
 
+                    //und jetzt die Farben setzen
+                    if (isSelected()) {
+                        if (ProgColorList.TABLE_ROW_IS_SEL_BG.isUse()) {
+                            setStyle(ProgColorList.TABLE_ROW_IS_SEL_BG.getCssBackgroundAndSel());
+                        }
+                        if (ProgColorList.TABLE_ROW_IS_SEL.isUse()) {
+                            for (int i = 0; i < getChildren().size(); i++) {
+                                getChildren().get(i).setStyle(ProgColorList.TABLE_ROW_IS_SEL.getCssFont());
+                            }
+                        }
+                        return;
+                    }
 
                     if (error) {
                         if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
