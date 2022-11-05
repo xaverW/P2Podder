@@ -154,7 +154,7 @@ public class ProgData {
     }
 
     private void doTimerWorkOneSecond() {
-        ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_TIMER));
+        pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_TIMER));
     }
 
     public synchronized static final ProgData getInstance() {

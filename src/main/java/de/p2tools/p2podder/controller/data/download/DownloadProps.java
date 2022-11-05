@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.MTDownload.DownloadSize;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.guiTools.PDownloadSize;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
@@ -44,7 +44,7 @@ public class DownloadProps extends PDataSample<Download> {
     private final BooleanProperty placedBack = new SimpleBooleanProperty(false);
     private final DoubleProperty progress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
     private final DoubleProperty guiProgress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
-    private final PDownloadSize pdownloadSize = new PDownloadSize();
+    private final DownloadSize pdownloadSize = new DownloadSize();
 
     private final StringProperty remaining = new SimpleStringProperty("");
     private final StringProperty bandwidth = new SimpleStringProperty("");
@@ -245,11 +245,11 @@ public class DownloadProps extends PDataSample<Download> {
     }
 
 
-    public PDownloadSize getPdownloadSize() {
+    public DownloadSize getPdownloadSize() {
         return pdownloadSize;
     }
 
-    public PDownloadSize pdownloadSizeProperty() {
+    public DownloadSize pdownloadSizeProperty() {
         return pdownloadSize;
     }
 

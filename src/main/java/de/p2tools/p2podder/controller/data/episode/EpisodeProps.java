@@ -18,9 +18,9 @@ package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.guiTools.PFileSize;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
+import de.p2tools.p2Lib.tools.file.PFileSize;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty fileName = new SimpleStringProperty("");
     private final StringProperty filePath = new SimpleStringProperty("");
-    private final PFileSize pFileSize = new PFileSize();
+    private final PFileSize pFileSize = new PFileSize(0);
 
     private final StringProperty episodeUrl = new SimpleStringProperty("");
     private final LongProperty podcastId = new SimpleLongProperty(0);

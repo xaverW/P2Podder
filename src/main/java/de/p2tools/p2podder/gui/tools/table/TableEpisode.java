@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2Lib.guiTools.PFileSize;
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.file.PFileSize;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -390,7 +390,7 @@ public class TableEpisode extends PTable<Episode> {
                 }
 
                 setGraphic(null);
-                setText(item.getSizeS());
+                setText(item.getSizeStr());
             }
         };
         return cell;
