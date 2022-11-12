@@ -214,7 +214,7 @@ public class EpisodeStarterFactory {
             list.add(PLog.LILNE3);
             list.add("Episode abspielen");
 
-            list.add("URL: " + starter.getUrl());
+            list.add("URL: " + starter.getFilePathName());
             list.add("Startzeit: " + PDateFactory.F_FORMAT_HH_mm_ss.format(starter.getStartTime()));
             list.add("Programmaufruf: " + starter.getProgramCall());
             list.add("Programmaufruf[]: " + starter.getProgramCallArray());
@@ -259,7 +259,7 @@ public class EpisodeStarterFactory {
                 list.add("Dauer: " + start.getStartTime().diffInMinutes() + " Min");
             }
 
-            list.add("URL: " + start.getUrl());
+            list.add("URL: " + start.getFilePathName());
             list.add("Programmaufruf: " + start.getProgramCall());
             list.add("Programmaufruf[]: " + start.getProgramCallArray());
 

@@ -18,6 +18,7 @@ package de.p2tools.p2podder.controller.starterEpisode;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,7 +50,8 @@ public final class Start extends StartProps {
         this.setData = setData;
 
         setEpisodeTitle(episode.getEpisodeTitle());
-        setUrl(episode.getEpisodeUrl());
+        String pathName = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+        setFilePathName(pathName);
         StartProgramFactory.makeProgParameter(this);
     }
 

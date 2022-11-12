@@ -63,7 +63,7 @@ public class StartProgramFactory {
     }
 
     private static String replaceExec(Start start, String execString) {
-        execString = execString.replace("%f", start.getUrl());
+        execString = execString.replace("%f", start.getFilePathName());
         return execString;
     }
 }

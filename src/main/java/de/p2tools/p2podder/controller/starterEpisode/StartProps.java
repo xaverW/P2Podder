@@ -35,7 +35,7 @@ public class StartProps extends PDataSample<Start> {
     private final IntegerProperty no = new SimpleIntegerProperty(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
     private final IntegerProperty podcastNo = new SimpleIntegerProperty(EpisodeConstants.PODCAST_NO);
     private final StringProperty episodeTitle = new SimpleStringProperty("");
-    private final StringProperty url = new SimpleStringProperty("");
+    private final StringProperty filePathName = new SimpleStringProperty("");
 
 
     @Override
@@ -44,7 +44,7 @@ public class StartProps extends PDataSample<Start> {
         list.add(new ConfigIntPropExtra("no", EpisodeFieldNames.EPISODE_NO, no));
         list.add(new ConfigIntPropExtra("podcastNo", EpisodeFieldNames.EPISODE_PODCAST_NO, podcastNo));
         list.add(new ConfigStringPropExtra("episodeTitle", EpisodeFieldNames.EPISODE_TITLE, episodeTitle));
-        list.add(new ConfigStringPropExtra("url", EpisodeFieldNames.EPISODE_URL, url));
+        list.add(new ConfigStringPropExtra("filePathName", EpisodeFieldNames.EPISODE_URL, filePathName));
 
         return list.toArray(new Config[]{});
     }
@@ -96,16 +96,16 @@ public class StartProps extends PDataSample<Start> {
         this.episodeTitle.set(episodeTitle);
     }
 
-    public String getUrl() {
-        return url.get();
+    public String getFilePathName() {
+        return filePathName.get();
     }
 
-    public StringProperty urlProperty() {
-        return url;
+    public StringProperty filePathNameProperty() {
+        return filePathName;
     }
 
-    public void setUrl(String url) {
-        this.url.set(url);
+    public void setFilePathName(String filePathName) {
+        this.filePathName.set(filePathName);
     }
 
     public String getProgram() {

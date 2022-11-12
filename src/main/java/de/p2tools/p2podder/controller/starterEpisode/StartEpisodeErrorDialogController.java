@@ -78,7 +78,7 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
         lblEpisodeTitle.setStyle("-fx-font-weight: bold;");
         lblEpisodeTitle.setText(start.getEpisodeTitle());
 
-        lblUrl.setText(start.getUrl());
+        lblUrl.setText(start.getFilePathName());
 
         txtCont.setEditable(false);
         txtCont.setText(message);
