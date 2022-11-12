@@ -117,6 +117,5 @@ public class ImportSetDialogController extends PDialogExtra {
         }
 
         setPaneController.toFront();
-        setPaneController.selectTableFirst();
     }
 }

@@ -2,6 +2,14 @@
 
 <br />
 
+**Release 1**
+* Farben in der Tabelle
+* Abspielen der Episoden
+* ...
+
+<br />
+
+
 **Release 0**
 
 * erstes Release des Programms
@@ -12,4 +20,4 @@
 
 **Links**
 
-[www.p2tools.de/p2podder/]( https://www.p2tools.de/p2podder/)
+[www.p2tools.de]( https://www.p2tools.de)

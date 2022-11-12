@@ -17,7 +17,6 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
@@ -36,36 +35,23 @@ public class ImportSetDataFactory {
     }
 
     public static SetDataList getStandarset() {
-        SetDataList setDataList;
+        SetDataList setDataList = new SetDataList();
 
-        // liefert das Standard Programmset für das entsprechende BS
+
+        // liefert das Standardprogrammset für das entsprechende BS
         InputStreamReader inReader;
-        switch (ProgramToolsFactory.getOs()) {
-            case LINUX:
-            case MAC:
-            case WIN:
-            default:
-                inReader = getPsetTamplate();
-                break;
-        }
-        //Standardgruppen laden
-        setDataList = importPset(inReader);
+        inReader = getPsetTamplate();
+        importPset(setDataList, inReader);
 
         //und jetzt noch die dummy
-        switch (ProgramToolsFactory.getOs()) {
-            case LINUX:
-            case MAC:
-            case WIN:
-            default:
-                inReader = getPsetTamplateDummy();
-        }
-        //dummy laden
-        setDataList.addAll(importPset(inReader));
+        inReader = getPsetTamplateDummy();
+        importPset(setDataList, inReader);
 
-        if (setDataList != null) {
+        if (setDataList.size() > 0) {
             // damit die Variablen ersetzt werden
             SetDataList.progReplacePattern(setDataList);
         }
+
         return setDataList;
     }
 
@@ -87,9 +73,8 @@ public class ImportSetDataFactory {
         return null;
     }
 
-    private static SetDataList importPset(InputStreamReader in) {
+    private static void importPset(SetDataList list, InputStreamReader in) {
         SetData psetData;
-        final SetDataList list = new SetDataList();
         try {
             int event;
             final XMLInputFactory inFactory = XMLInputFactory.newInstance();
@@ -118,13 +103,6 @@ public class ImportSetDataFactory {
             in.close();
         } catch (final Exception ex) {
             PLog.errorLog(467810360, ex);
-
-            return null;
-        }
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            return list;
         }
     }
 

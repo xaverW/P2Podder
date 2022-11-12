@@ -22,7 +22,6 @@ import de.p2tools.p2podder.controller.data.SetData;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -33,7 +32,6 @@ public class SetPaneController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
-    private final TableView<SetData> tableView = new TableView<>();
 
     private ProgramPane programPane;
     private ListPane listPane;
@@ -58,10 +56,6 @@ public class SetPaneController extends AnchorPane {
     }
 
     public void close() {
-    }
-
-    public void selectTableFirst() {
-        tableView.getSelectionModel().selectFirst();
     }
 
     private void createPane() {
