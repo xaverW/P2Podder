@@ -33,6 +33,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -152,6 +153,12 @@ public class TableDownload extends PTable<Download> {
             @Override
             public void updateItem(Download download, boolean empty) {
                 super.updateItem(download, empty);
+
+                setOnMouseClicked(event -> {
+                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                        getSelectionModel().clearSelection();
+                    }
+                });
 
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {

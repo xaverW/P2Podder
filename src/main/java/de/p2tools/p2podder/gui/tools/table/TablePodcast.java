@@ -28,6 +28,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -104,6 +105,22 @@ public class TablePodcast extends PTable<Podcast> {
 
         getColumns().addAll(
                 nrColumn, nameColumn, activeColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn);
+        addRowFact();
+    }
+
+    private void addRowFact() {
+        setRowFactory(tableview -> new TableRow<>() {
+            @Override
+            public void updateItem(Podcast podcast, boolean empty) {
+                super.updateItem(podcast, empty);
+
+                setOnMouseClicked(event -> {
+                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                        getSelectionModel().clearSelection();
+                    }
+                });
+            }
+        });
     }
 
     private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactoryStart
