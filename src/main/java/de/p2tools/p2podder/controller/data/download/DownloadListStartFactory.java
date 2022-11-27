@@ -33,7 +33,7 @@ public class DownloadListStartFactory {
         this.downloadList = downloadList;
     }
 
-    public static Download getRestartDownload() {
+    public static DownloadData getRestartDownload() {
         // Versuch einen Fehlgeschlagenen Download zu finden um ihn wieder zu starten
         // die Fehler laufen aber einzeln, vorsichtshalber
 
@@ -42,7 +42,7 @@ public class DownloadListStartFactory {
             return null;
         }
 
-        for (final Download download : ProgData.getInstance().downloadList) {
+        for (final DownloadData download : ProgData.getInstance().downloadList) {
             if (download.isStateInit()) {
                 continue;
             }
@@ -62,12 +62,12 @@ public class DownloadListStartFactory {
         return null;
     }
 
-    public static synchronized Download getNextStart() {
+    public static synchronized DownloadData getNextStart() {
         //ersten passenden Download der Liste zurückgeben oder null
         //und versuchen, dass bei mehreren laufenden Downloads ein anderer Download gesucht wird
-        Download ret = null;
+        DownloadData ret = null;
         if (ProgData.getInstance().downloadList.size() > 0 && getDown(ProgConfig.DOWNLOAD_MAX_DOWNLOADS.getValue())) {
-            final Download download = nextStart();
+            final DownloadData download = nextStart();
             if (download != null && download.isStateStartedWaiting()) {
                 ret = download;
             }
@@ -75,11 +75,11 @@ public class DownloadListStartFactory {
         return ret;
     }
 
-    private static Download nextStart() {
+    private static DownloadData nextStart() {
         // Download mit der kleinsten Nr finden der zu Starten ist
         // erster Versuch, Start mit einem anderen Download
 
-        Download tmpDownload = searchNextDownload(1);
+        DownloadData tmpDownload = searchNextDownload(1);
         if (tmpDownload != null) {
             // einer wurde gefunden
             return tmpDownload;
@@ -95,10 +95,10 @@ public class DownloadListStartFactory {
         return tmpDownload;
     }
 
-    private static Download searchNextDownload(int maxProChannel) {
-        Download tmpDownload = null;
+    private static DownloadData searchNextDownload(int maxProChannel) {
+        DownloadData tmpDownload = null;
         int nr = -1;
-        for (Download download : ProgData.getInstance().downloadList) {
+        for (DownloadData download : ProgData.getInstance().downloadList) {
             if (download.isStateStartedWaiting() &&
                     !maxChannelPlay(download, maxProChannel) &&
                     (nr == -1 || download.getNo() < nr)) {
@@ -111,7 +111,7 @@ public class DownloadListStartFactory {
         return tmpDownload;
     }
 
-    private static boolean maxChannelPlay(Download d, int max) {
+    private static boolean maxChannelPlay(DownloadData d, int max) {
         // true wenn bereits die maxAnzahl läuft
         try {
             int counter = 0;
@@ -121,7 +121,7 @@ public class DownloadListStartFactory {
                 return false;
             }
 
-            for (final Download download : ProgData.getInstance().downloadList) {
+            for (final DownloadData download : ProgData.getInstance().downloadList) {
                 if (download.isStateStartedRun() && getHost(download).equalsIgnoreCase(host)) {
                     counter++;
                     if (counter >= max) {
@@ -135,7 +135,7 @@ public class DownloadListStartFactory {
         }
     }
 
-    private static String getHost(Download download) {
+    private static String getHost(DownloadData download) {
         String host = "";
         try {
             try {
@@ -183,7 +183,7 @@ public class DownloadListStartFactory {
     private static boolean getDown(int max) {
         int count = 0;
         try {
-            for (final Download download : ProgData.getInstance().downloadList) {
+            for (final DownloadData download : ProgData.getInstance().downloadList) {
                 if (download.isStateStartedRun()) {
                     ++count;
                     if (count >= max) {

@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 public class DownloadFactory {
 
     public static synchronized void startAllDownloads() {
-        List<Download> downloadList = ProgData.getInstance().downloadList;
+        List<DownloadData> downloadList = ProgData.getInstance().downloadList;
         downloadList.stream().forEach(d -> {
             ProgData.getInstance().downloadList.startDownloads(downloadList, false);
         });
@@ -51,9 +51,9 @@ public class DownloadFactory {
     public static synchronized void cleanUpList() {
         // fertige Downloads löschen, fehlerhafte zurücksetzen
         boolean found = false;
-        Iterator<Download> it = ProgData.getInstance().downloadList.iterator();
+        Iterator<DownloadData> it = ProgData.getInstance().downloadList.iterator();
         while (it.hasNext()) {
-            Download download = it.next();
+            DownloadData download = it.next();
             if (download.isStateInit() ||
                     download.isStateStoped()) {
                 continue;

@@ -26,7 +26,7 @@ import com.sun.syndication.io.XmlReader;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import org.jdom.Element;
 
@@ -62,7 +62,7 @@ public class ParseRss {
 //        </item>
 
 
-            ArrayList<Download> downloads = new ArrayList<>();
+            ArrayList<DownloadData> downloads = new ArrayList<>();
 
             List<SyndEntry> entries = syndFeed.getEntries();
             for (SyndEntry syndEntry : entries) {
@@ -100,8 +100,8 @@ public class ParseRss {
                     }
                 }
 
-                Download download = new Download(uri, title, website, pubDate, description, podcast);
-                download.getPdownloadSize().setFileSize(size);
+                DownloadData download = new DownloadData(uri, title, website, pubDate, description, podcast);
+                download.getDownloadSize().setFileSize(size);
                 download.setDuration(duration);
 
                 downloads.add(download);

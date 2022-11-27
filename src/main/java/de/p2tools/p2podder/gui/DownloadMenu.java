@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
 import javafx.beans.property.BooleanProperty;
@@ -70,7 +70,7 @@ public class DownloadMenu {
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
 
         btStart.setOnAction(a -> {
-            List<Download> downloadList = progData.downloadGui.getDownloadGuiController().getSelList();
+            List<DownloadData> downloadList = progData.downloadGui.getDownloadGuiController().getSelList();
             if (!downloadList.isEmpty()) {
                 progData.downloadList.startDownloads(downloadList, false);
             }
@@ -79,7 +79,7 @@ public class DownloadMenu {
         btStop.setOnAction(a -> progData.downloadList.stopAllDownloads());
         btBack.setOnAction(a -> DownloadListStartStopFactory.putBackDownloads());
         btDel.setOnAction(a -> {
-            ArrayList<Download> optionalDownload = progData.downloadGui.getDownloadGuiController().getSelList();
+            ArrayList<DownloadData> optionalDownload = progData.downloadGui.getDownloadGuiController().getSelList();
             if (!optionalDownload.isEmpty()) {
                 DownloadListStartStopFactory.delDownloads(optionalDownload);
             }

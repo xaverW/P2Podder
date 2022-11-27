@@ -23,8 +23,8 @@ import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartFactory;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -57,7 +57,7 @@ public class DownloadStarterFactory {
         paused = true;
     }
 
-    static boolean check(ProgData progData, Download download) {
+    static boolean check(ProgData progData, DownloadData download) {
         // prüfen ob der Download geklappt hat und die Datei existiert und eine min. Größe hat
         boolean ret = false;
         final double progress = download.getProgress();
@@ -107,7 +107,7 @@ public class DownloadStarterFactory {
         }
     }
 
-    static void startMsg(Download download) {
+    static void startMsg(DownloadData download) {
         final ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
         list.add("Download starten");
@@ -118,7 +118,7 @@ public class DownloadStarterFactory {
         PLog.sysLog(list.toArray(new String[list.size()]));
     }
 
-    private void restartMsg(Download download) {
+    private void restartMsg(DownloadData download) {
         final ArrayList<String> text = new ArrayList<>();
         text.add("Fehlerhaften Download neu starten - Restart (Summe Starts: " + download.getDownloadStart().getRestartCounter() + ')');
         text.add("Ziel: " + download.getDestPathFile());
@@ -126,7 +126,7 @@ public class DownloadStarterFactory {
         PLog.sysLog(text.toArray(new String[text.size()]));
     }
 
-    private static void finishedMsg(final Download download) {
+    private static void finishedMsg(final DownloadData download) {
         DownloadStart start = download.getDownloadStart();
 
         final ArrayList<String> list = new ArrayList<>();
@@ -171,7 +171,7 @@ public class DownloadStarterFactory {
     }
 
 
-    static void finalizeDownload(Download download) {
+    static void finalizeDownload(DownloadData download) {
 
         final DownloadStart start = download.getDownloadStart();
         deleteIfEmpty(new File(download.getDestPathFile()));
@@ -186,7 +186,7 @@ public class DownloadStarterFactory {
             //dann ist er gelaufen
             start.setTimeLeftSeconds(0);
             download.setProgress(DownloadConstants.PROGRESS_FINISHED);
-            download.getPdownloadSize().setActFileSize(-1);
+            download.getDownloadSize().setActFileSize(-1);
 
             if (start.getInputStream() != null) {
                 download.setBandwidth("Ø " + PSizeTools.humanReadableByteCount(start.getInputStream().getSumBandwidth(), true));
@@ -215,16 +215,16 @@ public class DownloadStarterFactory {
     /**
      * tatsächliche Dateigröße eintragen
      *
-     * @param download {@link Download} with the info of the file
+     * @param download {@link DownloadData} with the info of the file
      */
 
-    static void setFileSize(Download download) {
+    static void setFileSize(DownloadData download) {
         try {
             final File destFile = new File(download.getDestPathFile());
             if (destFile.exists()) {
                 final long length = destFile.length();
                 if (length > 0)
-                    download.getPdownloadSize().setActFileSize(length);
+                    download.getDownloadSize().setActFileSize(length);
             }
         } catch (
                 final Exception ex) {
@@ -239,7 +239,7 @@ public class DownloadStarterFactory {
     // ********************************************
     private class StarterThread extends Thread {
 
-        private Download download;
+        private DownloadData download;
         private final java.util.Timer bandwidthCalculationTimer;
 
         public StarterThread() {
@@ -267,7 +267,7 @@ public class DownloadStarterFactory {
             }
         }
 
-        private synchronized Download getNextStart() throws InterruptedException {
+        private synchronized DownloadData getNextStart() throws InterruptedException {
             //ersten passenden Download der Liste zurückgeben oder null und versuchen,
             //dass bei mehreren laufenden Downloads ein anderer gesucht wird
             if (paused) {
@@ -277,7 +277,7 @@ public class DownloadStarterFactory {
                 paused = false;
             }
 
-            Download download = DownloadListStartFactory.getNextStart();
+            DownloadData download = DownloadListStartFactory.getNextStart();
             if (download == null) {
                 // dann versuchen einen Fehlerhaften nochmal zu starten
                 download = DownloadListStartFactory.getRestartDownload();
@@ -291,9 +291,9 @@ public class DownloadStarterFactory {
         /**
          * This will start the download process.
          *
-         * @param download The {@link Download} info object for download.
+         * @param download The {@link DownloadData} info object for download.
          */
-        private void startDownload(Download download) {
+        private void startDownload(DownloadData download) {
             download.getDownloadStart().startDownload();
             Thread downloadThread;
             downloadThread = new DirectHttpDownload(progData, download, bandwidthCalculationTimer);

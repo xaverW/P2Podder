@@ -18,7 +18,7 @@
 package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.beans.property.*;
 
 import java.util.function.Predicate;
@@ -111,8 +111,8 @@ public class DownloadFilter {
         setPredicate();
     }
 
-    private Predicate<Download> getPredicate() {
-        Predicate<Download> predicate = download -> true;
+    private Predicate<DownloadData> getPredicate() {
+        Predicate<DownloadData> predicate = download -> true;
 
         if (podcastId.getValue() > 0) {
             predicate = predicate.and(download -> download.getPodcastId() == podcastId.getValue());

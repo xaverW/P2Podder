@@ -20,7 +20,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -101,7 +101,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         return urlHash.contains(urlFilm);
     }
 
-    public synchronized void addHistoryDataToHistory(Download download) {
+    public synchronized void addHistoryDataToHistory(DownloadData download) {
         addHistoryDataToHistory(download.getGenre(), download.getEpisodeTitle(), download.getEpisodeUrl());
     }
 
@@ -126,7 +126,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         PDuration.counterStop("History: addDataToHistory");
     }
 
-    public synchronized void addDownloadDataListToHistory(ArrayList<Download> downloadList) {
+    public synchronized void addDownloadDataListToHistory(ArrayList<DownloadData> downloadList) {
         // eine Liste Downloads in die Hitory schreiben
         if (downloadList == null || downloadList.isEmpty()) {
             return;
@@ -136,7 +136,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         final String datum = PDateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
 
         PDuration.counterStart("History: addDataToHistory");
-        for (final Download download : downloadList) {
+        for (final DownloadData download : downloadList) {
             if (checkIfUrlAlreadyIn(download.getEpisodeUrl())) {
                 continue;
             }
@@ -201,7 +201,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         PDuration.counterStop("History: removeDataFromHistory");
     }
 
-    public synchronized void removeFilmDataFromHistory(ArrayList<Download> filmList) {
+    public synchronized void removeFilmDataFromHistory(ArrayList<DownloadData> filmList) {
         // eine Liste Filme aus der History löschen und File wieder schreiben
 
         if (filmList == null || filmList.isEmpty()) {
@@ -218,7 +218,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         PDuration.counterStop("History: removeDataFromHistory");
     }
 
-    public synchronized void removeDownloadDataFromHistory(ArrayList<Download> downloadList) {
+    public synchronized void removeDownloadDataFromHistory(ArrayList<DownloadData> downloadList) {
         // eine Liste Downloads aus der History löschen und File wieder schreiben
 
         if (downloadList == null || downloadList.isEmpty()) {

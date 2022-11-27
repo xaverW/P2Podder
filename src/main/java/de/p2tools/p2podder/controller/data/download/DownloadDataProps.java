@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.MTDownload.DownloadSize;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2Lib.mtDownload.DownloadSize;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
 import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
@@ -29,7 +29,7 @@ import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class DownloadProps extends PDataSample<Download> {
+public class DownloadDataProps extends PDataSample<DownloadData> {
     public static final String TAG = "Download";
 
     private final IntegerProperty no = new SimpleIntegerProperty(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
@@ -44,7 +44,7 @@ public class DownloadProps extends PDataSample<Download> {
     private final BooleanProperty placedBack = new SimpleBooleanProperty(false);
     private final DoubleProperty progress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
     private final DoubleProperty guiProgress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
-    private final DownloadSize pdownloadSize = new DownloadSize();
+    private final DownloadSize downloadSize = new DownloadSize();
 
     private final StringProperty remaining = new SimpleStringProperty("");
     private final StringProperty bandwidth = new SimpleStringProperty("");
@@ -57,7 +57,7 @@ public class DownloadProps extends PDataSample<Download> {
 
     private final PLocalDateProperty pubDate = new PLocalDateProperty();
 
-    DownloadProps() {
+    DownloadDataProps() {
     }
 
     @Override
@@ -73,7 +73,7 @@ public class DownloadProps extends PDataSample<Download> {
         list.add(new ConfigStringPropExtra("description", DownloadFieldNames.DOWNLOAD_DESCRIPTION, description));
         list.add(new ConfigBoolPropExtra("placedBack", DownloadFieldNames.DOWNLOAD_PLACED_BACK, placedBack));
         list.add(new ConfigDoublePropExtra("progress", DownloadFieldNames.DOWNLOAD_PROGRESS, progress));
-        list.add(new ConfigPDownloadSize("pdownloadSize", DownloadFieldNames.DOWNLOAD_SIZE, pdownloadSize));
+        list.add(new ConfigPDownloadSize("pdownloadSize", DownloadFieldNames.DOWNLOAD_SIZE, downloadSize));
 
         list.add(new ConfigStringPropExtra("destFileName", DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, destFileName));
         list.add(new ConfigStringPropExtra("destPath", DownloadFieldNames.DOWNLOAD_DEST_PATH, destPath));
@@ -245,12 +245,12 @@ public class DownloadProps extends PDataSample<Download> {
     }
 
 
-    public DownloadSize getPdownloadSize() {
-        return pdownloadSize;
+    public DownloadSize getDownloadSize() {
+        return downloadSize;
     }
 
-    public DownloadSize pdownloadSizeProperty() {
-        return pdownloadSize;
+    public DownloadSize downloadSizeProperty() {
+        return downloadSize;
     }
 
     public String getRemaining() {
@@ -353,7 +353,7 @@ public class DownloadProps extends PDataSample<Download> {
         this.pubDate.setPLocalDate(date);
     }
 
-    public int compareTo(DownloadProps arg0) {
+    public int compareTo(DownloadDataProps arg0) {
         int ret;
         if ((ret = Data.sorter.compare(getEpisodeTitle(), arg0.getEpisodeTitle())) == 0) {
             return getEpisodeUrl().compareTo(arg0.getEpisodeUrl());

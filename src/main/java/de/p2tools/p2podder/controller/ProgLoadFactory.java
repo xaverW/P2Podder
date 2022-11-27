@@ -98,8 +98,7 @@ public class ProgLoadFactory {
         ProgConfig.addConfigData(configFile);
         ReadConfigFile readConfigFile = new ReadConfigFile();
         readConfigFile.addConfigFile(configFile);
-        boolean ret = readConfigFile.readConfigFile();
-        return ret;
+        return readConfigFile.readConfigFile();
     }
 
     private static void initP2Lib() {

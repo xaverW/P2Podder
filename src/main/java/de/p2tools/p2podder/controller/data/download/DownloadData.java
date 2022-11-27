@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.MTDownload.DownloadSize;
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.mtDownload.DownloadSize;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -28,15 +28,15 @@ import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public final class Download extends DownloadProps {
+public final class DownloadData extends DownloadDataProps {
 
     private DownloadStart downloadStart = new DownloadStart(this);
     private String errorMessage = "";
 
-    public Download() {
+    public DownloadData() {
     }
 
-    public Download(String episodeUri, String title, String website, String pubDate, String description, Podcast podcast) {
+    public DownloadData(String episodeUri, String title, String website, String pubDate, String description, Podcast podcast) {
         setEpisodeUrl(episodeUri);
         setEpisodeTitle(title);
         setEpisodeWebsite(website);
@@ -96,7 +96,7 @@ public final class Download extends DownloadProps {
             setProgress(DownloadConstants.PROGRESS_NOT_STARTED);
         }
 
-        final DownloadSize downSize = getPdownloadSize();
+        final DownloadSize downSize = getDownloadSize();
         downSize.reset();
         setRemaining("");
         setBandwidth("");
@@ -191,7 +191,7 @@ public final class Download extends DownloadProps {
 
     public void restartDownload() {
         // stoppen und alles zurücksetzen
-        final DownloadSize downSize = getPdownloadSize();
+        final DownloadSize downSize = getDownloadSize();
         downSize.reset();
         setRemaining("");
         setBandwidth("");
@@ -202,8 +202,8 @@ public final class Download extends DownloadProps {
         setProgress(DownloadConstants.PROGRESS_NOT_STARTED);
     }
 
-    public Download getCopy() {
-        final Download ret = new Download();
+    public DownloadData getCopy() {
+        final DownloadData ret = new DownloadData();
 
         Config[] configs = getConfigsArr();
         Config[] configsCopy = ret.getConfigsArr();
@@ -214,7 +214,7 @@ public final class Download extends DownloadProps {
         return ret;
     }
 
-    public void copyToMe(Download download) {
+    public void copyToMe(DownloadData download) {
         Config[] configs = download.getConfigsArr();
         Config[] configsCopy = getConfigsArr();
         for (int i = 0; i < configs.length; ++i) {

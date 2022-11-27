@@ -24,27 +24,13 @@ import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 
 public class AboutDialogController extends AboutDialog {
-    private static AboutDialogController instance;
 
-    private AboutDialogController(ProgData progData) {
+    public AboutDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConst.PROGRAM_NAME, ProgConst.URL_WEBSITE, ProgConst.URL_WEBSITE_HELP,
                 ProgConst.FILE_PROG_ICON, ProgConfig.SYSTEM_PROG_OPEN_URL,
                 ProgConfig.SYSTEM_DARK_THEME.getValue(),
                 new String[]{"Einstellungen:"},
                 new String[]{ProgInfosFactory.getSettingsFile().toAbsolutePath().toString()}, true);
-    }
-
-    public synchronized static final AboutDialogController getInstanceAndShow() {
-        if (instance == null) {
-            instance = new AboutDialogController(ProgData.getInstance());
-        }
-
-        if (!instance.isShowing()) {
-            instance.showDialog();
-        }
-        instance.getStage().toFront();
-
-        return instance;
     }
 
     @Override

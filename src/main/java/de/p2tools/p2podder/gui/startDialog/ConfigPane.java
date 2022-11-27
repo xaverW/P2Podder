@@ -88,6 +88,10 @@ public class ConfigPane {
             propPodDir.setValue("/tmp/Podcast");
         }
         txtPodDest.textProperty().bindBidirectional(propPodDir);
+        if (ProgData.debug) {
+            //dann einen anderen Downloadpfad
+            propPodDir.setValue("/tmp/Download");
+        }
         if (txtPodDest.getText().isEmpty()) {
             txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
         }

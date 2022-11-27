@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.gui.tools.table.TableDownload;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -35,13 +35,13 @@ public class DownloadGuiTableContextMenu {
         this.tableView = tableView;
     }
 
-    public ContextMenu getContextMenu(Download download) {
+    public ContextMenu getContextMenu(DownloadData downloadData) {
         final ContextMenu contextMenu = new ContextMenu();
-        getMenu(contextMenu, download);
+        getMenu(contextMenu, downloadData);
         return contextMenu;
     }
 
-    private void getMenu(ContextMenu contextMenu, Download download) {
+    private void getMenu(ContextMenu contextMenu, DownloadData downloadData) {
         MenuItem miStart = new MenuItem("Download starten");
         miStart.setOnAction(a -> downloadGuiController.startDownload());
         MenuItem miStop = new MenuItem("Download stoppen");
@@ -56,12 +56,12 @@ public class DownloadGuiTableContextMenu {
         MenuItem miRemove = new MenuItem("Download löschen");
         miRemove.setOnAction(a -> progData.downloadGui.getDownloadGuiController().deleteDownloads(false));
 
-        miStart.setDisable(download == null);
-        miStop.setDisable(download == null);
-        miStopAll.setDisable(download == null);
-        miCopyUrl.setDisable(download == null);
-        miChange.setDisable(download == null);
-        miRemove.setDisable(download == null);
+        miStart.setDisable(downloadData == null);
+        miStop.setDisable(downloadData == null);
+        miStopAll.setDisable(downloadData == null);
+        miCopyUrl.setDisable(downloadData == null);
+        miChange.setDisable(downloadData == null);
+        miRemove.setDisable(downloadData == null);
 
         contextMenu.getItems().addAll(miStart, miStop, miStopAll, miCopyUrl, miChange, miRemove);
 

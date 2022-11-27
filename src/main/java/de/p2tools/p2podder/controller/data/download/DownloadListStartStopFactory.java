@@ -34,7 +34,7 @@ public class DownloadListStartStopFactory {
      * eine Liste Downloads aus der "Downloadliste" zurückstellen
      */
     public static synchronized boolean putBackDownloads() {
-        ArrayList<Download> list = ProgData.getInstance().downloadGui.getDownloadGuiController().getSelList();
+        ArrayList<DownloadData> list = ProgData.getInstance().downloadGui.getDownloadGuiController().getSelList();
         if (list == null || list.isEmpty()) {
             return false;
         }
@@ -46,7 +46,7 @@ public class DownloadListStartStopFactory {
      *
      * @param list
      */
-    public static synchronized boolean putBackDownloads(ArrayList<Download> list) {
+    public static synchronized boolean putBackDownloads(ArrayList<DownloadData> list) {
         boolean found = false;
 
         if (list == null || list.isEmpty()) {
@@ -56,7 +56,7 @@ public class DownloadListStartStopFactory {
         // das Starten von neuen Downloads etwas Pausieren
         ProgData.getInstance().downloadStarterFactory.setPaused();
 
-        for (final Download download : list) {
+        for (final DownloadData download : list) {
             if (download.isStateInit() || download.isStateStoped()) {
                 download.putBack();
                 found = true;
@@ -76,8 +76,8 @@ public class DownloadListStartStopFactory {
      *
      * @param download
      */
-    public static synchronized void delDownloads(Download download) {
-        ArrayList<Download> list = new ArrayList<>();
+    public static synchronized void delDownloads(DownloadData download) {
+        ArrayList<DownloadData> list = new ArrayList<>();
         list.add(download);
         delDownloads(list);
     }
@@ -89,7 +89,7 @@ public class DownloadListStartStopFactory {
      * @param list
      */
 
-    public static synchronized boolean delDownloads(ArrayList<Download> list) {
+    public static synchronized boolean delDownloads(ArrayList<DownloadData> list) {
         PDuration.counterStart("delDownloads");
         if (list == null || list.isEmpty()) {
             return false;
@@ -98,8 +98,8 @@ public class DownloadListStartStopFactory {
         // das Starten von neuen Downloads etwas Pausieren
         ProgData.getInstance().downloadStarterFactory.setPaused();
 
-        final ArrayList<Download> historyList = new ArrayList<>();
-        for (final Download download : list) {
+        final ArrayList<DownloadData> historyList = new ArrayList<>();
+        for (final DownloadData download : list) {
             // ein Abo wird zusätzlich ins Logfile geschrieben
             historyList.add(download);
         }
@@ -126,7 +126,7 @@ public class DownloadListStartStopFactory {
         // das Starten von neuen Downloads etwas Pausieren
         ProgData.getInstance().downloadStarterFactory.setPaused();
 
-        for (Download download : ProgData.getInstance().downloadList) {
+        for (DownloadData download : ProgData.getInstance().downloadList) {
             if (download.isStateStartedWaiting() || download.isStateStartedRun() || download.isStateError()) {
                 // nur dann läuft er
                 download.stopDownload();
@@ -152,9 +152,9 @@ public class DownloadListStartStopFactory {
         return answer;
     }
 
-    public static void startDownloads(Download download) {
+    public static void startDownloads(DownloadData download) {
         // Download starten
-        ArrayList<Download> list = new ArrayList<>();
+        ArrayList<DownloadData> list = new ArrayList<>();
         list.add(download);
         start(list);
     }
@@ -167,13 +167,13 @@ public class DownloadListStartStopFactory {
      * @param alsoFinished
      */
 
-    public static boolean startDownloads(Collection<Download> list, boolean alsoFinished) {
+    public static boolean startDownloads(Collection<DownloadData> list, boolean alsoFinished) {
         if (list == null || list.isEmpty()) {
             return false;
         }
 
         PDuration.counterStart("startDownloads");
-        final ArrayList<Download> listStartDownloads = new ArrayList<>();
+        final ArrayList<DownloadData> listStartDownloads = new ArrayList<>();
 
         // das Starten von neuen Downloads etwas Pausieren
         ProgData.getInstance().downloadStarterFactory.setPaused();
@@ -195,7 +195,7 @@ public class DownloadListStartStopFactory {
         return true;
     }
 
-    private static void start(ArrayList<Download> downloads) {
+    private static void start(ArrayList<DownloadData> downloads) {
         if (downloads.isEmpty()) {
             return;
         }
@@ -205,15 +205,15 @@ public class DownloadListStartStopFactory {
         ProgData.getInstance().downloadStarterFactory.startWaitingDownloads();
     }
 
-    private static boolean startAlsoFinishedDownloads(Collection<Download> list, ArrayList<Download> listStartDownloads) {
+    private static boolean startAlsoFinishedDownloads(Collection<DownloadData> list, ArrayList<DownloadData> listStartDownloads) {
 
         PAlert.BUTTON answer = PAlert.BUTTON.UNKNOWN;
-        final ArrayList<Download> listDelDownloads = new ArrayList<>();
-        final ArrayList<Download> listDownloadsRemovePodcastHistory = new ArrayList<>();
+        final ArrayList<DownloadData> listDelDownloads = new ArrayList<>();
+        final ArrayList<DownloadData> listDownloadsRemovePodcastHistory = new ArrayList<>();
 
         // bereits gestartete erst vorbehandeln: wenn er noch läuft/fertig ist gibts nix
         // fehlerhafte nur wenn gewollt
-        for (Download download : list) {
+        for (DownloadData download : list) {
 
             // abgebrochene starten
             if (download.isStateStoped()) {

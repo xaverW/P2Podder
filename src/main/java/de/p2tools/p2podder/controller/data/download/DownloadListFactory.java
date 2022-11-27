@@ -34,12 +34,12 @@ public class DownloadListFactory {
         return count;
     }
 
-    public static synchronized void addNewDownloads(ArrayList<Download> list) {
+    public static synchronized void addNewDownloads(ArrayList<DownloadData> list) {
         Set<String> syncDownloadsAlreadyInTheListHash = Collections.synchronizedSet(new HashSet<>(150)); //todo für 90% übertrieben, für 10% immer noch zu wenig???
         ProgData.getInstance().downloadList.forEach((download) -> syncDownloadsAlreadyInTheListHash.add(download.getEpisodeUrl()));
 
         found = false;
-        List<Download> syncDownloadArrayList = Collections.synchronizedList(new ArrayList<>());
+        List<DownloadData> syncDownloadArrayList = Collections.synchronizedList(new ArrayList<>());
         list.stream().filter(download -> {
             if (ProgData.getInstance().historyDownloads.checkIfUrlAlreadyIn(download.getEpisodeUrl())) {
                 // ist schon mal geladen worden
@@ -68,10 +68,10 @@ public class DownloadListFactory {
         syncDownloadsAlreadyInTheListHash.clear();
     }
 
-    public static void checkDoubleNames(List<Download> foundDownloads, List<Download> downloadList) {
+    public static void checkDoubleNames(List<DownloadData> foundDownloads, List<DownloadData> downloadList) {
         // prüfen, ob schon ein Download mit dem Zieldateinamen in der Downloadliste existiert
         try {
-            final List<Download> alreadyDone = new ArrayList<>();
+            final List<DownloadData> alreadyDone = new ArrayList<>();
 
             foundDownloads.stream().forEach(download -> {
                 final String oldName = download.getDestFileName();
@@ -98,13 +98,13 @@ public class DownloadListFactory {
         return base + "_" + i + "." + suff;
     }
 
-    private static boolean searchName(List<Download> searchDownloadList, String name) {
+    private static boolean searchName(List<DownloadData> searchDownloadList, String name) {
         return searchDownloadList.stream().filter(download -> download.getDestFileName().equals(name)).findAny().isPresent();
     }
 
     private static synchronized void setNumbersInList() {
         int i = ProgData.getInstance().downloadList.getNextNumber();
-        for (final Download download : ProgData.getInstance().downloadList) {
+        for (final DownloadData download : ProgData.getInstance().downloadList) {
             if (download.isStarted()) {
                 // gestartete Downloads ohne!! Nummer nummerieren
                 if (download.getNo() == DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED) {

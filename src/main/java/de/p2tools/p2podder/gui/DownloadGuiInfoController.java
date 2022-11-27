@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.guiTools.pClosePane.PClosePaneH;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -45,7 +45,7 @@ public class DownloadGuiInfoController extends PClosePaneH {
     private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private Download download = null;
+    private DownloadData downloadData = null;
 
     public DownloadGuiInfoController() {
         super(ProgConfig.DOWNLOAD_GUI_INFO_ON, true);
@@ -86,13 +86,13 @@ public class DownloadGuiInfoController extends PClosePaneH {
         VBox.setVgrow(gridPane, Priority.ALWAYS);
     }
 
-    public void setDownload(Download down) {
-        if (this.download != null) {
-            taDescription.textProperty().unbindBidirectional(this.download.descriptionProperty());
+    public void setDownload(DownloadData down) {
+        if (this.downloadData != null) {
+            taDescription.textProperty().unbindBidirectional(this.downloadData.descriptionProperty());
         }
 
-        this.download = down;
-        if (download == null) {
+        this.downloadData = down;
+        if (downloadData == null) {
             title.setText("");
             hyperlinkWebsite.setUrl("");
             hyperlinkUrl.setUrl("");
@@ -100,9 +100,9 @@ public class DownloadGuiInfoController extends PClosePaneH {
             return;
         }
 
-        title.setText(download.getEpisodeTitle() + "  -  " + download.getGenre());
-        hyperlinkWebsite.setUrl(download.getEpisodeWebsite());
-        hyperlinkUrl.setUrl(download.getEpisodeUrl());
-        taDescription.textProperty().bindBidirectional(download.descriptionProperty());
+        title.setText(downloadData.getEpisodeTitle() + "  -  " + downloadData.getGenre());
+        hyperlinkWebsite.setUrl(downloadData.getEpisodeWebsite());
+        hyperlinkUrl.setUrl(downloadData.getEpisodeUrl());
+        taDescription.textProperty().bindBidirectional(downloadData.descriptionProperty());
     }
 }

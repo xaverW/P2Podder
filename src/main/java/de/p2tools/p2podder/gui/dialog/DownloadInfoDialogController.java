@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFieldNames;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -36,17 +36,17 @@ public class DownloadInfoDialogController extends PDialogExtra {
     private Button btnOk = new Button("_Ok");
 
     private final GridPane gridPane = new GridPane();
-    private Download download;
+    private DownloadData downloadData;
     private final ProgData progData;
 
-    public DownloadInfoDialogController(ProgData progData, Download dowdownloadloadArrayList) {
+    public DownloadInfoDialogController(ProgData progData, DownloadData dowdownloadloadArrayList) {
         super(progData.primaryStage, ProgConfig.EPISODE_DIALOG_EDIT_SIZE,
                 "Download ändern", true, false);
 
         this.progData = progData;
-        this.download = dowdownloadloadArrayList;
+        this.downloadData = dowdownloadloadArrayList;
 
-        if (download == null) {
+        if (downloadData == null) {
             // Satz mit x, war wohl nix
             close();
             return;
@@ -75,45 +75,45 @@ public class DownloadInfoDialogController extends PDialogExtra {
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         int row = 0;
-        gridAdd(DownloadFieldNames.DOWNLOAD_NO, download.getNo() + "", row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_NO, downloadData.getNo() + "", row);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE, download.getEpisodeTitle(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE, downloadData.getEpisodeTitle(), row);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_GENRE, download.getGenre(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_GENRE, downloadData.getGenre(), row);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_PODCAST_NAME, download.getPodcastName(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_PODCAST_NAME, downloadData.getPodcastName(), row);
 
         ++row;
         TextArea taDescription = new TextArea();
         taDescription.setEditable(false);
-        taDescription.setText(download.getDescription());
+        taDescription.setText(downloadData.getDescription());
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DESCRIPTION + ":"), 0, row);
         gridPane.add(taDescription, 1, row, 3, 1);
         GridPane.setVgrow(taDescription, Priority.ALWAYS);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, download.getPdownloadSize().getSizeString() + " MB",
-                DownloadFieldNames.DOWNLOAD_DURATION, download.getDuration(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, downloadData.getDownloadSize().getFileSizeString() + " MB",
+                DownloadFieldNames.DOWNLOAD_DURATION, downloadData.getDuration(), row);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, download.getDestFileName(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, downloadData.getDestFileName(), row);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_PATH, download.getDestPath(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DEST_PATH, downloadData.getDestPath(), row);
 
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_URL + ":"), 0, row);
-        gridPane.add(new PHyperlink(download.getEpisodeUrl()), 1, row, 3, 1);
+        gridPane.add(new PHyperlink(downloadData.getEpisodeUrl()), 1, row, 3, 1);
 
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_WEBSITE + ":"), 0, row);
-        gridPane.add(new PHyperlink(download.getEpisodeWebsite()), 1, row, 3, 1);
+        gridPane.add(new PHyperlink(downloadData.getEpisodeWebsite()), 1, row, 3, 1);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, download.getPubDate().toString(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, downloadData.getPubDate().toString(), row);
     }
 
     private void gridAdd(String name, String value, int row) {

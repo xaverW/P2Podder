@@ -24,7 +24,7 @@ import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.download.Download;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
 import de.p2tools.p2podder.gui.dialog.DownloadInfoDialogController;
 import de.p2tools.p2podder.gui.tools.table.Table;
@@ -117,7 +117,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public void copyUrl() {
-        final Optional<Download> download = getSel();
+        final Optional<DownloadData> download = getSel();
         if (!download.isPresent()) {
             return;
         }
@@ -125,7 +125,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     private void setSelectedDownload() {
-        Download download = tableView.getSelectionModel().getSelectedItem();
+        DownloadData download = tableView.getSelectionModel().getSelectedItem();
         if (download != null) {
             downloadGuiInfoController.setDownload(download);
         } else {
@@ -135,7 +135,7 @@ public class DownloadGuiController extends AnchorPane {
 
     public void startDownload() {
         // bezieht sich auf den ausgewählten Episoden
-        final Optional<Download> download = getSel();
+        final Optional<DownloadData> download = getSel();
         if (download.isPresent()) {
             progData.downloadList.startDownloads(download.get());
         }
@@ -147,7 +147,7 @@ public class DownloadGuiController extends AnchorPane {
             progData.downloadList.stream().forEach(download -> download.stopDownload());
 
         } else {
-            final Optional<Download> download = getSel();
+            final Optional<DownloadData> download = getSel();
             if (download.isPresent()) {
                 download.get().stopDownload();
             }
@@ -156,7 +156,7 @@ public class DownloadGuiController extends AnchorPane {
 
     public void deleteDownloads(boolean all) {
         if (all) {
-            final ArrayList<Download> list = getSelList();
+            final ArrayList<DownloadData> list = getSelList();
             if (list.isEmpty()) {
                 return;
             }
@@ -173,14 +173,14 @@ public class DownloadGuiController extends AnchorPane {
             }
 
         } else {
-            final Optional<Download> download = getSel();
+            final Optional<DownloadData> download = getSel();
             if (download.isPresent()) {
                 deleteDownloads(download.get());
             }
         }
     }
 
-    public void deleteDownloads(Download download) {
+    public void deleteDownloads(DownloadData download) {
         if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Download löschen?", "Download löschen?",
                 "Soll der Download gelöscht werden?").equals(PAlert.BUTTON.YES)) {
             DownloadListStartStopFactory.delDownloads(download);
@@ -188,7 +188,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public void changeDownload() {
-        final Optional<Download> download = getSel();
+        final Optional<DownloadData> download = getSel();
         if (download.isPresent()) {
             new DownloadInfoDialogController(progData, download.get());
         }
@@ -198,8 +198,8 @@ public class DownloadGuiController extends AnchorPane {
         Table.saveTable(tableView, Table.TABLE_ENUM.DOWNLOAD);
     }
 
-    public ArrayList<Download> getSelList() {
-        final ArrayList<Download> ret = new ArrayList<>();
+    public ArrayList<DownloadData> getSelList() {
+        final ArrayList<DownloadData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             PAlert.showInfoNoSelection();
@@ -207,11 +207,11 @@ public class DownloadGuiController extends AnchorPane {
         return ret;
     }
 
-    public Optional<Download> getSel() {
+    public Optional<DownloadData> getSel() {
         return getSel(true);
     }
 
-    public Optional<Download> getSel(boolean show) {
+    public Optional<DownloadData> getSel(boolean show) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow >= 0) {
             return Optional.of(tableView.getSelectionModel().getSelectedItem());
@@ -275,8 +275,8 @@ public class DownloadGuiController extends AnchorPane {
         });
         tableView.setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                final Optional<Download> optionalDownload = getSel(false);
-                Download download;
+                final Optional<DownloadData> optionalDownload = getSel(false);
+                DownloadData download;
                 if (optionalDownload.isPresent()) {
                     download = optionalDownload.get();
                 } else {
@@ -289,7 +289,7 @@ public class DownloadGuiController extends AnchorPane {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> setSelectedDownload());
         });
-        tableView.getItems().addListener((ListChangeListener<Download>) c -> {
+        tableView.getItems().addListener((ListChangeListener<DownloadData>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);

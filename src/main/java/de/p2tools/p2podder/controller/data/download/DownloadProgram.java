@@ -28,7 +28,7 @@ public class DownloadProgram {
     private DownloadProgram() {
     }
 
-    public static void makeProgParameter(Download download, String name, String path) {
+    public static void makeProgParameter(DownloadData download, String name, String path) {
         // zieldatei und pfad bauen und eintragen
 
         if (path.endsWith(File.separator)) {

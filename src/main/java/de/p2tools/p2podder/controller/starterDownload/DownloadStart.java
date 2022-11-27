@@ -20,8 +20,8 @@ import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.guiTools.PSizeTools;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.data.SetData;
-import de.p2tools.p2podder.controller.data.download.Download;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.starterEpisode.StartProps;
 import de.p2tools.p2podder.controller.starterEpisode.StartStatus;
 import de.p2tools.p2podder.tools.MLInputStream;
@@ -36,14 +36,14 @@ public final class DownloadStart extends StartProps {
     private PDate startTime = null;
     private Process process = null; //Prozess des Download
 
-    private Download download = null;
+    private DownloadData downloadData = null;
     private SetData setData = null;
 
     public DownloadStart() {
     }
 
-    public DownloadStart(Download download) {
-        this.download = download;
+    public DownloadStart(DownloadData downloadData) {
+        this.downloadData = downloadData;
     }
 
     public long getBandwidth() {
@@ -52,7 +52,7 @@ public final class DownloadStart extends StartProps {
 
     public void setBandwidth(long bandwidth) {
         this.bandwidth = bandwidth;
-        download.setBandwidth(PSizeTools.humanReadableByteCount(bandwidth, true));
+        downloadData.setBandwidth(PSizeTools.humanReadableByteCount(bandwidth, true));
     }
 
     public PDate getStartTime() {
@@ -104,10 +104,10 @@ public final class DownloadStart extends StartProps {
 
     public void setTimeLeftSeconds(long timeLeftSeconds) {
         this.timeLeftSeconds = timeLeftSeconds;
-        if (download.isStateStartedRun() && getTimeLeftSeconds() > 0) {
-            download.setRemaining(DownloadConstants.getTimeLeft(timeLeftSeconds));
+        if (downloadData.isStateStartedRun() && getTimeLeftSeconds() > 0) {
+            downloadData.setRemaining(DownloadConstants.getTimeLeft(timeLeftSeconds));
         } else {
-            download.setRemaining("");
+            downloadData.setRemaining("");
         }
     }
 

@@ -189,7 +189,7 @@ public class P2PodderController extends StackPane {
         PShortcutWorker.addShortCut(miQuit, P2PodderShortCuts.SHORTCUT_QUIT_PROGRAM);
 
         final MenuItem miAbout = new MenuItem("Über dieses Programm");
-        miAbout.setOnAction(event -> AboutDialogController.getInstanceAndShow());
+        miAbout.setOnAction(event -> new AboutDialogController(progData).showDialog());
 
         final MenuItem miLog = new MenuItem("Logdatei öffnen");
         miLog.setOnAction(event -> {

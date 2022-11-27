@@ -34,14 +34,14 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.function.Predicate;
 
-public class DownloadList extends SimpleListProperty<Download> implements PDataList<Download> {
+public class DownloadList extends SimpleListProperty<DownloadData> implements PDataList<DownloadData> {
 
     public static final String TAG = "DownloadList";
     private final ProgData progData;
     private int no = 0;
     private boolean found = false;
-    private final FilteredList<Download> filteredList;
-    private final SortedList<Download> sortedList;
+    private final FilteredList<DownloadData> filteredList;
+    private final SortedList<DownloadData> sortedList;
 
     private BooleanProperty downloadsChanged = new SimpleBooleanProperty(true);
     private ObservableList<String> genreList = FXCollections.observableArrayList();
@@ -65,19 +65,19 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
     }
 
     @Override
-    public Download getNewItem() {
-        return new Download();
+    public DownloadData getNewItem() {
+        return new DownloadData();
     }
 
     @Override
     public void addNewItem(Object obj) {
-        if (obj.getClass().equals(Download.class)) {
-            Download d = (Download) obj;
+        if (obj.getClass().equals(DownloadData.class)) {
+            DownloadData d = (DownloadData) obj;
             add(d);
         }
     }
 
-    public synchronized void addNewDownloads(ArrayList<Download> list) {
+    public synchronized void addNewDownloads(ArrayList<DownloadData> list) {
         DownloadListFactory.addNewDownloads(list);
     }
 
@@ -85,7 +85,7 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
         // bei Downloads nach einem Programmstart
         // den Podcast wieder eintragen
         PDuration.counterStart("initList");
-        for (Download download : this) {
+        for (DownloadData download : this) {
             download.setPodcast(progData.podcastList.getPodcastById(download.getPodcastId()));
             download.setGuiState(download.getState());
         }
@@ -94,11 +94,11 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
         PDuration.counterStop("initList");
     }
 
-    public SortedList<Download> getSortedList() {
+    public SortedList<DownloadData> getSortedList() {
         return sortedList;
     }
 
-    public synchronized void filteredListSetPred(Predicate<Download> predicate) {
+    public synchronized void filteredListSetPred(Predicate<DownloadData> predicate) {
         filteredList.setPredicate(predicate);
     }
 
@@ -107,13 +107,13 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
     }
 
     @Override
-    public synchronized boolean add(Download d) {
+    public synchronized boolean add(DownloadData d) {
         d.setNo(++no);
         return super.add(d);
     }
 
     @Override
-    public synchronized boolean addAll(Collection<? extends Download> elements) {
+    public synchronized boolean addAll(Collection<? extends DownloadData> elements) {
         elements.stream().forEach(f -> {
             f.setNo(++no);
         });
@@ -121,14 +121,14 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
     }
 
     @Override
-    public boolean addAll(Download... var1) {
-        for (Download f : var1) {
+    public boolean addAll(DownloadData... var1) {
+        for (DownloadData f : var1) {
             f.setNo(++no);
         }
         return super.addAll(var1);
     }
 
-    public synchronized boolean remove(Download objects) {
+    public synchronized boolean remove(DownloadData objects) {
         return super.remove(objects);
     }
 
@@ -136,21 +136,21 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
         return super.removeAll(objects);
     }
 
-    public synchronized void putBackDownloads(Download download) {
-        ArrayList<Download> list = new ArrayList<>();
+    public synchronized void putBackDownloads(DownloadData download) {
+        ArrayList<DownloadData> list = new ArrayList<>();
         list.add(download);
         if (DownloadListStartStopFactory.putBackDownloads(list)) {
             setDownloadsChanged();
         }
     }
 
-    public void startDownloads(Collection<Download> list, boolean alsoFinished) {
+    public void startDownloads(Collection<DownloadData> list, boolean alsoFinished) {
         if (DownloadListStartStopFactory.startDownloads(list, alsoFinished)) {
             setDownloadsChanged();
         }
     }
 
-    public void startDownloads(Download download) {
+    public void startDownloads(DownloadData download) {
         DownloadListStartStopFactory.startDownloads(download);
         setDownloadsChanged();
     }
@@ -160,16 +160,16 @@ public class DownloadList extends SimpleListProperty<Download> implements PDataL
         setDownloadsChanged();
     }
 
-    public synchronized void addNumber(ArrayList<Download> downloads) {
+    public synchronized void addNumber(ArrayList<DownloadData> downloads) {
         int i = getNextNumber();
-        for (Download download : downloads) {
+        for (DownloadData download : downloads) {
             download.setNo(i++);
         }
     }
 
     public int getNextNumber() {
         int i = 1;
-        for (final Download download : this) {
+        for (final DownloadData download : this) {
             if (download.getNo() < DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED && download.getNo() >= i) {
                 i = download.getNo() + 1;
             }
