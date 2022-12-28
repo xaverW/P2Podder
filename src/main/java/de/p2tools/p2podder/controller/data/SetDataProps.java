@@ -17,23 +17,21 @@
 package de.p2tools.p2podder.controller.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
 import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class SetDataProps extends SetDataBase {
+public class SetDataProps extends PDataSample<SetData> {
 
-    private StringProperty id = new SimpleStringProperty("");
-    private StringProperty name = new SimpleStringProperty("");
-    private StringProperty description = new SimpleStringProperty("");
-    private BooleanProperty standardSet = new SimpleBooleanProperty(false);//ist das Standard-Set
-    private StringProperty programPath = new SimpleStringProperty("");
-    private StringProperty programSwitch = new SimpleStringProperty("");
+    public static final String TAG = "ProgrammSet";
+    private final StringProperty id = new SimpleStringProperty("");
+    private final StringProperty visibleName = new SimpleStringProperty("");
+    private final StringProperty progPath = new SimpleStringProperty("");
+    private final StringProperty progSwitch = new SimpleStringProperty("");
+    private final StringProperty description = new SimpleStringProperty("");
 
     public SetDataProps() {
     }
@@ -46,13 +44,11 @@ public class SetDataProps extends SetDataBase {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigStringPropExtra("id", ID, id));
-        list.add(new ConfigStringPropExtra("name", NAME, name));
-        list.add(new ConfigStringPropExtra("description", DESCRIPTION, description));
-        list.add(new ConfigBoolPropExtra("standardSet", STANDARD_SET, standardSet));
-        list.add(new ConfigStringPropExtra("programPath", PROGRAM_PATH, programPath));
-        list.add(new ConfigStringPropExtra("programSwitch", PROGRAM_SWITCH, programSwitch));
-
+        list.add(new ConfigStringPropExtra("id", SetDataFieldNames.PROGRAMSET_ID, id));
+        list.add(new ConfigStringPropExtra("visibleName", SetDataFieldNames.PROGRAMSET_VISIBLE_NAME, visibleName));
+        list.add(new ConfigStringPropExtra("progPath", SetDataFieldNames.PROGRAMSET_PROGRAM_PATH, progPath));
+        list.add(new ConfigStringPropExtra("progSwitch", SetDataFieldNames.PROGRAMSET_PROGRAM_SWITCH, progSwitch));
+        list.add(new ConfigStringPropExtra("description", SetDataFieldNames.PROGRAMSET_DESCRIPTION, description));
         return list.toArray(new Config[]{});
     }
 
@@ -61,81 +57,69 @@ public class SetDataProps extends SetDataBase {
         return id.get();
     }
 
-    public StringProperty idProperty() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id.set(id);
     }
 
-    public String getName() {
-        return name.get();
+    public StringProperty idProperty() {
+        return id;
     }
 
-    public StringProperty nameProperty() {
-        return name;
+    public String getVisibleName() {
+        return visibleName.get();
     }
 
-    public void setName(String name) {
-        this.name.set(name);
+    public void setVisibleName(String visibleName) {
+        this.visibleName.set(visibleName);
+    }
+
+    public StringProperty visibleNameProperty() {
+        return visibleName;
+    }
+
+    public String getProgPath() {
+        return progPath.get();
+    }
+
+    public void setProgPath(String progPath) {
+        this.progPath.set(progPath);
+    }
+
+    public StringProperty progPathProperty() {
+        return progPath;
+    }
+
+    public String getProgSwitch() {
+        return progSwitch.get();
+    }
+
+    public void setProgSwitch(String progSwitch) {
+        this.progSwitch.set(progSwitch);
+    }
+
+    public StringProperty progSwitchProperty() {
+        return progSwitch;
     }
 
     public String getDescription() {
         return description.get();
     }
 
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description.set(description);
     }
 
-    public boolean isStandardSet() {
-        return standardSet.get();
-    }
-
-    public BooleanProperty standardSetProperty() {
-        return standardSet;
-    }
-
-    public void setStandardSet(boolean standardSet) {
-        this.standardSet.set(standardSet);
-    }
-
-    public String getProgramPath() {
-        return programPath.get();
-    }
-
-    public StringProperty programPathProperty() {
-        return programPath;
-    }
-
-    public void setProgramPath(String programPath) {
-        this.programPath.set(programPath);
-    }
-
-    public String getProgramSwitch() {
-        return programSwitch.get();
-    }
-
-    public StringProperty programSwitchProperty() {
-        return programSwitch;
-    }
-
-    public void setProgramSwitch(String programSwitch) {
-        this.programSwitch.set(programSwitch);
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
     @Override
     public String toString() {
-        return getName();
+        return getVisibleName();
     }
 
     @Override
     public int compareTo(SetData setData) {
-        return this.getName().compareTo(setData.getName());
+        return this.getVisibleName().compareTo(setData.getVisibleName());
     }
 }

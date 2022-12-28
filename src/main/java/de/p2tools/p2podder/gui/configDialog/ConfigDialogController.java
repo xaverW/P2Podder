@@ -22,7 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.configDialog.setData.SetPaneController;
+import de.p2tools.p2podder.gui.configDialog.setData.SetPanePack;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -46,7 +46,7 @@ public class ConfigDialogController extends PDialogExtra {
     ConfigPaneController configPane;
     EpisodePaneController episodePaneController;
     PodPaneController podPane;
-    SetPaneController setPane;
+    SetPanePack setPane;
 
     private ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
@@ -111,7 +111,7 @@ public class ConfigDialogController extends PDialogExtra {
             tab.setContent(podPane);
             tabPane.getTabs().add(tab);
 
-            setPane = new SetPaneController(progData, getStage());
+            setPane = new SetPanePack(getStage());
             tab = new Tab("Abspielen");
             tab.setClosable(false);
             tab.setContent(setPane);

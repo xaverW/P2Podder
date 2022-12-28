@@ -30,9 +30,9 @@ public class StartProgramFactory {
 //            if (programData == null) {
 //                return false; //todo ist das gut da wenn kein Set???
 //            }
-            String programName = start.getSetData().getName();
-            String program = start.getSetData().getProgramPath();
-            String programSwitch = start.getSetData().getProgramSwitch();
+            String programName = start.getSetData().getVisibleName();
+            String program = start.getSetData().getProgPath();
+            String programSwitch = start.getSetData().getProgSwitch();
 
             start.setProgram(programName);
             buildProgParameter(start, program, programSwitch);

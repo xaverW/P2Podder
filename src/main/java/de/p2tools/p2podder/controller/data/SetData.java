@@ -29,7 +29,7 @@ public class SetData extends SetDataProps {
     public SetData(String name) {
         //neue Pset sind immer gleich Button
         setId(PIndex.getIndexStr());
-        setName(name);
+        setVisibleName(name);
     }
 
     public boolean isEmpty() {
@@ -53,8 +53,7 @@ public class SetData extends SetDataProps {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
         ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
-        ret.setName("Kopie-" + getName());
-        ret.setStandardSet(false);
+        ret.setVisibleName("Kopie-" + getVisibleName());
         return ret;
     }
 
@@ -71,12 +70,11 @@ public class SetData extends SetDataProps {
         return ret;
     }
 
-    public void setPropsFromXml() {
-        setId(arr[SET_ID]);
-        setName(arr[SET_NAME]);
-        setDescription(arr[SET_DESCRIPTION]);
-        setStandardSet(Boolean.parseBoolean(arr[SET_STANDARD_SET]));
-        setProgramPath(arr[SET_PROGRAM_PATH]);
-        setProgramSwitch(arr[SET_PROGRAM_SWITCH]);
-    }
+//    public void setPropsFromXml() {
+//        setId(arr[SET_ID]);
+//        setName(arr[SET_NAME]);
+//        setDescription(arr[SET_DESCRIPTION]);
+//        setProgramPath(arr[SET_PROGRAM_PATH]);
+//        setProgramSwitch(arr[SET_PROGRAM_SWITCH]);
+//    }
 }

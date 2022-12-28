@@ -47,20 +47,6 @@ public class SetDataList extends SetDataListWorker {
 
     public boolean addSetData(SetData psetData) {
         //add and notify
-        boolean play = false;
-        for (final SetData sd : this) {
-            if (sd.isStandardSet()) {
-                play = true;
-                break;
-            }
-        }
-        if (play) {
-            //gibt schon einen "play"
-            psetData.setStandardSet(false);
-        } else {
-            psetData.setStandardSet(true);
-        }
-
         final boolean ret = super.add(psetData);
         setListChanged();
         return ret;
@@ -81,11 +67,11 @@ public class SetDataList extends SetDataListWorker {
     private static boolean progReplacePattern(SetData pSet) {
         String vlc = "";
         // damit nur die Variablen abgefragt werden, die auch verwendet werden
-        if (pSet.getProgramPath().contains(PATTERN_PATH_VLC) || pSet.getProgramSwitch().contains(PATTERN_PATH_VLC)) {
+        if (pSet.getProgPath().contains(PATTERN_PATH_VLC) || pSet.getProgSwitch().contains(PATTERN_PATH_VLC)) {
             vlc = getPathVlc();
 
-            pSet.setProgramPath(pSet.getProgramPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
-            pSet.setProgramSwitch(pSet.getProgramSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
+            pSet.setProgPath(pSet.getProgPath().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
+            pSet.setProgSwitch(pSet.getProgSwitch().replaceAll(PATTERN_PATH_VLC, Matcher.quoteReplacement(vlc)));
         }
         return true;
     }
@@ -102,14 +88,8 @@ public class SetDataList extends SetDataListWorker {
 
     public SetData getSetDataPlay() {
         //liefert die Standard-Programmgruppe zum Abspielen
-        for (final SetData setData : this) {
-            if (setData.isStandardSet()) {
-                return setData;
-            }
-        }
         if (!this.isEmpty()) {
             SetData setData = this.get(0);
-            setData.setStandardSet(true);
             return setData;
         }
         return null;
@@ -124,16 +104,16 @@ public class SetDataList extends SetDataListWorker {
         return this;
     }
 
-    public void setStandardSet(SetData setData) {
-        for (final SetData sData : this) {
-            if (sData != setData) {
-                sData.setStandardSet(false);
-            }
-        }
-
-        setData.setStandardSet(true);
-        setListChanged();
-    }
+//    public void setStandardSet(SetData setData) {
+//        for (final SetData sData : this) {
+//            if (sData != setData) {
+//                sData.setStandardSet(false);
+//            }
+//        }
+//
+//        setData.setStandardSet(true);
+//        setListChanged();
+//    }
 
     public int up(int idx, boolean up) {
         final SetData prog = this.remove(idx);

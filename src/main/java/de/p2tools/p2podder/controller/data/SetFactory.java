@@ -52,15 +52,15 @@ public class SetFactory {
 
 
         for (final SetData setData : data.setDataList) {
-            if (setData.getProgramPath().isEmpty()) {
+            if (setData.getProgSwitch().isEmpty()) {
                 ret = false;
                 text += PIPE + LEER + "Kein Programm angegeben!" + P2LibConst.LINE_SEPARATOR;
-                text += PIPE + LEER + PFEIL + "Programmname: " + setData.getName() + P2LibConst.LINE_SEPARATOR;
-                text += PIPE + LEER + LEER + "Pfad: " + setData.getProgramPath() + P2LibConst.LINE_SEPARATOR;
+                text += PIPE + LEER + PFEIL + "Programmname: " + setData.getVisibleName() + P2LibConst.LINE_SEPARATOR;
+                text += PIPE + LEER + LEER + "Pfad: " + setData.getProgSwitch() + P2LibConst.LINE_SEPARATOR;
 
-            } else if (!new File(setData.getProgramPath()).canExecute()) {
+            } else if (!new File(setData.getProgPath()).canExecute()) {
                 // dann noch mit RuntimeExec versuchen
-                final StartRuntimeExec r = new StartRuntimeExec(setData.getProgramPath());
+                final StartRuntimeExec r = new StartRuntimeExec(setData.getProgPath());
                 final Process pr = r.exec();
                 if (pr != null) {
                     // dann passts ja
@@ -69,9 +69,9 @@ public class SetFactory {
                     // läßt sich nicht starten
                     ret = false;
                     text += PIPE + LEER + "Falscher Programmpfad!" + P2LibConst.LINE_SEPARATOR;
-                    text += PIPE + LEER + PFEIL + "Programmname: " + setData.getName() + P2LibConst.LINE_SEPARATOR;
-                    text += PIPE + LEER + LEER + "Pfad: " + setData.getProgramPath() + P2LibConst.LINE_SEPARATOR;
-                    if (!setData.getProgramPath().contains(File.separator)) {
+                    text += PIPE + LEER + PFEIL + "Programmname: " + setData.getVisibleName() + P2LibConst.LINE_SEPARATOR;
+                    text += PIPE + LEER + LEER + "Pfad: " + setData.getProgPath() + P2LibConst.LINE_SEPARATOR;
+                    if (!setData.getProgPath().contains(File.separator)) {
                         text += PIPE + LEER + PFEIL + "Wenn das Programm nicht im Systempfad liegt, " + P2LibConst.LINE_SEPARATOR;
                         text += PIPE + LEER + LEER + "wird der Start nicht klappen!" + P2LibConst.LINE_SEPARATOR;
                     }

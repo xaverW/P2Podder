@@ -22,6 +22,8 @@ import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
+import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PDateProperty;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
@@ -101,6 +103,9 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_LAST_TAB = addInt("system-last-tab", 0);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE_ASK = addBool("system-delete-episode-file-ask", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBool("system-delete-episode-file", Boolean.TRUE);
+
+    //Meta-Daten
+    public static PDateProperty META_PODCAST_LIST_DATE = addPDate("meta-podcast-list-date", new PDate());
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
@@ -300,5 +305,9 @@ public class ProgConfig extends PDataProgConfig {
 
     private static BooleanProperty addBoolC(String comment, String key, boolean init) {
         return addBoolPropC(comment, arrayList, key, init);
+    }
+
+    private static PDateProperty addPDate(String key, PDate date) {
+        return addPDateProp(arrayList, key, date);
     }
 }

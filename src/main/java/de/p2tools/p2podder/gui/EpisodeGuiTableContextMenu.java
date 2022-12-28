@@ -50,7 +50,7 @@ public class EpisodeGuiTableContextMenu {
             Menu miStartWithSet = new Menu("Episode abspielen, Programm auswählen");
             miStartWithSet.setDisable(episode == null);
             for (SetData set : progData.setDataList) {
-                MenuItem miStart = new MenuItem(set.getName());
+                MenuItem miStart = new MenuItem(set.getVisibleName());
                 miStart.setOnAction(a -> EpisodeFactory.playEpisode(episode, set));
                 miStartWithSet.getItems().add(miStart);
                 miStart.setDisable(episode == null);

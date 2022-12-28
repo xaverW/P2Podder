@@ -16,10 +16,11 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2Lib.configFile.pData.PDataListMeta;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.config.ProgConfig;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class PodcastList extends SimpleListProperty<Podcast> implements PDataListMeta<Podcast> {
+public class PodcastList extends SimpleListProperty<Podcast> implements PDataList<Podcast> {
 
     {
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
@@ -47,7 +48,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
 
     public int nr = 1;
     public String[] genres = {""};
-    private PodcastListMeta meta = new PodcastListMeta();
+//    private PodcastListMeta meta = new PodcastListMeta();
 
     private FilteredList<Podcast> filteredList = null;
     private SortedList<Podcast> sortedList = null;
@@ -89,17 +90,21 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         PDuration.counterStop("initList");
     }
 
-    @Override
-    public PodcastListMeta getMeta() {
-        return meta;
-    }
+//    @Override
+//    public PodcastListMeta getMeta() {
+//        return meta;
+//    }
 
     public synchronized String getGenDate() {
-        return meta.podcastDate.getValue().getPDate().get_dd_MM_yyyy();
+        return ProgConfig.META_PODCAST_LIST_DATE.getValue().toString();
+        //return meta.podcastDate.getValue().getPDate().get_dd_MM_yyyy();
     }
 
     public synchronized void setGenDateNow() {
-        meta.podcastDate.getValue().setPLocalDateNow();
+        PDate pl = new PDate();
+        pl.setPDateNow();
+        ProgConfig.META_PODCAST_LIST_DATE.setValue(pl);
+//        meta.podcastDate.getValue().setPLocalDateNow();
     }
 
     public boolean podcastExistsAlready(Podcast podcast) {
@@ -121,9 +126,9 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     public int getAge() {
         int days = 0;
         final LocalDate now = LocalDate.now();
-        final PLocalDate stationDate = meta.podcastDate.getValue();
+        final PDate stationDate = ProgConfig.META_PODCAST_LIST_DATE.getValue();// meta.podcastDate.getValue();
         if (stationDate != null) {
-            long diff = new Date().getTime() - stationDate.getPDate().getTime();
+            long diff = new Date().getTime() - ProgConfig.META_PODCAST_LIST_DATE.getValue().getTime();
             days = (int) TimeUnit.MILLISECONDS.toDays(diff);
             if (days < 0) {
                 days = 0;

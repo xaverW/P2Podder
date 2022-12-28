@@ -19,66 +19,68 @@ package de.p2tools.p2podder.gui.configDialog.setData;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.SetData;
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SetPaneController extends AnchorPane {
+public class SetPanePack extends AnchorPane {
 
     private final ProgData progData;
-    private SetData setData = null;
-
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
-
-    private ProgramPane programPane;
-    private ListPane listPane;
-
+    private final VBox vBox = new VBox();
     private final Stage stage;
-    DoubleProperty split = ProgConfig.CONFIG_DIALOG_SET_DIVIDER;
+    private final SetListPane setListPane;
+    private final SetDataPane setDataPane;
+    private final ObjectProperty<SetData> aktSetDate = new SimpleObjectProperty<>();
 
-    public SetPaneController(ProgData progData, Stage stage) {
+    public SetPanePack(Stage stage) {
         this.stage = stage;
-        this.progData = progData;
+        progData = ProgData.getInstance();
+
+        setListPane = new SetListPane(this);
+        setDataPane = new SetDataPane(this);
+        setDataPane.makePane();
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
         AnchorPane.setRightAnchor(splitPane, 0.0);
         AnchorPane.setTopAnchor(splitPane, 0.0);
-        getChildren().addAll(splitPane);
-
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
-        createPane();
+        VBox.setVgrow(setListPane, Priority.ALWAYS);
+        vBox.getChildren().addAll(setListPane);
+        splitPane.getItems().addAll(vBox, scrollPane);
+        SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
+        getChildren().addAll(splitPane);
+
+        scrollPane.setContent(setDataPane);
+        splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public SetData getAktSetDate() {
+        return aktSetDate.get();
+    }
+
+    public void setAktSetDate(SetData aktSetDate) {
+        this.aktSetDate.set(aktSetDate);
+    }
+
+    public ObjectProperty<SetData> aktSetDateProperty() {
+        return aktSetDate;
     }
 
     public void close() {
-    }
-
-    private void createPane() {
-        programPane = new ProgramPane(progData, stage);
-        listPane = new ListPane(stage, this);
-
-        splitPane.getItems().add(listPane);
-        splitPane.getItems().add(programPane);
-        splitPane.getDividers().get(0).positionProperty().bindBidirectional(split);
-    }
-
-    public void setSetData(SetData setData) {
-        programPane.unBindProgData();
-
-        this.setData = setData;
-        if (setData != null) {
-            programPane.bindProgData(setData);
-            programPane.setSetDate(setData);
-        }
-        setDisable();
-    }
-
-    public void setDisable() {
-        splitPane.setDisable(setData == null);
+        splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
     }
 }

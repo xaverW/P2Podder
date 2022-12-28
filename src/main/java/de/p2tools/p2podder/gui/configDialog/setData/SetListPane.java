@@ -17,15 +17,13 @@
 package de.p2tools.p2podder.gui.configDialog.setData;
 
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PButton;
-import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.PsetVorlagen;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
-import de.p2tools.p2podder.gui.tools.HelpText;
-import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -34,63 +32,53 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ListPane extends TitledPane {
+public class SetListPane extends TitledPane {
 
-    private final ProgData progData;
-
-
-    private final TableView<SetData> tableView = new TableView<>();
-    private final ToggleGroup toggleGroup = new ToggleGroup();
     static int newCounter = 1;
+    private final ProgData progData;
+    private final TableView<SetData> tableView = new TableView<>();
     private final Stage stage;
-    private final SetPaneController setPaneController;
+    private final SetPanePack setPanePack;
 
-    public ListPane(Stage stage, SetPaneController setPaneController) {
-        this.stage = stage;
-        this.setPaneController = setPaneController;
-        progData = ProgData.getInstance();
+    public SetListPane(SetPanePack setPanePack) {
+        this.setPanePack = setPanePack;
+        this.stage = setPanePack.getStage();
+        this.progData = ProgData.getInstance();
 
-        ScrollPane scrollPane = new ScrollPane();
-        VBox vBox = new VBox(5);
-        vBox.setPadding(new Insets(5));
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setContent(vBox);
-
-        this.setText("Sets");
-        this.setCollapsible(false);
-        this.setContent(scrollPane);
-        this.setMaxHeight(Double.MAX_VALUE);
-        VBox.setVgrow(this, Priority.ALWAYS);
-
-        initTable(vBox);
+        make();
         selectTableFirst();
-    }
-
-    public void close() {
     }
 
     public void selectTableFirst() {
         tableView.getSelectionModel().selectFirst();
     }
 
+    private void make() {
+        final VBox vBox = new VBox(10);
+        initTable(vBox);
+
+        this.setText("Sets");
+        this.setContent(vBox);
+        this.setCollapsible(false);
+        this.setMaxHeight(Double.MAX_VALUE);
+    }
 
     private void initTable(VBox vBox) {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            setPaneController.setSetData(newValue);
+            setPanePack.aktSetDateProperty().setValue(newValue);
         });
 
         final TableColumn<SetData, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn()); //todo muss eindeutig sein
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        final TableColumn<SetData, Boolean> standardColumn = new TableColumn<>("Standard");
-        standardColumn.setCellValueFactory(new PropertyValueFactory<>("standardSet"));
-        standardColumn.setCellFactory(new PCheckBoxCell().cellFactoryBool);
-        standardColumn.getStyleClass().add("center");
+//        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
+//        playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
+//        playColumn.setCellFactory(cellFactoryStart);
+//        playColumn.getStyleClass().add("center");
 
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tableView.getColumns().addAll(nameColumn, standardColumn);
+        tableView.getColumns().addAll(nameColumn/*, playColumn*/);
         tableView.setItems(progData.setDataList);
 
         VBox.setVgrow(tableView, Priority.ALWAYS);
@@ -136,6 +124,19 @@ public class ListPane extends TitledPane {
             }
         });
 
+        Button btnStandard = new Button("_Standardset");
+        btnStandard.setTooltip(new Tooltip("Das Set als Standardset festlegen"));
+        btnStandard.setOnAction(event -> {
+            SetData setData = getSelectedSelData();
+            if (setData != null) {
+                progData.setDataList.removeSetData(setData);
+                progData.setDataList.add(0, setData);
+                tableView.getSelectionModel().select(0);
+            }
+        });
+        HBox.setHgrow(btnStandard, Priority.ALWAYS);
+        btnStandard.setMaxWidth(Double.MAX_VALUE);
+
         Button btnDup = new Button("_Duplizieren");
         btnDup.setTooltip(new Tooltip("Eine Kopie des markierten Sets erstellen"));
         btnDup.setOnAction(event -> {
@@ -150,7 +151,7 @@ public class ListPane extends TitledPane {
         Button btnNewSet = new Button("Standardsets _anfügen");
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
-            if (!SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
+            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
                 PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });
@@ -165,13 +166,10 @@ public class ListPane extends TitledPane {
 
         HBox hBox = new HBox(10);
         HBox.setHgrow(hBox, Priority.ALWAYS);
-        hBox.getChildren().addAll(btnNew, btnDel, btnUp, btnDown);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
 
-        final Button btnHelp = PButton.helpButton(stage, "Set", HelpText.HELP_PSET);
-        HBox hBoxHlp = new HBox(10);
-        hBoxHlp.getChildren().addAll(hBox, btnHelp);
-
-        vBox.getChildren().addAll(hBoxHlp, btnDup, btnNewSet, btnCheck);
+        hBox.getChildren().addAll(btnNew, btnDel, PGuiTools.getHBoxGrower(), btnUp, btnDown);
+        vBox.getChildren().addAll(hBox, btnStandard, btnDup, btnNewSet, btnCheck);
     }
 
     private SetData getSelectedSelData() {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<P2Radio>
+    
+    <ProgrammSet>
+        <Name>Abspielen</Name>
+        <Programmpfad>PFAD_VLC</Programmpfad>
+        <Programmschalter>%f --play-and-exit</Programmschalter>
+        <Beschreibung>Standardset zum Abspielen einer Episode</Beschreibung>
+    </ProgrammSet>
+    
+    <ProgrammSet>
+        <Name>Abspielen dummy</Name>
+        <Programmpfad>PFAD_VLC</Programmpfad>
+        <Programmschalter>%f --play-and-exit -I dummy</Programmschalter>
+        <Beschreibung>Set zum Abspielen einer Episode, VLC ohne grafische Oberfläche</Beschreibung>
+    </ProgrammSet>
+    
+</P2Radio>
