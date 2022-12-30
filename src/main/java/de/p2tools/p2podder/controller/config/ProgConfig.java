@@ -19,6 +19,7 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
@@ -207,7 +208,7 @@ public class ProgConfig extends PDataProgConfig {
 
 
     private ProgConfig() {
-        super(arrayList, "ProgConfig");
+        super(arrayList, "progConfig" + PData.TAGGER + "ProgConfig");
     }
 
     public static final ProgConfig getInstance() {

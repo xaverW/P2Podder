@@ -26,7 +26,26 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 @SuppressWarnings("serial")
-public class SetDataList extends SetDataListWorker {
+public class SetDataList extends SetDataListProps {
+
+    public boolean addSetData(SetData setData) {
+        //add and notify
+        final boolean ret = super.add(setData);
+        setListChanged();
+        return ret;
+    }
+
+    public boolean addSetData(SetDataList setDataList) {
+        //add and notify
+        boolean ret = true;
+        for (final SetData entry : setDataList) {
+            if (!addSetData(entry)) {
+                ret = false;
+            }
+        }
+        setListChanged();
+        return ret;
+    }
 
     public static boolean progReplacePattern(SetDataList list) {
         boolean ret = true;
@@ -41,25 +60,6 @@ public class SetDataList extends SetDataListWorker {
     public boolean removeSetData(Object obj) {
         //remove and notify
         boolean ret = super.remove(obj);
-        setListChanged();
-        return ret;
-    }
-
-    public boolean addSetData(SetData psetData) {
-        //add and notify
-        final boolean ret = super.add(psetData);
-        setListChanged();
-        return ret;
-    }
-
-    public boolean addSetData(SetDataList list) {
-        //add and notify
-        boolean ret = true;
-        for (final SetData entry : list) {
-            if (!addSetData(entry)) {
-                ret = false;
-            }
-        }
         setListChanged();
         return ret;
     }
@@ -103,17 +103,6 @@ public class SetDataList extends SetDataListWorker {
         }
         return this;
     }
-
-//    public void setStandardSet(SetData setData) {
-//        for (final SetData sData : this) {
-//            if (sData != setData) {
-//                sData.setStandardSet(false);
-//            }
-//        }
-//
-//        setData.setStandardSet(true);
-//        setListChanged();
-//    }
 
     public int up(int idx, boolean up) {
         final SetData prog = this.remove(idx);

@@ -55,7 +55,7 @@ public class SetFactory {
             if (setData.getProgSwitch().isEmpty()) {
                 ret = false;
                 text += PIPE + LEER + "Kein Programm angegeben!" + P2LibConst.LINE_SEPARATOR;
-                text += PIPE + LEER + PFEIL + "Programmname: " + setData.getVisibleName() + P2LibConst.LINE_SEPARATOR;
+                text += PIPE + LEER + PFEIL + "Programmname: " + setData.getName() + P2LibConst.LINE_SEPARATOR;
                 text += PIPE + LEER + LEER + "Pfad: " + setData.getProgSwitch() + P2LibConst.LINE_SEPARATOR;
 
             } else if (!new File(setData.getProgPath()).canExecute()) {
@@ -69,7 +69,7 @@ public class SetFactory {
                     // läßt sich nicht starten
                     ret = false;
                     text += PIPE + LEER + "Falscher Programmpfad!" + P2LibConst.LINE_SEPARATOR;
-                    text += PIPE + LEER + PFEIL + "Programmname: " + setData.getVisibleName() + P2LibConst.LINE_SEPARATOR;
+                    text += PIPE + LEER + PFEIL + "Programmname: " + setData.getName() + P2LibConst.LINE_SEPARATOR;
                     text += PIPE + LEER + LEER + "Pfad: " + setData.getProgPath() + P2LibConst.LINE_SEPARATOR;
                     if (!setData.getProgPath().contains(File.separator)) {
                         text += PIPE + LEER + PFEIL + "Wenn das Programm nicht im Systempfad liegt, " + P2LibConst.LINE_SEPARATOR;

@@ -155,7 +155,9 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         });
         this.stream().forEach(e -> {
             Podcast p = progData.podcastList.getPodcastById(e.getPodcastId());
-            p.setNumber(p.getNumber() + 1);
+            if (p != null) {
+                p.setNumber(p.getNumber() + 1);
+            }
         });
     }
 

@@ -41,6 +41,7 @@ public class ImportSetDataFactory {
             default:
                 inReader = new GetFile().getPsetTemplateWindows();
         }
+
         // Standardgruppen laden
         SetDataList setDataList = importPset(inReader);
         if (setDataList != null) {
@@ -49,24 +50,6 @@ public class ImportSetDataFactory {
         }
         return setDataList;
     }
-
-//    private static InputStreamReader getPsetTamplate() {
-//        try {
-//            return new InputStreamReader(ImportSetDataFactory.class.getResource(PATH_PSET).openStream(), StandardCharsets.UTF_8);
-//        } catch (final IOException ex) {
-//            PLog.errorLog(469691002, ex);
-//        }
-//        return null;
-//    }
-//
-//    private static InputStreamReader getPsetTamplateDummy() {
-//        try {
-//            return new InputStreamReader(ImportSetDataFactory.class.getResource(PATH_PSET_DUMMY).openStream(), StandardCharsets.UTF_8);
-//        } catch (final IOException ex) {
-//            PLog.errorLog(894512049, ex);
-//        }
-//        return null;
-//    }
 
     private static SetDataList importPset(InputStreamReader in) {
         final SetDataList list = new SetDataList();
@@ -114,11 +97,8 @@ public class ImportSetDataFactory {
                 }
                 if (event == XMLStreamConstants.START_ELEMENT) {
                     switch (parser.getLocalName()) {
-                        case SetDataFieldNames.PROGRAMSET_ID:
-                            setData.setId(parser.getElementText());
-                            break;
-                        case SetDataFieldNames.PROGRAMSET_VISIBLE_NAME:
-                            setData.setVisibleName(parser.getElementText());
+                        case SetDataFieldNames.PROGRAMSET_NAME:
+                            setData.setName(parser.getElementText());
                             break;
                         case SetDataFieldNames.PROGRAMSET_PROGRAM_PATH:
                             setData.setProgPath(parser.getElementText());

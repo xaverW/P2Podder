@@ -130,12 +130,7 @@ public class ProgStartFactory {
                 !updateCheckTodayDone()) {
             // nach Updates suchen
             runUpdateCheck(progData, false);
-
-        } else if (ProgData.debug) {
-            // damits bei jedem Start gemacht wird
-            PLog.sysLog("DEBUG: Update-Check");
-            runUpdateCheck(progData, true);
-
+            
         } else {
             // will der User nicht --oder-- wurde heute schon gemacht
             List list = new ArrayList(5);

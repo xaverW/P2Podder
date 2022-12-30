@@ -29,7 +29,7 @@ public class PodcastProps extends PDataSample<Podcast> {
     public static final String TAG = "Podcast";
 
     static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
-    public IntegerProperty no = new SimpleIntegerProperty();
+    private final IntegerProperty no = new SimpleIntegerProperty();
     private final LongProperty id = new SimpleLongProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final BooleanProperty active = new SimpleBooleanProperty(true);
@@ -61,10 +61,6 @@ public class PodcastProps extends PDataSample<Podcast> {
 
     public final Property[] properties = {no, id, name, active, genre,
             description, number, date, website, url};
-
-    public String getStringOf(int i) {
-        return String.valueOf(properties[i].getValue());
-    }
 
     @Override
     public String getTag() {

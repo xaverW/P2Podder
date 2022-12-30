@@ -160,7 +160,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     public synchronized boolean importPodcastOnlyWithNr(Podcast podcast) {
         //hier nur beim Laden aus einer fertigen Podcastliste mit der GUI
         //die Podcasts sind schon sortiert, nur die Nummer muss noch ergänzt werden
-        podcast.no.setValue(nr++);
+        podcast.setNo(nr++);
         return super.add(podcast);
     }
 
@@ -208,7 +208,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         // und jetzt noch die Nummerierung in Ordnung bringen
         int i = 1;
         for (final Podcast podcast : this) {
-            podcast.no.setValue(i++);
+            podcast.setNo(i++);
         }
     }
 

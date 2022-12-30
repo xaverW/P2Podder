@@ -58,7 +58,7 @@ public class Podcast extends PodcastProps {
         for (int i = 0; i < conf.length; ++i) {
             conf[i].setActValue(podConf[i].getActValue());
         }
-        no = podcast.no;
+        setNo(podcast.getNo());
         init(); //Datum und int-Werte setzen
     }
 
@@ -82,7 +82,7 @@ public class Podcast extends PodcastProps {
         System.out.println("clp: " + clp.getActValueString());
 
 
-        ret.no = no;
+        ret.setNo(getNo());
         ret.init(); //Datum und int-Werte setzen
         return ret;
     }

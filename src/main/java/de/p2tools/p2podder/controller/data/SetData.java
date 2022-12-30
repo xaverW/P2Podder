@@ -23,13 +23,16 @@ import de.p2tools.p2Lib.tools.PIndex;
 public class SetData extends SetDataProps {
 
     public SetData() {
-        setId(PIndex.getIndexStr());
+//        if (getId().isEmpty()) {
+//            setId(PIndex.getIndexStr());
+//        }
     }
 
     public SetData(String name) {
-        //neue Pset sind immer gleich Button
-        setId(PIndex.getIndexStr());
-        setVisibleName(name);
+//        if (getId().isEmpty()) {
+//            setId(PIndex.getIndexStr());
+//        }
+        setName(name);
     }
 
     public boolean isEmpty() {
@@ -53,7 +56,7 @@ public class SetData extends SetDataProps {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
         ret.setId(PIndex.getIndexStr()); //es darf nur einen geben!
-        ret.setVisibleName("Kopie-" + getVisibleName());
+        ret.setName("Kopie-" + getName());
         return ret;
     }
 
@@ -69,12 +72,4 @@ public class SetData extends SetDataProps {
         ret += "     |_______________________________________________" + P2LibConst.LINE_SEPARATOR;
         return ret;
     }
-
-//    public void setPropsFromXml() {
-//        setId(arr[SET_ID]);
-//        setName(arr[SET_NAME]);
-//        setDescription(arr[SET_DESCRIPTION]);
-//        setProgramPath(arr[SET_PROGRAM_PATH]);
-//        setProgramSwitch(arr[SET_PROGRAM_SWITCH]);
-//    }
 }

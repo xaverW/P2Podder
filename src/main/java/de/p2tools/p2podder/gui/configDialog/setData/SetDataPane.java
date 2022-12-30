@@ -115,7 +115,7 @@ public class SetDataPane extends TitledPane {
 
         this.setData = setData;
         if (setData != null) {
-            txtVisibleName.textProperty().bindBidirectional(setData.visibleNameProperty());
+            txtVisibleName.textProperty().bindBidirectional(setData.nameProperty());
             txtProgPath.textProperty().bindBidirectional(setData.progPathProperty());
             txtProgSwitch.textProperty().bindBidirectional(setData.progSwitchProperty());
             txtDescription.textProperty().bindBidirectional(setData.descriptionProperty());
@@ -124,7 +124,7 @@ public class SetDataPane extends TitledPane {
 
     void unBindProgData() {
         if (setData != null) {
-            txtVisibleName.textProperty().unbindBidirectional(setData.visibleNameProperty());
+            txtVisibleName.textProperty().unbindBidirectional(setData.nameProperty());
             txtProgPath.textProperty().unbindBidirectional(setData.progPathProperty());
             txtProgSwitch.textProperty().unbindBidirectional(setData.progSwitchProperty());
             txtDescription.textProperty().unbindBidirectional(setData.descriptionProperty());

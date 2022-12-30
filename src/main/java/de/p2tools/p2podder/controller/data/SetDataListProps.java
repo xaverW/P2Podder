@@ -16,7 +16,9 @@
 
 package de.p2tools.p2podder.controller.data;
 
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.tools.PIndex;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -25,17 +27,16 @@ import javafx.collections.FXCollections;
 import java.util.Collection;
 
 @SuppressWarnings("serial")
-public class SetDataListWorker extends SimpleListProperty<SetData> implements PDataList<SetData> {
+public class SetDataListProps extends SimpleListProperty<SetData> implements PDataList<SetData> {
     // Liste aller Programmsets
 
     public static final String PATTERN_PATH_VLC = "PFAD_VLC";
-    public static final String TAG = "SetDataList";
-    public static final String PATTERN_PATH_SCRIPT = "PFAD_SCRIPT";
+    public static final String TAG = "setDataList" + PData.TAGGER + "SetDataList";
     public String version = "";
 
     private BooleanProperty listChanged = new SimpleBooleanProperty(true);
 
-    public SetDataListWorker() {
+    public SetDataListProps() {
         super(FXCollections.observableArrayList());
     }
 
@@ -93,28 +94,27 @@ public class SetDataListWorker extends SimpleListProperty<SetData> implements PD
     }
 
     void checkSetDataName(SetData setData) {
-        // Id auf Einmaligkeit prüfen und leere visibleNames füllen
-        // dient der geänderten Funktion -> SetData im Abo
-        String setDataId = setData.getId();
+        // Id auf Einmaligkeit prüfen und leere names füllen
         boolean found = false;
-        int id = 0;
 
         do {
-
             for (SetData sd : this) {
-                if (sd.getId().equals(setDataId)) {
+                if (sd.equals(setData)) {
+                    //nicht mit sich selbst prüfen
+                    continue;
+                }
+
+                if (sd.getId().equals(setData.getId())) {
                     found = true;
-                    setDataId = setData.getId() + "-" + ++id;
+                    setData.setId(PIndex.getIndexStr());
                     break;
                 }
                 found = false;
             }
-
         } while (found);
 
-        setData.setId(setDataId);
-        if (setData.getVisibleName().isEmpty()) {
-            setData.setVisibleName(setData.getId());
+        if (setData.getName().isEmpty()) {
+            setData.setName(setData.getId());
         }
     }
 }

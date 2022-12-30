@@ -19,8 +19,8 @@ package de.p2tools.p2podder.gui.configDialog.setData;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.controller.data.PsetVorlagen;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import javafx.geometry.Pos;
@@ -69,15 +69,10 @@ public class SetListPane extends TitledPane {
         });
 
         final TableColumn<SetData, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("visibleName"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-//        final TableColumn<SetData, Boolean> playColumn = new TableColumn<>("Standard");
-//        playColumn.setCellValueFactory(new PropertyValueFactory<>("play"));
-//        playColumn.setCellFactory(cellFactoryStart);
-//        playColumn.getStyleClass().add("center");
-
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.getColumns().addAll(nameColumn/*, playColumn*/);
         tableView.setItems(progData.setDataList);
 
@@ -151,7 +146,7 @@ public class SetListPane extends TitledPane {
         Button btnNewSet = new Button("Standardsets _anfügen");
         btnNewSet.setTooltip(new Tooltip("Standardsets erstellen und der Liste anfügen"));
         btnNewSet.setOnAction(event -> {
-            if (!SetFactory.addSetTemplate(new PsetVorlagen().getStandarset(true /*replaceMuster*/))) {
+            if (!SetFactory.addSetTemplate(ImportSetDataFactory.getStandarset())) {
                 PAlert.showErrorAlert("Set importieren", "Set konnten nicht importiert werden!");
             }
         });
