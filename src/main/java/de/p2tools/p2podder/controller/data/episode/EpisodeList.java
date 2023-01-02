@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.GermanStringSorter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -35,7 +36,7 @@ import java.util.function.Predicate;
 
 public class EpisodeList extends SimpleListProperty<Episode> implements PDataList<Episode> {
 
-    public static final String TAG = "EpisodeList";
+    public static final String TAG = "episodeList" + PData.TAGGER + "EpisodeList";
     private final ProgData progData;
     private final EpisodeStartsFactory episodeStartsFactory;
     private int no = 0;

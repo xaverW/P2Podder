@@ -46,15 +46,15 @@ public class PodcastProps extends PDataSample<Podcast> {
     @Override
     public ConfigExtra[] getConfigsArr() {
         ArrayList<ConfigExtra> list = new ArrayList<>();
-        list.add(new ConfigLongPropExtra("id", PodcastNames.PODCAST_ID, id));
-        list.add(new ConfigStringPropExtra("name", PodcastNames.PODCAST_NAME, name));
-        list.add(new ConfigBoolPropExtra("active", PodcastNames.PODCAST_ACTIVE, active));
-        list.add(new ConfigStringPropExtra("genre", PodcastNames.PODCAST_GENRE, genre));
-        list.add(new ConfigStringPropExtra("description", PodcastNames.PODCAST_DESCRIPTION, description));
-        list.add(new ConfigIntPropExtra("number", PodcastNames.PODCAST_NUMBER, number));
-        list.add(new ConfigStringPropExtra("date", PodcastNames.PODCAST_DATE, date));
-        list.add(new ConfigStringPropExtra("website", PodcastNames.PODCAST_WEBSITE, website));
-        list.add(new ConfigStringPropExtra("url", PodcastNames.PODCAST_URL, url));
+        list.add(new ConfigExtra_longProp("id", id));
+        list.add(new ConfigExtra_stringProp("name", name));
+        list.add(new ConfigExtra_boolProp("active", active));
+        list.add(new ConfigExtra_stringProp("genre", genre));
+        list.add(new ConfigExtra_stringProp("description", description));
+        list.add(new ConfigExtra_intProp("number", number));
+        list.add(new ConfigExtra_stringProp("date", date));
+        list.add(new ConfigExtra_stringProp("website", website));
+        list.add(new ConfigExtra_stringProp("url", url));
 
         return list.toArray(new ConfigExtra[]{});
     }

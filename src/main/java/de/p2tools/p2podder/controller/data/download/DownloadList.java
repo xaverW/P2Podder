@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -36,7 +37,7 @@ import java.util.function.Predicate;
 
 public class DownloadList extends SimpleListProperty<DownloadData> implements PDataList<DownloadData> {
 
-    public static final String TAG = "DownloadList";
+    public static final String TAG = "downloadList" + PData.TAGGER + "DownloadList";
     private final ProgData progData;
     private int no = 0;
     private boolean found = false;

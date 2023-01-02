@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2Lib.configFile.config.*;
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.mtDownload.DownloadSize;
 import de.p2tools.p2Lib.tools.date.PLocalDate;
@@ -30,7 +31,7 @@ import javafx.beans.property.*;
 import java.util.ArrayList;
 
 public class DownloadDataProps extends PDataSample<DownloadData> {
-    public static final String TAG = "Download";
+    public static final String TAG = "download" + PData.TAGGER + "Download";
 
     private final IntegerProperty no = new SimpleIntegerProperty(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
 
@@ -63,30 +64,30 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", DownloadFieldNames.DOWNLOAD_NO, no));
-        list.add(new ConfigIntPropExtra("state", DownloadFieldNames.DOWNLOAD_STATE, state));
-        list.add(new ConfigStringPropExtra("episodeTitle", DownloadFieldNames.DOWNLOAD_EPISODE_TITLE, episodeTitle));
-        list.add(new ConfigStringPropExtra("genre", DownloadFieldNames.DOWNLOAD_GENRE, genre));
-        list.add(new ConfigStringPropExtra("podcastName", DownloadFieldNames.DOWNLOAD_GENRE, podcastName));
+        list.add(new ConfigExtra_intProp("no", no));
+        list.add(new ConfigExtra_intProp("state", state));
+        list.add(new ConfigExtra_stringProp("episodeTitle", episodeTitle));
+        list.add(new ConfigExtra_stringProp("genre", genre));
+        list.add(new ConfigExtra_stringProp("podcastName", podcastName));
 
-        list.add(new ConfigStringPropExtra("duration", DownloadFieldNames.DOWNLOAD_DURATION, duration));
-        list.add(new ConfigStringPropExtra("description", DownloadFieldNames.DOWNLOAD_DESCRIPTION, description));
-        list.add(new ConfigBoolPropExtra("placedBack", DownloadFieldNames.DOWNLOAD_PLACED_BACK, placedBack));
-        list.add(new ConfigDoublePropExtra("progress", DownloadFieldNames.DOWNLOAD_PROGRESS, progress));
-        list.add(new ConfigPDownloadSize("pdownloadSize", DownloadFieldNames.DOWNLOAD_SIZE, downloadSize));
+        list.add(new ConfigExtra_stringProp("duration", duration));
+        list.add(new ConfigExtra_stringProp("description", description));
+        list.add(new ConfigExtra_boolProp("placedBack", "placedBack", placedBack));
+        list.add(new ConfigExtra_doubleProp("progress", "progress", progress));
+        list.add(new ConfigExtra_pDownloadSize("downloadSize", downloadSize));
 
-        list.add(new ConfigStringPropExtra("destFileName", DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, destFileName));
-        list.add(new ConfigStringPropExtra("destPath", DownloadFieldNames.DOWNLOAD_DEST_PATH, destPath));
+        list.add(new ConfigExtra_stringProp("destFileName", destFileName));
+        list.add(new ConfigExtra_stringProp("destPath", destPath));
 
-        list.add(new ConfigStringPropExtra("episodeUrl", DownloadFieldNames.DOWNLOAD_URL, episodeUrl));
-        list.add(new ConfigLong("podcastId", podcastId) {
+        list.add(new ConfigExtra_stringProp("episodeUrl", episodeUrl));
+        list.add(new Config_long("podcastId", podcastId) {
             public void setUsedValue(Long value) {
                 podcastId = value;
             }
         });
-        list.add(new ConfigStringPropExtra("episodeWebsite", DownloadFieldNames.DOWNLOAD_WEBSITE, episodeWebsite));
+        list.add(new ConfigExtra_stringProp("episodeWebsite", episodeWebsite));
 
-        list.add(new ConfigLocalDatePropExtra("pubDate", DownloadFieldNames.DOWNLOAD_PUB_DATE, pubDate));
+        list.add(new ConfigExtra_pLocalDateProp("pubDate", "pubDate", pubDate));
         return list.toArray(new Config[]{});
     }
 

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
+import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -40,7 +41,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
     }
 
-    public static final String TAG = "PodcastList";
+    public static final String TAG = "podcastList" + PData.TAGGER + "PodcastList";
 
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);

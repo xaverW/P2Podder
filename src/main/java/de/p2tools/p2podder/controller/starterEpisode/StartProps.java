@@ -17,8 +17,8 @@
 package de.p2tools.p2podder.controller.starterEpisode;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigIntPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigStringPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_intProp;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
@@ -41,10 +41,10 @@ public class StartProps extends PDataSample<Start> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", EpisodeFieldNames.EPISODE_NO, no));
-        list.add(new ConfigIntPropExtra("podcastNo", EpisodeFieldNames.EPISODE_PODCAST_NO, podcastNo));
-        list.add(new ConfigStringPropExtra("episodeTitle", EpisodeFieldNames.EPISODE_TITLE, episodeTitle));
-        list.add(new ConfigStringPropExtra("filePathName", EpisodeFieldNames.EPISODE_URL, filePathName));
+        list.add(new ConfigExtra_intProp("no", EpisodeFieldNames.EPISODE_NO, no));
+        list.add(new ConfigExtra_intProp("podcastNo", EpisodeFieldNames.EPISODE_PODCAST_NO, podcastNo));
+        list.add(new ConfigExtra_stringProp("episodeTitle", EpisodeFieldNames.EPISODE_TITLE, episodeTitle));
+        list.add(new ConfigExtra_stringProp("filePathName", EpisodeFieldNames.EPISODE_URL, filePathName));
 
         return list.toArray(new Config[]{});
     }

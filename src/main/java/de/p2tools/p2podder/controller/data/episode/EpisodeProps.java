@@ -50,22 +50,22 @@ public class EpisodeProps extends PDataSample<Episode> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigIntPropExtra("no", EpisodeFieldNames.EPISODE_NO, no));
+        list.add(new ConfigExtra_intProp("no", no));
 
-        list.add(new ConfigStringPropExtra("episodeTitle", EpisodeFieldNames.EPISODE_TITLE, episodeTitle));
-        list.add(new ConfigStringPropExtra("podcastName", EpisodeFieldNames.EPISODE_TITLE, podcastName));
-        list.add(new ConfigStringPropExtra("genre", EpisodeFieldNames.EPISODE_GENRE, genre));
+        list.add(new ConfigExtra_stringProp("episodeTitle", episodeTitle));
+        list.add(new ConfigExtra_stringProp("podcastName", podcastName));
+        list.add(new ConfigExtra_stringProp("genre", genre));
 
-        list.add(new ConfigStringPropExtra("duration", EpisodeFieldNames.EPISODE_DESCRIPTION, duration));
-        list.add(new ConfigStringPropExtra("description", EpisodeFieldNames.EPISODE_DESCRIPTION, description));
-        list.add(new ConfigStringPropExtra("fileName", EpisodeFieldNames.EPISODE_FILE_NAME, fileName));
-        list.add(new ConfigStringPropExtra("filePath", EpisodeFieldNames.EPISODE_FILE_PATH, filePath));
-        list.add(new ConfigPFileSize("pFileSize", EpisodeFieldNames.EPISODE_FILE_SIZE, pFileSize));
+        list.add(new ConfigExtra_stringProp("duration", duration));
+        list.add(new ConfigExtra_stringProp("description", description));
+        list.add(new ConfigExtra_stringProp("fileName", fileName));
+        list.add(new ConfigExtra_stringProp("filePath", filePath));
+        list.add(new ConfigExtra_pFileSize("pFfileSize", pFileSize));
 
-        list.add(new ConfigStringPropExtra("episodeUrl", EpisodeFieldNames.EPISODE_URL, episodeUrl));
-        list.add(new ConfigLongPropExtra("podcastId", EpisodeFieldNames.EPISODE_PODCAST_ID, podcastId));
-        list.add(new ConfigStringPropExtra("episodeWebsite", EpisodeFieldNames.EPISODE_WEBSITE, episodeWebsite));
-        list.add(new ConfigLocalDatePropExtra("pubDate", EpisodeFieldNames.EPISODE_DATE, pubDate));
+        list.add(new ConfigExtra_stringProp("episodeUrl", episodeUrl));
+        list.add(new ConfigExtra_longProp("podcastId", podcastId));
+        list.add(new ConfigExtra_stringProp("episodeWebsite", episodeWebsite));
+        list.add(new ConfigExtra_pLocalDateProp("pubDate", pubDate));
 
         return list.toArray(new Config[]{});
     }

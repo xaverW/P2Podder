@@ -17,8 +17,8 @@
 package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigBoolPropExtra;
-import de.p2tools.p2Lib.configFile.config.ConfigLongPropExtra;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
+import de.p2tools.p2Lib.configFile.config.ConfigExtra_longProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
@@ -42,12 +42,12 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigLongPropExtra("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
-        list.add(new ConfigBoolPropExtra("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
-        list.add(new ConfigBoolPropExtra("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
-        list.add(new ConfigBoolPropExtra("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStarted));
-        list.add(new ConfigBoolPropExtra("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
-        list.add(new ConfigBoolPropExtra("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
+        list.add(new ConfigExtra_longProp("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
+        list.add(new ConfigExtra_boolProp("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
+        list.add(new ConfigExtra_boolProp("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
+        list.add(new ConfigExtra_boolProp("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStarted));
+        list.add(new ConfigExtra_boolProp("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
+        list.add(new ConfigExtra_boolProp("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }
