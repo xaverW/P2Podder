@@ -20,14 +20,14 @@ import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.mtDownload.DownloadSize;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateProperty;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DownloadDataProps extends PDataSample<DownloadData> {
@@ -56,7 +56,7 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
     private long podcastId = 0;
     private final StringProperty episodeWebsite = new SimpleStringProperty("");
 
-    private final PLocalDateProperty pubDate = new PLocalDateProperty();
+    private final PLDateProperty pubDate = new PLDateProperty();
 
     DownloadDataProps() {
     }
@@ -64,30 +64,30 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_intProp("no", no));
-        list.add(new ConfigExtra_intProp("state", state));
-        list.add(new ConfigExtra_stringProp("episodeTitle", episodeTitle));
-        list.add(new ConfigExtra_stringProp("genre", genre));
-        list.add(new ConfigExtra_stringProp("podcastName", podcastName));
+        list.add(new Config_intProp("no", no));
+        list.add(new Config_intProp("state", state));
+        list.add(new Config_stringProp("episodeTitle", episodeTitle));
+        list.add(new Config_stringProp("genre", genre));
+        list.add(new Config_stringProp("podcastName", podcastName));
 
-        list.add(new ConfigExtra_stringProp("duration", duration));
-        list.add(new ConfigExtra_stringProp("description", description));
-        list.add(new ConfigExtra_boolProp("placedBack", "placedBack", placedBack));
-        list.add(new ConfigExtra_doubleProp("progress", "progress", progress));
-        list.add(new ConfigExtra_pDownloadSize("downloadSize", downloadSize));
+        list.add(new Config_stringProp("duration", duration));
+        list.add(new Config_stringProp("description", description));
+        list.add(new Config_boolProp("placedBack", placedBack));
+        list.add(new Config_doubleProp("progress", progress));
+        list.add(new Config_pDownloadSizeProp("downloadSize", downloadSize));
 
-        list.add(new ConfigExtra_stringProp("destFileName", destFileName));
-        list.add(new ConfigExtra_stringProp("destPath", destPath));
+        list.add(new Config_stringProp("destFileName", destFileName));
+        list.add(new Config_stringProp("destPath", destPath));
 
-        list.add(new ConfigExtra_stringProp("episodeUrl", episodeUrl));
+        list.add(new Config_stringProp("episodeUrl", episodeUrl));
         list.add(new Config_long("podcastId", podcastId) {
             public void setUsedValue(Long value) {
                 podcastId = value;
             }
         });
-        list.add(new ConfigExtra_stringProp("episodeWebsite", episodeWebsite));
+        list.add(new Config_stringProp("episodeWebsite", episodeWebsite));
 
-        list.add(new ConfigExtra_pLocalDateProp("pubDate", "pubDate", pubDate));
+        list.add(new ConfigExtra_lDateProp("pubDate", pubDate));
         return list.toArray(new Config[]{});
     }
 
@@ -338,15 +338,15 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
         this.episodeWebsite.set(episodeWebsite);
     }
 
-    public PLocalDate getPubDate() {
-        return pubDate.get();
+    public LocalDate getPubDate() {
+        return pubDate.getValue();
     }
 
-    public PLocalDateProperty pubDateProperty() {
+    public PLDateProperty pubDateProperty() {
         return pubDate;
     }
 
-    public void setPubDate(PLocalDate pubDate) {
+    public void setPubDate(LocalDate pubDate) {
         this.pubDate.setValue(pubDate);
     }
 

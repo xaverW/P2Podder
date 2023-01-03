@@ -77,8 +77,7 @@ public final class Episode extends EpisodeProps {
         if (days == 0) {
             return true;
         }
-
-        final long timeRange = DAYS.between(getPubDate().getLocalDate(), LocalDate.now());
+        final long timeRange = DAYS.between(getPubDate(), LocalDate.now());
         if (timeRange <= days) {
             return true;
         }

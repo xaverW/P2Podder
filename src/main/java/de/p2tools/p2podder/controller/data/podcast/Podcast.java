@@ -19,11 +19,12 @@ package de.p2tools.p2podder.controller.data.podcast;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigExtra_longProp;
 import de.p2tools.p2Lib.tools.PIndex;
-import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
+
+import java.time.LocalDate;
 
 public class Podcast extends PodcastProps {
 
@@ -36,16 +37,15 @@ public class Podcast extends PodcastProps {
     }
 
     private void setDate() {
-        podcastDate.setPLocalDateNow();
+        podcastDate = LocalDate.now();
         if (!getDate().isEmpty()) {
             // nur dann gibts ein Datum
             try {
-                PDate pd = new PDate(sdf_date.parse(getDate()));
-                podcastDate.setPLocalDate(pd);
+                podcastDate = PLDateFactory.fromString(getDate());
 
             } catch (final Exception ex) {
                 PLog.errorLog(854121547, ex, new String[]{"Datum: " + getDate()});
-                podcastDate = new PLocalDate();
+                podcastDate = LocalDate.now();
                 setDate("");
             }
         }

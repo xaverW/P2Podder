@@ -18,10 +18,10 @@ package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import javafx.beans.property.*;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PodcastProps extends PDataSample<Podcast> {
@@ -41,22 +41,22 @@ public class PodcastProps extends PDataSample<Podcast> {
     private final StringProperty url = new SimpleStringProperty("");
 
 
-    public PLocalDate podcastDate = new PLocalDate();
+    public LocalDate podcastDate = LocalDate.now();
 
     @Override
-    public ConfigExtra[] getConfigsArr() {
-        ArrayList<ConfigExtra> list = new ArrayList<>();
-        list.add(new ConfigExtra_longProp("id", id));
-        list.add(new ConfigExtra_stringProp("name", name));
-        list.add(new ConfigExtra_boolProp("active", active));
-        list.add(new ConfigExtra_stringProp("genre", genre));
-        list.add(new ConfigExtra_stringProp("description", description));
-        list.add(new ConfigExtra_intProp("number", number));
-        list.add(new ConfigExtra_stringProp("date", date));
-        list.add(new ConfigExtra_stringProp("website", website));
-        list.add(new ConfigExtra_stringProp("url", url));
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new Config_longProp("id", id));
+        list.add(new Config_stringProp("name", name));
+        list.add(new Config_boolProp("active", active));
+        list.add(new Config_stringProp("genre", genre));
+        list.add(new Config_stringProp("description", description));
+        list.add(new Config_intProp("number", number));
+        list.add(new Config_stringProp("date", date));
+        list.add(new Config_stringProp("website", website));
+        list.add(new Config_stringProp("url", url));
 
-        return list.toArray(new ConfigExtra[]{});
+        return list.toArray(new Config[]{});
     }
 
     public final Property[] properties = {no, id, name, active, genre,

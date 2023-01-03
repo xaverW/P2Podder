@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2Factory;
 import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 
 import java.io.File;
@@ -51,6 +51,6 @@ public class DownloadProgram {
     }
 
     private static String getToday_yyyyMMdd() {
-        return PDateFactory.F_FORMAT_yyyyMMdd.format(new Date());
+        return P2Factory.F_FORMAT_yyyy_MM_dd.format(new Date());
     }
 }

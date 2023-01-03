@@ -19,11 +19,11 @@ package de.p2tools.p2podder.controller.data.episode;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateProperty;
 import de.p2tools.p2Lib.tools.file.PFileSize;
 import javafx.beans.property.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EpisodeProps extends PDataSample<Episode> {
@@ -45,27 +45,31 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final StringProperty episodeWebsite = new SimpleStringProperty("");
 
-    private final PLocalDateProperty pubDate = new PLocalDateProperty();
+    private final PLDateProperty pubDate = new PLDateProperty();
 
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
         list.add(new ConfigExtra_intProp("no", no));
 
-        list.add(new ConfigExtra_stringProp("episodeTitle", episodeTitle));
-        list.add(new ConfigExtra_stringProp("podcastName", podcastName));
-        list.add(new ConfigExtra_stringProp("genre", genre));
+        list.add(new Config_stringProp("episodeTitle", episodeTitle));
+        list.add(new Config_stringProp("podcastName", podcastName));
+        list.add(new Config_stringProp("genre", genre));
 
-        list.add(new ConfigExtra_stringProp("duration", duration));
-        list.add(new ConfigExtra_stringProp("description", description));
-        list.add(new ConfigExtra_stringProp("fileName", fileName));
-        list.add(new ConfigExtra_stringProp("filePath", filePath));
-        list.add(new ConfigExtra_pFileSize("pFfileSize", pFileSize));
+        list.add(new Config_stringProp("duration", duration));
+        list.add(new Config_stringProp("description", description));
+        list.add(new Config_stringProp("fileName", fileName));
+        list.add(new Config_stringProp("filePath", filePath));
+        list.add(new Config_pFileSize("pFfileSize", pFileSize) {
+            public void setUsedValue(PFileSize value) {
+                pFileSize.setSizeL(value.getSizeL());
+            }
+        });
 
         list.add(new ConfigExtra_stringProp("episodeUrl", episodeUrl));
         list.add(new ConfigExtra_longProp("podcastId", podcastId));
         list.add(new ConfigExtra_stringProp("episodeWebsite", episodeWebsite));
-        list.add(new ConfigExtra_pLocalDateProp("pubDate", pubDate));
+        list.add(new ConfigExtra_lDateProp("pubDate", pubDate));
 
         return list.toArray(new Config[]{});
     }
@@ -212,15 +216,15 @@ public class EpisodeProps extends PDataSample<Episode> {
         this.episodeWebsite.set(episodeWebsite);
     }
 
-    public PLocalDate getPubDate() {
+    public LocalDate getPubDate() {
         return pubDate.get();
     }
 
-    public PLocalDateProperty pubDateProperty() {
+    public PLDateProperty pubDateProperty() {
         return pubDate;
     }
 
-    public void setPubDate(PLocalDate pubDate) {
+    public void setPubDate(LocalDate pubDate) {
         this.pubDate.setValue(pubDate);
     }
 

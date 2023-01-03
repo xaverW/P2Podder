@@ -30,9 +30,11 @@ import javafx.collections.transformation.SortedList;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @SuppressWarnings("serial")
 public class PodcastList extends SimpleListProperty<Podcast> implements PDataList<Podcast> {
@@ -104,7 +106,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     public synchronized void setGenDateNow() {
         PDate pl = new PDate();
         pl.setPDateNow();
-        ProgConfig.META_PODCAST_LIST_DATE.setValue(pl);
+        ProgConfig.META_PODCAST_LIST_DATE.setValue(LocalDateTime.now());
 //        meta.podcastDate.getValue().setPLocalDateNow();
     }
 
@@ -127,10 +129,9 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     public int getAge() {
         int days = 0;
         final LocalDate now = LocalDate.now();
-        final PDate stationDate = ProgConfig.META_PODCAST_LIST_DATE.getValue();// meta.podcastDate.getValue();
+        final LocalDateTime stationDate = ProgConfig.META_PODCAST_LIST_DATE.getValue();// meta.podcastDate.getValue();
         if (stationDate != null) {
-            long diff = new Date().getTime() - ProgConfig.META_PODCAST_LIST_DATE.getValue().getTime();
-            days = (int) TimeUnit.MILLISECONDS.toDays(diff);
+            days = (int) DAYS.between(ProgConfig.META_PODCAST_LIST_DATE.getValue(), LocalDateTime.now());
             if (days < 0) {
                 days = 0;
             }

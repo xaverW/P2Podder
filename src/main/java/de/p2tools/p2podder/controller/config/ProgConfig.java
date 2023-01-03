@@ -23,13 +23,13 @@ import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.data.PDataProgConfig;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
 import javafx.beans.property.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ProgConfig extends PDataProgConfig {
@@ -41,43 +41,43 @@ public class ProgConfig extends PDataProgConfig {
     // Programm-Configs, änderbar nur im Config-File
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
-    public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addInt("__system-parameter__download-errormsg-in-second_30__", 30);
-    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART = addInt("__system-parameter__download-max-restart_5__", 3);
-    public static BooleanProperty DOWNLOAD_MAX_ONE_PER_SERVER = addBool("download-max-one-per-server"); // nur ein Download pro Server - sonst max 2
+    public static IntegerProperty SYSTEM_PARAMETER_START_STATION_ERRORMSG_IN_SECOND = addIntProp("__system-parameter__download-errormsg-in-second_30__", 30);
+    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART = addIntProp("__system-parameter__download-max-restart_5__", 3);
+    public static BooleanProperty DOWNLOAD_MAX_ONE_PER_SERVER = addBoolProp("download-max-one-per-server"); // nur ein Download pro Server - sonst max 2
     // 250 Sekunden, wie bei Firefox
-    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_TIMEOUT_SECOND = addInt("__system-parameter__download-timeout-second_250__", 250);
+    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_TIMEOUT_SECOND = addIntProp("__system-parameter__download-timeout-second_250__", 250);
     // max. Startversuche für fehlgeschlagene Downloads, direkt beim Download
-    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART_HTTP = addInt("__system-parameter__download-max-restart-http_10__", 5);
+    public static IntegerProperty SYSTEM_PARAMETER_DOWNLOAD_MAX_RESTART_HTTP = addIntProp("__system-parameter__download-max-restart-http_10__", 5);
 
 
     // ===========================================
     //Filter Episoden
-    public static IntegerProperty FILTER_EPISODE_SEL_FILTER = addInt("filter-episode-sel-filter");
+    public static IntegerProperty FILTER_EPISODE_SEL_FILTER = addIntProp("filter-episode-sel-filter");
 
 
     // Configs der Programmversion
-    public static StringProperty SYSTEM_PROG_VERSION = addStr("system-prog-version");
-    public static StringProperty SYSTEM_PROG_BUILD_NO = addStr("system-prog-build-no");
-    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStr("system-prog-build-date");
-    public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStr("system-download-dir-new-version", "");
-    public static StringProperty SYSTEM_PROG_OPEN_DIR = addStr("system-prog-open-dir", "");
+    public static StringProperty SYSTEM_PROG_VERSION = addStrProp("system-prog-version");
+    public static StringProperty SYSTEM_PROG_BUILD_NO = addStrProp("system-prog-build-no");
+    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStrProp("system-prog-build-date");
+    public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStrProp("system-download-dir-new-version", "");
+    public static StringProperty SYSTEM_PROG_OPEN_DIR = addStrProp("system-prog-open-dir", "");
 
 
     // Configs zum Aktualisieren beim Programmupdate
-    public static IntegerProperty SYSTEM_UPDATE_STATE = addInt("system-update-state", 0);
+    public static IntegerProperty SYSTEM_UPDATE_STATE = addIntProp("system-update-state", 0);
 
     // Configs zur Programmupdatesuche
-    public static StringProperty SYSTEM_UPDATE_DATE = addStr("system-update-date"); // Datum der letzten Prüfung
-    public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStr("system-update-progset-version");
+    public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung
+    public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStrProp("system-update-progset-version");
 
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBool("system-update-search-act", true); //Infos und Programm
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBool("system-update-search-beta", false); //beta suchen
-    public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBool("system-update-search-daily", false); //daily suchen
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_ACT = addBoolProp("system-update-search-act", true); //Infos und Programm
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_BETA = addBoolProp("system-update-search-beta", false); //beta suchen
+    public static BooleanProperty SYSTEM_UPDATE_SEARCH_DAILY = addBoolProp("system-update-search-daily", false); //daily suchen
 
-    public static StringProperty SYSTEM_UPDATE_LAST_INFO = addStr("system-update-last-info");
-    public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStr("system-update-last-act");
-    public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStr("system-update-last-beta");
-    public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStr("system-update-last-daily");
+    public static StringProperty SYSTEM_UPDATE_LAST_INFO = addStrProp("system-update-last-info");
+    public static StringProperty SYSTEM_UPDATE_LAST_ACT = addStrProp("system-update-last-act");
+    public static StringProperty SYSTEM_UPDATE_LAST_BETA = addStrProp("system-update-last-beta");
+    public static StringProperty SYSTEM_UPDATE_LAST_DAILY = addStrProp("system-update-last-daily");
 
     // ConfigDialog, Dialog nach Start immer gleich öffnen
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_TAB = new SimpleIntegerProperty(0);
@@ -85,130 +85,130 @@ public class ProgConfig extends PDataProgConfig {
     public static IntegerProperty SYSTEM_CONFIG_DIALOG_POD = new SimpleIntegerProperty(-1);
 
     // Configs
-    public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBool("system-tray-own-icon", Boolean.FALSE);
-    public static StringProperty SYSTEM_TRAY_ICON_PATH = addStr("system-tray-icon", ""); //ein eigenes Tray-Icon
-    public static BooleanProperty SYSTEM_TRAY = addBool("system-tray", Boolean.TRUE);
-    public static StringProperty SYSTEM_USERAGENT = addStr("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
-    public static StringProperty SYSTEM_PROG_OPEN_URL = addStr("system-prog-open-url");
-    public static BooleanProperty SYSTEM_STYLE = addBool("system-style", Boolean.FALSE);
-    public static IntegerProperty SYSTEM_STYLE_SIZE = addInt("system-style-size", 14);
-    public static StringProperty SYSTEM_LOG_DIR = addStr("system-log-dir", "");
-    public static StringProperty SYSTEM_POD_DIR = addStr("system-pod-dir", "");
-    public static BooleanProperty SYSTEM_LOG_ON = addBool("system-log-on", Boolean.TRUE);
-    public static StringProperty SYSTEM_UPDATE_PODCAST_DATE = addStr("system-update-podcast-date"); // Datum der letzten Prüfung
-    public static BooleanProperty SYSTEM_UPDATE_PODCAST_DAILY = addBool("system-update-podcast-daily", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_START_DAILY_DOWNLOAD = addBool("system-start-daily-download", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_SMALL_BUTTON_TABLE_ROW = addBool("system-small-button-table-row", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_DARK_THEME = addBool("system-dark-theme", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_THEME_CHANGED = addBool("system-theme-changed");
-    public static IntegerProperty SYSTEM_LAST_TAB = addInt("system-last-tab", 0);
-    public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE_ASK = addBool("system-delete-episode-file-ask", Boolean.FALSE);
-    public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBool("system-delete-episode-file", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_TRAY_USE_OWN_ICON = addBoolProp("system-tray-own-icon", Boolean.FALSE);
+    public static StringProperty SYSTEM_TRAY_ICON_PATH = addStrProp("system-tray-icon", ""); //ein eigenes Tray-Icon
+    public static BooleanProperty SYSTEM_TRAY = addBoolProp("system-tray", Boolean.TRUE);
+    public static StringProperty SYSTEM_USERAGENT = addStrProp("system-useragent", ProgConst.USER_AGENT_DEFAULT);    // Useragent für direkte Downloads
+    public static StringProperty SYSTEM_PROG_OPEN_URL = addStrProp("system-prog-open-url");
+    public static BooleanProperty SYSTEM_STYLE = addBoolProp("system-style", Boolean.FALSE);
+    public static IntegerProperty SYSTEM_STYLE_SIZE = addIntProp("system-style-size", 14);
+    public static StringProperty SYSTEM_LOG_DIR = addStrProp("system-log-dir", "");
+    public static StringProperty SYSTEM_POD_DIR = addStrProp("system-pod-dir", "");
+    public static BooleanProperty SYSTEM_LOG_ON = addBoolProp("system-log-on", Boolean.TRUE);
+    public static StringProperty SYSTEM_UPDATE_PODCAST_DATE = addStrProp("system-update-podcast-date"); // Datum der letzten Prüfung
+    public static BooleanProperty SYSTEM_UPDATE_PODCAST_DAILY = addBoolProp("system-update-podcast-daily", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_START_DAILY_DOWNLOAD = addBoolProp("system-start-daily-download", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_SMALL_BUTTON_TABLE_ROW = addBoolProp("system-small-button-table-row", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
+    public static IntegerProperty SYSTEM_LAST_TAB = addIntProp("system-last-tab", 0);
+    public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE_ASK = addBoolProp("system-delete-episode-file-ask", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBoolProp("system-delete-episode-file", Boolean.TRUE);
 
     //Meta-Daten
-    public static PDateProperty META_PODCAST_LIST_DATE = addPDate("meta-podcast-list-date", new PDate());
+    public static PLDateTimeProperty META_PODCAST_LIST_DATE = addPLocalDateTimeProp("meta-podcast-list-date", LocalDateTime.now());
 
     // Fenstereinstellungen
-    public static StringProperty SYSTEM_SIZE_GUI = addStr("system-size-gui", "1000:800");
-    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO = addStr("system-size-dialog-episode-info", "600:800");
-    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL = addStr("system-size-dialog-episode-info-small", "600:300");
-    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_DEL = addStr("system-size-dialog-episode-del");
-    public static StringProperty SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL = addStr("system-size-dialog-download-del");
+    public static StringProperty SYSTEM_SIZE_GUI = addStrProp("system-size-gui", "1000:800");
+    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO = addStrProp("system-size-dialog-episode-info", "600:800");
+    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL = addStrProp("system-size-dialog-episode-info-small", "600:300");
+    public static StringProperty SYSTEM_SIZE_DIALOG_EPISODE_DEL = addStrProp("system-size-dialog-episode-del");
+    public static StringProperty SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL = addStrProp("system-size-dialog-download-del");
 
     //Gui SmallPodder
-    public static BooleanProperty SYSTEM_SMALL_PODDER = addBool("system-small-podder", false);
-    public static StringProperty SMALL_PODDER_SIZE = addStr("small-podder-size");
+    public static BooleanProperty SYSTEM_SMALL_PODDER = addBoolProp("system-small-podder", false);
+    public static StringProperty SMALL_PODDER_SIZE = addStrProp("small-podder-size");
 
 
-    public static StringProperty SYSTEM_PATH_VLC = addStr("system-path-vlc", SetFactory.getTemplatePathVlc());
+    public static StringProperty SYSTEM_PATH_VLC = addStrProp("system-path-vlc", SetFactory.getTemplatePathVlc());
 
     // Download
-    public static BooleanProperty DOWNLOAD_BEEP = addBool("download-beep");
-    public static IntegerProperty DOWNLOAD_MAX_BANDWIDTH_KBYTE = addInt("download-max-bandwidth-kbyte", MLBandwidthTokenBucket.BANDWIDTH_MAX_KBYTE);
-    public static BooleanProperty SYSTEM_SSL_ALWAYS_TRUE = addBool("system-ssl-always-true");
+    public static BooleanProperty DOWNLOAD_BEEP = addBoolProp("download-beep");
+    public static IntegerProperty DOWNLOAD_MAX_BANDWIDTH_KBYTE = addIntProp("download-max-bandwidth-kbyte", MLBandwidthTokenBucket.BANDWIDTH_MAX_KBYTE);
+    public static BooleanProperty SYSTEM_SSL_ALWAYS_TRUE = addBoolProp("system-ssl-always-true");
 
     // Gui Podcast
-    public static DoubleProperty PODCAST_GUI_FILTER_DIVIDER = addDouble("podcast-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty PODCAST_GUI_FILTER_ON = addBool("podcast-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty PODCAST_GUI_DIVIDER = addDouble("podcast-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty PODCAST_GUI_INFO_ON = addBool("podcast-gui-info-on", Boolean.TRUE);
-    public static StringProperty PODCAST_GUI_TABLE_WIDTH = addStr("podcast-gui-table-width");
-    public static StringProperty PODCAST_GUI_TABLE_SORT = addStr("podcast-gui-table-sort");
-    public static StringProperty PODCAST_GUI_TABLE_UP_DOWN = addStr("podcast-gui-table-up-down");
-    public static StringProperty PODCAST_GUI_TABLE_VIS = addStr("podcast-gui-table-vis");
-    public static StringProperty PODCAST_GUI_TABLE_ORDER = addStr("podcast-gui-table-order");
-    public static StringProperty PODCAST_EDIT_DIALOG_SIZE = addStr("podcast-edit-dialog-size", "600:800");
+    public static DoubleProperty PODCAST_GUI_FILTER_DIVIDER = addDoubleProp("podcast-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty PODCAST_GUI_FILTER_ON = addBoolProp("podcast-gui-filter-on", Boolean.TRUE);
+    public static DoubleProperty PODCAST_GUI_DIVIDER = addDoubleProp("podcast-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
+    public static BooleanProperty PODCAST_GUI_INFO_ON = addBoolProp("podcast-gui-info-on", Boolean.TRUE);
+    public static StringProperty PODCAST_GUI_TABLE_WIDTH = addStrProp("podcast-gui-table-width");
+    public static StringProperty PODCAST_GUI_TABLE_SORT = addStrProp("podcast-gui-table-sort");
+    public static StringProperty PODCAST_GUI_TABLE_UP_DOWN = addStrProp("podcast-gui-table-up-down");
+    public static StringProperty PODCAST_GUI_TABLE_VIS = addStrProp("podcast-gui-table-vis");
+    public static StringProperty PODCAST_GUI_TABLE_ORDER = addStrProp("podcast-gui-table-order");
+    public static StringProperty PODCAST_EDIT_DIALOG_SIZE = addStrProp("podcast-edit-dialog-size", "600:800");
 
     //Gui Download
-    public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDouble("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty DOWNLOAD_GUI_FILTER_ON = addBool("download-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty DOWNLOAD_GUI_DIVIDER = addDouble("download-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty DOWNLOAD_GUI_INFO_ON = addBool("download-gui-info-on", Boolean.TRUE);
-    public static StringProperty DOWNLOAD_GUI_TABLE_WIDTH = addStr("download-gui-table-width");
-    public static StringProperty DOWNLOAD_GUI_TABLE_SORT = addStr("download-gui-table-sort");
-    public static StringProperty DOWNLOAD_GUI_TABLE_UP_DOWN = addStr("download-gui-table-up-down");
-    public static StringProperty DOWNLOAD_GUI_TABLE_VIS = addStr("download-gui-table-vis");
-    public static StringProperty DOWNLOAD_GUI_TABLE_ORDER = addStr("download-gui-table-order");
+    public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDoubleProp("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty DOWNLOAD_GUI_FILTER_ON = addBoolProp("download-gui-filter-on", Boolean.TRUE);
+    public static DoubleProperty DOWNLOAD_GUI_DIVIDER = addDoubleProp("download-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
+    public static BooleanProperty DOWNLOAD_GUI_INFO_ON = addBoolProp("download-gui-info-on", Boolean.TRUE);
+    public static StringProperty DOWNLOAD_GUI_TABLE_WIDTH = addStrProp("download-gui-table-width");
+    public static StringProperty DOWNLOAD_GUI_TABLE_SORT = addStrProp("download-gui-table-sort");
+    public static StringProperty DOWNLOAD_GUI_TABLE_UP_DOWN = addStrProp("download-gui-table-up-down");
+    public static StringProperty DOWNLOAD_GUI_TABLE_VIS = addStrProp("download-gui-table-vis");
+    public static StringProperty DOWNLOAD_GUI_TABLE_ORDER = addStrProp("download-gui-table-order");
 
     //Gui Episodes
-    public static DoubleProperty EPISODE_GUI_FILTER_DIVIDER = addDouble("episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty EPISODE_GUI_FILTER_ON = addBool("episode-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty EPISODE_GUI_DIVIDER = addDouble("episode-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBool("episode-gui-divider-on", Boolean.TRUE);
-    public static StringProperty EPISODE_DIALOG_EDIT_SIZE = addStr("episode-dialog-edit-size", "800:800");
-    public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStr("start-station-error-dialog-size", "");
-    public static StringProperty EPISODE_GUI_TABLE_WIDTH = addStr("episode-gui-table-width");
-    public static StringProperty EPISODE_GUI_TABLE_SORT = addStr("episode-gui-table-sort");
-    public static StringProperty EPISODE_GUI_TABLE_UP_DOWN = addStr("episode-gui-table-up-down");
-    public static StringProperty EPISODE_GUI_TABLE_VIS = addStr("episode-gui-table-vis");
-    public static StringProperty EPISODE_GUI_TABLE_ORDER = addStr("episode-gui-table-order");
-    public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBool("episode-show-notification", Boolean.TRUE);
+    public static DoubleProperty EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty EPISODE_GUI_FILTER_ON = addBoolProp("episode-gui-filter-on", Boolean.TRUE);
+    public static DoubleProperty EPISODE_GUI_DIVIDER = addDoubleProp("episode-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
+    public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBoolProp("episode-gui-divider-on", Boolean.TRUE);
+    public static StringProperty EPISODE_DIALOG_EDIT_SIZE = addStrProp("episode-dialog-edit-size", "800:800");
+    public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
+    public static StringProperty EPISODE_GUI_TABLE_WIDTH = addStrProp("episode-gui-table-width");
+    public static StringProperty EPISODE_GUI_TABLE_SORT = addStrProp("episode-gui-table-sort");
+    public static StringProperty EPISODE_GUI_TABLE_UP_DOWN = addStrProp("episode-gui-table-up-down");
+    public static StringProperty EPISODE_GUI_TABLE_VIS = addStrProp("episode-gui-table-vis");
+    public static StringProperty EPISODE_GUI_TABLE_ORDER = addStrProp("episode-gui-table-order");
+    public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBoolProp("episode-show-notification", Boolean.TRUE);
 
     //Gui SmallEpisode
-    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDouble("small-episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStr("small-episode-gui-table-width");
-    public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStr("small-episode-gui-table-sort");
-    public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStr("small-episode-gui-table-up-down");
-    public static StringProperty SMALL_EPISODE_GUI_TABLE_VIS = addStr("small-episode-gui-table-vis");
-    public static StringProperty SMALL_EPISODE_GUI_TABLE_ORDER = addStr("small-episode-gui-table-order");
-    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBool("small-episode-gui-filter-on", Boolean.TRUE);
+    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("small-episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStrProp("small-episode-gui-table-width");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStrProp("small-episode-gui-table-sort");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStrProp("small-episode-gui-table-up-down");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_VIS = addStrProp("small-episode-gui-table-vis");
+    public static StringProperty SMALL_EPISODE_GUI_TABLE_ORDER = addStrProp("small-episode-gui-table-order");
+    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBoolProp("small-episode-gui-filter-on", Boolean.TRUE);
 
     // ConfigDialog
-    public static StringProperty CONFIG_DIALOG_SIZE = addStr("config-dialog-size");
-    public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBool("config_dialog-accordion", Boolean.TRUE);
-    public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDouble("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
-    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStr("config-dialog-import-set-size", "800:700");
-    public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDouble("config-dialog-shortcut-divider", 0.1);
+    public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");
+    public static BooleanProperty CONFIG_DIALOG_ACCORDION = addBoolProp("config_dialog-accordion", Boolean.TRUE);
+    public static DoubleProperty CONFIG_DIALOG_SET_DIVIDER = addDoubleProp("config-dialog-set-divider", ProgConst.CONFIG_DIALOG_SET_DIVIDER);
+    public static StringProperty CONFIG_DIALOG_IMPORT_SET_SIZE = addStrProp("config-dialog-import-set-size", "800:700");
+    public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDoubleProp("config-dialog-shortcut-divider", 0.1);
 
     //StartDialog
-    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStr("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
+    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
 
     //EpisodeInfoDialog
-    public static BooleanProperty EPISODE_INFO_DIALOG_SHOW_BIG = addBool("episode-info-dialog-show-big", Boolean.TRUE);
+    public static BooleanProperty EPISODE_INFO_DIALOG_SHOW_BIG = addBoolProp("episode-info-dialog-show-big", Boolean.TRUE);
 
     //Shorcuts Hauptmenü
     public static final String SHORTCUT_QUIT_PROGRAM_INIT = "Ctrl+Q";
-    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStr("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
+    public static StringProperty SHORTCUT_QUIT_PROGRAM = addStrProp("SHORTCUT_QUIT_PROGRAM", SHORTCUT_QUIT_PROGRAM_INIT);
 
     //Shortcuts Podcastmenü
     public static final String SHORTCUT_UPDATE_PODCAST_INIT = "Ctrl+P";
-    public static StringProperty SHORTCUT_UPDATE_PODCAST = addStr("SHORTCUT_PLAY_STATION", SHORTCUT_UPDATE_PODCAST_INIT);
+    public static StringProperty SHORTCUT_UPDATE_PODCAST = addStrProp("SHORTCUT_PLAY_STATION", SHORTCUT_UPDATE_PODCAST_INIT);
     public static final String SHORTCUT_SAVE_PODCAST_INIT = "Ctrl+S";
-    public static StringProperty SHORTCUT_SAVE_PODCAST = addStr("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_PODCAST_INIT);
+    public static StringProperty SHORTCUT_SAVE_PODCAST = addStrProp("SHORTCUT_SAVE_STATION", SHORTCUT_SAVE_PODCAST_INIT);
 
     // Shortcuts Episodenmenü
     public static final String SHORTCUT_EPISODE_START_INIT = "Ctrl+F";
-    public static StringProperty SHORTCUT_EPISODE_START = addStr("SHORTCUT_EPISODE_START", SHORTCUT_EPISODE_START_INIT);
+    public static StringProperty SHORTCUT_EPISODE_START = addStrProp("SHORTCUT_EPISODE_START", SHORTCUT_EPISODE_START_INIT);
     public static final String SHORTCUT_EPISODE_STOP_INIT = "Ctrl+T";
-    public static StringProperty SHORTCUT_EPISODE_STOP = addStr("SHORTCUT_EPISODE_STOP", SHORTCUT_EPISODE_STOP_INIT);
+    public static StringProperty SHORTCUT_EPISODE_STOP = addStrProp("SHORTCUT_EPISODE_STOP", SHORTCUT_EPISODE_STOP_INIT);
     public static final String SHORTCUT_EPISODE_CHANGE_INIT = "Ctrl+C";
-    public static StringProperty SHORTCUT_EPISODE_CHANGE = addStr("SHORTCUT_EPISODE_CHANGE", SHORTCUT_EPISODE_CHANGE_INIT);
+    public static StringProperty SHORTCUT_EPISODE_CHANGE = addStrProp("SHORTCUT_EPISODE_CHANGE", SHORTCUT_EPISODE_CHANGE_INIT);
 
-    public static IntegerProperty DOWNLOAD_MAX_DOWNLOADS = addInt("download-max-downloads", 1);
+    public static IntegerProperty DOWNLOAD_MAX_DOWNLOADS = addIntProp("download-max-downloads", 1);
 
 
     private ProgConfig() {
-        super(arrayList, "progConfig" + PData.TAGGER + "ProgConfig");
+        super("progConfig" + PData.TAGGER + "ProgConfig");
     }
 
     public static final ProgConfig getInstance() {
@@ -246,69 +246,5 @@ public class ProgConfig extends PDataProgConfig {
 
             list.add(s + "  " + c.getActValueString());
         });
-    }
-
-    private static StringProperty addStr(String key) {
-        return addStrProp(arrayList, key);
-    }
-
-    private static StringProperty addStrC(String comment, String key) {
-        return addStrPropC(comment, arrayList, key);
-    }
-
-    private static StringProperty addStr(String key, String init) {
-        return addStrProp(arrayList, key, init);
-    }
-
-    private static StringProperty addStrC(String comment, String key, String init) {
-        return addStrPropC(comment, arrayList, key, init);
-    }
-
-    private static DoubleProperty addDouble(String key, double init) {
-        return addDoubleProp(arrayList, key, init);
-    }
-
-    private static DoubleProperty addDoubleC(String comment, String key, double init) {
-        return addDoublePropC(comment, arrayList, key, init);
-    }
-
-    private static IntegerProperty addInt(String key) {
-        return addIntProp(arrayList, key, 0);
-    }
-
-    private static IntegerProperty addInt(String key, int init) {
-        return addIntProp(arrayList, key, init);
-    }
-
-    private static IntegerProperty addIntC(String comment, String key, int init) {
-        return addIntPropC(comment, arrayList, key, init);
-    }
-
-    private static LongProperty addLong(String key) {
-        return addLongProp(arrayList, key, 0);
-    }
-
-    private static LongProperty addLong(String key, long init) {
-        return addLongProp(arrayList, key, init);
-    }
-
-    private static LongProperty addLongC(String comment, String key, long init) {
-        return addLongPropC(comment, arrayList, key, init);
-    }
-
-    private static BooleanProperty addBool(String key, boolean init) {
-        return addBoolProp(arrayList, key, init);
-    }
-
-    private static BooleanProperty addBool(String key) {
-        return addBoolProp(arrayList, key, Boolean.FALSE);
-    }
-
-    private static BooleanProperty addBoolC(String comment, String key, boolean init) {
-        return addBoolPropC(comment, arrayList, key, init);
-    }
-
-    private static PDateProperty addPDate(String key, PDate date) {
-        return addPDateProp(arrayList, key, date);
     }
 }
