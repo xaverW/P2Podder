@@ -45,16 +45,16 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_longProp("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
-        list.add(new ConfigExtra_stringProp("genre", EpisodeFilterToXml.SELECTED_FILTER_GENRE, genre));
-        list.add(new ConfigExtra_stringProp("title", EpisodeFilterToXml.SELECTED_FILTER_TITLE, title));
-        list.add(new ConfigExtra_stringProp("description", EpisodeFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
-        list.add(new ConfigExtra_intProp("timeRange", EpisodeFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
-        list.add(new ConfigExtra_boolProp("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
-        list.add(new ConfigExtra_boolProp("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
-        list.add(new ConfigExtra_boolProp("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStartet));
-        list.add(new ConfigExtra_boolProp("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
-        list.add(new ConfigExtra_boolProp("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
+        list.add(new Config_longProp("podcastId", EpisodeFilterToXml.SELECTED_FILTER_PODCAST_ID, podcastId));
+        list.add(new Config_stringProp("genre", EpisodeFilterToXml.SELECTED_FILTER_GENRE, genre));
+        list.add(new Config_stringProp("title", EpisodeFilterToXml.SELECTED_FILTER_TITLE, title));
+        list.add(new Config_stringProp("description", EpisodeFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
+        list.add(new Config_intProp("timeRange", EpisodeFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
+        list.add(new Config_boolProp("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
+        list.add(new Config_boolProp("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
+        list.add(new Config_boolProp("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStartet));
+        list.add(new Config_boolProp("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
+        list.add(new Config_boolProp("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
 
         return list.toArray(new Config[]{});
     }

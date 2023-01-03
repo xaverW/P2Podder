@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_longProp;
+import de.p2tools.p2Lib.configFile.config.Config_longProp;
 import de.p2tools.p2Lib.tools.PIndex;
 import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -77,7 +77,7 @@ public class Podcast extends PodcastProps {
         }
 
         LongProperty lp = new SimpleLongProperty(5);
-        ConfigExtra_longProp clp = new ConfigExtra_longProp("test", "test", lp);
+        Config_longProp clp = new Config_longProp("test", "test", lp);
         clp.setActValue(123);
         System.out.println("clp: " + clp.getActValueString());
 

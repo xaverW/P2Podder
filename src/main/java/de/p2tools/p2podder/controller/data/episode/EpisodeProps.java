@@ -50,7 +50,7 @@ public class EpisodeProps extends PDataSample<Episode> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_intProp("no", no));
+        list.add(new Config_intProp("no", no));
 
         list.add(new Config_stringProp("episodeTitle", episodeTitle));
         list.add(new Config_stringProp("podcastName", podcastName));
@@ -66,10 +66,10 @@ public class EpisodeProps extends PDataSample<Episode> {
             }
         });
 
-        list.add(new ConfigExtra_stringProp("episodeUrl", episodeUrl));
-        list.add(new ConfigExtra_longProp("podcastId", podcastId));
-        list.add(new ConfigExtra_stringProp("episodeWebsite", episodeWebsite));
-        list.add(new ConfigExtra_lDateProp("pubDate", pubDate));
+        list.add(new Config_stringProp("episodeUrl", episodeUrl));
+        list.add(new Config_longProp("podcastId", podcastId));
+        list.add(new Config_stringProp("episodeWebsite", episodeWebsite));
+        list.add(new Config_lDateProp("pubDate", pubDate));
 
         return list.toArray(new Config[]{});
     }

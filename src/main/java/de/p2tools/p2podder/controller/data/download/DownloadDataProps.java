@@ -87,7 +87,7 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
         });
         list.add(new Config_stringProp("episodeWebsite", episodeWebsite));
 
-        list.add(new ConfigExtra_lDateProp("pubDate", pubDate));
+        list.add(new Config_lDateProp("pubDate", pubDate));
         return list.toArray(new Config[]{});
     }
 
