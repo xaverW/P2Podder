@@ -17,8 +17,8 @@
 package de.p2tools.p2podder.controller.starterDownload;
 
 
-import de.p2tools.p2Lib.P2Factory;
 import de.p2tools.p2Lib.guiTools.PSizeTools;
+import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -113,7 +113,7 @@ public class DownloadStarterFactory {
         list.add("Download starten");
         list.add("Ziel: " + download.getDestPathFile());
         list.add("URL: " + download.getEpisodeUrl());
-        list.add("Startzeit: " + P2Factory.F_FORMAT_HH__mm__ss.format(download.getDownloadStart().getStartTime()));
+        list.add("Startzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(download.getDownloadStart().getStartTime()));
         list.add(PLog.LILNE_EMPTY);
         PLog.sysLog(list.toArray(new String[list.size()]));
     }
@@ -144,8 +144,8 @@ public class DownloadStarterFactory {
             list.add("Ziel: " + download.getDestPathFile());
         }
 
-        list.add("Startzeit: " + P2Factory.F_FORMAT_HH__mm__ss.format(download.getDownloadStart().getStartTime()));
-        list.add("Endzeit: " + P2Factory.F_FORMAT_HH__mm__ss.format(new PDate().getTime()));
+        list.add("Startzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(download.getDownloadStart().getStartTime()));
+        list.add("Endzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(new PDate().getTime()));
 
         if (start.getRestartCounter() > 0) {
             list.add("Restarts: " + start.getRestartCounter());

@@ -69,7 +69,44 @@ public class ProgStartFactory {
             addStandarSets(progData);
         }
 
+        resetConfigs();
         return firstProgramStart;
+    }
+
+    private static void resetConfigs() {
+        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(ProgramToolsFactory.getProgVersion()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(ProgramToolsFactory.getBuild()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
+
+            //dann ist eine neue Version/Build
+            PLog.sysLog("===============================");
+            PLog.sysLog(" eine neue Version/Build");
+            PLog.sysLog(" Einstellung zurücksetzen");
+
+            ProgConfig.PODCAST_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.PODCAST_GUI_TABLE_SORT.setValue("");
+            ProgConfig.PODCAST_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.PODCAST_GUI_TABLE_VIS.setValue("");
+            ProgConfig.PODCAST_GUI_TABLE_ORDER.setValue("");
+
+            ProgConfig.DOWNLOAD_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.DOWNLOAD_GUI_TABLE_SORT.setValue("");
+            ProgConfig.DOWNLOAD_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.DOWNLOAD_GUI_TABLE_VIS.setValue("");
+            ProgConfig.DOWNLOAD_GUI_TABLE_ORDER.setValue("");
+
+            ProgConfig.EPISODE_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.EPISODE_GUI_TABLE_SORT.setValue("");
+            ProgConfig.EPISODE_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.EPISODE_GUI_TABLE_VIS.setValue("");
+            ProgConfig.EPISODE_GUI_TABLE_ORDER.setValue("");
+
+            ProgConfig.SMALL_EPISODE_GUI_TABLE_WIDTH.setValue("");
+            ProgConfig.SMALL_EPISODE_GUI_TABLE_SORT.setValue("");
+            ProgConfig.SMALL_EPISODE_GUI_TABLE_UP_DOWN.setValue("");
+            ProgConfig.SMALL_EPISODE_GUI_TABLE_VIS.setValue("");
+            ProgConfig.SMALL_EPISODE_GUI_TABLE_ORDER.setValue("");
+        }
     }
 
     /**
@@ -130,7 +167,7 @@ public class ProgStartFactory {
                 !updateCheckTodayDone()) {
             // nach Updates suchen
             runUpdateCheck(progData, false);
-            
+
         } else {
             // will der User nicht --oder-- wurde heute schon gemacht
             List list = new ArrayList(5);
