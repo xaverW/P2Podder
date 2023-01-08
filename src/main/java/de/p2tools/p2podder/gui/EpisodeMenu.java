@@ -70,7 +70,7 @@ public class EpisodeMenu {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Episoden-Menü anzeigen"));
         mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
-        mb.getStyleClass().add("btnFunctionWide");
+        mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final boolean moreSets = progData.setDataList.size() > 1;
         if (moreSets) {

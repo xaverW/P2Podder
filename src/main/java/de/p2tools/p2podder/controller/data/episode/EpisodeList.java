@@ -152,12 +152,12 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
 
     public synchronized void countEpisodes() {
         progData.podcastList.stream().forEach(p -> {
-            p.setNumber(0);
+            p.setAmountEpisodes(0);
         });
         this.stream().forEach(e -> {
             Podcast p = progData.podcastList.getPodcastById(e.getPodcastId());
             if (p != null) {
-                p.setNumber(p.getNumber() + 1);
+                p.setAmountEpisodes(p.getAmountEpisodes() + 1);
             }
         });
     }

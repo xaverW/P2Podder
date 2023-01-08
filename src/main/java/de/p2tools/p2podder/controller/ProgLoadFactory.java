@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.ReadConfigFile;
-import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -66,11 +66,11 @@ public class ProgLoadFactory {
             } else {
                 //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
                 if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
-                    if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
+                    if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
                         PLog.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
                     } else {
                         PLog.sysLog("nach neuen Episoden suchen");
-                        ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+                        ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
                         new ParserThread(progData).parse(progData.podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
                     }
                 } else {
@@ -122,7 +122,6 @@ public class ProgLoadFactory {
         progData.podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.init();
         podcast.setName("Auf den Punkt - der SZ-Nachrichtenpodcast");
         podcast.setGenre("Nachrichten");
         podcast.setUrl("https://sz-auf-den-punkt.podigee.io/feed/mp3");
@@ -133,7 +132,6 @@ public class ProgLoadFactory {
         progData.podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.init();
         podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
         podcast.setGenre("Ökologie");
         podcast.setUrl("https://utopia.podigee.io/feed/mp3");
@@ -146,7 +144,6 @@ public class ProgLoadFactory {
         progData.podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.init();
         podcast.setName("Radio Tux");
         podcast.setGenre("Linux");
         podcast.setUrl("http://prometheus.radiotux.de/index.php?/feeds/index.rss2");
@@ -158,7 +155,6 @@ public class ProgLoadFactory {
         progData.podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.init();
         podcast.setName("beVegt-Podcast");
         podcast.setGenre("Gesundheit");
         podcast.setUrl("https://bevegt.libsyn.com/rss");
@@ -171,6 +167,3 @@ public class ProgLoadFactory {
         progData.podcastList.addNewItem(podcast);
     }
 }
-
-
-

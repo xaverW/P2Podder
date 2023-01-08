@@ -44,21 +44,21 @@ public class EpisodeFilterControllerClearFilter extends HBox {
         Button btnGoForward = new Button("");
         Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
-        btnHelp.getStyleClass().add("btnSmallPodder");
+//        btnHelp.getStyleClass().add("btnSmallPodder");
 
-        btnGoBack.getStyleClass().add("btnSmallPodder");
+//        btnGoBack.getStyleClass().add("btnSmallPodder");
         btnGoBack.setGraphic(ProgIcons.Icons.ICON_BUTTON_BACKWARD.getImageView());
         btnGoBack.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnGoForward.getStyleClass().add("btnSmallPodder");
+//        btnGoForward.getStyleClass().add("btnSmallPodder");
         btnGoForward.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
         btnGoForward.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnClearFilter.getStyleClass().add("btnSmallPodder");
+//        btnClearFilter.getStyleClass().add("btnSmallPodder");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));

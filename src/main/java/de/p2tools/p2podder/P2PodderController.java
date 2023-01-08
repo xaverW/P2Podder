@@ -219,7 +219,7 @@ public class P2PodderController extends StackPane {
         }
 
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
-        menuButton.getStyleClass().add("btnFunctionWide");
+        menuButton.getStyleClass().addAll("btnFunction", "btnFunc-1");
         menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
         menuButton.getItems().addAll(miConfig, mHelp,
                 new SeparatorMenuItem(), miQuit);

@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
@@ -29,10 +30,11 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -53,7 +55,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     private final Button btnStop = new Button("");
     private final Button btnOk = new Button("_Ok");
     private final ImageView ivNew = new ImageView();
-
+    private final TextArea taDescription = new TextArea();
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
@@ -228,9 +230,17 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                     break;
                 case EpisodeFieldNames.EPISODE_DESCRIPTION_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
+                    taDescription.setMinHeight(25);
+                    GridPane.setVgrow(taDescription, Priority.ALWAYS);
+                    taDescription.setEditable(false);
+                    taDescription.setWrapText(true);
+                    taDescription.setBlendMode(BlendMode.DARKEN);
+
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 0, row);
-                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 1, row++);
-                    GridPane.setValignment(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], VPos.TOP);
+                    gridPane.add(taDescription, 1, row++);
+//                    gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 0, row);
+//                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 1, row++);
+//                    GridPane.setValignment(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], VPos.TOP);
                     break;
                 case EpisodeFieldNames.EPISODE_FILE_NAME_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
@@ -289,6 +299,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                         lblCont[i].setText(episode.getDuration());
                         break;
                     case EpisodeFieldNames.EPISODE_DESCRIPTION_NO:
+                        taDescription.setText(episode.getDescription());
                         lblCont[i].setText(episode.getDescription());
                         break;
                     case EpisodeFieldNames.EPISODE_FILE_NAME_NO:
@@ -304,7 +315,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                         pHyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
                         break;
                     case EpisodeFieldNames.EPISODE_DATE_NO:
-                        lblCont[i].setText(episode.getPubDate().toString());
+                        lblCont[i].setText(PLDateFactory.toString(episode.getPubDate()));
                         break;
                 }
             }

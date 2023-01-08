@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.POpen;
-import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -33,10 +32,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,9 +113,10 @@ public class TableDownload extends PTable<DownloadData> {
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<DownloadData, PDate> datumColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
-        datumColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        datumColumn.getStyleClass().add("alignCenter");
+        final TableColumn<DownloadData, LocalDate> dateColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
+        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<DownloadData, String> fileColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME);
         fileColumn.setCellValueFactory(new PropertyValueFactory<>("destFileName"));
@@ -144,7 +144,7 @@ public class TableDownload extends PTable<DownloadData> {
 
         getColumns().addAll(noColumn, genreColumn, podcastNameColumn, titleColumn,
                 startColumn, progressColumn, remainingColumn, speedColumn,
-                downloadSizeColumn, durationColumn, datumColumn, fileColumn, pathColumn, urlColumn);
+                downloadSizeColumn, durationColumn, dateColumn, fileColumn, pathColumn, urlColumn);
         addRowFact();
     }
 
@@ -153,12 +153,6 @@ public class TableDownload extends PTable<DownloadData> {
             @Override
             public void updateItem(DownloadData download, boolean empty) {
                 super.updateItem(download, empty);
-
-                setOnMouseClicked(event -> {
-                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                        getSelectionModel().clearSelection();
-                    }
-                });
 
                 setStyle("");
                 for (int i = 0; i < getChildren().size(); i++) {
@@ -248,7 +242,7 @@ public class TableDownload extends PTable<DownloadData> {
 
                 if (item <= DownloadConstants.STATE_STOPPED) {
                     btnDownStart = new Button("");
-                    btnDownStart.getStyleClass().add("btnSmallPodder");
+                    btnDownStart.getStyleClass().add("btnTable");
                     btnDownStart.setTooltip(new Tooltip("Download starten"));
                     btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
@@ -257,7 +251,7 @@ public class TableDownload extends PTable<DownloadData> {
                     });
 
                     btnDownBack = new Button("");
-                    btnDownBack.getStyleClass().add("btnSmallPodder");
+                    btnDownBack.getStyleClass().add("btnTable");
                     btnDownBack.setTooltip(new Tooltip("Download zurückstellen, beim nächsten Suchen wieder anzeigen"));
                     btnDownBack.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_BACK.getImageView());
                     btnDownBack.setOnAction(event -> {
@@ -266,7 +260,7 @@ public class TableDownload extends PTable<DownloadData> {
                     });
 
                     btnDownDel = new Button("");
-                    btnDownDel.getStyleClass().add("btnSmallPodder");
+                    btnDownDel.getStyleClass().add("btnTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
@@ -282,7 +276,7 @@ public class TableDownload extends PTable<DownloadData> {
 
                 } else if (item < DownloadConstants.STATE_FINISHED) {
                     btnDownStop = new Button("");
-                    btnDownStop.getStyleClass().add("btnSmallPodder");
+                    btnDownStop.getStyleClass().add("btnTable");
                     btnDownStop.setTooltip(new Tooltip("Download stoppen"));
                     btnDownStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_STOP.getImageView());
                     btnDownStop.setOnAction((ActionEvent event) -> {
@@ -291,7 +285,7 @@ public class TableDownload extends PTable<DownloadData> {
                     });
 
                     btnDownDel = new Button("");
-                    btnDownDel.getStyleClass().add("btnSmallPodder");
+                    btnDownDel.getStyleClass().add("btnTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
@@ -306,7 +300,7 @@ public class TableDownload extends PTable<DownloadData> {
 
                 } else if (item == DownloadConstants.STATE_FINISHED) {
                     btnOpenDirectory = new Button();
-                    btnOpenDirectory.getStyleClass().add("btnSmallPodder");
+                    btnOpenDirectory.getStyleClass().add("btnTable");
                     btnOpenDirectory.setTooltip(new Tooltip("Ordner mit gespeichertem Film öffnen"));
                     btnOpenDirectory.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {
@@ -320,7 +314,7 @@ public class TableDownload extends PTable<DownloadData> {
 
                 } else if (item == DownloadConstants.STATE_ERROR) {
                     btnDownStart = new Button("");
-                    btnDownStart.getStyleClass().add("btnSmallPodder");
+                    btnDownStart.getStyleClass().add("btnTable");
                     btnDownStart.setTooltip(new Tooltip("Download wider starten"));
                     btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
@@ -331,7 +325,7 @@ public class TableDownload extends PTable<DownloadData> {
                     });
 
                     btnDownDel = new Button("");
-                    btnDownDel.getStyleClass().add("btnSmallPodder");
+                    btnDownDel.getStyleClass().add("btnTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
                     btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {

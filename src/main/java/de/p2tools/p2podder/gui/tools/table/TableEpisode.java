@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.file.PFileSize;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -34,6 +33,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+
+import java.time.LocalDate;
 
 public class TableEpisode extends PTable<Episode> {
 
@@ -87,9 +88,10 @@ public class TableEpisode extends PTable<Episode> {
         startColumn.setCellFactory(cellFactoryButton);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Episode, PDate> datumColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
-        datumColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        datumColumn.getStyleClass().add("alignCenter");
+        final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
+        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
@@ -112,14 +114,14 @@ public class TableEpisode extends PTable<Episode> {
         podcastNameColumn.setPrefWidth(180);
         titleColumn.setPrefWidth(180);
         genreColumn.setPrefWidth(100);
-        datumColumn.setPrefWidth(100);
+        dateColumn.setPrefWidth(100);
         sizeColumn.setPrefWidth(120);
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(350);
 
         getColumns().addAll(
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
-                startColumn, datumColumn, durationColumn,
+                startColumn, dateColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
         addRowFact();
     }
@@ -312,7 +314,7 @@ public class TableEpisode extends PTable<Episode> {
                     //dann stoppen
                     final Button btnStop;
                     btnStop = new Button("");
-                    btnStop.getStyleClass().add("btnSmallPodder");
+                    btnStop.getStyleClass().add("btnTable");
                     btnStop.setTooltip(new Tooltip("Episode stoppen"));
                     btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
@@ -328,7 +330,7 @@ public class TableEpisode extends PTable<Episode> {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnSmallPodder");
+                    btnPlay.getStyleClass().add("btnTable");
                     btnPlay.setTooltip(new Tooltip("Episode abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -343,7 +345,7 @@ public class TableEpisode extends PTable<Episode> {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnSmallPodder");
+                btnDel.getStyleClass().add("btnTable");
                 btnDel.setTooltip(new Tooltip("Episode löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_DEL.getImageView());
                 btnDel.setOnAction(event -> {

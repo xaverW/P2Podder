@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.data.PColorData;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PTextAreaIgnoreTab;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -59,7 +60,7 @@ public class PodcastEditDialogController extends PDialogExtra {
     public PodcastEditDialogController(ProgData progData, Podcast podcast, boolean addNewPodcast) {
         //hier wird ein neues Abo angelegt!
         super(progData.primaryStage, ProgConfig.PODCAST_EDIT_DIALOG_SIZE,
-                "Podcast bearbeiten", true, true);
+                "Podcast bearbeiten", true, true, DECO.SMALL);
 
         this.progData = progData;
         this.addNewPodcast = addNewPodcast;
@@ -119,60 +120,67 @@ public class PodcastEditDialogController extends PDialogExtra {
 
         int grid = 0;
         for (int i = 0; i < PodcastNames.MAX_ELEM; ++i) {
-            if (/*i == PodcastNames.PODCAST_ID_NO || */i == PodcastNames.PODCAST_NUMBER_NO ||
-                    i == PodcastNames.PODCAST_DATE_NO) {
-                continue;
-            }
-
             lbl[i] = new Label(PodcastNames.COLUMN_NAMES[i] + ":");
             txt[i] = new TextField();
-            gridPane.add(lbl[i], 0, grid);
 
             switch (i) {
                 case PodcastNames.PODCAST_ID_NO:
-                    txt[i].setEditable(false);
-                    txt[i].setDisable(true);
-                    txt[i].setText(podcast.getId() + "");
-                    gridPane.add(txt[i], 1, grid);
                     break;
                 case PodcastNames.PODCAST_NO_NO:
-                    txt[i].setEditable(false);
-                    txt[i].setDisable(true);
-                    txt[i].setText(podcast.getNo() + "");
-                    gridPane.add(txt[i], 1, grid);
+                    gridPane.add(lbl[i], 0, grid);
+                    gridPane.add(new Label(podcast.getNo() + ""), 1, grid++);
+                    break;
+                case PodcastNames.PODCAST_DATE_NO:
+                    gridPane.add(lbl[i], 0, grid);
+                    gridPane.add(new Label(PLDateFactory.toString(podcast.getDate())), 1, grid++);
+                    break;
+                case PodcastNames.PODCAST_WEBSITE_NO:
+                    gridPane.add(lbl[i], 0, grid);
+                    txt[i].textProperty().bindBidirectional(podcast.websiteProperty());
+                    gridPane.add(txt[i], 1, grid++);
+                    break;
+                case PodcastNames.PODCAST_AMOUNT_EPISODES_NO:
+                    gridPane.add(lbl[i], 0, grid);
+                    gridPane.add(new Label(podcast.getAmountEpisodes() + ""), 1, grid++);
                     break;
                 case PodcastNames.PODCAST_DESCRIPTION_NO:
+                    gridPane.add(lbl[i], 0, grid);
                     textArea.setWrapText(true);
                     textArea.setPrefRowCount(4);
                     textArea.setMinHeight(60);
                     textArea.setPrefColumnCount(1);
-                    textArea.textProperty().bindBidirectional(podcast.properties[i]);
-                    gridPane.add(textArea, 1, grid);
+                    textArea.textProperty().bindBidirectional(podcast.descriptionProperty());
+                    gridPane.add(textArea, 1, grid++);
                     GridPane.setVgrow(textArea, Priority.ALWAYS);
                     break;
                 case PodcastNames.PODCAST_GENRE_NO:
-                    cboGenre.valueProperty().bindBidirectional(podcast.properties[i]);
+                    gridPane.add(lbl[i], 0, grid);
+                    cboGenre.valueProperty().bindBidirectional(podcast.genreProperty());
                     cboGenre.setMaxWidth(Double.MAX_VALUE);
                     GridPane.setHgrow(cboGenre, Priority.ALWAYS);
-                    gridPane.add(cboGenre, 1, grid);
+                    gridPane.add(cboGenre, 1, grid++);
                     break;
                 case PodcastNames.PODCAST_NAME_NO:
-                case PodcastNames.PODCAST_URL_NO:
+                    gridPane.add(lbl[i], 0, grid);
                     addCheck(txt[i]);
-                    txt[i].textProperty().bindBidirectional(podcast.properties[i]);
-                    gridPane.add(txt[i], 1, grid);
+                    txt[i].textProperty().bindBidirectional(podcast.nameProperty());
+                    gridPane.add(txt[i], 1, grid++);
+                    break;
+                case PodcastNames.PODCAST_URL_NO:
+                    gridPane.add(lbl[i], 0, grid);
+                    addCheck(txt[i]);
+                    txt[i].textProperty().bindBidirectional(podcast.urlProperty());
+                    gridPane.add(txt[i], 1, grid++);
                     break;
                 case PodcastNames.PODCAST_ACTIVE_NO:
+                    gridPane.add(lbl[i], 0, grid);
                     CheckBox checkBox = new CheckBox();
-                    checkBox.selectedProperty().bindBidirectional(podcast.properties[i]);
-                    gridPane.add(checkBox, 1, grid);
+                    checkBox.selectedProperty().bindBidirectional(podcast.activeProperty());
+                    gridPane.add(checkBox, 1, grid++);
                     break;
                 default:
-                    txt[i].textProperty().bindBidirectional(podcast.properties[i]);
-                    gridPane.add(txt[i], 1, grid);
                     break;
             }
-            grid++;
         }
         btnOk.requestFocus();
     }

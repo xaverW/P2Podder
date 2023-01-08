@@ -179,7 +179,7 @@
     -fx-font-weight: bold;
     -fx-alignment: center ;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
-    -fx-background-radius: 30;
+    -fx-background-radius: 15;
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );

@@ -76,7 +76,7 @@ public class PodcastMenu {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Podcastmenü anzeigen"));
         mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
-        mb.getStyleClass().add("btnFunctionWide");
+        mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final MenuItem miUpdate = new MenuItem("markierte Podcasts aktualisieren");
         miUpdate.setOnAction(a -> progData.worker.updatePodcast(false));

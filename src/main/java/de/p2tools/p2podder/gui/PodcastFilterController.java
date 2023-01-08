@@ -61,7 +61,7 @@ public class PodcastFilterController extends FilterPane {
 
     private void addButton() {
         Button btnClearFilter = new Button("");
-        btnClearFilter.getStyleClass().add("btnSmallPodder");
+//        btnClearFilter.getStyleClass().add("btnSmallPodder");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> progData.podcastFilter.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));

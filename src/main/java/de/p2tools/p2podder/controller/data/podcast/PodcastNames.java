@@ -24,7 +24,7 @@ public class PodcastNames {
     public static final String PODCAST_ACTIVE = "Aktiv";
     public static final String PODCAST_GENRE = "Genre";
     public static final String PODCAST_DESCRIPTION = "Beschreibung";
-    public static final String PODCAST_NUMBER = "Anzahl";
+    public static final String PODCAST_AMOUNT_EPISODES = "Episoden";
     public static final String PODCAST_DATE = "Datum";
     public static final String PODCAST_WEBSITE = "Website";
     public static final String PODCAST_URL = "Url";
@@ -35,7 +35,7 @@ public class PodcastNames {
     public static final int PODCAST_ACTIVE_NO = 3;
     public static final int PODCAST_GENRE_NO = 4;
     public static final int PODCAST_DESCRIPTION_NO = 5;
-    public static final int PODCAST_NUMBER_NO = 6;
+    public static final int PODCAST_AMOUNT_EPISODES_NO = 6;
     public static final int PODCAST_DATE_NO = 7;
     public static final int PODCAST_WEBSITE_NO = 8;
     public static final int PODCAST_URL_NO = 9;
@@ -47,7 +47,7 @@ public class PodcastNames {
             PodcastNames.PODCAST_ACTIVE,
             PodcastNames.PODCAST_GENRE,
             PodcastNames.PODCAST_DESCRIPTION,
-            PodcastNames.PODCAST_NUMBER,
+            PodcastNames.PODCAST_AMOUNT_EPISODES,
             PodcastNames.PODCAST_DATE,
             PodcastNames.PODCAST_WEBSITE,
             PodcastNames.PODCAST_URL,

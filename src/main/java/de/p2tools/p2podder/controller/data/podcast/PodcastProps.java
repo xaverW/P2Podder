@@ -18,8 +18,8 @@ package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import javafx.beans.property.*;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,20 +28,16 @@ public class PodcastProps extends PDataSample<Podcast> {
 
     public static final String TAG = "Podcast";
 
-    static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
     private final IntegerProperty no = new SimpleIntegerProperty();
     private final LongProperty id = new SimpleLongProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final BooleanProperty active = new SimpleBooleanProperty(true);
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
-    private final IntegerProperty number = new SimpleIntegerProperty();
-    private final StringProperty date = new SimpleStringProperty("");
+    private final IntegerProperty amountEpisodes = new SimpleIntegerProperty();
+    private LocalDate date = LocalDate.now();
     private final StringProperty website = new SimpleStringProperty("");
     private final StringProperty url = new SimpleStringProperty("");
-
-
-    public LocalDate podcastDate = LocalDate.now();
 
     @Override
     public Config[] getConfigsArr() {
@@ -51,16 +47,18 @@ public class PodcastProps extends PDataSample<Podcast> {
         list.add(new Config_boolProp("active", active));
         list.add(new Config_stringProp("genre", genre));
         list.add(new Config_stringProp("description", description));
-        list.add(new Config_intProp("number", number));
-        list.add(new Config_stringProp("date", date));
+        list.add(new Config_intProp("amountEpisodes", amountEpisodes));
+        list.add(new Config_lDate("date", PLDateFactory.toString(date)) {
+            @Override
+            public void setUsedValue(LocalDate act) {
+                date = act;
+            }
+        });
         list.add(new Config_stringProp("website", website));
         list.add(new Config_stringProp("url", url));
 
         return list.toArray(new Config[]{});
     }
-
-    public final Property[] properties = {no, id, name, active, genre,
-            description, number, date, website, url};
 
     @Override
     public String getTag() {
@@ -115,16 +113,16 @@ public class PodcastProps extends PDataSample<Podcast> {
         this.active.set(active);
     }
 
-    public int getNumber() {
-        return number.get();
+    public int getAmountEpisodes() {
+        return amountEpisodes.get();
     }
 
-    public IntegerProperty numberProperty() {
-        return number;
+    public IntegerProperty amountEpisodesProperty() {
+        return amountEpisodes;
     }
 
-    public void setNumber(int number) {
-        this.number.set(number);
+    public void setAmountEpisodes(int amountEpisodes) {
+        this.amountEpisodes.set(amountEpisodes);
     }
 
     public String getGenre() {
@@ -151,16 +149,12 @@ public class PodcastProps extends PDataSample<Podcast> {
         this.description.set(description);
     }
 
-    public String getDate() {
-        return date.get();
-    }
-
-    public StringProperty dateProperty() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date.set(date);
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getWebsite() {

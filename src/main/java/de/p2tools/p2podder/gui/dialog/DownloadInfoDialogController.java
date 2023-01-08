@@ -19,6 +19,7 @@ package de.p2tools.p2podder.gui.dialog;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
@@ -27,6 +28,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -41,7 +43,7 @@ public class DownloadInfoDialogController extends PDialogExtra {
 
     public DownloadInfoDialogController(ProgData progData, DownloadData dowdownloadloadArrayList) {
         super(progData.primaryStage, ProgConfig.EPISODE_DIALOG_EDIT_SIZE,
-                "Download ändern", true, false);
+                "Download ändern", true, false, DECO.SMALL);
 
         this.progData = progData;
         this.downloadData = dowdownloadloadArrayList;
@@ -88,11 +90,15 @@ public class DownloadInfoDialogController extends PDialogExtra {
 
         ++row;
         TextArea taDescription = new TextArea();
+        taDescription.setMinHeight(25);
+//        taDescription.setMaxHeight(200);
+        GridPane.setVgrow(taDescription, Priority.ALWAYS);
         taDescription.setEditable(false);
+        taDescription.setWrapText(true);
+        taDescription.setBlendMode(BlendMode.DARKEN);
         taDescription.setText(downloadData.getDescription());
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_DESCRIPTION + ":"), 0, row);
         gridPane.add(taDescription, 1, row, 3, 1);
-        GridPane.setVgrow(taDescription, Priority.ALWAYS);
 
         ++row;
         gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, downloadData.getDownloadSize().getFileSizeString() + " MB",
@@ -113,7 +119,7 @@ public class DownloadInfoDialogController extends PDialogExtra {
         gridPane.add(new PHyperlink(downloadData.getEpisodeWebsite()), 1, row, 3, 1);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, downloadData.getPubDate().toString(), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, PLDateFactory.toString(downloadData.getPubDate()), row);
     }
 
     private void gridAdd(String name, String value, int row) {

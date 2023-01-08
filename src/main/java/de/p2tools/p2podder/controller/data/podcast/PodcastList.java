@@ -51,7 +51,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
 
     public int nr = 1;
     public String[] genres = {""};
-//    private PodcastListMeta meta = new PodcastListMeta();
 
     private FilteredList<Podcast> filteredList = null;
     private SortedList<Podcast> sortedList = null;
@@ -80,7 +79,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     @Override
     public void addNewItem(Object obj) {
         if (obj.getClass().equals(Podcast.class)) {
-            ((Podcast) obj).init(); // damit wird auch das Datum! gesetzt
             importPodcastOnlyWithNr((Podcast) obj);
         }
     }
@@ -93,21 +91,14 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         PDuration.counterStop("initList");
     }
 
-//    @Override
-//    public PodcastListMeta getMeta() {
-//        return meta;
-//    }
-
     public synchronized String getGenDate() {
         return ProgConfig.META_PODCAST_LIST_DATE.getValue().toString();
-        //return meta.podcastDate.getValue().getPDate().get_dd_MM_yyyy();
     }
 
     public synchronized void setGenDateNow() {
         PDate pl = new PDate();
         pl.setPDateNow();
         ProgConfig.META_PODCAST_LIST_DATE.setValue(LocalDateTime.now());
-//        meta.podcastDate.getValue().setPLocalDateNow();
     }
 
     public boolean podcastExistsAlready(Podcast podcast) {
@@ -192,11 +183,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
 
         urlHashSet.clear();
         return countDouble;
-    }
-
-    private boolean addInit(Podcast podcast) {
-        podcast.init();
-        return add(podcast);
     }
 
     @Override

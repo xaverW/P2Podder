@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
-import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
@@ -31,6 +30,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+
+import java.time.LocalDate;
 
 public class TablePodcast extends PTable<Podcast> {
 
@@ -65,7 +66,7 @@ public class TablePodcast extends PTable<Podcast> {
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        nrColumn.getStyleClass().add("alignCenterLeft");
+        nrColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, String> nameColumn = new TableColumn<>(PodcastNames.PODCAST_NAME);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -84,8 +85,13 @@ public class TablePodcast extends PTable<Podcast> {
         startColumn.setCellFactory(cellFactoryStart);
         startColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Podcast, PDate> dateColumn = new TableColumn<>(PodcastNames.PODCAST_DATE);
+        final TableColumn<Podcast, Integer> amountColumn = new TableColumn<>(PodcastNames.PODCAST_AMOUNT_EPISODES);
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amountEpisodes"));
+        amountColumn.getStyleClass().add("alignCenter");
+
+        final TableColumn<Podcast, LocalDate> dateColumn = new TableColumn<>(PodcastNames.PODCAST_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, String> websiteColumn = new TableColumn<>(PodcastNames.PODCAST_WEBSITE);
@@ -104,8 +110,9 @@ public class TablePodcast extends PTable<Podcast> {
         urlColumn.setPrefWidth(350);
 
         getColumns().addAll(
-                nrColumn, nameColumn, activeColumn, genreColumn, startColumn, dateColumn, websiteColumn, urlColumn);
-        addRowFact();
+                nrColumn, nameColumn, activeColumn, genreColumn, startColumn, amountColumn,
+                dateColumn, websiteColumn, urlColumn);
+//        addRowFact();
     }
 
     private void addRowFact() {
@@ -141,7 +148,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnUpdate;
                 btnUpdate = new Button("");
-                btnUpdate.getStyleClass().add("btnSmallPodder");
+                btnUpdate.getStyleClass().add("btnTable");
                 btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
                 btnUpdate.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_UPDATE.getImageView());
                 btnUpdate.setOnAction(event -> {
@@ -150,7 +157,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnSmallPodder");
+                btnDel.getStyleClass().add("btnTable");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_DEL.getImageView());
                 btnDel.setOnAction(event -> {
@@ -159,7 +166,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnActive;
                 btnActive = new Button("");
-                btnActive.getStyleClass().add("btnSmallPodder");
+                btnActive.getStyleClass().add("btnTable");
                 btnActive.setTooltip(new Tooltip("Podcast ein-/ausschalten"));
                 btnActive.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_SET_ACTIVE.getImageView());
                 btnActive.setOnAction(event -> {
