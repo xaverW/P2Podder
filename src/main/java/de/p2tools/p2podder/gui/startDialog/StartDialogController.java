@@ -105,16 +105,17 @@ public class StartDialogController extends PDialogExtra {
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        setButton(btnDescription, State.START_DESCRIPTION);
-        setButton(btnStart1, State.START_1);
-        setButton(btnStart2, State.START_2);
-        setButton(btnStart3, State.START_3);
-        setButton(btnConfig, State.CONFIG);
+        initButton(btnDescription, State.START_DESCRIPTION);
+        initButton(btnStart1, State.START_1);
+        initButton(btnStart2, State.START_2);
+        initButton(btnStart3, State.START_3);
+        initButton(btnConfig, State.CONFIG);
     }
 
-    private void setButton(Button btn, State state) {
-        btn.getStyleClass().add("btnStartDialog");
+    private void initButton(Button btn, State state) {
+        btn.getStyleClass().addAll("btnFunction", "btnFuncStartDialog");
         btn.setMaxWidth(Double.MAX_VALUE);
+        btn.setAlignment(Pos.CENTER);
         btn.setOnAction(a -> {
             aktState = state;
             selectActPane();
@@ -210,11 +211,6 @@ public class StartDialogController extends PDialogExtra {
             selectActPane();
         });
 
-        btnOk.getStyleClass().add("btnStartDialog");
-        btnCancel.getStyleClass().add("btnStartDialog");
-        btnNext.getStyleClass().add("btnStartDialog");
-        btnPrev.getStyleClass().add("btnStartDialog");
-
         addOkCancelButtons(btnOk, btnCancel);
         ButtonBar.setButtonData(btnPrev, ButtonBar.ButtonData.BACK_PREVIOUS);
         ButtonBar.setButtonData(btnNext, ButtonBar.ButtonData.NEXT_FORWARD);
@@ -262,12 +258,12 @@ public class StartDialogController extends PDialogExtra {
     }
 
     private void setButtonStyle(Button btnSel) {
-        btnDescription.getStyleClass().retainAll("btnStartDialog");
-        btnStart1.getStyleClass().retainAll("btnStartDialog");
-        btnStart2.getStyleClass().retainAll("btnStartDialog");
-        btnStart3.getStyleClass().retainAll("btnStartDialog");
-        btnConfig.getStyleClass().retainAll("btnStartDialog");
-        btnSel.getStyleClass().add("btnStartDialogSel");
+        btnDescription.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnStart1.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnStart2.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnStart3.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnConfig.getStyleClass().setAll("btnFunction", "btnFuncStartDialog");
+        btnSel.getStyleClass().setAll("btnFunction", "btnFuncStartDialogSel");
     }
 
     private void initTooltip() {

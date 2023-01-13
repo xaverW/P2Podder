@@ -38,26 +38,26 @@ import java.util.Optional;
 public class EpisodeFactory {
 
     public static Optional<Episode> getSel() {
-        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+        if (ProgData.getInstance().smallPodderGuiPack == null) {
             return ProgData.getInstance().episodeGui.getEpisodeGuiController().getSel();
         } else {
-            return ProgData.getInstance().smallEpisodeGuiController.getSel();
+            return ProgData.getInstance().smallPodderGuiPack.getSel();
         }
     }
 
     public static ArrayList<Episode> getSelList() {
-        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+        if (ProgData.getInstance().smallPodderGuiPack == null) {
             return ProgData.getInstance().episodeGui.getEpisodeGuiController().getSelList();
         } else {
-            return ProgData.getInstance().smallEpisodeGuiController.getSelList();
+            return ProgData.getInstance().smallPodderGuiPack.getSelList();
         }
     }
 
     public static void refreshTable() {
-        if (ProgData.getInstance().smallEpisodeGuiController == null) {
+        if (ProgData.getInstance().smallPodderGuiPack == null) {
             ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
         } else {
-            ProgData.getInstance().smallEpisodeGuiController.tableRefresh();
+            ProgData.getInstance().smallPodderGuiPack.tableRefresh();
         }
     }
 

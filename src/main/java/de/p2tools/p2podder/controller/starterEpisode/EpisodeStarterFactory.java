@@ -269,8 +269,8 @@ public class EpisodeStarterFactory {
 
         private void refreshTable() {
             ProgData.getInstance().episodeGui.getEpisodeGuiController().tableRefresh();
-            if (ProgData.getInstance().smallEpisodeGuiController != null) {
-                ProgData.getInstance().smallEpisodeGuiController.tableRefresh();
+            if (ProgData.getInstance().smallPodderGuiPack != null) {
+                ProgData.getInstance().smallPodderGuiPack.tableRefresh();
             }
         }
     }

@@ -27,10 +27,10 @@ import javafx.scene.control.SeparatorMenuItem;
 public class SmallEpisodeGuiTableContextMenu {
 
     private final ProgData progData;
-    private final SmallEpisodeGuiController episodeGuiController;
+    private final SmallPodderCenter episodeGuiController;
     private final TableSmallEpisode tableView;
 
-    public SmallEpisodeGuiTableContextMenu(ProgData progData, SmallEpisodeGuiController episodeGuiController, TableSmallEpisode tableView) {
+    public SmallEpisodeGuiTableContextMenu(ProgData progData, SmallPodderCenter episodeGuiController, TableSmallEpisode tableView) {
         this.progData = progData;
         this.episodeGuiController = episodeGuiController;
         this.tableView = tableView;

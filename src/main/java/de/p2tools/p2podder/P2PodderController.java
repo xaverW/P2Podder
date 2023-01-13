@@ -44,7 +44,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
 public class P2PodderController extends StackPane {
-    private Button btnSmallPodder = new Button("");
+    private Button btnSmallGui = new Button("");
     private Button btnEpisodes = new Button("Episoden");
     private Button btnPodcasts = new Button("Podcasts");
     private Button btnDownloads = new Button("Downloads");
@@ -84,7 +84,7 @@ public class P2PodderController extends StackPane {
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnEpisodes, btnPodcasts, btnDownloads);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallPodder, tilePaneStationFavourite, menuButton);
+            hBoxTop.getChildren().addAll(btnSmallGui, tilePaneStationFavourite, menuButton);
 
             // Center
             paneEpisodeGui = episodeGui.pack();
@@ -132,11 +132,11 @@ public class P2PodderController extends StackPane {
     }
 
     private void initButton() {
-        btnSmallPodder.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));
-        btnSmallPodder.setOnAction(e -> selPanelSmallRadio());
-        btnSmallPodder.setMaxWidth(Double.MAX_VALUE);
-        btnSmallPodder.getStyleClass().add("btnTab");
-        btnSmallPodder.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
+        btnSmallGui.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));
+        btnSmallGui.setOnAction(e -> selPanelSmallRadio());
+        btnSmallGui.setMaxWidth(Double.MAX_VALUE);
+        btnSmallGui.getStyleClass().addAll("btnFunction", "btnFunc-2");
+        btnSmallGui.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
 
         btnEpisodes.setTooltip(new Tooltip("Episoden anzeigen"));
         btnEpisodes.setOnAction(e -> selPanelEpisode());
@@ -231,7 +231,7 @@ public class P2PodderController extends StackPane {
         }
 
         progData.primaryStage.close();
-        new SmallPodderGuiPack(progData);
+        new SmallPodderGuiPack();
     }
 
     private void selPanelEpisode() {
@@ -316,5 +316,4 @@ public class P2PodderController extends StackPane {
             btnDownloads.getStyleClass().add("btnTabTop");
         }
     }
-
 }

@@ -148,7 +148,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnUpdate;
                 btnUpdate = new Button("");
-                btnUpdate.getStyleClass().add("btnTable");
+                btnUpdate.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
                 btnUpdate.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_UPDATE.getImageView());
                 btnUpdate.setOnAction(event -> {
@@ -157,7 +157,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnTable");
+                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_DEL.getImageView());
                 btnDel.setOnAction(event -> {
@@ -166,7 +166,7 @@ public class TablePodcast extends PTable<Podcast> {
 
                 final Button btnActive;
                 btnActive = new Button("");
-                btnActive.getStyleClass().add("btnTable");
+                btnActive.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnActive.setTooltip(new Tooltip("Podcast ein-/ausschalten"));
                 btnActive.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_SET_ACTIVE.getImageView());
                 btnActive.setOnAction(event -> {

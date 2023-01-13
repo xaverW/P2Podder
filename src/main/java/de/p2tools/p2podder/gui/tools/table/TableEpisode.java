@@ -314,7 +314,7 @@ public class TableEpisode extends PTable<Episode> {
                     //dann stoppen
                     final Button btnStop;
                     btnStop = new Button("");
-                    btnStop.getStyleClass().add("btnTable");
+                    btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnStop.setTooltip(new Tooltip("Episode stoppen"));
                     btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
@@ -330,7 +330,7 @@ public class TableEpisode extends PTable<Episode> {
                     //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
-                    btnPlay.getStyleClass().add("btnTable");
+                    btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Episode abspielen"));
                     btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
@@ -345,7 +345,7 @@ public class TableEpisode extends PTable<Episode> {
 
                 final Button btnDel;
                 btnDel = new Button("");
-                btnDel.getStyleClass().add("btnTable");
+                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Episode löschen"));
                 btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_DEL.getImageView());
                 btnDel.setOnAction(event -> {

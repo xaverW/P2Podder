@@ -41,7 +41,6 @@ import de.p2tools.p2podder.gui.EpisodeFilterControllerClearFilter;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
-import de.p2tools.p2podder.gui.smallPodderGui.SmallEpisodeGuiController;
 import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
 import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
@@ -71,7 +70,6 @@ public class ProgData {
     public P2PodderController p2PodderController = null;
 
     public EpisodeGui episodeGui = null;
-    public SmallEpisodeGuiController smallEpisodeGuiController = null;
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
     public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;

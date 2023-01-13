@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
@@ -39,7 +40,7 @@ public class EpisodeFilterControllerClearFilter extends HBox {
     }
 
     private void addButton() {
-        Button btnClearFilter = new Button("");
+        PButtonClearFilter btnClearFilter = new PButtonClearFilter();
         Button btnGoBack = new Button("");
         Button btnGoForward = new Button("");
         Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);

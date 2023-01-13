@@ -16,165 +16,64 @@
 
 package de.p2tools.p2podder.gui.smallPodderGui;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.P2LibInit;
-import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
+import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.PException;
-import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.ProgQuitFactory;
-import de.p2tools.p2podder.controller.ProgStartFactory;
+import de.p2tools.p2Lib.tools.events.PEvent;
+import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.episode.Episode;
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Optional;
 
-public class SmallPodderGuiPack extends StackPane {
+public class SmallPodderGuiPack extends PDialogOnly {
 
-    private Scene scene = null;
-    private Stage stage = null;
-    private VBox vBoxComplete = new VBox(0);
-    private final SmallEpisodeGuiController smallEpisodeGuiController;
-
-    private final StringProperty sizeConfiguration;
-    private final Stage ownerForCenteringDialog;
-
-    private PMaskerPane maskerPane = new PMaskerPane();
-    private double stageWidth = 0;
-    private double stageHeight = 0;
+    private final SmallPodderTop smallPodderTop;
+    private final SmallPodderCenter smallPodderCenter;
+    private final SmallPodderBottom smallPodderBottom;
     private final ProgData progData;
+    private final PListener listener = new PListener(Events.REFRESH_TABLE) {
+        public void pingGui(PEvent event) {
+            tableRefresh();
+        }
+    };
 
-    public SmallPodderGuiPack(ProgData progData) {
-        this.progData = progData;
-        this.ownerForCenteringDialog = progData.primaryStage;
-        this.sizeConfiguration = ProgConfig.SMALL_PODDER_SIZE;
+    public SmallPodderGuiPack() {
+        super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_PODDER_SIZE,
+                "Podder", false, false, false);
+
+        this.progData = ProgData.getInstance();
+        smallPodderTop = new SmallPodderTop(this);
+        smallPodderCenter = new SmallPodderCenter(this);
+        smallPodderBottom = new SmallPodderBottom(this);
+
         progData.smallPodderGuiPack = this;
-
-        smallEpisodeGuiController = new SmallEpisodeGuiController(this);
-        progData.smallEpisodeGuiController = smallEpisodeGuiController;
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(true);
-        init();
+        init(true);
     }
 
-    void init() {
-        try {
-            createNewScene();
-            if (scene == null) {
-                PException.throwPException(912012458, "no scene");
-            }
+    @Override
+    public void make() {
+        SmallPodderFactory.addBorderListener(getStage());
+        getStage().initStyle(StageStyle.TRANSPARENT);
+        getVBoxCompleteDialog().getStyleClass().add("smallGui");
+        VBox vAll = getVBoxCompleteDialog();
+        vAll.setPadding(new Insets(25));
+        vAll.setSpacing(10);
+        vAll.getChildren().addAll(smallPodderTop, smallPodderCenter, smallPodderBottom);
 
-            updateCss();
-            stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setResizable(true);
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            ProgStartFactory.setTitle(stage);
-            GetIcon.addWindowP2Icon(stage);
+        VBox.setVgrow(smallPodderCenter, Priority.ALWAYS);
+        VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
 
-            vBoxComplete.getChildren().add(smallEpisodeGuiController);
-            VBox.setVgrow(smallEpisodeGuiController, Priority.ALWAYS);
-            this.getChildren().addAll(vBoxComplete, maskerPane);
-
-            make();
-            initMaskerPane();
-
-            if (sizeConfiguration.get().isEmpty()) {
-                scene.getWindow().sizeToScene();
-            }
-
-            showDialog();
-        } catch (final Exception exc) {
-            PLog.errorLog(858484821, exc);
-        }
-    }
-
-    public PMaskerPane getMaskerPane() {
-        return maskerPane;
-    }
-
-    private void updateCss() {
-        P2LibInit.addP2LibCssToScene(scene);
-
-        if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
-            final Path path = Path.of(P2LibConst.styleFile);
-            IoReadWriteStyle.readStyle(path, scene);
-        }
-    }
-
-    private void initMaskerPane() {
-        StackPane.setAlignment(maskerPane, Pos.CENTER);
-        maskerPane.setPadding(new Insets(4, 1, 1, 1));
-        maskerPane.toFront();
-        Button btnStop = maskerPane.getButton();
-        maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
-    }
-
-    private void createNewScene() {
-        int w = PGuiSize.getWidth(sizeConfiguration);
-        int h = PGuiSize.getHeight(sizeConfiguration);
-        if (w > 0 && h > 0) {
-            this.scene = new Scene(this, w, h);
-        } else {
-            this.scene = new Scene(this, 750, 300);
-        }
-    }
-
-    public void hide() {
-        // close/hide are the same
-        close();
-    }
-
-    public void close() {
-        stage.close();
-    }
-
-    public void showDialog() {
-        if (stageHeight > 0 && stageWidth > 0) {
-            //bei wiederkehrenden Dialogen die pos/size setzen
-            stage.setHeight(stageHeight);
-            stage.setWidth(stageWidth);
-        }
-
-        if (!PGuiSize.setPos(sizeConfiguration, stage)) {
-            PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
-        }
-
-        stage.showAndWait();
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public boolean isShowing() {
-        return stage.isShowing();
-    }
-
-    public VBox getvBoxComplete() {
-        return vBoxComplete;
-    }
-
-    private void make() {
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
                 changeGui();
@@ -182,14 +81,34 @@ public class SmallPodderGuiPack extends StackPane {
         });
         getStage().setOnCloseRequest(e -> {
             e.consume();
-            getSize();
-            ProgQuitFactory.quit(getStage(), true);
+            close();
         });
+        progData.pEventHandler.addListener(listener);
+    }
+
+    @Override
+    public void close() {
+        saveMe();
+        ProgData.getInstance().pEventHandler.removeListener(listener);
+        super.close();
+    }
+
+    private void saveMe() {
+//        progData.smallEpisodeGuiController.saveTable();
+        PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
+    }
+
+    public void saveTable() {
+        smallPodderCenter.saveTable();
+    }
+
+    public void tableRefresh() {
+        smallPodderCenter.tableRefresh();
     }
 
     public void changeGui() {
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
-        progData.smallEpisodeGuiController = null;
+        progData.smallPodderGuiPack = null;
         getSize();
         close();
 
@@ -202,8 +121,32 @@ public class SmallPodderGuiPack extends StackPane {
         );
     }
 
+    public void playEpisode() {
+        smallPodderCenter.playEpisode();
+    }
+
+    public ArrayList<Episode> getSelList() {
+        return smallPodderCenter.getSelList();
+    }
+
+    public Optional<Episode> getSel() {
+        return smallPodderCenter.getSel();
+    }
+
+    public void setNextEpisode() {
+        smallPodderCenter.setNextEpisode();
+    }
+
+    public void setPreviousEpisode() {
+        smallPodderCenter.setPreviousEpisode();
+    }
+
+    public void playRandomStation() {
+        smallPodderCenter.playRandomStation();
+    }
+
     protected void getSize() {
-        smallEpisodeGuiController.saveTable();
+        smallPodderCenter.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 }

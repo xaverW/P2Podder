@@ -16,23 +16,22 @@
 
 package de.p2tools.p2podder.gui.smallPodderGui;
 
-import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 
-public class SmallPodderBottom {
+public class SmallPodderBottom extends HBox {
 
-    ProgData progData;
-    private final Button btnShowFilter = new Button("");
     private final Button btnClearFilter = new Button("");
     private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
@@ -40,76 +39,82 @@ public class SmallPodderBottom {
     private final Button btnStart = new Button("");
     private final Button btnPlayNext = new Button("");
     private final Button btnStop = new Button("");
-    private Button btnRadio;
-    private final HBox hBoxBottom;
-    private SmallEpisodeGuiController smallEpisodeGuiController;
+    private final ComboBox<Podcast> cboPodcast = new ComboBox<>();
+    private final SmallPodderGuiPack smallPodderGuiPack;
+    private final ProgData progData;
 
-    public SmallPodderBottom(SmallEpisodeGuiController smallEpisodeGuiController) {
+
+    public SmallPodderBottom(SmallPodderGuiPack smallPodderGuiPack) {
+        this.smallPodderGuiPack = smallPodderGuiPack;
         progData = ProgData.getInstance();
-        this.hBoxBottom = new HBox();
-        this.smallEpisodeGuiController = smallEpisodeGuiController;
+        init();
         initStartButton();
+        initCbo();
     }
 
-    public HBox init() {
-        HBox hBoxSpace1 = new HBox();
-        HBox.setHgrow(hBoxSpace1, Priority.ALWAYS);
+    public void init() {
+//        setPadding(new Insets(10));
+        setSpacing(5);
+        setAlignment(Pos.CENTER);
+
+        Separator sp = new Separator(Orientation.VERTICAL);
+        sp.setPadding(new Insets(0, 5, 0, 5));
 
         HBox hBoxButton = new HBox(5);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
-        Separator sp = new Separator(Orientation.VERTICAL);
-        sp.setPadding(new Insets(0, 5, 0, 5));
         hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnPlayNext, btnStop);
-        hBoxBottom.getChildren().addAll(btnRadio, btnShowFilter, btnClearFilter, hBoxSpace1, hBoxButton);
-        return hBoxBottom;
+        getChildren().addAll(cboPodcast, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initStartButton() {
-        btnRadio = new Button("");
-        btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> progData.smallPodderGuiPack.changeGui());
-        btnRadio.setMaxWidth(Double.MAX_VALUE);
-        btnRadio.getStyleClass().add("btnTab");
-        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
-
-        btnShowFilter.setTooltip(new Tooltip("Filter anzeigen/ausblenden"));
-//        btnShowFilter.getStyleClass().add("btnSmallPodder");
-        btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILTER.getImageView());
-        btnShowFilter.setOnAction(event -> ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.setValue(!ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.get()));
-
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
-//        btnClearFilter.getStyleClass().add("btnSmallPodder");
+        btnClearFilter.getStyleClass().add("btnSmallGui");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
-        btnClearFilter.setOnAction(event -> progData.episodeFilterSmall.clearFilter());
+        btnClearFilter.setOnAction(event -> {
+            cboPodcast.getSelectionModel().clearSelection();
+//            progData.episodeFilterSmall.clearFilter();
+        });
 
         btnRandom.setTooltip(new Tooltip("Eine Episode per Zufall starten"));
-//        btnRandom.getStyleClass().add("btnSmallPodder");
+        btnRandom.getStyleClass().add("btnSmallGui");
         btnRandom.setGraphic(ProgIcons.Icons.ICON_BUTTON_RANDOM.getImageView());
-        btnRandom.setOnAction(event -> smallEpisodeGuiController.playRandomStation());
+        btnRandom.setOnAction(event -> smallPodderGuiPack.playRandomStation());
 
         btnPrev.setTooltip(new Tooltip("vorherige Episode auswählen"));
-//        btnPrev.getStyleClass().add("btnSmallPodder");
+        btnPrev.getStyleClass().add("btnSmallGui");
         btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
-        btnPrev.setOnAction(event -> smallEpisodeGuiController.setPreviousEpisode());
+        btnPrev.setOnAction(event -> smallPodderGuiPack.setPreviousEpisode());
 
         btnNext.setTooltip(new Tooltip("nächste Episode auswählen"));
-//        btnNext.getStyleClass().add("btnSmallPodder");
+        btnNext.getStyleClass().add("btnSmallPodder");
         btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
-        btnNext.setOnAction(event -> smallEpisodeGuiController.setNextEpisode());
+        btnNext.setOnAction(event -> smallPodderGuiPack.setNextEpisode());
 
         btnStart.setTooltip(new Tooltip("Episode abspielen"));
-//        btnStart.getStyleClass().add("btnSmallPodder");
+        btnStart.getStyleClass().add("btnSmallGui");
         btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
-        btnStart.setOnAction(event -> smallEpisodeGuiController.playEpisode());
+        btnStart.setOnAction(event -> smallPodderGuiPack.playEpisode());
 
         btnPlayNext.setTooltip(new Tooltip("Nächste gestartete Episode abspielen"));
-//        btnPlayNext.getStyleClass().add("btnSmallPodder");
+        btnPlayNext.getStyleClass().add("btnSmallGui");
         btnPlayNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY_NEXT.getImageView());
         btnPlayNext.setOnAction(event -> EpisodeFactory.playNextEpisode(progData.smallPodderGuiPack.getStage()));
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
-//        btnStop.getStyleClass().add("btnSmallPodder");
+        btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
+    }
+
+    private void initCbo() {
+        cboPodcast.getItems().addAll(progData.episodeList.getPodcastList());
+        cboPodcast.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
+            if (cboPodcast.getSelectionModel().isEmpty()) {
+                progData.episodeFilterSmall.setPodcastId(0);
+
+            } else if (n != null && o != n) {
+                progData.episodeFilterSmall.setPodcastId(n.getId());
+            }
+        });
     }
 }

@@ -180,7 +180,7 @@ public class PodcastProps extends PDataSample<Podcast> {
     public void setUrl(String url) {
         this.url.set(url);
     }
-
+    
     @Override
     public int compareTo(Podcast arg0) {
         int ret;
