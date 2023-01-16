@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
+import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.file.PFileSize;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -67,6 +68,17 @@ public class TableEpisode extends PTable<Episode> {
 
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
+        ProgColorList.EPISODE_NEW_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_STARTED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_RUNNING_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_ERROR_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         noColumn.setCellFactory(cellFactoryNo);

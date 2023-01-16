@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -203,6 +204,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         PLog.sysLog("Episoden: genPodcastList");
         final LinkedHashSet<Podcast> hashSet = new LinkedHashSet<>(10);
         final ArrayList<Podcast> items = new ArrayList<>();
+
         stream().forEach((episode) -> {
             Podcast podcast = progData.podcastList.getPodcastById(episode.getPodcastId());
             if (podcast != null && !hashSet.contains(podcast)) {
@@ -210,8 +212,12 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
                 items.add(podcast);
             }
         });
+        System.out.println("sort");
         Collections.sort(items);
-        podcastList.setAll(items);
+        Platform.runLater(() -> {
+            System.out.println("setAll");
+            podcastList.setAll(items);
+        });
         PDuration.counterStop("getPodcastList");
     }
 

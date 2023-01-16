@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.smallPodderGui;
+package de.p2tools.p2podder.gui.smallGui;
 
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -24,13 +24,13 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-public class SmallEpisodeGuiTableContextMenu {
+public class SmallGuiTableContextMenu {
 
     private final ProgData progData;
-    private final SmallPodderCenter episodeGuiController;
+    private final SmallGuiCenter episodeGuiController;
     private final TableSmallEpisode tableView;
 
-    public SmallEpisodeGuiTableContextMenu(ProgData progData, SmallPodderCenter episodeGuiController, TableSmallEpisode tableView) {
+    public SmallGuiTableContextMenu(ProgData progData, SmallGuiCenter episodeGuiController, TableSmallEpisode tableView) {
         this.progData = progData;
         this.episodeGuiController = episodeGuiController;
         this.tableView = tableView;

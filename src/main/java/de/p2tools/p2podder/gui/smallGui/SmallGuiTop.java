@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.smallPodderGui;
+package de.p2tools.p2podder.gui.smallGui;
 
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
@@ -24,7 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
-public class SmallPodderTop extends HBox {
+public class SmallGuiTop extends HBox {
 
     private final RadioButton rbAll = new RadioButton("alle");
     private final RadioButton rbStarted = new RadioButton("gestartete");
@@ -35,22 +35,22 @@ public class SmallPodderTop extends HBox {
     private final Button btnClose = new Button();
     private final ProgData progData;
 
-    private SmallPodderGuiPack smallPodderGuiPack;
+    private SmallGuiPack smallGuiPack;
 
-    public SmallPodderTop(SmallPodderGuiPack smallPodderGuiPack) {
-        this.smallPodderGuiPack = smallPodderGuiPack;
+    public SmallGuiTop(SmallGuiPack smallGuiPack) {
+        this.smallGuiPack = smallGuiPack;
         progData = ProgData.getInstance();
 
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> progData.smallPodderGuiPack.changeGui());
+        btnRadio.setOnAction(e -> progData.smallGuiPack.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            ProgQuitFactory.quit(smallPodderGuiPack.getStage(), true);
+            ProgQuitFactory.quit(smallGuiPack.getStage(), true);
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");

@@ -41,7 +41,7 @@ import de.p2tools.p2podder.gui.EpisodeFilterControllerClearFilter;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
-import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
+import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
 import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -82,7 +82,7 @@ public class ProgData {
     public EpisodeInfos episodeInfos;
 
     //SmallGui
-    public SmallPodderGuiPack smallPodderGuiPack = null;
+    public SmallGuiPack smallGuiPack = null;
 
     // Worker
     public Worker worker;

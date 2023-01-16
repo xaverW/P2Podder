@@ -143,8 +143,8 @@ public class ProgTray {
         miAbout.addActionListener(e -> Platform.runLater(() -> new AboutDialogController(progData).showDialog()));
         miQuit.addActionListener(e -> Platform.runLater(() -> {
             Stage stage = null;
-            if (progData.smallPodderGuiPack != null) {
-                stage = progData.smallPodderGuiPack.getStage();
+            if (progData.smallGuiPack != null) {
+                stage = progData.smallGuiPack.getStage();
             } else if (progData.primaryStage.isShowing()) {
                 stage = progData.primaryStage;
             }

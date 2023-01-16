@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.smallPodderGui;
+package de.p2tools.p2podder.gui.smallGui;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
@@ -35,11 +35,11 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class SmallPodderGuiPack extends PDialogOnly {
+public class SmallGuiPack extends PDialogOnly {
 
-    private final SmallPodderTop smallPodderTop;
-    private final SmallPodderCenter smallPodderCenter;
-    private final SmallPodderBottom smallPodderBottom;
+    private final SmallGuiTop smallGuiTop;
+    private final SmallGuiCenter smallGuiCenter;
+    private final SmallGuiBottom smallGuiBottom;
     private final ProgData progData;
     private final PListener listener = new PListener(Events.REFRESH_TABLE) {
         public void pingGui(PEvent event) {
@@ -47,31 +47,31 @@ public class SmallPodderGuiPack extends PDialogOnly {
         }
     };
 
-    public SmallPodderGuiPack() {
+    public SmallGuiPack() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_PODDER_SIZE,
                 "Podder", false, false, false);
 
         this.progData = ProgData.getInstance();
-        smallPodderTop = new SmallPodderTop(this);
-        smallPodderCenter = new SmallPodderCenter(this);
-        smallPodderBottom = new SmallPodderBottom(this);
+        smallGuiTop = new SmallGuiTop(this);
+        smallGuiCenter = new SmallGuiCenter(this);
+        smallGuiBottom = new SmallGuiBottom(this);
 
-        progData.smallPodderGuiPack = this;
+        progData.smallGuiPack = this;
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(true);
         init(true);
     }
 
     @Override
     public void make() {
-        SmallPodderFactory.addBorderListener(getStage());
+        SmallGuiFactory.addBorderListener(getStage());
         getStage().initStyle(StageStyle.TRANSPARENT);
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
         vAll.setPadding(new Insets(25));
         vAll.setSpacing(10);
-        vAll.getChildren().addAll(smallPodderTop, smallPodderCenter, smallPodderBottom);
+        vAll.getChildren().addAll(smallGuiTop, smallGuiCenter, smallGuiBottom);
 
-        VBox.setVgrow(smallPodderCenter, Priority.ALWAYS);
+        VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
 
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
@@ -99,16 +99,16 @@ public class SmallPodderGuiPack extends PDialogOnly {
     }
 
     public void saveTable() {
-        smallPodderCenter.saveTable();
+        smallGuiCenter.saveTable();
     }
 
     public void tableRefresh() {
-        smallPodderCenter.tableRefresh();
+        smallGuiCenter.tableRefresh();
     }
 
     public void changeGui() {
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
-        progData.smallPodderGuiPack = null;
+        progData.smallGuiPack = null;
         getSize();
         close();
 
@@ -122,31 +122,31 @@ public class SmallPodderGuiPack extends PDialogOnly {
     }
 
     public void playEpisode() {
-        smallPodderCenter.playEpisode();
+        smallGuiCenter.playEpisode();
     }
 
     public ArrayList<Episode> getSelList() {
-        return smallPodderCenter.getSelList();
+        return smallGuiCenter.getSelList();
     }
 
     public Optional<Episode> getSel() {
-        return smallPodderCenter.getSel();
+        return smallGuiCenter.getSel();
     }
 
     public void setNextEpisode() {
-        smallPodderCenter.setNextEpisode();
+        smallGuiCenter.setNextEpisode();
     }
 
     public void setPreviousEpisode() {
-        smallPodderCenter.setPreviousEpisode();
+        smallGuiCenter.setPreviousEpisode();
     }
 
     public void playRandomStation() {
-        smallPodderCenter.playRandomStation();
+        smallGuiCenter.playRandomStation();
     }
 
     protected void getSize() {
-        smallPodderCenter.saveTable();
+        smallGuiCenter.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 }

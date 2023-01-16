@@ -17,6 +17,8 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.POpen;
+import de.p2tools.p2Lib.guiTools.PTableFactory;
+import de.p2tools.p2Lib.mtDownload.DownloadSizeData;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -69,6 +71,17 @@ public class TableDownload extends PTable<DownloadData> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
+
+        ProgColorList.DOWNLOAD_WAIT_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_WAIT.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_RUN_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_ERROR_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+
         final TableColumn<DownloadData, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         noColumn.setCellFactory(cellFactoryNo);
@@ -104,9 +117,9 @@ public class TableDownload extends PTable<DownloadData> {
         speedColumn.setCellValueFactory(new PropertyValueFactory<>("bandwidth"));
         speedColumn.getStyleClass().add("alignCenterRightPadding_25");
 
-        final TableColumn<DownloadData, String> downloadSizeColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_FILESIZE);
+        final TableColumn<DownloadData, DownloadSizeData> downloadSizeColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_FILESIZE);
         downloadSizeColumn.setCellValueFactory(new PropertyValueFactory<>("downloadSize"));
-//        pdownloadSizeColumn.setCellFactory(cellFactorySize);
+//        downloadSizeColumn.setCellFactory(cellFactorySize);
         downloadSizeColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<DownloadData, String> durationColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DURATION);
@@ -368,27 +381,27 @@ public class TableDownload extends PTable<DownloadData> {
         return cell;
     };
 
-    private Callback<TableColumn<DownloadData, Long>, TableCell<DownloadData, Long>> cellFactorySize
-            = (final TableColumn<DownloadData, Long> param) -> {
-
-        final TableCell<DownloadData, Long> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(Long item, boolean empty) {
-                super.updateItem(item, empty);
-
-                setGraphic(null);
-                if (item == null || empty) {
-                    setText(null);
-                    return;
-                }
-
-                DownloadData downloadData = getTableView().getItems().get(getIndex());
-                setText(downloadData.getDownloadSize().getValue());
-            }
-        };
-        return cell;
-    };
+//    private Callback<TableColumn<DownloadData, Long>, TableCell<DownloadData, Long>> cellFactorySize
+//            = (final TableColumn<DownloadData, Long> param) -> {
+//
+//        final TableCell<DownloadData, Long> cell = new TableCell<>() {
+//
+//            @Override
+//            public void updateItem(Long item, boolean empty) {
+//                super.updateItem(item, empty);
+//
+//                setGraphic(null);
+//                if (item == null || empty) {
+//                    setText(null);
+//                    return;
+//                }
+//
+//                DownloadData downloadData = getTableView().getItems().get(getIndex());
+//                setText(downloadData.getDownloadSize().toString());
+//            }
+//        };
+//        return cell;
+//    };
 
     private Callback<TableColumn<DownloadData, Integer>, TableCell<DownloadData, Integer>> cellFactoryBitrate
             = (final TableColumn<DownloadData, Integer> param) -> {

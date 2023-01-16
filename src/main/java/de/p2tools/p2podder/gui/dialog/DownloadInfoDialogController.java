@@ -101,7 +101,7 @@ public class DownloadInfoDialogController extends PDialogExtra {
         gridPane.add(taDescription, 1, row, 3, 1);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, downloadData.getDownloadSize().getFileSizeString() + " MB",
+        gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, downloadData.getDownloadSize().toString() + " MB",
                 DownloadFieldNames.DOWNLOAD_DURATION, downloadData.getDuration(), row);
 
         ++row;

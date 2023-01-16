@@ -178,6 +178,7 @@ public class EpisodeFilterController extends FilterPane {
         progData.episodeList.getPodcastList().addListener((ListChangeListener<Podcast>) c -> {
             //ist für das Hinzufügen/Löschen von Episoden
             Platform.runLater(() -> {
+                System.out.println("progData.episodeList.getPodcastList()");
                 Podcast sel = tableView.getSelectionModel().getSelectedItem();
                 tableView.getItems().setAll(progData.episodeList.getPodcastList());
                 if (tableView.getItems().contains(sel)) {
@@ -192,6 +193,7 @@ public class EpisodeFilterController extends FilterPane {
         cboGenre.valueProperty().bindBidirectional(progData.episodeFilter.genreProperty());
         progData.episodeList.getGenreList().addListener((ListChangeListener<String>) change -> {
             Platform.runLater(() -> {
+                System.out.println("progData.episodeList.getGenreList()");
                 //kann durch Downloads außer der Reihe sein!!
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.episodeList.getGenreList());

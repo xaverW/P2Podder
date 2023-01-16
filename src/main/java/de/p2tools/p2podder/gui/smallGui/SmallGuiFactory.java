@@ -15,14 +15,14 @@
  */
 
 
-package de.p2tools.p2podder.gui.smallPodderGui;
+package de.p2tools.p2podder.gui.smallGui;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SmallPodderFactory {
+public class SmallGuiFactory {
 
     public static final String LIST_STATION = "s";
     public static final String LIST_FAVOURITE = "f";
@@ -36,7 +36,7 @@ public class SmallPodderFactory {
     private static double xPos = 0;
     private static double yPos = 0;
 
-    private SmallPodderFactory() {
+    private SmallGuiFactory() {
     }
 
     public static void addBorderListener(Stage stage) {

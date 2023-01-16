@@ -1,3 +1,10 @@
 /*  Programmweites style sheet */
 .root {
 }
+
+
+.smallGui{
+    /*ist der ganze Dialog*/
+    -fx-background-color: #2166a3, #34a0ff, -lin-grad-1;
+}
+

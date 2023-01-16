@@ -80,7 +80,7 @@ public class DirectHttpDownload extends Thread {
                 file = new File(download.getDestPathFile());
 
                 if (!cancelDownload()) {
-                    download.getDownloadSize().setFileSize(getContentLength(url));
+                    download.getDownloadSize().setSize(getContentLength(url));
                     download.getDownloadSize().setActFileSize(0);
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(1000 * ProgConfig.SYSTEM_PARAMETER_DOWNLOAD_TIMEOUT_SECOND.getValue());
@@ -239,8 +239,8 @@ public class DirectHttpDownload extends Thread {
             if (aktSize != download.getDownloadSize().getActFileSize()) {
                 aktSize = download.getDownloadSize().getActFileSize();
             }
-            if (download.getDownloadSize().getFileSize() > 0) {
-                percent = 1.0 * aktSize / download.getDownloadSize().getFileSize();
+            if (download.getDownloadSize().getSize() > 0) {
+                percent = 1.0 * aktSize / download.getDownloadSize().getSize();
                 if (startPercent == DownloadConstants.PROGRESS_NOT_STARTED) {
                     startPercent = percent;
                 }
@@ -258,7 +258,7 @@ public class DirectHttpDownload extends Thread {
                     // Restzeit ermitteln
                     if (percent > (DownloadConstants.PROGRESS_STARTED) && percent > startPercent) {
                         long timeLeft = 0;
-                        long sizeLeft = download.getDownloadSize().getFileSize() - download.getDownloadSize().getActFileSize();
+                        long sizeLeft = download.getDownloadSize().getSize() - download.getDownloadSize().getActFileSize();
                         if (sizeLeft <= 0) {
                             timeLeft = 0;
                         } else if (aktBandwidth > 0) {

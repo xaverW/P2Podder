@@ -35,7 +35,7 @@ import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.configDialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
-import de.p2tools.p2podder.gui.smallPodderGui.SmallPodderGuiPack;
+import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -231,7 +231,7 @@ public class P2PodderController extends StackPane {
         }
 
         progData.primaryStage.close();
-        new SmallPodderGuiPack();
+        new SmallGuiPack();
     }
 
     private void selPanelEpisode() {

@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.smallPodderGui;
+package de.p2tools.p2podder.gui.smallGui;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.PTableFactory;
@@ -38,18 +38,18 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
-public class SmallPodderCenter extends VBox {
+public class SmallGuiCenter extends VBox {
 
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableSmallEpisode tableView;
 
     private final ProgData progData;
 
-    private SmallPodderGuiPack smallPodderGuiPack;
+    private SmallGuiPack smallGuiPack;
 
 
-    public SmallPodderCenter(SmallPodderGuiPack smallPodderGuiPack) {
-        this.smallPodderGuiPack = smallPodderGuiPack;
+    public SmallGuiCenter(SmallGuiPack smallGuiPack) {
+        this.smallGuiPack = smallGuiPack;
         progData = ProgData.getInstance();
 
 //        setPadding(new Insets(10, 10, 0, 10));
@@ -173,7 +173,7 @@ public class SmallPodderCenter extends VBox {
                     episode = null;
                 }
                 ContextMenu contextMenu =
-                        new SmallEpisodeGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
+                        new SmallGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
                 tableView.setContextMenu(contextMenu);
             }
         });

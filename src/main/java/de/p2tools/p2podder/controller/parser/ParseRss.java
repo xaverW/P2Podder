@@ -101,7 +101,7 @@ public class ParseRss {
                 }
 
                 DownloadData download = new DownloadData(uri, title, website, pubDate, description, podcast);
-                download.getDownloadSize().setFileSize(size);
+                download.getDownloadSize().setSize(size);
                 download.setDuration(duration);
 
                 downloads.add(download);

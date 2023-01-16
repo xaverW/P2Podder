@@ -117,7 +117,7 @@ public class ProgConfig extends PDataProgConfig {
 
     //Gui SmallPodder
     public static BooleanProperty SYSTEM_SMALL_PODDER = addBoolProp("system-small-podder", false);
-    public static StringProperty SMALL_PODDER_SIZE = addStrProp("small-podder-size");
+    public static StringProperty SMALL_PODDER_SIZE = addStrProp("small-podder-size", "800:400");
 
 
     public static StringProperty SYSTEM_PATH_VLC = addStrProp("system-path-vlc", SetFactory.getTemplatePathVlc());
