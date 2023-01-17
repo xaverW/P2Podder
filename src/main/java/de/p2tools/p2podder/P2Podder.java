@@ -15,7 +15,6 @@
  */
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
@@ -66,8 +65,7 @@ public class P2Podder extends Application {
 
     private void initP2lib() {
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgData.debug, ProgData.duration);
-        P2LibInit.addCssFile(P2LibConst.CSS_GUI);
+                "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
 
@@ -126,12 +124,10 @@ public class P2Podder extends Application {
 
     private void addThemeCss() {
         if (ProgConfig.SYSTEM_DARK_THEME.get()) {
-            P2LibInit.addCssFile(P2LibConst.CSS_GUI_DARK);
             P2LibInit.addCssFile(ProgConst.CSS_FILE_DARK_THEME);
         } else {
-            P2LibInit.removeCssFile(P2LibConst.CSS_GUI_DARK);
             P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
         }
-        P2LibInit.addP2LibCssToScene(scene);
+        P2LibInit.addP2CssToScene(scene);
     }
 }

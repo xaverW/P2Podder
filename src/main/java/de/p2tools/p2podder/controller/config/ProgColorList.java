@@ -28,16 +28,6 @@ public class ProgColorList extends PColorList {
         super();
     }
 
-    //OK
-    public static PColorData TABLE_ROW_IS_SEL_BG = addNewKey("table-row-is-sel-bg",
-            Color.rgb(77, 77, 77),
-            Color.rgb(77, 77, 77),
-            false, "Ist die momentan ausgewählte Tabellenzeile", 1);
-    public static PColorData TABLE_ROW_IS_SEL = addNewKey("table-row-is-sel",
-            Color.rgb(255, 255, 255),
-            Color.rgb(255, 255, 255),
-            false, "Ist die momentan ausgewählte Tabellenzeile, Schriftfarbe", 1);
-
     //Tabelle Episodes
     public static final PColorData EPISODE_NEW_BG = addNewKey("COLOR__EPISODE_NEW_BG",
             Color.rgb(255, 255, 255),

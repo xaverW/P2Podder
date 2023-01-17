@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.ConfigFile;
 import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.date.DateFactory;
@@ -47,7 +46,6 @@ public class ProgLoadFactory {
         } else {
             PLog.sysLog("-> wurde gelesen!");
         }
-        initP2Lib();
         return found;
     }
 
@@ -99,12 +97,6 @@ public class ProgLoadFactory {
         ReadConfigFile readConfigFile = new ReadConfigFile();
         readConfigFile.addConfigFile(configFile);
         return readConfigFile.readConfigFile();
-    }
-
-    private static void initP2Lib() {
-        P2LibInit.initLib(ProgData.getInstance().primaryStage, ProgConst.PROGRAM_NAME, ProgInfosFactory.getUserAgent(),
-                ProgData.debug, ProgData.duration);
-        P2LibInit.addCssFile(ProgConst.CSS_FILE);
     }
 
     private static void addStartPodcasts(ProgData progData) {

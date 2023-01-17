@@ -78,7 +78,7 @@ public class TableEpisode extends PTable<Episode> {
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        
+
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         noColumn.setCellFactory(cellFactoryNo);
@@ -168,18 +168,6 @@ public class TableEpisode extends PTable<Episode> {
                     }
 
                     //und jetzt die Farben setzen
-                    if (isSelected()) {
-                        if (ProgColorList.TABLE_ROW_IS_SEL_BG.isUse()) {
-                            setStyle(ProgColorList.TABLE_ROW_IS_SEL_BG.getCssBackgroundAndSel());
-                        }
-                        if (ProgColorList.TABLE_ROW_IS_SEL.isUse()) {
-                            for (int i = 0; i < getChildren().size(); i++) {
-                                getChildren().get(i).setStyle(ProgColorList.TABLE_ROW_IS_SEL.getCssFont());
-                            }
-                        }
-                        return;
-                    }
-
                     if (error) {
                         if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
                             setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackground());
