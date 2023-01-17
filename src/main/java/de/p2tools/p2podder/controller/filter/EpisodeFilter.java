@@ -39,6 +39,7 @@ public class EpisodeFilter extends EpisodeFilterProps {
 
     public void clearFilter() {
         // alle Filter löschen
+        System.out.println("clearFilter");
         setPodcastId(0);
         setGenre("");
         setTitle("");

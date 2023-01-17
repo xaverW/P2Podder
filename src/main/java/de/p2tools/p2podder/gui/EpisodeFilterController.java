@@ -196,6 +196,7 @@ public class EpisodeFilterController extends FilterPane {
                 System.out.println("progData.episodeList.getGenreList()");
                 //kann durch Downloads außer der Reihe sein!!
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
+                System.out.println("cboGenre.getItems().setAll(progData.episodeList.getGenreList());");
                 cboGenre.getItems().setAll(progData.episodeList.getGenreList());
                 if (sel.isEmpty()) {
                 } else if (cboGenre.getItems().contains(sel)) {

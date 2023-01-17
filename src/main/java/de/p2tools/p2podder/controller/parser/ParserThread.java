@@ -19,11 +19,13 @@ package de.p2tools.p2podder.controller.parser;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.application.Platform;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class ParserThread {
 
     public ParserThread(ProgData progData) {
         this.progData = progData;
-        progData.podcastList.setGenDateNow();
+        ProgConfig.META_PODCAST_LIST_DATE.setValue(LocalDateTime.now());
     }
 
     public void parse(Podcast podcast) {

@@ -16,30 +16,21 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
-import de.p2tools.p2podder.controller.ProgQuitFactory;
-import de.p2tools.p2podder.controller.ProgSaveFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastBarController;
 import de.p2tools.p2podder.gui.PodcastGui;
-import de.p2tools.p2podder.gui.configDialog.ConfigDialogController;
-import de.p2tools.p2podder.gui.dialog.AboutDialogController;
-import de.p2tools.p2podder.gui.dialog.ResetDialogController;
 import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
-import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
@@ -48,7 +39,6 @@ public class P2PodderController extends StackPane {
     private Button btnEpisodes = new Button("Episoden");
     private Button btnPodcasts = new Button("Podcasts");
     private Button btnDownloads = new Button("Downloads");
-    private MenuButton menuButton = new MenuButton("");
 
     private BorderPane borderPane = new BorderPane();
     private StackPane stackPaneCont = new StackPane();
@@ -84,7 +74,7 @@ public class P2PodderController extends StackPane {
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnEpisodes, btnPodcasts, btnDownloads);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallGui, tilePaneStationFavourite, menuButton);
+            hBoxTop.getChildren().addAll(btnSmallGui, tilePaneStationFavourite, new InitPodderMenu().getMenu());
 
             // Center
             paneEpisodeGui = episodeGui.pack();
@@ -104,7 +94,6 @@ public class P2PodderController extends StackPane {
 
             initMaskerPane();
             initButton();
-            initMenu();
             switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
                 case ProgConst.LAST_TAB_STATION_EPISODE:
                 default:
@@ -177,52 +166,6 @@ public class P2PodderController extends StackPane {
                 ProgConfig.DOWNLOAD_GUI_INFO_ON.setValue(!ProgConfig.DOWNLOAD_GUI_INFO_ON.get());
             }
         });
-    }
-
-    private void initMenu() {
-        // Menü
-        final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
-
-        final MenuItem miQuit = new MenuItem("Beenden");
-        miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
-        PShortcutWorker.addShortCut(miQuit, P2PodderShortCuts.SHORTCUT_QUIT_PROGRAM);
-
-        final MenuItem miAbout = new MenuItem("Über dieses Programm");
-        miAbout.setOnAction(event -> new AboutDialogController(progData).showDialog());
-
-        final MenuItem miLog = new MenuItem("Logdatei öffnen");
-        miLog.setOnAction(event -> {
-            PLogger.openLogFile();
-        });
-
-        final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
-        miUrlHelp.setOnAction(event -> {
-            POpen.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
-        });
-
-        final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
-        miReset.setOnAction(event -> new ResetDialogController(progData));
-
-        final MenuItem miSearchUpdate = new MenuItem("Gibt's ein Update?");
-        miSearchUpdate.setOnAction(a -> new SearchProgramUpdate(progData, progData.primaryStage).searchNewProgramVersion(true));
-
-
-        final Menu mHelp = new Menu("Hilfe");
-        mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
-        if (ProgData.debug) {
-            final MenuItem miSave = new MenuItem("Debug: Alles Speichern");
-            miSave.setOnAction(a -> ProgSaveFactory.saveAll());
-
-            mHelp.getItems().addAll(miSave);
-        }
-
-        menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
-        menuButton.getStyleClass().addAll("btnFunction", "btnFunc-1");
-        menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
-        menuButton.getItems().addAll(miConfig, mHelp,
-                new SeparatorMenuItem(), miQuit);
     }
 
     private void selPanelSmallRadio() {

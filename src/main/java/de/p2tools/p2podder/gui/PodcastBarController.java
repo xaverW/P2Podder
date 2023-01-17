@@ -16,16 +16,22 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.worker.InfoFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+
+import java.time.LocalDateTime;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class PodcastBarController extends AnchorPane {
 
@@ -140,13 +146,16 @@ public class PodcastBarController extends AnchorPane {
     }
 
     private void setRightText() {
-        // Text rechts: alter/neuladenIn anzeigen
-        String strText = "Podcasts geladen: ";
-        strText += progData.podcastList.getGenDate();
-        strText += "  ";
+        // Text rechts: alter der Podcastliste
+        String strText = "";
 
-        final int day = progData.podcastList.getAge();
-        if (day != 0) {
+        final int day = getAge();
+        if (day == 0) {
+            strText += "Podcasts heute geladen";
+        } else if (day > 0) {
+            strText = "Podcasts geladen: ";
+            strText += PLDateTimeFactory.toStringDate(ProgConfig.META_PODCAST_LIST_DATE.getValue());
+            strText += "  ";
             strText += "||  Alter: ";
             String strDay = String.valueOf(day);
             strText += strDay;
@@ -158,4 +167,17 @@ public class PodcastBarController extends AnchorPane {
         lblRightPodcast.setText(strText);
         lblRightDownload.setText(strText);
     }
+
+    private int getAge() {
+        int days = -1;
+        final LocalDateTime stationDate = ProgConfig.META_PODCAST_LIST_DATE.getValue();// meta.podcastDate.getValue();
+        if (stationDate != null && !stationDate.isEqual(LocalDateTime.MIN)) {
+            days = (int) DAYS.between(ProgConfig.META_PODCAST_LIST_DATE.getValue(), LocalDateTime.now());
+            if (days < 0) {
+                days = 0;
+            }
+        }
+        return days;
+    }
+
 }

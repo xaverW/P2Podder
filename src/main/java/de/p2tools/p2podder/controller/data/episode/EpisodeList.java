@@ -23,7 +23,6 @@ import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -47,9 +46,9 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     private final FilteredList<Episode> smallFilteredList;
     private final SortedList<Episode> smallSortedList;
 
-    private BooleanProperty episodeChanged = new SimpleBooleanProperty(true);
-    private ObservableList<Podcast> podcastList = FXCollections.observableArrayList();
-    private ObservableList<String> genreList = FXCollections.observableArrayList();
+    private final BooleanProperty episodeChanged = new SimpleBooleanProperty(true);
+    private final ObservableList<Podcast> podcastList = FXCollections.observableArrayList();
+    private final ObservableList<String> genreList = FXCollections.observableArrayList();
 
     public EpisodeList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -214,15 +213,19 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         });
         System.out.println("sort");
         Collections.sort(items);
-        Platform.runLater(() -> {
-            System.out.println("setAll");
-            podcastList.setAll(items);
-        });
+        System.out.println("setAll");
+        podcastList.setAll(items);
         PDuration.counterStop("getPodcastList");
     }
 
     public synchronized ObservableList<String> getGenreList() {
-        return genreList;
+        System.out.println("ObservableList<String> getGenreList()");
+        final ObservableList<String> list = FXCollections.observableArrayList();
+        genreList.stream().forEach(s -> {
+            list.add(s);
+        });
+
+        return list;
     }
 
     private synchronized void genGenreList() {
@@ -238,6 +241,8 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
             }
         });
         Collections.sort(items, new GermanStringSorter());
+
+        System.out.println("setAllGenreItems");
         genreList.setAll(items);
         PDuration.counterStop("genGenreList");
     }

@@ -18,10 +18,8 @@ package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,12 +27,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @SuppressWarnings("serial")
 public class PodcastList extends SimpleListProperty<Podcast> implements PDataList<Podcast> {
@@ -91,16 +85,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         PDuration.counterStop("initList");
     }
 
-    public synchronized String getGenDate() {
-        return ProgConfig.META_PODCAST_LIST_DATE.getValue().toString();
-    }
-
-    public synchronized void setGenDateNow() {
-        PDate pl = new PDate();
-        pl.setPDateNow();
-        ProgConfig.META_PODCAST_LIST_DATE.setValue(LocalDateTime.now());
-    }
-
     public boolean podcastExistsAlready(Podcast podcast) {
         // true wenn es ihn schon gibt
         for (final Podcast pod : this) {
@@ -110,24 +94,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
 //            }
         }
         return false;
-    }
-
-    /**
-     * Get the age of the station list.
-     *
-     * @return Age in days.
-     */
-    public int getAge() {
-        int days = 0;
-        final LocalDate now = LocalDate.now();
-        final LocalDateTime stationDate = ProgConfig.META_PODCAST_LIST_DATE.getValue();// meta.podcastDate.getValue();
-        if (stationDate != null) {
-            days = (int) DAYS.between(ProgConfig.META_PODCAST_LIST_DATE.getValue(), LocalDateTime.now());
-            if (days < 0) {
-                days = 0;
-            }
-        }
-        return days;
     }
 
     public synchronized SortedList<Podcast> getSortedList() {
