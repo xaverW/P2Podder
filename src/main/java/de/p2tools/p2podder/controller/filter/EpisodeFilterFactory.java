@@ -17,8 +17,6 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import java.util.ArrayList;
-
 public class EpisodeFilterFactory {
 
     public static EpisodeFilter copyFilter(EpisodeFilter sfFrom, EpisodeFilter sfTo) {
@@ -51,17 +49,5 @@ public class EpisodeFilterFactory {
             }
         }
         return true;
-    }
-
-    public static ArrayList<String> printFilter(EpisodeFilter sf) {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("podcastId " + sf.getPodcastId());
-        list.add("genre " + sf.getGenre());
-//        list.add("title " + sf.getTitle());
-//        list.add("description " + sf.getDescription());
-//        list.add("timeRange " + sf.getTimeRange());
-        list.add(" ");
-        list.stream().forEach(s -> System.out.println(s));
-        return list;
     }
 }

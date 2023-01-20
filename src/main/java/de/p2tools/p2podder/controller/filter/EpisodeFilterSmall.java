@@ -24,10 +24,8 @@ import java.util.function.Predicate;
 
 public class EpisodeFilterSmall extends EpisodeFilterSmallProps {
 
-    public EpisodeFilterSmall(boolean init) {
-        if (init) {
-            initFilter();
-        }
+    public EpisodeFilterSmall() {
+        initFilter();
     }
 
     public void clearFilter() {

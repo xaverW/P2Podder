@@ -141,15 +141,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         return super.addAll(var1);
     }
 
-    public synchronized boolean remove(Episode objects) {
-        return super.remove(objects);
-    }
-
-    @Override
-    public synchronized boolean removeAll(Collection<?> objects) {
-        return super.removeAll(objects);
-    }
-
     public synchronized void countEpisodes() {
         progData.podcastList.stream().forEach(p -> {
             p.setAmountEpisodes(0);
@@ -195,6 +186,9 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     public synchronized ObservableList<Podcast> getPodcastList() {
+//        ObservableList<Podcast> list = FXCollections.observableArrayList();
+//        podcastList.stream().forEach(p -> list.add(p.getCopy()));
+//        return list;
         return podcastList;
     }
 
@@ -211,25 +205,21 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
                 items.add(podcast);
             }
         });
-        System.out.println("sort");
         Collections.sort(items);
-        System.out.println("setAll");
         podcastList.setAll(items);
         PDuration.counterStop("getPodcastList");
     }
 
     public synchronized ObservableList<String> getGenreList() {
-        System.out.println("ObservableList<String> getGenreList()");
-        final ObservableList<String> list = FXCollections.observableArrayList();
-        genreList.stream().forEach(s -> {
-            list.add(s);
-        });
-
-        return list;
+//        final ObservableList<String> list = FXCollections.observableArrayList();
+//        genreList.stream().forEach(s -> {
+//            list.add(s);
+//        });
+//        return list;
+        return genreList;
     }
 
     private synchronized void genGenreList() {
-        PDuration.counterStart("genGenreList");
         PLog.sysLog("Episoden: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         final ArrayList<String> items = new ArrayList<>();
@@ -241,9 +231,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
             }
         });
         Collections.sort(items, new GermanStringSorter());
-
-        System.out.println("setAllGenreItems");
         genreList.setAll(items);
-        PDuration.counterStop("genGenreList");
     }
 }

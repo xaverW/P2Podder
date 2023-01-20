@@ -21,6 +21,7 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -105,7 +106,20 @@ public class SmallGuiBottom extends HBox {
     }
 
     private void initCbo() {
-        cboPodcast.getItems().addAll(progData.episodeList.getPodcastList());
+        progData.episodeList.addListener((u, o, n) -> {
+            Platform.runLater(() -> {
+                //kann durch Downloads außer der Reihe sein!!
+                Podcast podcast = cboPodcast.getSelectionModel().getSelectedItem();
+                cboPodcast.getItems().setAll(progData.episodeList.getPodcastList());
+                if (cboPodcast.getItems().contains(podcast)) {
+                    cboPodcast.getSelectionModel().select(podcast);
+                } else {
+                    cboPodcast.getSelectionModel().clearSelection();
+                }
+            });
+        });
+
+        cboPodcast.getItems().setAll(progData.episodeList.getPodcastList());
         cboPodcast.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
             if (cboPodcast.getSelectionModel().isEmpty()) {
                 progData.episodeFilterSmall.setPodcastId(0);

@@ -37,7 +37,6 @@ import de.p2tools.p2podder.controller.starterEpisode.EpisodeStarterFactory;
 import de.p2tools.p2podder.controller.worker.EpisodeInfos;
 import de.p2tools.p2podder.controller.worker.Worker;
 import de.p2tools.p2podder.gui.DownloadGui;
-import de.p2tools.p2podder.gui.EpisodeFilterControllerClearFilter;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
@@ -72,7 +71,7 @@ public class ProgData {
     public EpisodeGui episodeGui = null;
     public PodcastGui podcastGui = null;
     public DownloadGui downloadGui = null;
-    public EpisodeFilterControllerClearFilter stationFilterControllerClearFilter = null;
+
     public final EpisodeFilter episodeFilter;
     public final EpisodeFilterSmall episodeFilterSmall;
     public final DownloadFilter downloadFilter;
@@ -109,7 +108,7 @@ public class ProgData {
         pShortcut = new P2PodderShortCuts();
 
         episodeFilter = new EpisodeFilter(true);
-        episodeFilterSmall = new EpisodeFilterSmall(true);
+        episodeFilterSmall = new EpisodeFilterSmall();
         downloadFilter = new DownloadFilter();
         podcastFilter = new PodcastFilter();
 

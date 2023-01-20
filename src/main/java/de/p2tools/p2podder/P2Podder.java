@@ -78,7 +78,6 @@ public class P2Podder extends Application {
             scene = new Scene(progData.p2PodderController,
                     PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-
             addThemeCss(); // und jetzt noch für die neue Scene
             ProgColorList.setColorTheme();
 

@@ -36,9 +36,6 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
     private final BooleanProperty isRunning = new SimpleBooleanProperty(false);
     private final BooleanProperty wasShown = new SimpleBooleanProperty(false);
 
-    public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isStarted, isRunning, wasShown};
-    public LongProperty[] sfLongPropArr = {podcastId};
-
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
@@ -48,7 +45,6 @@ public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implemen
         list.add(new Config_boolProp("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStarted));
         list.add(new Config_boolProp("isRunning", EpisodeFilterToXml.SELECTED_FILTER_IS_RUNNING, isRunning));
         list.add(new Config_boolProp("wasShown", EpisodeFilterToXml.SELECTED_FILTER_WAS_SHOWN, wasShown));
-
         return list.toArray(new Config[]{});
     }
 
