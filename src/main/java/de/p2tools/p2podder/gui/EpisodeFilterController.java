@@ -199,7 +199,7 @@ public class EpisodeFilterController extends FilterPane {
                 if (sel != null && !sel.isEmpty() && cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
                 } else {
-                    progData.episodeFilter.clearFilter();
+                    progData.episodeFilter.setGenre("");
                 }
             });
         });

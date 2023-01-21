@@ -77,7 +77,8 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     }
 
     public String getGenre() {
-        return genre.get();
+        //das kann beim "Umschalten" des Genre-Filters null sein!!
+        return genre.getValueSafe();
     }
 
     public StringProperty genreProperty() {
@@ -85,11 +86,11 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     }
 
     public void setGenre(String genre) {
-        this.genre.set(genre);
+        this.genre.setValue(genre);
     }
 
     public String getTitle() {
-        return title.get();
+        return title.getValueSafe();
     }
 
     public StringProperty titleProperty() {
@@ -101,7 +102,7 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     }
 
     public String getDescription() {
-        return description.get();
+        return description.getValueSafe();
     }
 
     public StringProperty descriptionProperty() {
@@ -113,7 +114,7 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
     }
 
     public int getTimeRange() {
-        return timeRange.get();
+        return timeRange.getValue();
     }
 
     public IntegerProperty timeRangeProperty() {
@@ -186,11 +187,11 @@ public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Co
 
     @Override
     public String toString() {
-        return title.getValue();
+        return title.getValueSafe();
     }
 
     @Override
     public int compareTo(EpisodeFilter o) {
-        return title.getValue().compareTo(o.getTitle());
+        return getTitle().compareTo(o.getTitle());
     }
 }

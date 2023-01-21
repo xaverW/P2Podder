@@ -208,6 +208,6 @@ public final class EpisodeFilterForwardBackward {
 
     private void setActFilterSettings(EpisodeFilter sf) {
         EpisodeFilterFactory.copyFilter(sf, actFilter);
-        actFilter.setPredicate(true);
+        actFilter.setPredicate(false);
     }
 }

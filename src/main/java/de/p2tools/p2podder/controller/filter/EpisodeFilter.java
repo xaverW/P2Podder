@@ -64,16 +64,16 @@ public class EpisodeFilter extends EpisodeFilterProps {
         wasShownProperty().addListener(l -> setPredicate());
     }
 
-    public void setPredicate(boolean stop) {
+    private void setPredicate() {
+        setPredicate(true);
+    }
+
+    public void setPredicate(boolean setInForwardBackward) {
         //setzen und merken :)
-        if (!stop) {
+        if (setInForwardBackward) {
             episodeFilterForwardBackward.addNewFilter();
         }
         ProgData.getInstance().episodeList.filteredListSetPred(getPredicateEpisode());
-    }
-
-    public void setPredicate() {
-        setPredicate(false);
     }
 
     private Predicate<Episode> getPredicateEpisode() {
