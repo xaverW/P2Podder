@@ -72,7 +72,6 @@ public class CellEpisodeButton<S, T> extends TableCell<S, T> {
                     hbox.getChildren().add(btnStop);
 
                 } else {
-                    //starten, nur ein Set
                     final Button btnPlay;
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");

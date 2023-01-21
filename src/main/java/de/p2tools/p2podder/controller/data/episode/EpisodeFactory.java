@@ -264,24 +264,40 @@ public class EpisodeFactory {
     }
 
     private static synchronized void startFileWithProgram(Episode episode, SetData setData) {
-        final String filePathName = episode.getFilePath();
-        if (!filePathName.isEmpty()) {
-            final Start start = new Start(setData, episode);
-            episode.setStart(start);
-            ProgData.getInstance().episodeStartingList.add(episode);
-            ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
-            refreshTable();
+        final String pathName = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+        if (episode.getFilePath().isEmpty() || episode.getFileName().isEmpty()) {
+            return;
         }
+        if (!PFileUtils.fileExist(pathName)) {
+            PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
+                    "Episode abspielen",
+                    "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");
+            return;
+        }
+
+        final Start start = new Start(setData, episode);
+        episode.setStart(start);
+        ProgData.getInstance().episodeStartingList.add(episode);
+        ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
+        refreshTable();
     }
 
     private static synchronized void startFileWithProgram(List<Episode> episodeList, SetData setData) {
         episodeList.stream().forEach(episode -> {
-            final String filePathName = episode.getFilePath();
-            if (!filePathName.isEmpty()) {
-                final Start start = new Start(setData, episode);
-                episode.setStart(start);
-                ProgData.getInstance().episodeStartingList.add(episode);
+            final String pathName = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+            if (episode.getFilePath().isEmpty() || episode.getFileName().isEmpty()) {
+                return;
             }
+            if (!PFileUtils.fileExist(pathName)) {
+                PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
+                        "Episode abspielen",
+                        "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");
+                return;
+            }
+
+            final Start start = new Start(setData, episode);
+            episode.setStart(start);
+            ProgData.getInstance().episodeStartingList.add(episode);
         });
 
         ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
