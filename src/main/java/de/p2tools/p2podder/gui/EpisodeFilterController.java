@@ -181,7 +181,7 @@ public class EpisodeFilterController extends FilterPane {
                 //kann durch Downloads außer der Reihe sein!!
                 Podcast sel = tableView.getSelectionModel().getSelectedItem();
                 tableView.getItems().setAll(progData.episodeList.getPodcastList());
-                if (tableView.getItems().contains(sel)) {
+                if (sel != null && tableView.getItems().contains(sel)) {
                     tableView.getSelectionModel().select(sel);
                 } else {
                     progData.episodeFilter.setPodcastId(0);
@@ -196,8 +196,7 @@ public class EpisodeFilterController extends FilterPane {
                 //kann durch Downloads außer der Reihe sein!!
                 String sel = cboGenre.getSelectionModel().getSelectedItem();
                 cboGenre.getItems().setAll(progData.episodeList.getGenreList());
-                if (sel == null || sel.isEmpty()) {
-                } else if (cboGenre.getItems().contains(sel)) {
+                if (sel != null && !sel.isEmpty() && cboGenre.getItems().contains(sel)) {
                     cboGenre.getSelectionModel().select(sel);
                 } else {
                     progData.episodeFilter.clearFilter();

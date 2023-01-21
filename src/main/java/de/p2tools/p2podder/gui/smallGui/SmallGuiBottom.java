@@ -111,7 +111,7 @@ public class SmallGuiBottom extends HBox {
                 //kann durch Downloads außer der Reihe sein!!
                 Podcast podcast = cboPodcast.getSelectionModel().getSelectedItem();
                 cboPodcast.getItems().setAll(progData.episodeList.getPodcastList());
-                if (cboPodcast.getItems().contains(podcast)) {
+                if (podcast != null && cboPodcast.getItems().contains(podcast)) {
                     cboPodcast.getSelectionModel().select(podcast);
                 } else {
                     cboPodcast.getSelectionModel().clearSelection();
