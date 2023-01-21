@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.starterEpisode;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.Config_intProp;
 import de.p2tools.p2Lib.configFile.config.Config_stringProp;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 
 public class StartProps extends PDataSample<Start> {
 
-    private final IntegerProperty no = new SimpleIntegerProperty(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
+    private final IntegerProperty no = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
     private final IntegerProperty podcastNo = new SimpleIntegerProperty(EpisodeConstants.PODCAST_NO);
     private final StringProperty episodeTitle = new SimpleStringProperty("");
     private final StringProperty filePathName = new SimpleStringProperty("");

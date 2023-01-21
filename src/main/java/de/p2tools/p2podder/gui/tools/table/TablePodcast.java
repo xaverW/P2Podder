@@ -17,19 +17,15 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2Lib.guiTools.PCheckBoxCell;
+import de.p2tools.p2Lib.guiTools.pTable.CellLocalDate;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.data.podcast.PodcastNames;
-import de.p2tools.p2podder.controller.parser.ParserThread;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 import java.time.LocalDate;
 
@@ -81,8 +77,8 @@ public class TablePodcast extends PTable<Podcast> {
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
 
-        final TableColumn<Podcast, String> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(cellFactoryStart);
+        final TableColumn<Podcast, Integer> startColumn = new TableColumn<>("");
+        startColumn.setCellFactory(new CellPodcastButton<>().cellFactory);
         startColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, Integer> amountColumn = new TableColumn<>(PodcastNames.PODCAST_AMOUNT_EPISODES);
@@ -112,79 +108,5 @@ public class TablePodcast extends PTable<Podcast> {
         getColumns().addAll(
                 nrColumn, nameColumn, activeColumn, genreColumn, startColumn, amountColumn,
                 dateColumn, websiteColumn, urlColumn);
-//        addRowFact();
     }
-
-    private void addRowFact() {
-        setRowFactory(tableview -> new TableRow<>() {
-            @Override
-            public void updateItem(Podcast podcast, boolean empty) {
-                super.updateItem(podcast, empty);
-
-                setOnMouseClicked(event -> {
-                    if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                        getSelectionModel().clearSelection();
-                    }
-                });
-            }
-        });
-    }
-
-    private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactoryStart
-            = (final TableColumn<Podcast, String> param) -> {
-
-        final TableCell<Podcast, String> cell = new TableCell<>() {
-
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                Podcast podcast = getTableView().getItems().get(getIndex());
-
-                final Button btnUpdate;
-                btnUpdate = new Button("");
-                btnUpdate.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
-                btnUpdate.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_UPDATE.getImageView());
-                btnUpdate.setOnAction(event -> {
-                    new ParserThread(progData).parse(podcast);
-                });
-
-                final Button btnDel;
-                btnDel = new Button("");
-                btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                btnDel.setTooltip(new Tooltip("Podcast löschen"));
-                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_DEL.getImageView());
-                btnDel.setOnAction(event -> {
-                    progData.podcastList.removePodcast(podcast);
-                });
-
-                final Button btnActive;
-                btnActive = new Button("");
-                btnActive.getStyleClass().addAll("btnFunction", "btnFuncTable");
-                btnActive.setTooltip(new Tooltip("Podcast ein-/ausschalten"));
-                btnActive.setGraphic(ProgIcons.Icons.IMAGE_TABLE_PODCAST_SET_ACTIVE.getImageView());
-                btnActive.setOnAction(event -> {
-                    progData.worker.setPodcastActive(podcast);
-                });
-
-                Table.setButtonSize(btnUpdate);
-                Table.setButtonSize(btnDel);
-                Table.setButtonSize(btnActive);
-
-                final HBox hbox = new HBox();
-                hbox.setSpacing(5);
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setPadding(new Insets(0, 2, 0, 2));
-                hbox.getChildren().addAll(btnUpdate, btnDel, btnActive);
-                setGraphic(hbox);
-            }
-        };
-        return cell;
-    };
 }

@@ -17,6 +17,7 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.PSystemUtils;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
@@ -150,7 +151,7 @@ public class EpisodeFactory {
         if (episodeIsStarted(episode)) {
             if (episode.getStart().getStartStatus().isStatedRunning()) {
                 episode.getStart().getStartStatus().setStateStopped();
-                episode.getStart().setNo(EpisodeConstants.EPISODE_NUMBER_NOT_STARTED);
+                episode.getStart().setNo(P2LibConst.NUMBER_NOT_STARTED);
             } else if (episode.getStart().getStartStatus().isStateInit()) {
                 //dann ist er angelegt aber noch nicht gestartet
                 episode.setStart(null);

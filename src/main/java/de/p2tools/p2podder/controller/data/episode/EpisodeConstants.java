@@ -18,9 +18,6 @@ package de.p2tools.p2podder.controller.data.episode;
 
 public class EpisodeConstants {
 
-    //Startnummer (Reihenfolge) der Episode
-    public static final int EPISODE_NUMBER_NOT_STARTED = Integer.MAX_VALUE;
-
     //EpisodeNr wenn kein Podcast mehr gefunden wird
     public static final int PODCAST_NO = Integer.MAX_VALUE;
 
