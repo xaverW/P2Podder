@@ -24,10 +24,6 @@ import javafx.stage.StageStyle;
 
 public class SmallGuiFactory {
 
-    public static final String LIST_STATION = "s";
-    public static final String LIST_FAVOURITE = "f";
-    public static final String LIST_HISTORY = "h";
-
     private static final int MOVE_SIZE = 20;
     private static double xOffset = 0;
     private static double yOffset = 0;

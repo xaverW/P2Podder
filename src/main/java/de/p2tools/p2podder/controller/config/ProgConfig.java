@@ -63,9 +63,6 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty SYSTEM_PROG_OPEN_DIR = addStrProp("system-prog-open-dir", "");
 
 
-    // Configs zum Aktualisieren beim Programmupdate
-    public static IntegerProperty SYSTEM_UPDATE_STATE = addIntProp("system-update-state", 0);
-
     // Configs zur Programmupdatesuche
     public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung
     public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStrProp("system-update-progset-version");
@@ -165,13 +162,11 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBoolProp("episode-show-notification", Boolean.TRUE);
 
     //Gui SmallEpisode
-    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("small-episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStrProp("small-episode-gui-table-width");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStrProp("small-episode-gui-table-sort");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStrProp("small-episode-gui-table-up-down");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_VIS = addStrProp("small-episode-gui-table-vis");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_ORDER = addStrProp("small-episode-gui-table-order");
-    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBoolProp("small-episode-gui-filter-on", Boolean.TRUE);
 
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");

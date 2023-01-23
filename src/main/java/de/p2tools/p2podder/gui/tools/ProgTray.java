@@ -134,7 +134,7 @@ public class ProgTray {
         miInfo.addActionListener(e -> Platform.runLater(() -> {
             progData.episodeInfoDialogController.toggleShowInfo();
         }));
-        miConfig.addActionListener(e -> Platform.runLater(() -> ConfigDialogController.getInstanceAndShow()));
+        miConfig.addActionListener(e -> Platform.runLater(() -> new ConfigDialogController(progData)));
         miTray.addActionListener(e -> Platform.runLater(() -> {
             //vor dem Ausschalten des Tray GUI anzeigen!!
             closeTray();

@@ -73,8 +73,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     }
 
     public void showDialog() {
-        PGuiSize.setSizePos(this.getStage(), ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
+        PGuiSize.setOnlySize(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+                        ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
+                this.getStage());
         getStage().show();
     }
 
@@ -196,8 +197,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         makeGridPane(gridPane);
         setEpisode();
         if (setSize) {
-            PGuiSize.setSizePos(this.getStage(), ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                    ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
+            PGuiSize.setOnlySize(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+                            ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
+                    this.getStage());
         }
     }
 

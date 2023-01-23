@@ -30,7 +30,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -64,7 +63,7 @@ public class SmallGuiPack extends PDialogOnly {
     @Override
     public void make() {
         SmallGuiFactory.addBorderListener(getStage());
-        getStage().initStyle(StageStyle.TRANSPARENT);
+//        getStage().initStyle(StageStyle.TRANSPARENT);
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
         vAll.setPadding(new Insets(25));
@@ -113,7 +112,7 @@ public class SmallGuiPack extends PDialogOnly {
         close();
 
         Platform.runLater(() -> {
-                    PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
                     progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.show();

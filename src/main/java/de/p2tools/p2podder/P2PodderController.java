@@ -173,6 +173,7 @@ public class P2PodderController extends StackPane {
             return;
         }
 
+//        ProgConfig.SMALL_PODDER_SIZE.setValue("800:400:" + (int) progData.primaryStage.getX() + ":" + (int) progData.primaryStage.getY());
         progData.primaryStage.close();
         new SmallGuiPack();
     }

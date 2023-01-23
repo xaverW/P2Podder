@@ -78,6 +78,7 @@ public class P2Podder extends Application {
             scene = new Scene(progData.p2PodderController,
                     PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+
             addThemeCss(); // und jetzt noch für die neue Scene
             ProgColorList.setColorTheme();
 
@@ -98,16 +99,13 @@ public class P2Podder extends Application {
                 e.consume();
                 ProgQuitFactory.quit(primaryStage, true);
             });
+            //Pos setzen
+            PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);
 
             scene.heightProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             scene.widthProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.xProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.yProperty().addListener((v, o, n) -> PGuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
-
-            //Pos setzen
-            if (!PGuiSize.setPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage)) {
-                primaryStage.centerOnScreen();
-            }
 
             if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
                 //dann gleich mit smallRadio starten

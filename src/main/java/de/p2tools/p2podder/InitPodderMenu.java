@@ -46,7 +46,7 @@ public class InitPodderMenu {
 
         // Menü
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
-        miConfig.setOnAction(e -> ConfigDialogController.getInstanceAndShow());
+        miConfig.setOnAction(e -> new ConfigDialogController(progData));
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
