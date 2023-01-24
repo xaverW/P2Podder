@@ -35,6 +35,12 @@ public class CellProgress<S, T> extends TableCell<S, T> {
             public void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
 
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                    return;
+                }
+
                 if (item != null) {
                     DownloadData download = getTableView().getItems().get(getIndex());
                     if (item <= DownloadConstants.PROGRESS_STARTED || item >= DownloadConstants.PROGRESS_FINISHED) {

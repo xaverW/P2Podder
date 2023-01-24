@@ -41,7 +41,7 @@ public class CellPodcastButton<S, T> extends TableCell<S, T> {
             public void updateItem(Integer item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (item == null || empty) {
+                if (empty) {
                     setGraphic(null);
                     setText(null);
                     return;

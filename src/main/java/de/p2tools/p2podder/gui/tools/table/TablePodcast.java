@@ -38,7 +38,8 @@ public class TablePodcast extends PTable<Podcast> {
         this.table_enum = table_enum;
         this.progData = progData;
 
-        initFileRunnerColumn();
+        addListener();
+        initColumn();
     }
 
     public Table.TABLE_ENUM getETable() {
@@ -46,19 +47,21 @@ public class TablePodcast extends PTable<Podcast> {
     }
 
     public void resetTable() {
-        initFileRunnerColumn();
+        initColumn();
         Table.resetTable(this);
     }
 
-    private void initFileRunnerColumn() {
+    private void addListener() {
+        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
+    }
+
+    private void initColumn() {
         getColumns().clear();
 
         setTableMenuButtonVisible(true);
         setEditable(false);
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         final TableColumn<Podcast, Integer> nrColumn = new TableColumn<>(PodcastNames.PODCAST_NO);
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("no"));

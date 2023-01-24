@@ -33,22 +33,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class DownloadInfoDialogController extends PDialogExtra {
+public class DownloadInfoDialog extends PDialogExtra {
 
     private Button btnOk = new Button("_Ok");
 
     private final GridPane gridPane = new GridPane();
     private DownloadData downloadData;
-    private final ProgData progData;
 
-    public DownloadInfoDialogController(ProgData progData, DownloadData dowdownloadloadArrayList) {
+    public DownloadInfoDialog(ProgData progData, DownloadData downloadData) {
         super(progData.primaryStage, ProgConfig.EPISODE_DIALOG_EDIT_SIZE,
                 "Download ändern", true, false, DECO.SMALL);
 
-        this.progData = progData;
-        this.downloadData = dowdownloadloadArrayList;
-
-        if (downloadData == null) {
+        this.downloadData = downloadData;
+        if (this.downloadData == null) {
             // Satz mit x, war wohl nix
             close();
             return;
@@ -56,7 +53,6 @@ public class DownloadInfoDialogController extends PDialogExtra {
 
         init(true);
     }
-
 
     public void make() {
         addOkButton(btnOk);
@@ -91,7 +87,6 @@ public class DownloadInfoDialogController extends PDialogExtra {
         ++row;
         TextArea taDescription = new TextArea();
         taDescription.setMinHeight(25);
-//        taDescription.setMaxHeight(200);
         GridPane.setVgrow(taDescription, Priority.ALWAYS);
         taDescription.setEditable(false);
         taDescription.setWrapText(true);

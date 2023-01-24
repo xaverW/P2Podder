@@ -87,7 +87,7 @@ public class DownloadMenu {
         btDownloadClear.setOnAction(a -> {
             DownloadFactory.cleanUpList();
         });
-        btInfo.setOnAction(a -> progData.downloadGui.getDownloadGuiController().changeDownload());
+        btInfo.setOnAction(a -> progData.downloadGui.getDownloadGuiController().showDownloadInfoDialog());
     }
 
     private void initMenu() {
@@ -106,7 +106,7 @@ public class DownloadMenu {
         miStopAll.setOnAction(a -> progData.downloadGui.getDownloadGuiController().stopDownload(true));
 
         final MenuItem miDownloadChange = new MenuItem("Download ändern");
-        miDownloadChange.setOnAction(a -> progData.downloadGui.getDownloadGuiController().changeDownload());
+        miDownloadChange.setOnAction(a -> progData.downloadGui.getDownloadGuiController().showDownloadInfoDialog());
 
         final MenuItem miDownloadDel = new MenuItem("Download löschen");
         miDownloadDel.setOnAction(a -> progData.downloadGui.getDownloadGuiController().deleteDownloads(false));

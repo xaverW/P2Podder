@@ -52,7 +52,7 @@ public class DownloadGuiTableContextMenu {
         miCopyUrl.setOnAction(a -> downloadGuiController.copyUrl());
 
         MenuItem miChange = new MenuItem("Download ändern");
-        miChange.setOnAction(a -> downloadGuiController.changeDownload());
+        miChange.setOnAction(a -> downloadGuiController.showDownloadInfoDialog());
         MenuItem miRemove = new MenuItem("Download löschen");
         miRemove.setOnAction(a -> progData.downloadGui.getDownloadGuiController().deleteDownloads(false));
 

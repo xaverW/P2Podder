@@ -41,6 +41,7 @@ public class TableDownload extends PTable<DownloadData> {
         this.table_enum = table_enum;
         this.progData = progData;
 
+        addListener();
         initColumn();
     }
 
@@ -53,15 +54,7 @@ public class TableDownload extends PTable<DownloadData> {
         Table.resetTable(this);
     }
 
-    private void initColumn() {
-        ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
-        getColumns().clear();
-
-        setTableMenuButtonVisible(true);
-        setEditable(false);
-        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
+    private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         ProgColorList.DOWNLOAD_WAIT_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
@@ -72,6 +65,15 @@ public class TableDownload extends PTable<DownloadData> {
         ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.DOWNLOAD_ERROR_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.DOWNLOAD_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+    }
+
+    private void initColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         final TableColumn<DownloadData, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));

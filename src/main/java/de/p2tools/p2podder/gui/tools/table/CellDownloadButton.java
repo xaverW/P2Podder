@@ -168,8 +168,6 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     setGraphic(null);
                     setText(null);
                 }
-
-
             }
         };
         return cell;

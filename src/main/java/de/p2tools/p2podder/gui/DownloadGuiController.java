@@ -26,13 +26,11 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
-import de.p2tools.p2podder.gui.dialog.DownloadInfoDialogController;
+import de.p2tools.p2podder.gui.dialog.DownloadInfoDialog;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableDownload;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
-import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -187,10 +185,10 @@ public class DownloadGuiController extends AnchorPane {
         }
     }
 
-    public void changeDownload() {
+    public void showDownloadInfoDialog() {
         final Optional<DownloadData> download = getSel();
         if (download.isPresent()) {
-            new DownloadInfoDialogController(progData, download.get());
+            new DownloadInfoDialog(progData, download.get());
         }
     }
 
@@ -263,14 +261,12 @@ public class DownloadGuiController extends AnchorPane {
 
     private void initTable() {
         Table.setTable(tableView);
-
         tableView.setItems(progData.downloadList.getSortedList());
         progData.downloadList.getSortedList().comparatorProperty().bind(tableView.comparatorProperty());
-        PTableFactory.refreshTable(tableView);
 
         tableView.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                changeDownload();
+                showDownloadInfoDialog();
             }
         });
         tableView.setOnMousePressed(m -> {
@@ -287,14 +283,14 @@ public class DownloadGuiController extends AnchorPane {
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> setSelectedDownload());
+            setSelectedDownload();
         });
-        tableView.getItems().addListener((ListChangeListener<DownloadData>) c -> {
-            if (tableView.getItems().size() == 1) {
-                // wenns nur eine Zeile gibt, dann gleich selektieren
-                tableView.getSelectionModel().select(0);
-            }
-        });
+//        tableView.getItems().addListener((ListChangeListener<DownloadData>) c -> {
+//            if (tableView.getItems().size() == 1) {
+//                // wenns nur eine Zeile gibt, dann gleich selektieren
+//                tableView.getSelectionModel().select(0);
+//            }
+//        });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (PTableFactory.SPACE.match(event)) {
                 PTableFactory.scrollVisibleRangeDown(tableView);

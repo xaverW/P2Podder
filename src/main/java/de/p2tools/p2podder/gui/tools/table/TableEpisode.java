@@ -43,7 +43,8 @@ public class TableEpisode extends PTable<Episode> {
         this.table_enum = table_enum;
         this.progData = progData;
 
-        initFileRunnerColumn();
+        initColumn();
+        addListener();
     }
 
     public Table.TABLE_ENUM getETable() {
@@ -51,18 +52,11 @@ public class TableEpisode extends PTable<Episode> {
     }
 
     public void resetTable() {
-        initFileRunnerColumn();
+        initColumn();
         Table.resetTable(this);
     }
 
-    private void initFileRunnerColumn() {
-        getColumns().clear();
-
-        setTableMenuButtonVisible(true);
-        setEditable(false);
-        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
+    private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
         ProgColorList.EPISODE_NEW_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
@@ -75,6 +69,15 @@ public class TableEpisode extends PTable<Episode> {
         ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
         ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+    }
+
+    private void initColumn() {
+        getColumns().clear();
+
+        setTableMenuButtonVisible(true);
+        setEditable(false);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
