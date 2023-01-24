@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.mtDownload.DownloadSize;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
@@ -109,7 +110,7 @@ public final class DownloadData extends DownloadDataProps {
         setRemaining("");
         setBandwidth("");
         getDownloadStart().setBandwidth(0);
-        setNo(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
+        setNo(P2LibConst.NUMBER_NOT_STARTED);
     }
 
     public void initStartDownload() {
@@ -204,7 +205,7 @@ public final class DownloadData extends DownloadDataProps {
         setRemaining("");
         setBandwidth("");
         getDownloadStart().setBandwidth(0);
-        setNo(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
+        setNo(P2LibConst.NUMBER_NOT_STARTED);
 
         setState(DownloadConstants.STATE_INIT);
         setProgress(DownloadConstants.PROGRESS_NOT_STARTED);

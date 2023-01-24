@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class DownloadDataProps extends PDataSample<DownloadData> {
     public static final String TAG = "download" + PData.TAGGER + "Download";
 
-    private final IntegerProperty no = new SimpleIntegerProperty(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
+    private final IntegerProperty no = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
 
     private final IntegerProperty state = new SimpleIntegerProperty(DownloadConstants.STATE_INIT);
     private final IntegerProperty guiState = new SimpleIntegerProperty(DownloadConstants.STATE_INIT);

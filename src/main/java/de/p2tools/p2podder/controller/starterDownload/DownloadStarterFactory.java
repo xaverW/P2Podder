@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.controller.starterDownload;
 
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PSizeTools;
 import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.date.PDate;
@@ -204,7 +205,7 @@ public class DownloadStarterFactory {
             ProgData.getInstance().episodeList.add(episode);
         }
 
-        download.setNo(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
+        download.setNo(P2LibConst.NUMBER_NOT_STARTED);
         ProgData.getInstance().downloadGui.getDownloadGuiController().tableRefresh();
         start.setProcess(null);
         start.setInputStream(null);

@@ -20,13 +20,10 @@ import java.text.DecimalFormat;
 
 public class DownloadConstants {
 
-    // Startnummer (Reihenfolge) der Downloads
-    public static final int DOWNLOAD_NUMBER_NOT_STARTED = Integer.MAX_VALUE;
-
+    // Fortschritt
     public static final double PROGRESS_NOT_STARTED = -1;
     public static final double PROGRESS_WAITING = 0;
     public static final double PROGRESS_STARTED = 0.001; // 0,1%
-
     public static final double PROGRESS_NEARLY_FINISHED = 0.995; //99,5%
     public static final double PROGRESS_FINISHED = 1; //100%
 
@@ -38,10 +35,9 @@ public class DownloadConstants {
     public static final int STATE_FINISHED = 4; // fertig, Ok
     public static final int STATE_ERROR = 5; // fertig, fehlerhaft
 
-    public static final int MAX_EPISODE_GRADE = 3;
     private static final DecimalFormat df = new DecimalFormat("###,##0.0");
 
-    public static String getTextProgress(boolean dManager, int status, double progress) {
+    public static String getTextProgress(int status, double progress) {
         String ret = "";
 
         if (progress == PROGRESS_NOT_STARTED) {
@@ -50,28 +46,26 @@ public class DownloadConstants {
             } else if (status == STATE_STARTED_WAITING) {
                 ret = "wartet";
             } else if (status == STATE_ERROR) {
-                ret = dManager ? "extern:fehler" : "fehlerhaft";
+                ret = "fehlerhaft";
             } else {
                 ret = "nicht gestartet";
             }
 
         } else if (progress == PROGRESS_WAITING) {
             //todo tritt eigentlich  nie auf??
-            ret = dManager ? "extern" : "warten";
+            ret = "wartet";
 
         } else if (progress == PROGRESS_STARTED) {
-            ret = dManager ? "extern" : "gestartet";
+            ret = "gestartet";
+
         } else if (progress > PROGRESS_STARTED && progress < PROGRESS_FINISHED) {
-            if (dManager) {
-                ret = "extern";
-            } else {
-                ret = df.format(progress * 100) + " %";
-            }
+            ret = df.format(progress * 100) + " %";
 
         } else if (progress == PROGRESS_FINISHED && status == STATE_ERROR) {
-            ret = dManager ? "extern:fehler" : "fehlerhaft";
+            ret = "fehlerhaft";
+
         } else if (progress == PROGRESS_FINISHED) {
-            ret = dManager ? "extern:fertig" : "fertig";
+            ret = "fertig";
         }
 
         return ret;

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.io.FilenameUtils;
@@ -107,13 +108,13 @@ public class DownloadListFactory {
         for (final DownloadData download : ProgData.getInstance().downloadList) {
             if (download.isStarted()) {
                 // gestartete Downloads ohne!! Nummer nummerieren
-                if (download.getNo() == DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED) {
+                if (download.getNo() == P2LibConst.NUMBER_NOT_STARTED) {
                     download.setNo(i++);
                 }
 
             } else {
                 // nicht gestartete Downloads
-                download.setNo(DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED);
+                download.setNo(P2LibConst.NUMBER_NOT_STARTED);
             }
         }
     }

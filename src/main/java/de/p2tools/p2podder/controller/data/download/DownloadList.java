@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -171,7 +172,7 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements PD
     public int getNextNumber() {
         int i = 1;
         for (final DownloadData download : this) {
-            if (download.getNo() < DownloadConstants.DOWNLOAD_NUMBER_NOT_STARTED && download.getNo() >= i) {
+            if (download.getNo() < P2LibConst.NUMBER_NOT_STARTED && download.getNo() >= i) {
                 i = download.getNo() + 1;
             }
         }

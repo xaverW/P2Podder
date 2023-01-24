@@ -22,6 +22,7 @@ import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.util.Callback;
 
 public class CellProgress<S, T> extends TableCell<S, T> {
@@ -29,8 +30,7 @@ public class CellProgress<S, T> extends TableCell<S, T> {
     public final Callback<TableColumn<DownloadData, Double>, TableCell<DownloadData, Double>> cellFactory
             = (final TableColumn<DownloadData, Double> param) -> {
 
-        final TableCell<DownloadData, Double> cell = new TableCell<DownloadData, Double>() {
-
+        final ProgressBarTableCell<DownloadData> cell = new ProgressBarTableCell<>() {
             @Override
             public void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -44,7 +44,7 @@ public class CellProgress<S, T> extends TableCell<S, T> {
                 if (item != null) {
                     DownloadData download = getTableView().getItems().get(getIndex());
                     if (item <= DownloadConstants.PROGRESS_STARTED || item >= DownloadConstants.PROGRESS_FINISHED) {
-                        String text = DownloadConstants.getTextProgress(false, download.getState(), item.doubleValue());
+                        String text = DownloadConstants.getTextProgress(download.getState(), item.doubleValue());
                         Label label = new Label(text);
                         setGraphic(label);
                     }
