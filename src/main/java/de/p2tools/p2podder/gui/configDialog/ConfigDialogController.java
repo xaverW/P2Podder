@@ -66,6 +66,7 @@ public class ConfigDialogController extends PDialogExtra {
 
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
         initPanel();
+        getStage().setOnShown(e -> setPane.setSplitPane());//das darf erst dann aufgerufen werden
     }
 
     public void close() {

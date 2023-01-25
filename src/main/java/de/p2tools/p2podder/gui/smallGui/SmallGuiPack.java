@@ -63,7 +63,6 @@ public class SmallGuiPack extends PDialogOnly {
     @Override
     public void make() {
         SmallGuiFactory.addBorderListener(getStage());
-//        getStage().initStyle(StageStyle.TRANSPARENT);
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
         vAll.setPadding(new Insets(25));
@@ -94,7 +93,6 @@ public class SmallGuiPack extends PDialogOnly {
     }
 
     private void saveMe() {
-//        progData.smallEpisodeGuiController.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 

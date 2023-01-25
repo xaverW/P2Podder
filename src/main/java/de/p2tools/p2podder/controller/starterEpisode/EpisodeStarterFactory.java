@@ -225,9 +225,6 @@ public class EpisodeStarterFactory {
         private void finalizePlaying(Episode episode) {
             //Aufräumen
             Start start = episode.getStart();
-            if (start == null) {
-                System.out.println("START");
-            }
             finishedMsg(start);
 
             start.setProcess(null);

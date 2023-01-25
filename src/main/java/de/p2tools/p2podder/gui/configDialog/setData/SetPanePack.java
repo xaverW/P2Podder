@@ -24,8 +24,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SetPanePack extends AnchorPane {
@@ -33,7 +31,6 @@ public class SetPanePack extends AnchorPane {
     private final ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
-    private final VBox vBox = new VBox();
     private final Stage stage;
     private final SetListPane setListPane;
     private final SetDataPane setDataPane;
@@ -45,22 +42,21 @@ public class SetPanePack extends AnchorPane {
 
         setListPane = new SetListPane(this);
         setDataPane = new SetDataPane(this);
-        setDataPane.makePane();
+
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(setDataPane);
 
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
         AnchorPane.setRightAnchor(splitPane, 0.0);
         AnchorPane.setTopAnchor(splitPane, 0.0);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-
-        VBox.setVgrow(setListPane, Priority.ALWAYS);
-        vBox.getChildren().addAll(setListPane);
-        splitPane.getItems().addAll(vBox, scrollPane);
-        SplitPane.setResizableWithParent(vBox, Boolean.FALSE);
         getChildren().addAll(splitPane);
+    }
 
-        scrollPane.setContent(setDataPane);
+    public void setSplitPane() {
+        splitPane.getItems().addAll(setListPane, scrollPane);
+        SplitPane.setResizableWithParent(setListPane, Boolean.FALSE);
         splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
     }
 

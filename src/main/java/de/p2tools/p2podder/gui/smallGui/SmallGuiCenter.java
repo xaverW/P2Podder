@@ -67,9 +67,6 @@ public class SmallGuiCenter extends VBox {
         initListView();
 //        showFilter();
         initListener();
-        ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.addListener((u, o, n) -> {
-            System.out.println("========> " + ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
-        });
     }
 
     public void clearFilter() {
@@ -77,7 +74,6 @@ public class SmallGuiCenter extends VBox {
     }
 
     public void showFilter() {
-        System.out.println(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
         if (splitPane.getDividers().size() > 0) {
             splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER);
         }
@@ -90,7 +86,6 @@ public class SmallGuiCenter extends VBox {
         } else {
             splitPane.getItems().addAll(scrollPane);
         }
-        System.out.println(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
     }
 
     public void tableRefresh() {

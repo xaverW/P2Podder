@@ -47,13 +47,14 @@ public class SetDataPane extends TitledPane {
     SetDataPane(SetPanePack setPanePack) {
         this.setPanePack = setPanePack;
         this.stage = setPanePack.getStage();
+        make();
     }
 
     public void close() {
         unBindProgData();
     }
 
-    public void makePane() {
+    private void make() {
         changeListener = (observable, oldValue, newValue) -> {
             bindProgData(newValue);
         };
