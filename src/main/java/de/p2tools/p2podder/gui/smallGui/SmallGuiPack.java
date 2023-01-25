@@ -82,6 +82,7 @@ public class SmallGuiPack extends PDialogOnly {
             e.consume();
             close();
         });
+        getStage().setOnShown(e -> showFilter()); //????
         progData.pEventHandler.addListener(listener);
     }
 
@@ -118,6 +119,14 @@ public class SmallGuiPack extends PDialogOnly {
                     progData.primaryStage.show();
                 }
         );
+    }
+
+    public void showFilter() {
+        smallGuiCenter.showFilter();
+    }
+
+    public void clearFilter() {
+        smallGuiCenter.clearFilter();
     }
 
     public void playEpisode() {

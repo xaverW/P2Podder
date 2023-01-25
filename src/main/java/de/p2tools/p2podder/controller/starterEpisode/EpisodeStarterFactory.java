@@ -77,7 +77,7 @@ public class EpisodeStarterFactory {
         @Override
         public synchronized void run() {
             try {
-                while ((episode = getNextStart()) != null) {
+                while ((episode = progData.episodeStartingList.getNextStart()) != null) {
                     startEpisode(episode);
                     sleep(1 * 1000);
                 }
@@ -85,11 +85,6 @@ public class EpisodeStarterFactory {
             } catch (final Exception ex) {
                 PLog.errorLog(903273049, ex);
             }
-        }
-
-        private synchronized Episode getNextStart() {
-            Episode nextStart = progData.episodeStartingList.getNextStart();
-            return nextStart;
         }
 
         private void startEpisode(Episode episode) {
@@ -107,6 +102,10 @@ public class EpisodeStarterFactory {
             } catch (final Exception ex) {
                 final String exMessage = ex.getLocalizedMessage();
                 PLog.errorLog(987989569, ex);
+//                if (start == null) {
+//                    //dann schon beendet??
+//                    return;
+//                }
                 if (start.getRestartCounter() == 0) {
                     //nur beim ersten Mal melden -> nervt sonst
                     Platform.runLater(() -> new StartEpisodeErrorDialogController(start, exMessage));
@@ -226,6 +225,9 @@ public class EpisodeStarterFactory {
         private void finalizePlaying(Episode episode) {
             //Aufräumen
             Start start = episode.getStart();
+            if (start == null) {
+                System.out.println("START");
+            }
             finishedMsg(start);
 
             start.setProcess(null);

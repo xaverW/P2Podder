@@ -21,14 +21,19 @@ import de.p2tools.p2Lib.guiTools.PTableFactory;
 import de.p2tools.p2Lib.tools.events.PEvent;
 import de.p2tools.p2Lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableSmallEpisode;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Priority;
@@ -40,8 +45,10 @@ import java.util.Random;
 
 public class SmallGuiCenter extends VBox {
 
+    private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableSmallEpisode tableView;
+    private final ListView<Podcast> listView = new ListView<>();
 
     private final ProgData progData;
 
@@ -51,18 +58,39 @@ public class SmallGuiCenter extends VBox {
     public SmallGuiCenter(SmallGuiPack smallGuiPack) {
         this.smallGuiPack = smallGuiPack;
         progData = ProgData.getInstance();
-
-//        setPadding(new Insets(10, 10, 0, 10));
-        getChildren().addAll(scrollPane);
-
         tableView = new TableSmallEpisode(Table.TABLE_ENUM.SMALL_EPISODE, progData);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setContent(tableView);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
+        VBox.setVgrow(splitPane, Priority.ALWAYS);
+        getChildren().addAll(splitPane);
 
         initTable();
+        initListView();
+//        showFilter();
         initListener();
+        ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.addListener((u, o, n) -> {
+            System.out.println("========> " + ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
+        });
+    }
+
+    public void clearFilter() {
+        listView.getSelectionModel().clearSelection();
+    }
+
+    public void showFilter() {
+        System.out.println(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
+        if (splitPane.getDividers().size() > 0) {
+            splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER);
+        }
+        splitPane.getItems().clear();
+
+        if (ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue()) {
+            splitPane.getItems().addAll(listView, scrollPane);
+            SplitPane.setResizableWithParent(listView, Boolean.FALSE);
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER);
+        } else {
+            splitPane.getItems().addAll(scrollPane);
+        }
+        System.out.println(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER.get());
     }
 
     public void tableRefresh() {
@@ -125,7 +153,7 @@ public class SmallGuiCenter extends VBox {
     public void playRandomStation() {
         Random r = new Random();
         Episode episode = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
-        tableView.getSelectionModel().clearSelection();
+//        tableView.getSelectionModel().clearSelection();
         if (episode != null) {
             EpisodeFactory.playEpisode(episode);
             tableView.getSelectionModel().select(episode);
@@ -144,6 +172,9 @@ public class SmallGuiCenter extends VBox {
 
     private void initTable() {
         Table.setTable(tableView);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(tableView);
 
         tableView.setItems(progData.episodeList.getSmallSortedList());
         progData.episodeList.getSmallSortedList().comparatorProperty().bind(tableView.comparatorProperty());
@@ -175,6 +206,32 @@ public class SmallGuiCenter extends VBox {
                 ContextMenu contextMenu =
                         new SmallGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
                 tableView.setContextMenu(contextMenu);
+            }
+        });
+    }
+
+    private void initListView() {
+        listView.setMinWidth(10);
+        progData.episodeList.addListener((u, o, n) -> {
+            Platform.runLater(() -> {
+                //kann durch Downloads außer der Reihe sein!!
+                Podcast podcast = listView.getSelectionModel().getSelectedItem();
+                listView.getItems().setAll(progData.episodeList.getPodcastList());
+                if (podcast != null && listView.getItems().contains(podcast)) {
+                    listView.getSelectionModel().select(podcast);
+                } else {
+                    listView.getSelectionModel().clearSelection();
+                }
+            });
+        });
+
+        listView.getItems().setAll(progData.episodeList.getPodcastList());
+        listView.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
+            if (listView.getSelectionModel().isEmpty()) {
+                progData.episodeFilterSmall.setPodcastId(0);
+
+            } else if (n != null && o != n) {
+                progData.episodeFilterSmall.setPodcastId(n.getId());
             }
         });
     }

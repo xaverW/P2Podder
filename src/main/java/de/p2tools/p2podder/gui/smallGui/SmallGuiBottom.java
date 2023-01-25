@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui.smallGui;
 
 import de.p2tools.p2Lib.guiTools.PGuiTools;
+import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -34,6 +35,7 @@ import javafx.scene.layout.HBox;
 public class SmallGuiBottom extends HBox {
 
     private final Button btnClearFilter = new Button("");
+    private final Button btnShowFilter = new Button("");
     private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
@@ -50,7 +52,7 @@ public class SmallGuiBottom extends HBox {
         progData = ProgData.getInstance();
         init();
         initStartButton();
-        initCbo();
+//        initCbo();
     }
 
     public void init() {
@@ -63,7 +65,7 @@ public class SmallGuiBottom extends HBox {
         HBox hBoxButton = new HBox(5);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnPlayNext, btnStop);
-        getChildren().addAll(cboPodcast, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private void initStartButton() {
@@ -71,8 +73,18 @@ public class SmallGuiBottom extends HBox {
         btnClearFilter.getStyleClass().add("btnSmallGui");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(event -> {
-            cboPodcast.getSelectionModel().clearSelection();
+            smallGuiPack.clearFilter();
+//            cboPodcast.getSelectionModel().clearSelection();
         });
+
+        btnShowFilter.setTooltip(new Tooltip("Filter anzeigen und ausblenden"));
+        btnShowFilter.getStyleClass().add("btnSmallGui");
+        btnShowFilter.setOnAction(event -> {
+            ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.setValue(!ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue());
+            smallGuiPack.showFilter();
+        });
+        ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.addListener((u, o, n) -> setBtnIcon());
+        setBtnIcon();
 
         btnRandom.setTooltip(new Tooltip("Eine Episode per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallGui");
@@ -103,6 +115,14 @@ public class SmallGuiBottom extends HBox {
         btnStop.getStyleClass().add("btnSmallGui");
         btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
+    }
+
+    private void setBtnIcon() {
+        if (ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue()) {
+            btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_BACKWARD.getImageView());
+        } else {
+            btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
+        }
     }
 
     private void initCbo() {

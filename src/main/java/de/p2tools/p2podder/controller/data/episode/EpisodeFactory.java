@@ -90,22 +90,22 @@ public class EpisodeFactory {
         PSystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
     }
 
-    public static void playEpisode() {
-        final Optional<Episode> episode = getSel();
-        if (episode.isPresent()) {
-            EpisodeFactory.playEpisode(episode.get());
-        }
+    public static void playSelEpisode() {
+        playEpisode(getSelList(), null);
     }
 
     public static void playEpisode(SetData setData) {
         final Optional<Episode> episode = getSel();
         if (episode.isPresent()) {
-            EpisodeFactory.playEpisode(episode.get(), setData);
+            playEpisode(episode.get(), setData);
         }
     }
 
-    public static void playSelEpisode() {
-        playEpisode(getSelList(), null);
+    public static void playEpisode() {
+        final Optional<Episode> episode = getSel();
+        if (episode.isPresent()) {
+            playEpisode(episode.get());
+        }
     }
 
     public static void playEpisode(Episode episode) {
@@ -125,7 +125,7 @@ public class EpisodeFactory {
         startFileWithProgram(episode, setData);
     }
 
-    public static void playEpisode(List<Episode> episode, SetData setData) {
+    public static void playEpisode(List<Episode> episodeList, SetData setData) {
         if (setData == null) {
             setData = ProgData.getInstance().setDataList.getSetDataPlay();
         }
@@ -135,7 +135,7 @@ public class EpisodeFactory {
         }
 
         //und starten
-        startFileWithProgram(episode, setData);
+        startFileWithProgram(episodeList, setData);
     }
 
     public static void stopEpisode() {
@@ -147,11 +147,12 @@ public class EpisodeFactory {
     }
 
     public static void stopEpisode(Episode episode) {
-        //eine Episode stopnnen
+        //eine Episode stoppen
         if (episodeIsStarted(episode)) {
             if (episode.getStart().getStartStatus().isStatedRunning()) {
                 episode.getStart().getStartStatus().setStateStopped();
                 episode.getStart().setNo(P2LibConst.NUMBER_NOT_STARTED);
+
             } else if (episode.getStart().getStartStatus().isStateInit()) {
                 //dann ist er angelegt aber noch nicht gestartet
                 episode.setStart(null);
@@ -275,9 +276,15 @@ public class EpisodeFactory {
             return;
         }
 
-        final Start start = new Start(setData, episode);
-        episode.setStart(start);
-        ProgData.getInstance().episodeStartingList.add(episode);
+        if (!ProgData.getInstance().episodeStartingList.contains(episode) &&
+                episode.getStart() == null) {
+            //sonst läuft er eh schon, sind ja nach dem Start nicht mehr in der Liste,
+            //ABER wenn episode beim Stoppen ist, wird "START" im gleichen episode auf NULL gesetzt
+            final Start start = new Start(setData, episode);
+            episode.setStart(start);
+            ProgData.getInstance().episodeStartingList.add(episode);
+        }
+
         ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();
         refreshTable();
     }
@@ -295,9 +302,14 @@ public class EpisodeFactory {
                 return;
             }
 
-            final Start start = new Start(setData, episode);
-            episode.setStart(start);
-            ProgData.getInstance().episodeStartingList.add(episode);
+            if (!ProgData.getInstance().episodeStartingList.contains(episode) &&
+                    episode.getStart() == null) {
+                //sonst läuft er eh schon, sind ja nach dem Start nicht mehr in der Liste,
+                //ABER wenn episode beim Stoppen ist, wird "START" im gleichen episode auf NULL gesetzt
+                final Start start = new Start(setData, episode);
+                episode.setStart(start);
+                ProgData.getInstance().episodeStartingList.add(episode);
+            }
         });
 
         ProgData.getInstance().episodeStarterFactory.startWaitingEpisodes();

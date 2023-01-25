@@ -162,6 +162,8 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBoolProp("episode-show-notification", Boolean.TRUE);
 
     //Gui SmallEpisode
+    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBoolProp("small-episode-gui-filter-on", Boolean.TRUE);
+    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("small-episode-gui-filter-divider", 0.2);
     public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStrProp("small-episode-gui-table-width");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStrProp("small-episode-gui-table-sort");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStrProp("small-episode-gui-table-up-down");

@@ -119,6 +119,13 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         Collections.sort(this);
     }
 
+    public synchronized Episode getNextStart() {
+        if (this.isEmpty()) {
+            return null;
+        }
+        return remove(0);
+    }
+
     @Override
     public synchronized boolean add(Episode d) {
         d.setNo(++no);
@@ -134,7 +141,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     @Override
-    public boolean addAll(Episode... var1) {
+    public synchronized boolean addAll(Episode... var1) {
         for (Episode f : var1) {
             f.setNo(++no);
         }
@@ -165,13 +172,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         return ret;
     }
 
-    public Episode getNextStart() {
-        if (this.isEmpty()) {
-            return null;
-        }
-        return remove(0);
-    }
-
     public synchronized Episode getUrlStation(String urlStation) {
         for (final Episode episode : this) {
             if (episode.getEpisodeUrl().equals(urlStation)) {
@@ -186,9 +186,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     public synchronized ObservableList<Podcast> getPodcastList() {
-//        ObservableList<Podcast> list = FXCollections.observableArrayList();
-//        podcastList.stream().forEach(p -> list.add(p.getCopy()));
-//        return list;
         return podcastList;
     }
 
@@ -211,11 +208,6 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     public synchronized ObservableList<String> getGenreList() {
-//        final ObservableList<String> list = FXCollections.observableArrayList();
-//        genreList.stream().forEach(s -> {
-//            list.add(s);
-//        });
-//        return list;
         return genreList;
     }
 
