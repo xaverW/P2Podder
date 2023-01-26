@@ -73,6 +73,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
     @Override
     public void showDialog() {
+        //damit die Größe im ausgeklappten/eingeklappten Modus getrennt gespeichert wird
         setSizeConfiguration(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                 ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
         PGuiSize.setSizePos(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
