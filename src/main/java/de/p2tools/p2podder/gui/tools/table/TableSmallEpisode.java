@@ -28,7 +28,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 
 import java.time.LocalDate;
 
@@ -116,19 +115,14 @@ public class TableSmallEpisode extends PTable<Episode> {
         fileColumn.setPrefWidth(200);
         pathColumn.setPrefWidth(350);
 
-        setRowFactory(tableRow -> {
-            TableRowSmallEpisode row = new TableRowSmallEpisode<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                    getSelectionModel().clearSelection();
-                }
-            });
-            return row;
-        });
-
         getColumns().addAll(
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
                 startColumn, dateColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
+
+        setRowFactory(tableRow -> {
+            TableRowSmallEpisode row = new TableRowSmallEpisode<>();
+            return row;
+        });
     }
 }

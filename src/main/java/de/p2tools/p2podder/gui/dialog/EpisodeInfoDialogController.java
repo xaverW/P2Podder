@@ -28,7 +28,6 @@ import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,10 +71,13 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         init(false);
     }
 
+    @Override
     public void showDialog() {
-        PGuiSize.setOnlySize(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+        setSizeConfiguration(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+                ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
+        PGuiSize.setSizePos(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                         ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
-                this.getStage());
+                this.getStage(), null);
         getStage().show();
     }
 
@@ -105,12 +107,18 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
         setBtnUpDownToolTip();
         btnUpDown.setOnAction(event -> {
-            final StringProperty sp = ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                    ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL;
-            PGuiSize.getSizeStage(sp, getStage());
+            if (ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get()) {
+                PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, getStage());
+                ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
+                makePane();
+                PGuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, this.getStage());
 
-            ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
-            makePane(true);
+            } else {
+                PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, getStage());
+                ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
+                makePane();
+                PGuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, this.getStage());
+            }
             setBtnUpDownToolTip();
         });
 
@@ -136,7 +144,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
         initUrl();
         addStageListener();
-        makePane(false);
+        makePane();
     }
 
     private void addStageListener() {
@@ -171,7 +179,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         }
     }
 
-    private void makePane(boolean setSize) {
+    private void makePane() {
         final GridPane gridPane = new GridPane();
         getvBoxCont().getChildren().clear();
         getvBoxCont().getChildren().add(gridPane);
@@ -196,11 +204,6 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         }
         makeGridPane(gridPane);
         setEpisode();
-        if (setSize) {
-            PGuiSize.setOnlySize(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                            ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
-                    this.getStage());
-        }
     }
 
     private void makeGridPane(GridPane gridPane) {
@@ -240,9 +243,6 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 0, row);
                     gridPane.add(taDescription, 1, row++);
-//                    gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 0, row);
-//                    gridPane.add(lblCont[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 1, row++);
-//                    GridPane.setValignment(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], VPos.TOP);
                     break;
                 case EpisodeFieldNames.EPISODE_FILE_NAME_NO:
                     if (!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue()) break;
@@ -278,6 +278,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
             if (episode == null) {
                 lblCont[i].setText("");
                 ivNew.setImage(null);
+                taDescription.setText("");
                 pHyperlinkUrl.setUrl("");
                 pHyperlinkWebsite.setUrl("");
             } else {

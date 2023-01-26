@@ -26,7 +26,6 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableEpisode;
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -222,7 +221,7 @@ public class EpisodeGuiController extends AnchorPane {
             }
         });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> setSelectedEpisode());
+            setSelectedEpisode();
         });
         tableView.getItems().addListener((ListChangeListener<Episode>) c -> {
             if (tableView.getItems().size() == 1) {

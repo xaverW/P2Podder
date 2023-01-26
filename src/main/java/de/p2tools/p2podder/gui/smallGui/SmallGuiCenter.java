@@ -51,7 +51,6 @@ public class SmallGuiCenter extends VBox {
     private final ListView<Podcast> listView = new ListView<>();
 
     private final ProgData progData;
-
     private SmallGuiPack smallGuiPack;
 
 
@@ -173,20 +172,11 @@ public class SmallGuiCenter extends VBox {
 
         tableView.setItems(progData.episodeList.getSmallSortedList());
         progData.episodeList.getSmallSortedList().comparatorProperty().bind(tableView.comparatorProperty());
+
         tableView.getItems().addListener((ListChangeListener<Episode>) c -> {
             if (tableView.getItems().size() == 1) {
                 // wenns nur eine Zeile gibt, dann gleich selektieren
                 tableView.getSelectionModel().select(0);
-            }
-        });
-        tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (PTableFactory.SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
-                event.consume();
-            }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
-                event.consume();
             }
         });
         tableView.setOnMousePressed(m -> {
@@ -203,6 +193,32 @@ public class SmallGuiCenter extends VBox {
                 tableView.setContextMenu(contextMenu);
             }
         });
+
+        tableView.setOnMouseClicked(m -> {
+            final Optional<Episode> optionalDownload = getSel(false);
+            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                progData.episodeInfoDialogController.toggleShowInfo();
+            }
+        });
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            setSelectedEpisode();
+        });
+
+        tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (PTableFactory.SPACE.match(event)) {
+                PTableFactory.scrollVisibleRangeDown(tableView);
+                event.consume();
+            }
+            if (PTableFactory.SPACE_SHIFT.match(event)) {
+                PTableFactory.scrollVisibleRangeUp(tableView);
+                event.consume();
+            }
+        });
+    }
+
+    private void setSelectedEpisode() {
+        Episode episode = tableView.getSelectionModel().getSelectedItem();
+        progData.episodeInfoDialogController.setEpisode(episode);
     }
 
     private void initListView() {

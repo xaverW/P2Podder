@@ -30,7 +30,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 
 import java.time.LocalDate;
 
@@ -138,11 +137,6 @@ public class TableEpisode extends PTable<Episode> {
 
         setRowFactory(tableRow -> {
             TableRowEpisode row = new TableRowEpisode<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                    getSelectionModel().clearSelection();
-                }
-            });
             return row;
         });
     }
