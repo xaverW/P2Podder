@@ -19,9 +19,12 @@ package de.p2tools.p2podder.gui.configDialog.setData;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
+import de.p2tools.p2Lib.guiTools.PStyles;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetData;
+import de.p2tools.p2podder.controller.data.SetFactory;
+import de.p2tools.p2podder.gui.tools.HelpText;
 import de.p2tools.p2podder.gui.tools.HelpTextPset;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -33,11 +36,21 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class SetDataPane extends TitledPane {
     private final TextField txtVisibleName = new TextField("");
     private final TextArea txtDescription = new TextArea("");
     private final TextField txtProgPath = new TextField();
     private final TextField txtProgSwitch = new TextField();
+    private final Button btnFile = new Button();
+    private final Button btnFind = new Button("suchen");
+    private final Button btnHelpSearch;
+    private final Label lblName = new Label("Name:");
+    private final Label lblDescription = new Label("Beschreibung:");
+    private final Label lblProgram = new Label("Programm:");
+    private final Label lblSwitch = new Label("Schalter:");
+
     private final Stage stage;
     private final SetPanePack setPanePack;
 
@@ -47,14 +60,17 @@ public class SetDataPane extends TitledPane {
     SetDataPane(SetPanePack setPanePack) {
         this.setPanePack = setPanePack;
         this.stage = setPanePack.getStage();
-        make();
+        this.btnHelpSearch = PButton.helpButton(stage,
+                "Videoplayer", HelpText.PROG_PATHS);
+
+        makePane();
     }
 
     public void close() {
         unBindProgData();
     }
 
-    private void make() {
+    public void makePane() {
         changeListener = (observable, oldValue, newValue) -> {
             bindProgData(newValue);
         };
@@ -71,11 +87,24 @@ public class SetDataPane extends TitledPane {
         this.setCollapsible(false);
         this.setMaxHeight(Double.MAX_VALUE);
 
-        final Button btnFile = new Button();
         btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
         btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
+        btnFind.setOnAction(event -> {
+            txtProgPath.setText(SetFactory.getTemplatePathVlc());
+        });
+
+        txtProgPath.textProperty().addListener((observable, oldValue, newValue) -> {
+            File file = new File(txtProgPath.getText());
+            if (!file.exists() || !file.isFile()) {
+                txtProgPath.setStyle(PStyles.PTEXTFIELD_ERROR);
+            } else {
+                txtProgPath.setStyle("");
+            }
+        });
+
+        txtDescription.setWrapText(true);
 
         // Name, Beschreibung
         int row = 0;
@@ -84,19 +113,21 @@ public class SetDataPane extends TitledPane {
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(20));
 
-        gridPane.add(new Label("Name:"), 0, row);
-        gridPane.add(txtVisibleName, 1, row, 2, 1);
+        gridPane.add(lblName, 0, row);
+        gridPane.add(txtVisibleName, 1, row, 4, 1);
 
-        gridPane.add(new Label("Beschreibung:"), 0, ++row);
-        gridPane.add(txtDescription, 1, row, 2, 1);
+        gridPane.add(lblDescription, 0, ++row);
+        gridPane.add(txtDescription, 1, row, 4, 1);
 
-        gridPane.add(new Label("Programm:"), 0, ++row);
+        gridPane.add(lblProgram, 0, ++row);
         gridPane.add(txtProgPath, 1, row);
         gridPane.add(btnFile, 2, row);
+        gridPane.add(btnFind, 3, row);
+        gridPane.add(btnHelpSearch, 4, row);
 
 
-        gridPane.add(new Label("Schalter:"), 0, ++row);
-        gridPane.add(txtProgSwitch, 1, row, 2, 1);
+        gridPane.add(lblSwitch, 0, ++row);
+        gridPane.add(txtProgSwitch, 1, row, 4, 1);
 
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
@@ -111,7 +142,7 @@ public class SetDataPane extends TitledPane {
         vBox.getChildren().add(hBox);
     }
 
-    public void bindProgData(SetData setData) {
+    private void bindProgData(SetData setData) {
         unBindProgData();
 
         this.setData = setData;
@@ -120,10 +151,32 @@ public class SetDataPane extends TitledPane {
             txtProgPath.textProperty().bindBidirectional(setData.progPathProperty());
             txtProgSwitch.textProperty().bindBidirectional(setData.progSwitchProperty());
             txtDescription.textProperty().bindBidirectional(setData.descriptionProperty());
+            setDis(false);
+
+        } else {
+            txtVisibleName.setText("");
+            txtProgPath.setText("");
+            txtProgSwitch.setText("");
+            txtDescription.setText("");
+            setDis(true);
         }
     }
 
-    void unBindProgData() {
+    private void setDis(boolean set) {
+        txtVisibleName.setDisable(set);
+        txtProgPath.setDisable(set);
+        txtProgSwitch.setDisable(set);
+        txtDescription.setDisable(set);
+        btnFile.setDisable(set);
+        btnFind.setDisable(set);
+        btnHelpSearch.setDisable(set);
+        lblName.setDisable(set);
+        lblDescription.setDisable(set);
+        lblProgram.setDisable(set);
+        lblSwitch.setDisable(set);
+    }
+
+    private void unBindProgData() {
         if (setData != null) {
             txtVisibleName.textProperty().unbindBidirectional(setData.nameProperty());
             txtProgPath.textProperty().unbindBidirectional(setData.progPathProperty());

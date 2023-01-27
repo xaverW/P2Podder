@@ -62,7 +62,7 @@ public class TrayPane {
         final Button btnHelpTrayOwnIcon = PButton.helpButton(stage, "Eigenes Bild im Tray anzeigen",
                 HelpText.TRAY_OWN_ICON);
         GridPane.setHalignment(btnHelpTrayOwnIcon, HPos.RIGHT);
-        btnHelpTrayOwnIcon.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
+        btnHelpTrayOwnIcon.disableProperty().bind(tglTray.selectedProperty().not());
 
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für das Logfile auswählen"));
@@ -78,6 +78,8 @@ public class TrayPane {
 
         txtPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_ICON_PATH);
         txtPath.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
+        Label lblFile = new Label("Datei (png, jpg):");
+        lblFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         int row = 0;
         gridPane.add(tglTray, 0, ++row, 2, 1);
@@ -86,7 +88,7 @@ public class TrayPane {
         gridPane.add(tglOwnIcon, 0, ++row, 2, 1);
         gridPane.add(btnHelpTrayOwnIcon, 2, row);
 
-        gridPane.add(new Label("Datei (png, jpg):"), 0, ++row);
+        gridPane.add(lblFile, 0, ++row);
         gridPane.add(txtPath, 1, row);
         gridPane.add(btnFile, 2, row);
 

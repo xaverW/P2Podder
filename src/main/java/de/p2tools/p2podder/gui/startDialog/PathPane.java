@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathPane {
-    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
     private GridPane gridPane = new GridPane();
     private int row = 0;
     private final Stage stage;
@@ -86,12 +85,10 @@ public class PathPane {
     private void addPlayer() {
         Text text;
         PHyperlink hyperlink;
-        StringProperty property;
         TextField txtPlayer = new TextField();
         final Button btnFind = new Button("suchen");
 
         text = new Text("Pfad zum VLC-Player auswählen");
-        property = vlcProp;
         btnFind.setOnAction(event -> {
             ProgConfig.SYSTEM_PATH_VLC.setValue("");
             txtPlayer.setText(SetFactory.getTemplatePathVlc());
@@ -110,8 +107,8 @@ public class PathPane {
                 txtPlayer.setStyle("");
             }
         });
-        txtPlayer.textProperty().bindBidirectional(property);
-        unbindList.add(new UnBind(txtPlayer, property));
+        txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
+        unbindList.add(new UnBind(txtPlayer, ProgConfig.SYSTEM_PATH_VLC));
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {

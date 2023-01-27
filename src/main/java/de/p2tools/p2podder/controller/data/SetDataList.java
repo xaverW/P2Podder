@@ -77,7 +77,7 @@ public class SetDataList extends SetDataListProps {
     }
 
     private static String getPathVlc() {
-        //liefert den Pfad wenn vorhanden, wenn nicht wird er in einem Dialog abgefragt
+        //liefert den Pfad, wenn vorhanden, wenn nicht, wird er in einem Dialog abgefragt
         if (ProgConfig.SYSTEM_PATH_VLC.get().isEmpty()) {
             ProgConfig.SYSTEM_PATH_VLC.setValue(PDialogFileChosser.showFileChooser(ProgData.getInstance().primaryStage, "VLC",
                     "VLC wird nicht gefunden.", "Bitte den Pfad zum" + P2LibConst.LINE_SEPARATOR +

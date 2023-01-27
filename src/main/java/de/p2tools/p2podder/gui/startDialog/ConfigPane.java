@@ -26,8 +26,6 @@ import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,10 +43,6 @@ public class ConfigPane {
     private final GridPane gridPane = new GridPane();
     private final TextField txtPlayer = new TextField();
     private TextField txtPodDest = new TextField();
-
-    BooleanProperty updateProp = ProgConfig.SYSTEM_UPDATE_SEARCH_ACT;
-    StringProperty vlcProp = ProgConfig.SYSTEM_PATH_VLC;
-    StringProperty propPodDir = ProgConfig.SYSTEM_POD_DIR;
 
     private int row = 0;
 
@@ -71,8 +65,8 @@ public class ConfigPane {
     }
 
     public void close() {
-        tglSearch.selectedProperty().unbindBidirectional(updateProp);
-        txtPlayer.textProperty().bindBidirectional(vlcProp);
+        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
+        txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
     }
 
     private void makeDestPath() {
@@ -85,12 +79,12 @@ public class ConfigPane {
         final Button btnHelp = PButton.helpButton(stage, "Speicherordner Episoden", HelpText.DEST_DIR_EPISODES);
         if (ProgData.debug) {
             //dann einen anderen Pfad
-            propPodDir.setValue("/tmp/Podcast");
+            ProgConfig.SYSTEM_POD_DIR.setValue("/tmp/Podcast");
         }
-        txtPodDest.textProperty().bindBidirectional(propPodDir);
+        txtPodDest.textProperty().bindBidirectional(ProgConfig.SYSTEM_POD_DIR);
         if (ProgData.debug) {
             //dann einen anderen Downloadpfad
-            propPodDir.setValue("/tmp/Download");
+            ProgConfig.SYSTEM_POD_DIR.setValue("/tmp/Download");
         }
         if (txtPodDest.getText().isEmpty()) {
             txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
@@ -139,7 +133,7 @@ public class ConfigPane {
                 txtPlayer.setStyle("");
             }
         });
-        txtPlayer.textProperty().bindBidirectional(vlcProp);
+        txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {
@@ -170,7 +164,7 @@ public class ConfigPane {
 
     private void makeUpdate() {
         //einmal am Tag Update suchen
-        tglSearch.selectedProperty().bindBidirectional(updateProp);
+        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
 
         Text text = new Text("Suche nach einem Programmupdate");
         text.setStyle("-fx-font-weight: bold");
