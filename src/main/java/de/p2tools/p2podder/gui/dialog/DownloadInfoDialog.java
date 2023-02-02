@@ -61,7 +61,7 @@ public class DownloadInfoDialog extends PDialogExtra {
     }
 
     private void initCont() {
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
 
         gridPane.setHgap(10);
         gridPane.setVgap(15);

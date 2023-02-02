@@ -74,8 +74,8 @@ public class NoSetDialogController extends PDialogExtra {
         textArea.setMaxHeight(Double.MAX_VALUE);
         textArea.setPrefRowCount(prefRowCount);
         VBox.setVgrow(textArea, Priority.ALWAYS);
-        getvBoxCont().getChildren().addAll(textHeaderSave, textArea);
-        getvBoxCont().setSpacing(20);
+        getVBoxCont().getChildren().addAll(textHeaderSave, textArea);
+        getVBoxCont().setSpacing(20);
         textArea.setText("Es ist kein Videoplayer zum Abspielen" + P2LibConst.LINE_SEPARATOR +
                 "der Episoden angelegt." + P2LibConst.LINE_SEPARATORx2 + txtAdd);
 

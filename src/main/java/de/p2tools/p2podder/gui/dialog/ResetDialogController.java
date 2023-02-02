@@ -125,6 +125,6 @@ public class ResetDialogController extends PDialogExtra {
         ccTxt.setHgrow(Priority.ALWAYS);
 
         gridPane.getColumnConstraints().addAll(new ColumnConstraints(), ccTxt);
-        getvBoxCont().getChildren().addAll(gridPane);
+        getVBoxCont().getChildren().addAll(gridPane);
     }
 }

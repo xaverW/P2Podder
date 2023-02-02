@@ -67,7 +67,7 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
         this.message = message;
 
         hBoxTitle = getHBoxTitle();
-        vBoxCont = getvBoxCont();
+        vBoxCont = getVBoxCont();
         init(true);
     }
 

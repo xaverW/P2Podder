@@ -182,8 +182,8 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
     private void makePane() {
         final GridPane gridPane = new GridPane();
-        getvBoxCont().getChildren().clear();
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().clear();
+        getVBoxCont().getChildren().add(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         gridPane.setHgap(10);

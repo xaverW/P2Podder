@@ -94,7 +94,7 @@ public class PodcastEditDialogController extends PDialogExtra {
 
     @Override
     public void make() {
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
         addOkCancelButtons(btnOk, btnCancel);
 
         btnOk.disableProperty().bind(podcast.nameProperty().isEmpty().or(okProp.not()));

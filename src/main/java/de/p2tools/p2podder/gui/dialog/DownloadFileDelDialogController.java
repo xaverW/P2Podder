@@ -75,6 +75,6 @@ public class DownloadFileDelDialogController extends PDialogExtra {
             listView.getItems().add(path);
         });
 
-        getvBoxCont().getChildren().addAll(txt, listView);
+        getVBoxCont().getChildren().addAll(txt, listView);
     }
 }
