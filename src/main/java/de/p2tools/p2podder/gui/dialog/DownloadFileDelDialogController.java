@@ -38,7 +38,7 @@ public class DownloadFileDelDialogController extends PDialogExtra {
 
     public DownloadFileDelDialogController(ProgData progData, List<File> episodeList) {
         super(progData.primaryStage, ProgConfig.SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL,
-                "Datei löschen", true, true, DECO.SMALL);
+                "Datei löschen", true, true, DECO.BORDER_SMALL);
 
         this.progData = progData;
         this.fileList = episodeList;

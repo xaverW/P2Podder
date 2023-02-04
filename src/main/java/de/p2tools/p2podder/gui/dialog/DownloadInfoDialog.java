@@ -42,7 +42,7 @@ public class DownloadInfoDialog extends PDialogExtra {
 
     public DownloadInfoDialog(ProgData progData, DownloadData downloadData) {
         super(progData.primaryStage, ProgConfig.EPISODE_DIALOG_EDIT_SIZE,
-                "Download ändern", true, false, DECO.SMALL);
+                "Download ändern", true, false, DECO.BORDER_SMALL);
 
         this.downloadData = downloadData;
         if (this.downloadData == null) {

@@ -60,7 +60,7 @@ public class PodcastEditDialogController extends PDialogExtra {
     public PodcastEditDialogController(ProgData progData, Podcast podcast, boolean addNewPodcast) {
         //hier wird ein neues Abo angelegt!
         super(progData.primaryStage, ProgConfig.PODCAST_EDIT_DIALOG_SIZE,
-                "Podcast bearbeiten", true, true, DECO.SMALL);
+                "Podcast bearbeiten", true, true, DECO.BORDER_SMALL);
 
         this.progData = progData;
         this.addNewPodcast = addNewPodcast;

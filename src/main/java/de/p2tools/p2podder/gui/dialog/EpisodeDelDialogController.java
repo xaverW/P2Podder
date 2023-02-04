@@ -46,7 +46,7 @@ public class EpisodeDelDialogController extends PDialogExtra {
 
     public EpisodeDelDialogController(ProgData progData, List<Episode> episodeList) {
         super(progData.primaryStage, ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_DEL,
-                "Episoden löschen", true, true, DECO.SMALL);
+                "Episoden löschen", true, true, DECO.BORDER_SMALL);
 
         this.progData = progData;
         this.episodeList = episodeList;

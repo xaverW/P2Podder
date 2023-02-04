@@ -65,7 +65,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
     public EpisodeInfoDialogController(ProgData progData) {
         super(progData.primaryStage, null,
-                "Episoden-Infos", false, false, DECO.SMALL);
+                "Episoden-Infos", false, false, DECO.BORDER_SMALL);
 
         this.progData = progData;
         init(false);
