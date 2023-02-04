@@ -59,12 +59,15 @@ public class SmallGuiBottom extends HBox {
         setSpacing(5);
         setAlignment(Pos.CENTER);
 
-        Separator sp = new Separator(Orientation.VERTICAL);
-        sp.setPadding(new Insets(0, 5, 0, 5));
+        Separator sp1 = new Separator(Orientation.VERTICAL);
+        sp1.setPadding(new Insets(0, 5, 0, 5));
+
+        Separator sp2 = new Separator(Orientation.VERTICAL);
+        sp2.setPadding(new Insets(0, 5, 0, 5));
 
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
-        hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnPlayNext, btnStop);
+        hBoxButton.getChildren().addAll(btnRandom, sp1, btnPrev, btnNext, sp2, btnStart, btnPlayNext, btnStop);
         getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
     }
 
@@ -100,7 +103,7 @@ public class SmallGuiBottom extends HBox {
         btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> smallGuiPack.setNextEpisode());
 
-        btnStart.setTooltip(new Tooltip("Episode abspielen"));
+        btnStart.setTooltip(new Tooltip("Markierte Episoden abspielen"));
         btnStart.getStyleClass().add("btnSmallGui");
         btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> smallGuiPack.playEpisode());

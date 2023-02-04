@@ -128,11 +128,9 @@ public class SmallGuiCenter extends VBox {
     }
 
     public void playEpisode() {
-        // bezieht sich auf den ausgewählten Favoriten
-        final Optional<Episode> episode = getSel();
-        if (episode.isPresent()) {
-            EpisodeFactory.playEpisode(episode.get());
-        }
+        // bezieht sich auf die ausgewählten Episoden
+        final ArrayList<Episode> ret = getSelList();
+        EpisodeFactory.playEpisode(ret, null);
     }
 
     public void setNextEpisode() {
