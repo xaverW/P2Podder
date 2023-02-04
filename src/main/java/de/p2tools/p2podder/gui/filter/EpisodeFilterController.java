@@ -14,8 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui;
+package de.p2tools.p2podder.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -77,15 +79,13 @@ public class EpisodeFilterController extends FilterPane {
         vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(5));
-        vBoxFilter.setSpacing(15);
+        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
         vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
 
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
-        VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(separator, new EpisodeFilterControllerClearFilter());
-        vBoxFilter.getChildren().add(vBox);
+        vBoxFilter.getChildren().addAll(PGuiTools.getHDistance(10), separator, new EpisodeFilterControllerClearFilter());
 
         initDaysFilter();
         initTable();

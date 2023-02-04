@@ -18,6 +18,7 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.gui.filter.DownloadFilterController;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.configDialog.setData;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -78,9 +79,9 @@ public class SetDataPane extends TitledPane {
         setPanePack.aktSetDateProperty().addListener(changeListener);
         bindProgData(setPanePack.aktSetDateProperty().getValue());
 
-        VBox vBox = new VBox(10);
+        VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
         vBox.setFillWidth(true);
-        vBox.setPadding(new Insets(10));
+        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         this.setText("Set Einstellungen");
         this.setContent(vBox);
@@ -109,9 +110,9 @@ public class SetDataPane extends TitledPane {
         // Name, Beschreibung
         int row = 0;
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+//        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         gridPane.add(lblName, 0, row);
         gridPane.add(txtVisibleName, 1, row, 4, 1);

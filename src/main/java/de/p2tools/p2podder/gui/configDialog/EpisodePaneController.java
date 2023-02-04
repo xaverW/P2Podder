@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.configDialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.accordion.PAccordionPane;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -62,9 +63,9 @@ public class EpisodePaneController extends PAccordionPane {
 
     private void makeConfig(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Speicherordner", gridPane);
         result.add(tpConfig);

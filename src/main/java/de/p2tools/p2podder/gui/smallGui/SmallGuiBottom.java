@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.smallGui;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -52,7 +53,6 @@ public class SmallGuiBottom extends HBox {
         progData = ProgData.getInstance();
         init();
         initStartButton();
-//        initCbo();
     }
 
     public void init() {
@@ -62,7 +62,7 @@ public class SmallGuiBottom extends HBox {
         Separator sp = new Separator(Orientation.VERTICAL);
         sp.setPadding(new Insets(0, 5, 0, 5));
 
-        HBox hBoxButton = new HBox(5);
+        HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxButton.getChildren().addAll(btnRandom, sp, btnPrev, btnNext, btnStart, btnPlayNext, btnStop);
         getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
@@ -74,7 +74,6 @@ public class SmallGuiBottom extends HBox {
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(event -> {
             smallGuiPack.clearFilter();
-//            cboPodcast.getSelectionModel().clearSelection();
         });
 
         btnShowFilter.setTooltip(new Tooltip("Filter anzeigen und ausblenden"));

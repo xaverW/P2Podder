@@ -16,12 +16,15 @@
 
 package de.p2tools.p2podder.gui.configDialog;
 
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.shortcut.PShortcut;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
+import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
@@ -32,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -53,6 +57,9 @@ public class ShortcutPane {
     }
 
     public void makeShortcut(Collection<TitledPane> result) {
+        final Button btnHelp = PButton.helpButton(stage, "Tastenkürzel ändern",
+                HelpText.SHORTCUT);
+
         SplitPane splitPane = new SplitPane();
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         splitPane.setOrientation(Orientation.VERTICAL);
@@ -67,7 +74,12 @@ public class ShortcutPane {
         txtLongDescription.setEditable(false);
         txtLongDescription.setWrapText(true);
 
-        TitledPane tpShortcut = new TitledPane("Tastenkürzel", splitPane);
+        HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
+        hBox.setMaxHeight(Double.MAX_VALUE);
+        hBox.getChildren().addAll(splitPane, btnHelp);
+        HBox.setHgrow(splitPane, Priority.ALWAYS);
+
+        TitledPane tpShortcut = new TitledPane("Tastenkürzel", hBox);
         result.add(tpShortcut);
     }
 

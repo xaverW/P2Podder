@@ -64,7 +64,6 @@ public class SmallGuiCenter extends VBox {
 
         initTable();
         initListView();
-//        showFilter();
         initListener();
     }
 
@@ -147,7 +146,6 @@ public class SmallGuiCenter extends VBox {
     public void playRandomStation() {
         Random r = new Random();
         Episode episode = tableView.getItems().get(r.nextInt(tableView.getItems().size()));
-//        tableView.getSelectionModel().clearSelection();
         if (episode != null) {
             EpisodeFactory.playEpisode(episode);
             tableView.getSelectionModel().select(episode);

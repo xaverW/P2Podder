@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.gui.smallGui;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogOnly;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.events.PEvent;
@@ -66,7 +67,7 @@ public class SmallGuiPack extends PDialogOnly {
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
         vAll.setPadding(new Insets(25));
-        vAll.setSpacing(10);
+        vAll.setSpacing(P2LibConst.DIST_BUTTON);
         vAll.getChildren().addAll(smallGuiTop, smallGuiCenter, smallGuiBottom);
 
         VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);

@@ -14,8 +14,9 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui;
+package de.p2tools.p2podder.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PButtonClearFilter;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -63,7 +64,7 @@ public class EpisodeFilterControllerClearFilter extends HBox {
         btnClearFilter.setMaxHeight(Double.MAX_VALUE);
         btnHelp.setMaxHeight(Double.MAX_VALUE);
 
-        HBox hBox = new HBox(5);
+        HBox hBox = new HBox(P2LibConst.DIST_BUTTON);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().addAll(btnGoBack, btnGoForward);
         HBox.setHgrow(hBox, Priority.ALWAYS);

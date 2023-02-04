@@ -38,6 +38,7 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -114,9 +115,9 @@ public class ConfigPaneController extends PAccordionPane {
 
     private void makeConfig(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(5);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Allgemein", gridPane);
         result.add(tpConfig);
@@ -172,9 +173,9 @@ public class ConfigPaneController extends PAccordionPane {
 
     private void makeLogfile(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Logfile", gridPane);
         result.add(tpConfig);
@@ -252,9 +253,9 @@ public class ConfigPaneController extends PAccordionPane {
 
     private void makeProg(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Programme", gridPane);
         result.add(tpConfig);
@@ -284,9 +285,9 @@ public class ConfigPaneController extends PAccordionPane {
 
     private void makeUpdate(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         TitledPane tpConfig = new TitledPane("Programmupdate", gridPane);
         result.add(tpConfig);
@@ -335,15 +336,19 @@ public class ConfigPaneController extends PAccordionPane {
         gridPane.add(chkDaily, 0, ++row, 2, 1);
         GridPane.setHalignment(chkDaily, HPos.RIGHT);
 
-        gridPane.add(btnNow, 0, ++row);
+        gridPane.add(new Label(), 0, ++row);
+        gridPane.add(btnNow, 0, ++row, 2, 1);
+        GridPane.setHalignment(btnNow, HPos.RIGHT);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(hBoxHyper, 0, ++row);
+        GridPane.setValignment(hBoxHyper, VPos.BOTTOM);
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize());
         gridPane.getRowConstraints().addAll(PColumnConstraints.getRcPrefSize(), PColumnConstraints.getRcPrefSize(),
-                PColumnConstraints.getRcPrefSize(), PColumnConstraints.getRcVgrow(), PColumnConstraints.getRcPrefSize());
+                PColumnConstraints.getRcPrefSize(), PColumnConstraints.getRcPrefSize(), PColumnConstraints.getRcPrefSize(),
+                PColumnConstraints.getRcVgrow());
     }
 
     private void checkBeta() {

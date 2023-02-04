@@ -19,6 +19,15 @@ package de.p2tools.p2podder.gui.tools;
 import de.p2tools.p2Lib.P2LibConst;
 
 public class HelpText {
+    
+    public static final String SHORTCUT =
+            "Zum Ändern eines Tastenkürzels, seinen \"Ändern\"-Button klicken und dann " +
+                    "die gewünschten neuen Tasten drücken.\n" +
+                    "\n" +
+                    "Der \"Zurücksetzen\"-Button stellt den Originalzustand wieder her.\n" +
+                    "\n" +
+                    "Damit die Änderungen wirksam werden, muss das Programm neu gestartet werden." +
+                    "\n";
 
     public static final String PROG_PATHS = "Hiermit kann das Standardprogramm zum \"Abspielen\" " +
             "der Episoden eingetragen werden. Wird der Pfad nicht automatisch erkannt, " +

@@ -41,7 +41,6 @@ public class SmallGuiTop extends HBox {
         this.smallGuiPack = smallGuiPack;
         progData = ProgData.getInstance();
 
-
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
         btnRadio.setOnAction(e -> progData.smallGuiPack.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
@@ -63,7 +62,6 @@ public class SmallGuiTop extends HBox {
         rbWasShown.setToggleGroup(tg);
         rbNew.setToggleGroup(tg);
 
-//        setPadding(new Insets(10, 10, 0, 10));
         setAlignment(Pos.CENTER_LEFT);
         setSpacing(15);
         getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(),

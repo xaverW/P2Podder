@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui.startDialog;
 
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
@@ -51,14 +52,14 @@ public class ConfigPane {
     }
 
     public TitledPane makeStart() {
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
+        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+
         makeDestPath();
         makeVLCPath();
         makeUpdate();
-
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(20));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
 
         TitledPane tpConfig = new TitledPane("Programmeinstellungen", gridPane);
         return tpConfig;
@@ -73,7 +74,7 @@ public class ConfigPane {
         Text text = new Text("Einen Ordner zum Speichern der Episoden auswählen");
         text.setStyle("-fx-font-weight: bold");
 
-        gridPane.add(new Label(" "), 2, ++row);
+        gridPane.add(new Label(" "), 2, row);
         gridPane.add(text, 0, row);
 
         final Button btnHelp = PButton.helpButton(stage, "Speicherordner Episoden", HelpText.DEST_DIR_EPISODES);
@@ -151,8 +152,7 @@ public class ConfigPane {
         hBox.getChildren().addAll(new Label("Website"), hyperlink);
 
         gridPane.add(new Label(" "), 2, ++row);
-        gridPane.add(new Label(" "), 2, ++row);
-        gridPane.add(text, 0, row);
+        gridPane.add(text, 0, ++row);
         gridPane.add(txtPlayer, 0, ++row);
         gridPane.add(btnFile, 1, row);
         gridPane.add(btnFind, 2, row);
@@ -175,8 +175,7 @@ public class ConfigPane {
                         "automatisch das Programm verändert.");
 
         gridPane.add(new Label(" "), 2, ++row);
-        gridPane.add(new Label(" "), 2, ++row);
-        gridPane.add(text, 0, row);
+        gridPane.add(text, 0, ++row);
         gridPane.add(tglSearch, 0, ++row, 3, 1);
         GridPane.setHalignment(tglSearch, HPos.RIGHT);
 

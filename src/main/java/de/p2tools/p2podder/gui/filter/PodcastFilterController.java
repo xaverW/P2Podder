@@ -14,8 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui;
+package de.p2tools.p2podder.gui.filter;
 
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.guiTools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
@@ -51,8 +53,8 @@ public class PodcastFilterController extends FilterPane {
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(5, 5, 5, 5));
-        vBoxFilter.setSpacing(15);
+        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
         vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTxt);
 
         addButton();
@@ -61,7 +63,6 @@ public class PodcastFilterController extends FilterPane {
 
     private void addButton() {
         Button btnClearFilter = new Button("");
-//        btnClearFilter.getStyleClass().add("btnSmallPodder");
         btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> progData.podcastFilter.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
@@ -75,9 +76,7 @@ public class PodcastFilterController extends FilterPane {
         separator.getStyleClass().add("pseperator2");
 
         final VBox vBoxFilter = getVBoxFilter();
-        VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(separator, hBoxAll);
-        vBoxFilter.getChildren().add(vBox);
+        vBoxFilter.getChildren().addAll(PGuiTools.getHDistance(10), separator, hBoxAll);
     }
 
     private void initFilter() {
