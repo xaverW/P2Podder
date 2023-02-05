@@ -145,17 +145,5 @@ public class ProgLoadFactory {
                 "regelmäßigen Abständen verschiedene Formate und hat sich zu einem " +
                 "gefragten Medienpartner für OpenSource Events entwickelt.");
         progData.podcastList.addNewItem(podcast);
-
-        podcast = new Podcast();
-        podcast.setName("beVegt-Podcast");
-        podcast.setGenre("Gesundheit");
-        podcast.setUrl("https://bevegt.libsyn.com/rss");
-        podcast.setWebsite("https://www.bevegt.de/");
-        podcast.setDescription("Im beVegt-Podcast versorgen wir dich einmal pro Woche " +
-                "mit Tipps rund um vegane Ernährung, Laufen, Motivation, Nachhaltigkeit, " +
-                "Minimalismus und mehr. Wir helfen dir dabei, ein besserer Läufer zu werden, " +
-                "Spaß an einem gesunden und aktiven Lebensstil zu haben und deine " +
-                "persönlichen Ziele zu erreichen.");
-        progData.podcastList.addNewItem(podcast);
     }
 }

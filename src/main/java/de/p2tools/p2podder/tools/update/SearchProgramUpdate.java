@@ -60,7 +60,8 @@ public class SearchProgramUpdate {
             SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";
         }
 
-        final PDate pd = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.get());
+//        final PDate pd = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.get());
+        final PDate pd = new PDate(ProgramToolsFactory.getCompileDate());
         String buildDate = pd.get_yyyy_MM_dd();
 
         FoundSearchData foundSearchData = new FoundSearchData(
