@@ -1,15 +1,6 @@
 # P2Podder
 
 <br />
-
-**Release 1**
-* Farben in der Tabelle
-* Abspielen der Episoden
-* ...
-
-<br />
-
-
 **Release 0**
 
 * erstes Release des Programms

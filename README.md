@@ -34,11 +34,15 @@ OpenJDK11 empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht 
 <br />
 
 ## Download
+Das Programm wird in drei Paketen angeboten. Diese unterscheiden sich nur im "Zubehör", das Programm selbst ist in allen Paketen identisch:
 
 - **P2Podder-XX.zip**  
-  Das Programmpaket bringt nur das Programm und die benötigten "Hilfsprogramme" aber kein Java mit. Auf dem Rechner muss
-  eine Java-Laufzeitumgebung ab Java11 installiert sein. Dieses Programmpaket kann auf allen Betriebssystemen verwendet
-  werden. Es bringt Startdateien für Linux und Windows mit.
+  Das Programmpaket bringt nur das Programm und die benötigten "Hilfsprogramme" aber kein Java mit. Auf dem Rechner muss eine Java-Laufzeitumgebung ab Java11 installiert sein. Dieses Programmpaket kann auf allen Betriebssystemen verwendet werden. Es bringt Startdateien für Linux und Windows mit.
+
+- **P2Podder-XX__Linux+Java.zip**  
+  **P2Podder-XX__Win+Java.zip**  
+  Diese Programmpakete bringen die Java-Laufzeitumgebung mit und sind nur für das angegebene Betriebssystem: Linux oder Windows. Es muss kein Java auf dem System installiert sein. (Die Java-Laufzeitumgebung liegt im Ordner "Java" und kommt von jdk.java.net).
+
   
 Der VLC-Player muss installiert sein. 
 
