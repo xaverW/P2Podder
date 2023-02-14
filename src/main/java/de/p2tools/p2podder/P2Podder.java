@@ -19,9 +19,9 @@ import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2podder.controller.ProgLoadFactory;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
-import de.p2tools.p2podder.controller.ProgStartFactory;
+import de.p2tools.p2podder.controller.ProgStartAfterGui;
+import de.p2tools.p2podder.controller.ProgStartBeforeGui;
 import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
@@ -48,16 +48,15 @@ public class P2Podder extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        boolean firstProgramStart;
         PDuration.counterStart(LOG_TEXT_PROGRAM_START);
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
 
         initP2lib();
-        firstProgramStart = ProgStartFactory.workBeforeGui(progData);
+        ProgStartBeforeGui.workBeforeGui();
         initRootLayout();
-        ProgStartFactory.workAfterGui(progData, firstProgramStart);
-        ProgLoadFactory.loadPodcastListProgStart(firstProgramStart);
+        ProgStartAfterGui.workAfterGui();
+
 
         PDuration.onlyPing("Gui steht!");
         PDuration.counterStop(LOG_TEXT_PROGRAM_START);

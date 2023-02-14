@@ -1,6 +1,6 @@
 /*
- * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
- * https://www.p2tools.de/
+ * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -16,10 +16,11 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ReadConfigFile;
+import de.p2tools.p2Lib.icons.GetIcon;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -27,40 +28,44 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.parser.ParserThread;
+import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
+import javafx.stage.Stage;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class ProgLoadFactory {
+public class ProgStartAfterGui {
+    public static boolean firstProgramStart = false;
 
-    private ProgLoadFactory() {
+    private ProgStartAfterGui() {
     }
 
-    public static boolean loadProgConfigData() {
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
-        boolean found;
-        if ((found = loadProgConfig()) == false) {
-            //todo? teils geladene Reste entfernen
-            PLog.sysLog("-> konnte nicht geladen werden!");
-            clearConfig();
-        } else {
-            PLog.sysLog("-> wurde gelesen!");
-        }
-        return found;
+    /**
+     * alles was nach der GUI gemacht werden soll z.B.
+     * Podcast beim Programmstart!! laden
+     */
+    public static void workAfterGui() {
+        GetIcon.addWindowP2Icon(ProgData.getInstance().primaryStage);
+        startMsg();
+        setTitle(ProgData.getInstance().primaryStage);
+
+        ProgData.getInstance().initProgData();
+        checkProgUpdate();
+        loadPodcastListProgStart();
     }
 
     /**
      * Podcastliste beim Programmstart laden
      */
-    public static void loadPodcastListProgStart(boolean firstProgramStart) {
+    public static void loadPodcastListProgStart() {
         // Gui startet ein wenig flüssiger
         Thread th = new Thread(() -> {
-            final ProgData progData = ProgData.getInstance();
             PDuration.onlyPing("Programmstart Podcastliste laden: start");
 
-            if (firstProgramStart) {
+            if (ProgStartBeforeGui.firstProgramStart) {
                 //schon mal ein paar eintragen
-                addStartPodcasts(progData);
+                addStartPodcasts();
             } else {
                 //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
                 if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
@@ -69,7 +74,7 @@ public class ProgLoadFactory {
                     } else {
                         PLog.sysLog("nach neuen Episoden suchen");
                         ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-                        new ParserThread(progData).parse(progData.podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
+                        new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
                     }
                 } else {
                     PLog.sysLog("keine neuen Episoden suchen: Nicht gewünscht");
@@ -81,25 +86,7 @@ public class ProgLoadFactory {
         th.start();
     }
 
-    private static void clearConfig() {
-        ProgData progData = ProgData.getInstance();
-        progData.setDataList.clear();
-        progData.downloadList.clear();
-        progData.episodeList.clear();
-    }
-
-    private static boolean loadProgConfig() {
-        final Path path = ProgInfosFactory.getSettingsFile();
-        PLog.sysLog("Programmstart und ProgConfig laden von: " + path.toString());
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
-
-        ProgConfig.addConfigData(configFile);
-        ReadConfigFile readConfigFile = new ReadConfigFile();
-        readConfigFile.addConfigFile(configFile);
-        return readConfigFile.readConfigFile();
-    }
-
-    private static void addStartPodcasts(ProgData progData) {
+    private static void addStartPodcasts() {
         //schon mal ein paar eintragen
         PLog.addSysLog(PLog.LILNE1);
         PLog.addSysLog("erster Programmstart, ein paar Pods eintragen");
@@ -111,7 +98,7 @@ public class ProgLoadFactory {
         podcast.setWebsite("https://www.deutschlandfunk.de");
         podcast.setDescription("Ausgewählte Themen hintergründig eingeordnet – das ist der Anspruch unseres " +
                 "täglichen Podcasts „Der Tag“. Was steckt hinter einer Nachricht und was ergibt sich daraus?");
-        progData.podcastList.addNewItem(podcast);
+        ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
         podcast.setName("Auf den Punkt - der SZ-Nachrichtenpodcast");
@@ -121,7 +108,7 @@ public class ProgLoadFactory {
         podcast.setDescription("Die Nachrichten des Tages - als Podcast auf den Punkt gebracht. " +
                 "Bleiben Sie auf dem Laufenden mit aktuellen Meldungen, Interviews und " +
                 "Hintergrundberichten. Kostenlos und immer aktuell. Jeden Montag bis Freitag um 17 Uhr.");
-        progData.podcastList.addNewItem(podcast);
+        ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
         podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
@@ -133,7 +120,7 @@ public class ProgLoadFactory {
                 "ökologischen Herausforderungen meistern können? Der Utopia-Podcast hilft, " +
                 "den Überblick zu behalten! Und zwar nicht abgehoben, sondern ganz alltagsnah, " +
                 "mit vielen Tipps und nützlichen Hinweisen.");
-        progData.podcastList.addNewItem(podcast);
+        ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
         podcast.setName("Radio Tux");
@@ -144,6 +131,60 @@ public class ProgLoadFactory {
                 "Schwerpunkten Linux, Open Source und Netzkultur. Es produziert in " +
                 "regelmäßigen Abständen verschiedene Formate und hat sich zu einem " +
                 "gefragten Medienpartner für OpenSource Events entwickelt.");
-        progData.podcastList.addNewItem(podcast);
+        ProgData.getInstance().podcastList.addNewItem(podcast);
+    }
+
+    private static void startMsg() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Verzeichnisse:");
+        list.add("Programmpfad: " + ProgInfosFactory.getPathJar());
+        list.add("Verzeichnis Einstellungen: " + ProgInfosFactory.getSettingsDirectoryString());
+        list.add(PLog.LILNE2);
+        list.add("");
+        list.add("Programmsets:");
+        list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
+        ProgConfig.getConfigLog(list);
+        LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
+    }
+
+    public static void setTitle(Stage stage) {
+        if (ProgData.debug) {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
+        } else {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
+        }
+    }
+
+    private static void checkProgUpdate() {
+        // Prüfen obs ein Programmupdate gibt
+        PDuration.onlyPing("checkProgUpdate");
+
+        if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
+                !updateCheckTodayDone()) {
+            // nach Updates suchen
+            runUpdateCheck(false);
+
+        } else {
+            // will der User nicht --oder-- wurde heute schon gemacht
+            List list = new ArrayList(5);
+            list.add("Kein Update-Check:");
+            if (!ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get()) {
+                list.add("  der User will nicht");
+            }
+            if (updateCheckTodayDone()) {
+                list.add("  heute schon gemacht");
+            }
+            PLog.sysLog(list);
+        }
+    }
+
+    private static boolean updateCheckTodayDone() {
+        return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+    }
+
+    private static void runUpdateCheck(boolean showAlways) {
+        //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
+        ProgConfig.SYSTEM_UPDATE_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+        new SearchProgramUpdate(ProgData.getInstance()).searchNewProgramVersion(showAlways);
     }
 }

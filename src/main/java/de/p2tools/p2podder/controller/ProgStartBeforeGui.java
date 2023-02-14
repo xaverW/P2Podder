@@ -16,11 +16,10 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.icons.GetIcon;
+import de.p2tools.p2Lib.configFile.ConfigFile;
+import de.p2tools.p2Lib.configFile.ReadConfigFile;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -30,22 +29,19 @@ import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startDialog.StartDialogController;
-import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.nio.file.Path;
 
-public class ProgStartFactory {
+public class ProgStartBeforeGui {
+    public static boolean firstProgramStart = false;
 
-    private ProgStartFactory() {
+    private ProgStartBeforeGui() {
     }
 
-    public static boolean workBeforeGui(ProgData progData) {
-        boolean firstProgramStart = false;
-        boolean loadOk = ProgLoadFactory.loadProgConfigData();
+    public static boolean workBeforeGui() {
+        boolean loadOk = loadProgConfigData();
         if (ProgConfig.SYSTEM_LOG_ON.get()) {
             PLogger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
         }
@@ -61,16 +57,49 @@ public class ProgStartFactory {
                 System.exit(0);
             }
         }
-        progData.episodeList.initList();
-        progData.podcastList.initList();
-        progData.downloadList.initList();
-        if (progData.setDataList.isEmpty()) {
+        ProgData.getInstance().episodeList.initList();
+        ProgData.getInstance().podcastList.initList();
+        ProgData.getInstance().downloadList.initList();
+        if (ProgData.getInstance().setDataList.isEmpty()) {
             //beim ersten Start oder wenn sie sonst fehlen
-            addStandarSets(progData);
+            addStandarSets();
         }
 
         resetConfigs();
         return firstProgramStart;
+    }
+
+
+    private static void clearConfig() {
+        ProgData progData = ProgData.getInstance();
+        progData.setDataList.clear();
+        progData.downloadList.clear();
+        progData.episodeList.clear();
+    }
+
+    private static boolean loadProgConfig() {
+        final Path path = ProgInfosFactory.getSettingsFile();
+        PLog.sysLog("Programmstart und ProgConfig laden von: " + path.toString());
+        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
+
+        ProgConfig.addConfigData(configFile);
+        ReadConfigFile readConfigFile = new ReadConfigFile();
+        readConfigFile.addConfigFile(configFile);
+        return readConfigFile.readConfigFile();
+    }
+
+   
+    private static boolean loadProgConfigData() {
+        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        boolean found;
+        if ((found = loadProgConfig()) == false) {
+            //todo? teils geladene Reste entfernen
+            PLog.sysLog("-> konnte nicht geladen werden!");
+            clearConfig();
+        } else {
+            PLog.sysLog("-> wurde gelesen!");
+        }
+        return found;
     }
 
     private static void resetConfigs() {
@@ -109,46 +138,18 @@ public class ProgStartFactory {
         }
     }
 
-    /**
-     * alles was nach der GUI gemacht werden soll z.B.
-     * Podcast beim Programmstart!! laden
-     *
-     * @param firstProgramStart
-     */
-    public static void workAfterGui(ProgData progData, boolean firstProgramStart) {
-        GetIcon.addWindowP2Icon(progData.primaryStage);
-        startMsg();
-        setTitle(progData.primaryStage);
-
-        progData.initProgData();
-        checkProgUpdate(progData);
-    }
-
-    private static void addStandarSets(ProgData progData) {
+    private static void addStandarSets() {
         Platform.runLater(() -> {
             PDuration.onlyPing("Erster Start: PSet");
             // kann ein Dialog aufgehen
             final SetDataList pSet = ImportSetDataFactory.getStandarset();
             if (pSet != null) {
-                progData.setDataList.addSetData(pSet);
+                ProgData.getInstance().setDataList.addSetData(pSet);
                 ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
             }
             PDuration.onlyPing("Erster Start: PSet geladen");
         });
 
-    }
-
-    private static void startMsg() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Verzeichnisse:");
-        list.add("Programmpfad: " + ProgInfosFactory.getPathJar());
-        list.add("Verzeichnis Einstellungen: " + ProgInfosFactory.getSettingsDirectoryString());
-        list.add(PLog.LILNE2);
-        list.add("");
-        list.add("Programmsets:");
-        list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
-        ProgConfig.getConfigLog(list);
-        LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
     public static void setTitle(Stage stage) {
@@ -157,38 +158,5 @@ public class ProgStartFactory {
         } else {
             stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
         }
-    }
-
-    private static void checkProgUpdate(ProgData progData) {
-        // Prüfen obs ein Programmupdate gibt
-        PDuration.onlyPing("checkProgUpdate");
-
-        if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
-                !updateCheckTodayDone()) {
-            // nach Updates suchen
-            runUpdateCheck(progData, false);
-
-        } else {
-            // will der User nicht --oder-- wurde heute schon gemacht
-            List list = new ArrayList(5);
-            list.add("Kein Update-Check:");
-            if (!ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get()) {
-                list.add("  der User will nicht");
-            }
-            if (updateCheckTodayDone()) {
-                list.add("  heute schon gemacht");
-            }
-            PLog.sysLog(list);
-        }
-    }
-
-    private static boolean updateCheckTodayDone() {
-        return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-    }
-
-    private static void runUpdateCheck(ProgData progData, boolean showAlways) {
-        //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
-        ProgConfig.SYSTEM_UPDATE_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
-        new SearchProgramUpdate(progData).searchNewProgramVersion(showAlways);
     }
 }

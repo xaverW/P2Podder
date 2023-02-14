@@ -21,7 +21,6 @@ import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.tools.log.PLogger;
 import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
-import de.p2tools.p2podder.controller.ProgSaveFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -77,7 +76,7 @@ public class InitPodderMenu {
         mHelp.getItems().addAll(miUrlHelp, miLog, miReset, miSearchUpdate, new SeparatorMenuItem(), miAbout);
         if (ProgData.debug) {
             final MenuItem miSave = new MenuItem("Debug: Alles Speichern");
-            miSave.setOnAction(a -> ProgSaveFactory.saveAll());
+            miSave.setOnAction(a -> ProgQuitFactory.saveAll());
 
             mHelp.getItems().addAll(miSave);
         }

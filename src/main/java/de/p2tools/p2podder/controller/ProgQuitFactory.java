@@ -16,28 +16,42 @@
 
 package de.p2tools.p2podder.controller;
 
+import de.p2tools.p2Lib.configFile.ConfigFile;
+import de.p2tools.p2Lib.configFile.WriteConfigFile;
 import de.p2tools.p2Lib.tools.log.LogMessage;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
+import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.gui.dialog.QuitDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
+import java.nio.file.Path;
 
 public class ProgQuitFactory {
 
     private ProgQuitFactory() {
     }
 
-    private static void stopAllDownloads() {
-        //erst mal alle Downloads stoppen und zurücksetzen
-        ProgData.getInstance().downloadList.forEach(download -> {
-            if (!download.isStateFinished()) {
-                download.stopDownload();
-            }
-        });
+    public static void saveAll() {
+        PLog.sysLog("save all data");
+        saveProgConfig();
+    }
 
-        //fertige werden entfernt
-        ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
+    public static void saveProgConfig() {
+        //sind die Programmeinstellungen
+        PLog.sysLog("save progConfig");
+
+        final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
+        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, xmlFilePath);
+        ProgConfig.addConfigData(configFile);
+
+        WriteConfigFile writeConfigFile = new WriteConfigFile();
+        writeConfigFile.addConfigFile(configFile);
+        writeConfigFile.writeConfigFile();
     }
 
     /**
@@ -74,9 +88,21 @@ public class ProgQuitFactory {
         stopAll();
         writeTabSettings();
 
-        ProgSaveFactory.saveProgConfig();
+        saveProgConfig();
         LogMessage.endMsg();
         return true;
+    }
+
+    private static void stopAllDownloads() {
+        //erst mal alle Downloads stoppen und zurücksetzen
+        ProgData.getInstance().downloadList.forEach(download -> {
+            if (!download.isStateFinished()) {
+                download.stopDownload();
+            }
+        });
+
+        //fertige werden entfernt
+        ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
     }
 
     private static void stopAll() {
