@@ -17,11 +17,10 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.WriteConfigFile;
+import de.p2tools.p2Lib.configFile.ConfigWriteFile;
 import de.p2tools.p2Lib.tools.log.LogMessage;
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -43,15 +42,11 @@ public class ProgQuitFactory {
 
     public static void saveProgConfig() {
         //sind die Programmeinstellungen
-        PLog.sysLog("save progConfig");
-
+        PLog.sysLog("Alle Programmeinstellungen sichern");
         final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, xmlFilePath);
+        ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true);
         ProgConfig.addConfigData(configFile);
-
-        WriteConfigFile writeConfigFile = new WriteConfigFile();
-        writeConfigFile.addConfigFile(configFile);
-        writeConfigFile.writeConfigFile();
+        ConfigWriteFile.writeConfigFile(configFile);
     }
 
     /**

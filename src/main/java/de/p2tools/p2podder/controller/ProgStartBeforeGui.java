@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ReadConfigFile;
+import de.p2tools.p2Lib.configFile.ConfigReadFile;
 import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -32,6 +32,7 @@ import de.p2tools.p2podder.gui.startDialog.StartDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ProgStartBeforeGui {
@@ -70,7 +71,7 @@ public class ProgStartBeforeGui {
     }
 
 
-    private static void clearConfig() {
+    private static void clearTheConfigs() {
         ProgData progData = ProgData.getInstance();
         progData.setDataList.clear();
         progData.downloadList.clear();
@@ -78,24 +79,46 @@ public class ProgStartBeforeGui {
     }
 
     private static boolean loadProgConfig() {
-        final Path path = ProgInfosFactory.getSettingsFile();
-        PLog.sysLog("Programmstart und ProgConfig laden von: " + path.toString());
-        ConfigFile configFile = new ConfigFile(ProgConst.XML_START, path);
+        final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
+        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        try {
+            if (!Files.exists(xmlFilePath)) {
+                //dann gibts das Konfig-File gar nicht
+                PLog.sysLog("Konfig existiert nicht!");
+                return false;
+            }
 
-        ProgConfig.addConfigData(configFile);
-        ReadConfigFile readConfigFile = new ReadConfigFile();
-        readConfigFile.addConfigFile(configFile);
-        return readConfigFile.readConfigFile();
+            PLog.sysLog("Programmstart und ProgConfig laden von: " + xmlFilePath);
+            ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true) {
+                @Override
+                public void clearConfigFile() {
+                    clearTheConfigs();
+                }
+            };
+            ProgConfig.addConfigData(configFile);
+            if (ConfigReadFile.readConfig(configFile)) {
+                PLog.sysLog("Konfig wurde geladen!");
+                return true;
+
+            } else {
+                // dann hat das Laden nicht geklappt
+                PLog.sysLog("Konfig konnte nicht geladen werden!");
+                return false;
+            }
+        } catch (final Exception ex) {
+            PLog.errorLog(915470101, ex);
+        }
+        return false;
     }
 
-   
+
     private static boolean loadProgConfigData() {
         PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
         boolean found;
         if ((found = loadProgConfig()) == false) {
             //todo? teils geladene Reste entfernen
             PLog.sysLog("-> konnte nicht geladen werden!");
-            clearConfig();
+            clearTheConfigs();
         } else {
             PLog.sysLog("-> wurde gelesen!");
         }
