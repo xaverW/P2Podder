@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2podder.gui.configDialog.setData;
+package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
@@ -26,7 +26,6 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -35,37 +34,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-public class PathPane {
+public class ImportSetDialogPanePath {
     private GridPane gridPane = new GridPane();
     private int row = 0;
     private final Stage stage;
+    private final TextField txtPlayer = new TextField();
 
-    private class UnBind {
-        private TextField txt;
-        private StringProperty property;
-
-        UnBind(TextField txt, StringProperty property) {
-            this.txt = txt;
-            this.property = property;
-        }
-
-        void unbind() {
-            txt.textProperty().unbindBidirectional(property);
-        }
-    }
-
-    private List<UnBind> unbindList = new ArrayList<>();
-
-    public PathPane(Stage stage) {
+    public ImportSetDialogPanePath(Stage stage) {
         this.stage = stage;
     }
 
     public void close() {
-        unbindList.stream().forEach(unBind -> unBind.unbind());
+        txtPlayer.textProperty().unbindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
     }
 
     public TitledPane makePath() {
@@ -87,7 +67,6 @@ public class PathPane {
     private void addPlayer() {
         Text text;
         PHyperlink hyperlink;
-        TextField txtPlayer = new TextField();
         final Button btnFind = new Button("suchen");
 
         text = new Text("Pfad zum VLC-Player auswählen");
@@ -102,15 +81,14 @@ public class PathPane {
         text.setStyle("-fx-font-weight: bold");
 
         txtPlayer.textProperty().addListener((observable, oldValue, newValue) -> {
-            File file = new File(txtPlayer.getText());
-            if (!file.exists() || !file.isFile()) {
-//                txtPlayer.setStyle(ProgColorList.STATION_NAME_ERROR.getCssBackground());
-            } else {
-                txtPlayer.setStyle("");
-            }
+//            File file = new File(txtPlayer.getText());
+//            if (!file.exists() || !file.isFile()) {
+////                txtPlayer.setStyle(ProgColorList.STATION_NAME_ERROR.getCssBackground());
+//            } else {
+//                txtPlayer.setStyle("");
+//            }
         });
         txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
-        unbindList.add(new UnBind(txtPlayer, ProgConfig.SYSTEM_PATH_VLC));
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {

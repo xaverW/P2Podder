@@ -49,11 +49,11 @@ public class EpisodeGuiController extends AnchorPane {
     private final TableEpisode tableView;
     private EpisodeGuiInfoController episodeGuiInfoController;
 
-    private final RadioButton rbAll = new RadioButton("alle");
-    private final RadioButton rbNew = new RadioButton("neu");
-    private final RadioButton rbStarted = new RadioButton("gestartet");
-    private final RadioButton rbRunning = new RadioButton("läuft");
-    private final RadioButton rbWasShown = new RadioButton("gehört");
+    private final RadioButton rbAll = new RadioButton("Alle");
+    private final RadioButton rbNew = new RadioButton("Neu");
+    private final RadioButton rbStarted = new RadioButton("Gestartet");
+    private final RadioButton rbRunning = new RadioButton("Läuft");
+    private final RadioButton rbWasShown = new RadioButton("Gehört");
 
     private final ProgData progData;
     private boolean bound = false;

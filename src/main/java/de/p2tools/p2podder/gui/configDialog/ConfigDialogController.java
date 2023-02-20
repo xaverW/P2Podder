@@ -22,10 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.configDialog.setData.SetPanePack;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import de.p2tools.p2podder.gui.configDialog.setData.ControllerSet;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -37,21 +34,16 @@ import javafx.scene.layout.VBox;
 public class ConfigDialogController extends PDialogExtra {
     private TabPane tabPane = new TabPane();
     private Button btnOk = new Button("_Ok");
-    private BooleanProperty blackChanged = new SimpleBooleanProperty(false);
 
-    IntegerProperty propSelectedTab = ProgConfig.SYSTEM_CONFIG_DIALOG_TAB;
-    private final ProgData progData;
-
-    ConfigPaneController configPane;
-    EpisodePaneController episodePaneController;
-    PodPaneController podPane;
-    SetPanePack setPane;
+    ControllerConfig controllerConfig;
+    ControllerEpisode controllerEpisode;
+    ControllerPodcast controllerPodcast;
+    ControllerSet controllerSet;
 
     public ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
                 true, false, DECO.NO_BORDER);
 
-        this.progData = ProgData.getInstance();
         init(true);
     }
 
@@ -66,48 +58,48 @@ public class ConfigDialogController extends PDialogExtra {
 
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
         initPanel();
-        getStage().setOnShown(e -> setPane.setSplitPane());//das darf erst dann aufgerufen werden
+//        getStage().setOnShown(e -> controllerSet.setSplitPane());//das darf erst dann aufgerufen werden
     }
 
     public void close() {
-        configPane.close();
-        episodePaneController.close();
-        podPane.close();
-        setPane.close();
+        controllerConfig.close();
+        controllerEpisode.close();
+        controllerPodcast.close();
+        controllerSet.close();
         ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_SETDATA_CHANGED));
         super.close();
     }
 
     private void initPanel() {
         try {
-            configPane = new ConfigPaneController(getStage());
+            controllerConfig = new ControllerConfig(getStage());
             Tab tab = new Tab("Allgemein");
             tab.setClosable(false);
-            tab.setContent(configPane);
+            tab.setContent(controllerConfig);
             tabPane.getTabs().add(tab);
 
-            episodePaneController = new EpisodePaneController(getStage());
+            controllerEpisode = new ControllerEpisode(getStage());
             tab = new Tab("Episoden");
             tab.setClosable(false);
-            tab.setContent(episodePaneController);
+            tab.setContent(controllerEpisode);
             tabPane.getTabs().add(tab);
 
-            podPane = new PodPaneController(getStage());
+            controllerPodcast = new ControllerPodcast(getStage());
             tab = new Tab("Podcast");
             tab.setClosable(false);
-            tab.setContent(podPane);
+            tab.setContent(controllerPodcast);
             tabPane.getTabs().add(tab);
 
-            setPane = new SetPanePack(getStage());
+            controllerSet = new ControllerSet(getStage());
             tab = new Tab("Abspielen");
             tab.setClosable(false);
-            tab.setContent(setPane);
+            tab.setContent(controllerSet);
             tabPane.getTabs().add(tab);
 
-            tabPane.getSelectionModel().select(propSelectedTab.get());
+            tabPane.getSelectionModel().select(ProgConfig.SYSTEM_CONFIG_DIALOG_TAB.get());
             tabPane.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
                 // readOnlyBinding!!
-                propSelectedTab.setValue(newValue);
+                ProgConfig.SYSTEM_CONFIG_DIALOG_TAB.setValue(newValue);
             });
         } catch (final Exception ex) {
             PLog.errorLog(784459510, ex);

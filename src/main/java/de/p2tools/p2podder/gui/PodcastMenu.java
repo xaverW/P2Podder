@@ -78,22 +78,22 @@ public class PodcastMenu {
         mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
-        final MenuItem miUpdate = new MenuItem("markierte Podcasts aktualisieren");
+        final MenuItem miUpdate = new MenuItem("Markierte Podcasts aktualisieren");
         miUpdate.setOnAction(a -> progData.worker.updatePodcast(false));
         PShortcutWorker.addShortCut(miUpdate, P2PodderShortCuts.SHORTCUT_UPDATE_PODCAST);
 
-        final MenuItem miUpdateAll = new MenuItem("alle Podcasts aktualisieren");
+        final MenuItem miUpdateAll = new MenuItem("Alle Podcasts aktualisieren");
         miUpdateAll.setOnAction(a -> progData.worker.updatePodcast(true));
 
-        final MenuItem miDel = new MenuItem("markierte Podcasts löschen");
+        final MenuItem miDel = new MenuItem("Markierte Podcasts löschen");
         miDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(false));
 
-        final MenuItem miDelAll = new MenuItem("alle Podcasts löschen");
+        final MenuItem miDelAll = new MenuItem("Alle Podcasts löschen");
         miDelAll.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(true));
 
-        final MenuItem miSetActive = new MenuItem("markierte Podcasts einschalten");
+        final MenuItem miSetActive = new MenuItem("Markierte Podcasts einschalten");
         miSetActive.setOnAction(a -> progData.worker.setPodcastActive(true));
-        final MenuItem miSetOffActive = new MenuItem("markierte Podcasts ausschalten");
+        final MenuItem miSetOffActive = new MenuItem("Markierte Podcasts ausschalten");
         miSetOffActive.setOnAction(a -> progData.worker.setPodcastActive(false));
 
         mb.getItems().addAll(miUpdate, miUpdateAll, miDel, miDelAll, miSetActive, miSetOffActive);

@@ -41,7 +41,7 @@ import javafx.util.Callback;
 
 import java.util.Collection;
 
-public class ShortcutPane {
+public class PaneShortcut {
     private final Stage stage;
     private final ProgData progData;
     private boolean released = true; // damits beim ersten Mal schon passt
@@ -50,7 +50,7 @@ public class ShortcutPane {
     private final TableView<PShortcut> tableView = new TableView<>();
     DoubleProperty doubleProperty;//sonst geht die Ref verloren
 
-    public ShortcutPane(Stage stage) {
+    public PaneShortcut(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
         this.doubleProperty = ProgConfig.CONFIG_DIALOG_SHORTCUT_DIVIDER;

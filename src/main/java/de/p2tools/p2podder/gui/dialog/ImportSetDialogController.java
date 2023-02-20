@@ -24,8 +24,7 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetFactory;
-import de.p2tools.p2podder.gui.configDialog.setData.PathPane;
-import de.p2tools.p2podder.gui.configDialog.setData.SetPanePack;
+import de.p2tools.p2podder.gui.configDialog.setData.ControllerSet;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Priority;
@@ -40,7 +39,7 @@ public class ImportSetDialogController extends PDialogExtra {
     private boolean im = false;
     private StackPane stackPane;
     private VBox vBoxPath = new VBox();
-    private SetPanePack setPanePack;
+    private ControllerSet controllerSet;
 
 
     public ImportSetDialogController(ProgData progData) {
@@ -52,7 +51,7 @@ public class ImportSetDialogController extends PDialogExtra {
     }
 
     public void close() {
-        setPanePack.close();
+        controllerSet.close();
         super.close();
     }
 
@@ -78,7 +77,7 @@ public class ImportSetDialogController extends PDialogExtra {
         tpDownPath.setMaxHeight(Double.MAX_VALUE);
         tpDownPath.setCollapsible(false);
 
-        TitledPane tpPath = new PathPane(progData.primaryStage).makePath();
+        TitledPane tpPath = new ImportSetDialogPanePath(progData.primaryStage).makePath();
         tpPath.setMaxHeight(Double.MAX_VALUE);
         tpPath.setCollapsible(false);
 
@@ -87,13 +86,13 @@ public class ImportSetDialogController extends PDialogExtra {
         vBoxPath.setStyle("-fx-background-color: -fx-background;");
 
         // nach Import
-        setPanePack = new SetPanePack(P2LibConst.primaryStage);
-        setPanePack.setMaxWidth(Double.MAX_VALUE);
-        setPanePack.setMaxHeight(Double.MAX_VALUE);
-        setPanePack.setStyle("-fx-background-color: -fx-background;");
+        controllerSet = new ControllerSet(P2LibConst.primaryStage);
+        controllerSet.setMaxWidth(Double.MAX_VALUE);
+        controllerSet.setMaxHeight(Double.MAX_VALUE);
+        controllerSet.setStyle("-fx-background-color: -fx-background;");
 
         stackPane = new StackPane();
-        stackPane.getChildren().addAll(vBoxPath, setPanePack);
+        stackPane.getChildren().addAll(vBoxPath, controllerSet);
         vBoxPath.toFront();
         VBox.setVgrow(stackPane, Priority.ALWAYS);
         getVBoxCont().getChildren().add(stackPane);
@@ -116,6 +115,6 @@ public class ImportSetDialogController extends PDialogExtra {
             PAlert.showErrorAlert("Set importieren", "Sets konnten nicht importiert werden!");
         }
 
-        setPanePack.toFront();
+        controllerSet.toFront();
     }
 }

@@ -53,16 +53,16 @@ public class DownloadMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "markierte Downloads starten", "markierten Download starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START.getImageView());
+                "Markierte Downloads starten", "Markierten Download starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START.getImageView());
         final ToolBarButton btStartAll = new ToolBarButton(vBox,
-                "alle Downloads starten", "alle Downloads starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
+                "Alle Downloads starten", "Alle Downloads starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "alle laufenden Downloads stoppen", "alle laufenden Downloads stoppen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
+                "Alle laufenden Downloads stoppen", "Alle laufenden Downloads stoppen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
 
         final ToolBarButton btBack = new ToolBarButton(vBox,
-                "markierte Downloads zurückstellen", "markierte Downloads zurückstellen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
+                "Markierte Downloads zurückstellen", "Markierte Downloads zurückstellen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "markierten Download löschen", "markierten Download löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
+                "Markierten Download löschen", "Markierten Download löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
         final ToolBarButton btDownloadClear = new ToolBarButton(vBox,
                 "Downloads aufräumen", "Liste der Downloads aufräumen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_CLEAN.getImageView());
 
@@ -102,7 +102,7 @@ public class DownloadMenu {
         final MenuItem miDownloadStop = new MenuItem("Download stoppen");
         miDownloadStop.setOnAction(a -> progData.downloadGui.getDownloadGuiController().stopDownload(false));
 
-        final MenuItem miStopAll = new MenuItem("alle laufenden Download stoppen");
+        final MenuItem miStopAll = new MenuItem("Alle laufenden Download stoppen");
         miStopAll.setOnAction(a -> progData.downloadGui.getDownloadGuiController().stopDownload(true));
 
         final MenuItem miDownloadChange = new MenuItem("Download ändern");

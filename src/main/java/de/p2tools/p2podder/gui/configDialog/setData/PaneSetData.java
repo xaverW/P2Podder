@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class SetDataPane extends TitledPane {
+public class PaneSetData extends TitledPane {
     private final TextField txtVisibleName = new TextField("");
     private final TextArea txtDescription = new TextArea("");
     private final TextField txtProgPath = new TextField();
@@ -53,14 +53,14 @@ public class SetDataPane extends TitledPane {
     private final Label lblSwitch = new Label("Schalter:");
 
     private final Stage stage;
-    private final SetPanePack setPanePack;
+    private final ControllerSet controllerSet;
 
     private ChangeListener<SetData> changeListener;
     private SetData setData = null;
 
-    SetDataPane(SetPanePack setPanePack) {
-        this.setPanePack = setPanePack;
-        this.stage = setPanePack.getStage();
+    PaneSetData(ControllerSet controllerSet) {
+        this.controllerSet = controllerSet;
+        this.stage = controllerSet.getStage();
         this.btnHelpSearch = PButton.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
 
@@ -71,13 +71,13 @@ public class SetDataPane extends TitledPane {
         unBindProgData();
     }
 
-    public void makePane() {
+    private void makePane() {
         changeListener = (observable, oldValue, newValue) -> {
             bindProgData(newValue);
         };
 
-        setPanePack.aktSetDateProperty().addListener(changeListener);
-        bindProgData(setPanePack.aktSetDateProperty().getValue());
+        controllerSet.aktSetDateProperty().addListener(changeListener);
+        bindProgData(controllerSet.aktSetDateProperty().getValue());
 
         VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
         vBox.setFillWidth(true);

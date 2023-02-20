@@ -50,10 +50,10 @@ public class DownloadGuiController extends AnchorPane {
     private final VBox vBox = new VBox(0);
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableDownload tableView;
-    private final RadioButton rbAll = new RadioButton("alle");
-    private final RadioButton rbStarted = new RadioButton("gestartet");
-    private final RadioButton rbLoading = new RadioButton("lädt");
-    private final RadioButton rbFinalized = new RadioButton("abgeschlossen");
+    private final RadioButton rbAll = new RadioButton("Alle");
+    private final RadioButton rbStarted = new RadioButton("Gestartet");
+    private final RadioButton rbLoading = new RadioButton("Lädt");
+    private final RadioButton rbFinalized = new RadioButton("Abgeschlossen");
 
     private DownloadGuiInfoController downloadGuiInfoController;
 

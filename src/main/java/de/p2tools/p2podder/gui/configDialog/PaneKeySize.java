@@ -37,9 +37,9 @@ import javafx.stage.Stage;
 
 import java.util.Collection;
 
-public class StylePane {
+public class PaneKeySize {
 
-    private final PToggleSwitch tglStyle = new PToggleSwitch("die Schriftgröße im Programm ändern:");
+    private final PToggleSwitch tglStyle = new PToggleSwitch("Schriftgröße im Programm ändern:");
     private Spinner<Integer> spinnerAnz = new Spinner<>();
     private final Stage stage;
     private final ProgData progData;
@@ -47,7 +47,7 @@ public class StylePane {
 
     BooleanProperty styleProperty = ProgConfig.SYSTEM_STYLE;
 
-    public StylePane(Stage stage, ProgData progData) {
+    public PaneKeySize(Stage stage, ProgData progData) {
         this.stage = stage;
         this.progData = progData;
     }

@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.gui.configDialog;
 
 import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.dialogs.accordion.PAccordionPane;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
@@ -31,10 +30,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-public class EpisodePaneController extends PAccordionPane {
+public class PaneEpisode {
 
     private final ProgData progData;
 
@@ -43,25 +41,17 @@ public class EpisodePaneController extends PAccordionPane {
 
     private final Stage stage;
 
-    public EpisodePaneController(Stage stage) {
-        super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_POD);
+    public PaneEpisode(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
-
-        init();
     }
 
     public void close() {
-        super.close();
+        tglDelFile.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE);
+        chkAsk.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_DELETE_EPISODE_FILE_ASK);
     }
 
-    public Collection<TitledPane> createPanes() {
-        Collection<TitledPane> result = new ArrayList<TitledPane>();
-        makeConfig(result);
-        return result;
-    }
-
-    private void makeConfig(Collection<TitledPane> result) {
+    public void makePane(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
@@ -85,8 +75,8 @@ public class EpisodePaneController extends PAccordionPane {
         gridPane.add(tglDelFile, 2, row, 2, 1);
         gridPane.add(chkAsk, 1, ++row);
         GridPane.setHalignment(tglDelFile, HPos.RIGHT);
-        gridPane.add(new Label(), 0, ++row);
 
+        ++row;
         gridPane.add(new Label("Downloadordner jetzt aufräumen"), 0, ++row, 2, 1);
         gridPane.add(btnClean, 2, row);
         gridPane.add(btnCleanHelp, 3, row);

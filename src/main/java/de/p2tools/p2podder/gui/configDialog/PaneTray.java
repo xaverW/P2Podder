@@ -33,14 +33,14 @@ import javafx.stage.Stage;
 
 import java.util.Collection;
 
-public class TrayPane {
+public class PaneTray {
 
     private final Stage stage;
     private final PToggleSwitch tglTray = new PToggleSwitch("Programm im System Tray anzeigen");
     private final PToggleSwitch tglOwnIcon = new PToggleSwitch("Ein eigenes Icon anzeigen");
     private final TextField txtPath = new TextField();
 
-    public TrayPane(Stage stage) {
+    public PaneTray(Stage stage) {
         this.stage = stage;
     }
 
@@ -83,7 +83,7 @@ public class TrayPane {
         lblFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         int row = 0;
-        gridPane.add(tglTray, 0, ++row, 2, 1);
+        gridPane.add(tglTray, 0, row, 2, 1);
         gridPane.add(btnHelpTray, 2, row);
 
         gridPane.add(tglOwnIcon, 0, ++row, 2, 1);

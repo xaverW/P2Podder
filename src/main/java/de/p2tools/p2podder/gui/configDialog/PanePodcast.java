@@ -18,7 +18,6 @@ package de.p2tools.p2podder.gui.configDialog;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
-import de.p2tools.p2Lib.dialogs.accordion.PAccordionPane;
 import de.p2tools.p2Lib.guiTools.PButton;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
@@ -36,10 +35,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-public class PodPaneController extends PAccordionPane {
+public class PanePodcast {
 
     private final ProgData progData;
 
@@ -50,25 +48,18 @@ public class PodPaneController extends PAccordionPane {
 
     private final Stage stage;
 
-    public PodPaneController(Stage stage) {
-        super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_POD);
+    public PanePodcast(Stage stage) {
         this.stage = stage;
         progData = ProgData.getInstance();
-
-        init();
     }
 
     public void close() {
-        super.close();
+        txtPodDest.textProperty().unbindBidirectional(ProgConfig.SYSTEM_POD_DIR);
+        tglUpdatePodcastDaily.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY);
+        tglStartDownload.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_START_DAILY_DOWNLOAD);
     }
 
-    public Collection<TitledPane> createPanes() {
-        Collection<TitledPane> result = new ArrayList<TitledPane>();
-        makeConfig(result);
-        return result;
-    }
-
-    private void makeConfig(Collection<TitledPane> result) {
+    public void makePane(Collection<TitledPane> result) {
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
