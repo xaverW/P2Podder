@@ -32,13 +32,13 @@ import javafx.scene.layout.VBox;
 
 
 public class ConfigDialogController extends PDialogExtra {
-    private TabPane tabPane = new TabPane();
-    private Button btnOk = new Button("_Ok");
+    private final TabPane tabPane = new TabPane();
+    private final Button btnOk = new Button("_Ok");
 
-    ControllerConfig controllerConfig;
-    ControllerEpisode controllerEpisode;
-    ControllerPodcast controllerPodcast;
-    ControllerSet controllerSet;
+    private ControllerConfig controllerConfig;
+    private ControllerEpisode controllerEpisode;
+    private ControllerPodcast controllerPodcast;
+    private ControllerSet controllerSet;
 
     public ConfigDialogController(ProgData progData) {
         super(progData.primaryStage, ProgConfig.CONFIG_DIALOG_SIZE, "Einstellungen",
@@ -58,7 +58,6 @@ public class ConfigDialogController extends PDialogExtra {
 
         ProgConfig.SYSTEM_THEME_CHANGED.addListener((u, o, n) -> updateCss());
         initPanel();
-//        getStage().setOnShown(e -> controllerSet.setSplitPane());//das darf erst dann aufgerufen werden
     }
 
     public void close() {
@@ -66,6 +65,7 @@ public class ConfigDialogController extends PDialogExtra {
         controllerEpisode.close();
         controllerPodcast.close();
         controllerSet.close();
+
         ProgData.getInstance().pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_SETDATA_CHANGED));
         super.close();
     }

@@ -74,6 +74,7 @@ public class PaneSetList extends TitledPane {
         if (tableView.getItems().size() > 0) {
             tableView.getSelectionModel().select(0);
         }
+        tableView.getSelectionModel().selectFirst();
 
         VBox.setVgrow(tableView, Priority.ALWAYS);
         vBox.getChildren().addAll(tableView);

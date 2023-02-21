@@ -35,7 +35,7 @@ public class P2Podder extends Application {
     private Stage primaryStage;
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
-    Scene scene = null;
+    private Scene scene = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -56,7 +56,6 @@ public class P2Podder extends Application {
         ProgStartBeforeGui.workBeforeGui();
         initRootLayout();
         ProgStartAfterGui.workAfterGui();
-
 
         PDuration.onlyPing("Gui steht!");
         PDuration.counterStop(LOG_TEXT_PROGRAM_START);

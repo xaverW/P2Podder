@@ -29,6 +29,7 @@ import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartFactory;
 import de.p2tools.p2podder.controller.data.episode.Episode;
+import javafx.application.Platform;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -202,11 +203,11 @@ public class DownloadStarterFactory {
 
             //fertigen Download in die PosListe eintragen
             Episode episode = new Episode(download);
-            ProgData.getInstance().episodeList.add(episode);
+            Platform.runLater(() -> ProgData.getInstance().episodeList.add(episode));
         }
 
         download.setNo(P2LibConst.NUMBER_NOT_STARTED);
-        ProgData.getInstance().downloadGui.getDownloadGuiController().tableRefresh();
+        Platform.runLater(() -> ProgData.getInstance().downloadGui.getDownloadGuiController().tableRefresh());
         start.setProcess(null);
         start.setInputStream(null);
         start.setStartTime(null);
