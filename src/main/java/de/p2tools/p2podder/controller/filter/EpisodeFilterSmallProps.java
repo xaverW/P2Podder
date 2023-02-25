@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.Config_boolProp;
-import de.p2tools.p2Lib.configFile.config.Config_longProp;
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config_boolProp;
+import de.p2tools.p2lib.configfile.config.Config_longProp;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleBooleanProperty;

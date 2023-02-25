@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2Lib.guiTools.POpen;
+import de.p2tools.p2lib.guitools.POpen;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;

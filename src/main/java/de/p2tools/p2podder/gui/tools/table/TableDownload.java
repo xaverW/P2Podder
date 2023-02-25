@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2Lib.guiTools.PTableFactory;
-import de.p2tools.p2Lib.guiTools.pTable.CellIntMax;
-import de.p2tools.p2Lib.guiTools.pTable.CellLocalDate;
-import de.p2tools.p2Lib.mtDownload.DownloadSizeData;
+import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.guitools.ptable.CellIntMax;
+import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
+import de.p2tools.p2lib.mtdownload.DownloadSizeData;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;

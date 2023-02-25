@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.PIndex;
+import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.tools.PIndex;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;

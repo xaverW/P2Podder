@@ -17,14 +17,14 @@
 
 package de.p2tools.p2podder.controller.config;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.data.PDataProgConfig;
-import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.configfile.ConfigFile;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.data.PDataProgConfig;
+import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.date.PLDateTimeProperty;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
 import javafx.beans.property.*;

@@ -17,8 +17,8 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.tools.GetFile;
 
 import javax.xml.stream.XMLInputFactory;

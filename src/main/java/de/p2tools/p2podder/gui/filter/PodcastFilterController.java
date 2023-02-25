@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.gui.filter;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.PGuiTools;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;

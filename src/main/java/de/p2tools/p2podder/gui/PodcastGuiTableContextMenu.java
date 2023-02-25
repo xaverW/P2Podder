@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2Lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.tools.table.TablePodcast;

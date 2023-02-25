@@ -16,14 +16,14 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.mtDownload.DownloadSize;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
-import de.p2tools.p2Lib.tools.net.PUrlTools;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.mtdownload.DownloadSize;
+import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.net.PUrlTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.starterDownload.DownloadStart;
+import de.p2tools.p2podder.controller.starterdownload.DownloadStart;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

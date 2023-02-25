@@ -15,8 +15,8 @@
  */
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.PHyperlink;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.ProgIcons;
 import javafx.application.Application;

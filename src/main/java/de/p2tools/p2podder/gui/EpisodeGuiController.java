@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.guiTools.PTableFactory;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PListener;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;

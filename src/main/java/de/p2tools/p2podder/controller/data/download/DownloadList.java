@@ -16,11 +16,11 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

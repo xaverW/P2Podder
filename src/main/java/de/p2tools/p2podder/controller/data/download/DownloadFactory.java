@@ -17,11 +17,11 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;

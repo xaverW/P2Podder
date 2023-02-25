@@ -16,12 +16,12 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.icons.GetIcon;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.date.DateFactory;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.icons.GetIcon;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.LogMessage;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;

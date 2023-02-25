@@ -16,11 +16,11 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
-import de.p2tools.p2Lib.configFile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.starterEpisode.Start;
+import de.p2tools.p2podder.controller.starterepisode.Start;
 
 import java.time.LocalDate;
 

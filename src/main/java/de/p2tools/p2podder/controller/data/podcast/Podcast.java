@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.tools.PIndex;
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.tools.PIndex;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 
 public class Podcast extends PodcastProps {

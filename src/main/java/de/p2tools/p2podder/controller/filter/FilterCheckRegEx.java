@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2Lib.data.PColorData;
+import de.p2tools.p2lib.data.PColorData;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;

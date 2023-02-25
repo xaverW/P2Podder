@@ -17,16 +17,16 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.guiTools.POpen;
-import de.p2tools.p2Lib.tools.log.PLogger;
-import de.p2tools.p2Lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2lib.guitools.POpen;
+import de.p2tools.p2lib.tools.log.PLogger;
+import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.ProgIcons;
-import de.p2tools.p2podder.gui.configDialog.ConfigDialogController;
+import de.p2tools.p2podder.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;

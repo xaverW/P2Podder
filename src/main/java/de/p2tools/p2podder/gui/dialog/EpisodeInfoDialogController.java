@@ -16,11 +16,11 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
-import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;

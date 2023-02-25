@@ -17,8 +17,8 @@
 
 package de.p2tools.p2podder.controller.parser;
 
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;

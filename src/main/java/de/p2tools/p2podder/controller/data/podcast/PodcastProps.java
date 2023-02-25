@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2Lib.configFile.config.*;
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.configfile.config.*;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.tools.date.PLDateFactory;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -180,7 +180,7 @@ public class PodcastProps extends PDataSample<Podcast> {
     public void setUrl(String url) {
         this.url.set(url);
     }
-    
+
     @Override
     public int compareTo(Podcast arg0) {
         int ret;

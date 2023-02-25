@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools;
 
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;

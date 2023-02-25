@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -26,7 +26,7 @@ import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastBarController;
 import de.p2tools.p2podder.gui.PodcastGui;
-import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
+import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

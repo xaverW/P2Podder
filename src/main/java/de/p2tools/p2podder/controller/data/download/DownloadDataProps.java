@@ -16,13 +16,13 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.configFile.config.*;
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.mtDownload.DownloadSize;
-import de.p2tools.p2Lib.tools.date.PLDateProperty;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.configfile.config.*;
+import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.mtdownload.DownloadSize;
+import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
 import javafx.application.Platform;

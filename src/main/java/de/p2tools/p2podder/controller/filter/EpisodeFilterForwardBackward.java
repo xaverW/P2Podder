@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2lib.tools.date.PDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

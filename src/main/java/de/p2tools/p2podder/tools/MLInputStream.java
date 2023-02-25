@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.tools;
 
-import de.p2tools.p2Lib.guiTools.PSizeTools;
+import de.p2tools.p2lib.guitools.PSizeTools;
 import javafx.beans.property.IntegerProperty;
 
 import java.io.IOException;

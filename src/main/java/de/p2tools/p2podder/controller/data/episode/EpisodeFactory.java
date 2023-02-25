@@ -17,16 +17,16 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
-import de.p2tools.p2Lib.P2LibConst;
-import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.controller.starterEpisode.Start;
+import de.p2tools.p2podder.controller.starterepisode.Start;
 import de.p2tools.p2podder.gui.dialog.EpisodeDelDialogController;
 import de.p2tools.p2podder.gui.dialog.NoSetDialogController;
 import javafx.stage.Stage;

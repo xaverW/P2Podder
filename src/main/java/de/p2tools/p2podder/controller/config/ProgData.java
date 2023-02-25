@@ -17,10 +17,10 @@
 
 package de.p2tools.p2podder.controller.config;
 
-import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.events.PEvent;
-import de.p2tools.p2Lib.tools.events.PEventHandler;
+import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.events.PEvent;
+import de.p2tools.p2lib.tools.events.PEventHandler;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetDataList;
@@ -32,15 +32,15 @@ import de.p2tools.p2podder.controller.filter.EpisodeFilter;
 import de.p2tools.p2podder.controller.filter.EpisodeFilterSmall;
 import de.p2tools.p2podder.controller.filter.PodcastFilter;
 import de.p2tools.p2podder.controller.history.HistoryList;
-import de.p2tools.p2podder.controller.starterDownload.DownloadStarterFactory;
-import de.p2tools.p2podder.controller.starterEpisode.EpisodeStarterFactory;
+import de.p2tools.p2podder.controller.starterdownload.DownloadStarterFactory;
+import de.p2tools.p2podder.controller.starterepisode.EpisodeStarterFactory;
 import de.p2tools.p2podder.controller.worker.EpisodeInfos;
 import de.p2tools.p2podder.controller.worker.Worker;
 import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
-import de.p2tools.p2podder.gui.smallGui.SmallGuiPack;
+import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

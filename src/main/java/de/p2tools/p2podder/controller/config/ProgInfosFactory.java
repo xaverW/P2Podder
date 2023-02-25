@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.config;
 
-import de.p2tools.p2Lib.configFile.SettingsDirectory;
-import de.p2tools.p2Lib.tools.PException;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.configfile.SettingsDirectory;
+import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.Main;
 
 import java.io.File;

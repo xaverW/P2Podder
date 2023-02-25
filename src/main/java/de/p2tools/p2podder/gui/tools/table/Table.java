@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.StringProperty;

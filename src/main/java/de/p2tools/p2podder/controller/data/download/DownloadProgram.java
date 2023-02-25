@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2Lib.tools.PSystemUtils;
-import de.p2tools.p2Lib.tools.date.DateFactory;
-import de.p2tools.p2Lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.file.PFileUtils;
 
 import java.io.File;
 import java.util.Date;

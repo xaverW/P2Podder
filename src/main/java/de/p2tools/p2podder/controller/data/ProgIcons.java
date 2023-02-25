@@ -117,16 +117,16 @@ public class ProgIcons {
 
         public ImageView getImageView() {
             if (ProgConfig.SYSTEM_DARK_THEME.get() && !fileNameDark.isEmpty()) {
-                return de.p2tools.p2Lib.icons.GetIcon.getImageView(fileNameDark, ICON_PATH, w, h);
+                return de.p2tools.p2lib.icons.GetIcon.getImageView(fileNameDark, ICON_PATH, w, h);
             }
-            return de.p2tools.p2Lib.icons.GetIcon.getImageView(fileName, ICON_PATH, w, h);
+            return de.p2tools.p2lib.icons.GetIcon.getImageView(fileName, ICON_PATH, w, h);
         }
 
         public Image getImage() {
             if (ProgConfig.SYSTEM_DARK_THEME.get() && !fileNameDark.isEmpty()) {
-                return de.p2tools.p2Lib.icons.GetIcon.getImage(fileNameDark, ICON_PATH, w, h);
+                return de.p2tools.p2lib.icons.GetIcon.getImage(fileNameDark, ICON_PATH, w, h);
             }
-            return de.p2tools.p2Lib.icons.GetIcon.getImage(fileName, ICON_PATH, w, h);
+            return de.p2tools.p2lib.icons.GetIcon.getImage(fileName, ICON_PATH, w, h);
         }
     }
 }

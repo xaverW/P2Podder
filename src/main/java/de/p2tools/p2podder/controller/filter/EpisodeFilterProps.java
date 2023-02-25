@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2Lib.configFile.config.*;
-import de.p2tools.p2Lib.configFile.pData.PDataSample;
+import de.p2tools.p2lib.configfile.config.*;
+import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.*;
 

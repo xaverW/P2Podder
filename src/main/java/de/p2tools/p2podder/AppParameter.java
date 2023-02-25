@@ -17,8 +17,8 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2Lib.tools.log.LogMessage;
-import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.LogMessage;
+import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.cli.*;

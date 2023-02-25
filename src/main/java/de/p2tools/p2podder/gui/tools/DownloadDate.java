@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.tools;
 
-import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.PDate;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.Date;

@@ -16,19 +16,19 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2Lib.configFile.ConfigFile;
-import de.p2tools.p2Lib.configFile.ConfigReadFile;
-import de.p2tools.p2Lib.tools.ProgramToolsFactory;
-import de.p2tools.p2Lib.tools.duration.PDuration;
-import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.PLogger;
+import de.p2tools.p2lib.configfile.ConfigFile;
+import de.p2tools.p2lib.configfile.ConfigReadFile;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.PLogger;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
-import de.p2tools.p2podder.gui.startDialog.StartDialogController;
+import de.p2tools.p2podder.gui.startdialog.StartDialogController;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
