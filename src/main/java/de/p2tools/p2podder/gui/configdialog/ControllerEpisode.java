@@ -30,7 +30,7 @@ public class ControllerEpisode extends PAccordionPane {
     private PaneEpisode paneEpisode;
 
     public ControllerEpisode(Stage stage) {
-        super(stage, ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_POD);
+        super(ProgConfig.CONFIG_DIALOG_ACCORDION, ProgConfig.SYSTEM_CONFIG_DIALOG_POD);
         this.stage = stage;
 
         init();

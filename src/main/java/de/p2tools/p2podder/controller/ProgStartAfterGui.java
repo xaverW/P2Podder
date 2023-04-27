@@ -88,8 +88,8 @@ public class ProgStartAfterGui {
 
     private static void addStartPodcasts() {
         //schon mal ein paar eintragen
-        PLog.addSysLog(PLog.LILNE1);
-        PLog.addSysLog("erster Programmstart, ein paar Pods eintragen");
+        PLog.sysLog(PLog.LILNE1);
+        PLog.sysLog("erster Programmstart, ein paar Pods eintragen");
 
         Podcast podcast = new Podcast();
         podcast.setName("Deutschlandfunk – Der Tag");

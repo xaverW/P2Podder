@@ -152,7 +152,7 @@ public class SmallGuiPack extends PDialogOnly {
         smallGuiCenter.playRandomStation();
     }
 
-    protected void getSize() {
+    private void getSize() {
         smallGuiCenter.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }

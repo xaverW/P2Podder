@@ -42,7 +42,7 @@ public class QuitDialogController extends PDialogExtra {
         gridPane.setHgap(15);
         gridPane.setVgap(25);
 
-        maskerPane.setMaskerVisible(false);
+        maskerPane.switchOffMasker();
         maskerPane.setButtonText("Abbrechen");
         maskerPane.getButton().setOnAction(a -> close());
 
