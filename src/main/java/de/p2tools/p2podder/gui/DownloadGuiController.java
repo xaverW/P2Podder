@@ -29,6 +29,7 @@ import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory
 import de.p2tools.p2podder.gui.dialog.DownloadInfoDialog;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableDownload;
+import de.p2tools.p2podder.gui.tools.table.TableRowDownload;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
@@ -282,15 +283,21 @@ public class DownloadGuiController extends AnchorPane {
                 tableView.setContextMenu(contextMenu);
             }
         });
+        tableView.setRowFactory(tableView -> {
+            TableRowDownload<DownloadData> row = new TableRowDownload<>();
+            row.hoverProperty().addListener((observable) -> {
+                final DownloadData download = (DownloadData) row.getItem();
+                if (row.isHover() && download != null) {
+                    downloadGuiInfoController.setDownload(download);
+                } else {
+                    setSelectedDownload();
+                }
+            });
+            return row;
+        });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             setSelectedDownload();
         });
-//        tableView.getItems().addListener((ListChangeListener<DownloadData>) c -> {
-//            if (tableView.getItems().size() == 1) {
-//                // wenns nur eine Zeile gibt, dann gleich selektieren
-//                tableView.getSelectionModel().select(0);
-//            }
-//        });
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (PTableFactory.SPACE.match(event)) {
                 PTableFactory.scrollVisibleRangeDown(tableView);

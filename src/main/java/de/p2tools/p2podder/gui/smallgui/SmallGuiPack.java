@@ -152,6 +152,10 @@ public class SmallGuiPack extends PDialogOnly {
         smallGuiCenter.playRandomStation();
     }
 
+    public void setEpisodeInfoBox(Episode episode) {
+        smallGuiBottom.setInfoBox(episode);
+    }
+
     private void getSize() {
         smallGuiCenter.saveTable();
         PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());

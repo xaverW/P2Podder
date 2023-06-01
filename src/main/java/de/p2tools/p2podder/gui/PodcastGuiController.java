@@ -35,6 +35,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableRow;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -278,7 +279,18 @@ public class PodcastGuiController extends AnchorPane {
                 }
             }
         });
-
+        tableView.setRowFactory(tableView -> {
+            TableRow<Podcast> row = new TableRow<>();
+            row.hoverProperty().addListener((observable) -> {
+                final Podcast filmDataMTP = (Podcast) row.getItem();
+                if (row.isHover() && filmDataMTP != null) {
+                    podcastGuiInfoController.setStation(filmDataMTP);
+                } else {
+                    setPodcast();
+                }
+            });
+            return row;
+        });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setPodcast)
         );

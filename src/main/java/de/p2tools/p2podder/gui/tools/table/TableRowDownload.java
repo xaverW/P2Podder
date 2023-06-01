@@ -20,11 +20,10 @@ package de.p2tools.p2podder.gui.tools.table;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
-import de.p2tools.p2podder.controller.data.episode.Episode;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.Tooltip;
 
-public class TableRowDownload<T extends Episode> extends TableRow {
+public class TableRowDownload<T extends DownloadData> extends TableRow {
 
     public TableRowDownload() {
     }

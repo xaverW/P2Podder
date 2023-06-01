@@ -27,6 +27,7 @@ import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.tools.table.Table;
+import de.p2tools.p2podder.gui.tools.table.TableRowEpisode;
 import de.p2tools.p2podder.gui.tools.table.TableSmallEpisode;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -196,6 +197,20 @@ public class SmallGuiCenter extends VBox {
                 progData.episodeInfoDialogController.toggleShowInfo();
             }
         });
+
+        tableView.setRowFactory(tableView -> {
+            TableRowEpisode<Episode> row = new TableRowEpisode<>();
+            row.hoverProperty().addListener((observable) -> {
+                final Episode episode = (Episode) row.getItem();
+                if (row.isHover() && episode != null) {
+                    progData.episodeInfoDialogController.setEpisode(episode);
+                    smallGuiPack.setEpisodeInfoBox(episode);
+                } else {
+                    setSelectedEpisode();
+                }
+            });
+            return row;
+        });
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             setSelectedEpisode();
         });
@@ -215,6 +230,7 @@ public class SmallGuiCenter extends VBox {
     private void setSelectedEpisode() {
         Episode episode = tableView.getSelectionModel().getSelectedItem();
         progData.episodeInfoDialogController.setEpisode(episode);
+        smallGuiPack.setEpisodeInfoBox(episode);
     }
 
     private void initListView() {

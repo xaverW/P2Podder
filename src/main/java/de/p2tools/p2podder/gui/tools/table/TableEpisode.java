@@ -135,9 +135,9 @@ public class TableEpisode extends PTable<Episode> {
                 startColumn, dateColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
 
-        setRowFactory(tableRow -> {
-            TableRowEpisode row = new TableRowEpisode<>();
-            return row;
-        });
+//        setRowFactory(tableRow -> {
+//            TableRowEpisode row = new TableRowEpisode<>();
+//            return row;
+//        });
     }
 }

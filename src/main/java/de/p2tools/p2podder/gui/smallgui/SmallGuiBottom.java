@@ -18,19 +18,20 @@ package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class SmallGuiBottom extends HBox {
@@ -43,7 +44,9 @@ public class SmallGuiBottom extends HBox {
     private final Button btnStart = new Button("");
     private final Button btnPlayNext = new Button("");
     private final Button btnStop = new Button("");
-    private final ComboBox<Podcast> cboPodcast = new ComboBox<>();
+    private final Label lblDate = new Label("");
+    private final Label lblPodcast = new Label("");
+    private final Label lblTitle = new Label("");
     private final SmallGuiPack smallGuiPack;
     private final ProgData progData;
 
@@ -56,19 +59,53 @@ public class SmallGuiBottom extends HBox {
     }
 
     public void init() {
-        setSpacing(5);
+        setSpacing(P2LibConst.DIST_HBOX);
         setAlignment(Pos.CENTER);
 
         Separator sp1 = new Separator(Orientation.VERTICAL);
         sp1.setPadding(new Insets(0, 5, 0, 5));
-
         Separator sp2 = new Separator(Orientation.VERTICAL);
         sp2.setPadding(new Insets(0, 5, 0, 5));
 
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxButton.getChildren().addAll(btnRandom, sp1, btnPrev, btnNext, sp2, btnStart, btnPlayNext, btnStop);
-        getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getVDistance(20),
+                getInfoBox(), PGuiTools.getHBoxGrower(), hBoxButton);
+    }
+
+    private GridPane getInfoBox() {
+        final GridPane gridPane = new GridPane();
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(2);
+        gridPane.setPadding(new Insets(0));
+//        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow(),
+//                PColumnConstraints.getCcPrefSize(),
+//                PColumnConstraints.getCcComputedSizeAndHgrow());
+
+        int row = 0;
+        gridPane.add(lblTitle, 0, ++row);
+        gridPane.add(lblDate, 0, ++row);
+
+        return gridPane;
+    }
+
+    void setInfoBox(Episode episode) {
+        if (episode == null) {
+            lblDate.setText("");
+            lblPodcast.setText("");
+            lblTitle.setText("");
+        } else {
+            String date = PLDateFactory.toString(episode.getPubDate());
+            String dur = episode.getDuration();
+            if (!date.isEmpty() && !dur.isEmpty()) {
+                lblDate.setText(date + "  /  " + dur);
+            } else {
+                lblDate.setText(date + dur);
+            }
+            lblPodcast.setText(episode.getPodcastName());
+            lblTitle.setText(episode.getEpisodeTitle());
+        }
     }
 
     private void initStartButton() {
@@ -125,30 +162,5 @@ public class SmallGuiBottom extends HBox {
         } else {
             btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
         }
-    }
-
-    private void initCbo() {
-        progData.episodeList.addListener((u, o, n) -> {
-            Platform.runLater(() -> {
-                //kann durch Downloads außer der Reihe sein!!
-                Podcast podcast = cboPodcast.getSelectionModel().getSelectedItem();
-                cboPodcast.getItems().setAll(progData.episodeList.getPodcastList());
-                if (podcast != null && cboPodcast.getItems().contains(podcast)) {
-                    cboPodcast.getSelectionModel().select(podcast);
-                } else {
-                    cboPodcast.getSelectionModel().clearSelection();
-                }
-            });
-        });
-
-        cboPodcast.getItems().setAll(progData.episodeList.getPodcastList());
-        cboPodcast.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            if (cboPodcast.getSelectionModel().isEmpty()) {
-                progData.episodeFilterSmall.setPodcastId(0);
-
-            } else if (n != null && o != n) {
-                progData.episodeFilterSmall.setPodcastId(n.getId());
-            }
-        });
     }
 }

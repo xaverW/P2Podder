@@ -151,9 +151,9 @@ public class TableDownload extends PTable<DownloadData> {
                 startColumn, progressColumn, remainingColumn, speedColumn,
                 downloadSizeColumn, durationColumn, dateColumn, fileColumn, pathColumn, urlColumn);
 
-        setRowFactory(tableRow -> {
-            TableRowDownload row = new TableRowDownload();
-            return row;
-        });
+//        setRowFactory(tableRow -> {
+//            TableRowDownload row = new TableRowDownload();
+//            return row;
+//        });
     }
 }

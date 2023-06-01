@@ -135,6 +135,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty PODCAST_GUI_TABLE_VIS = addStrProp("podcast-gui-table-vis");
     public static StringProperty PODCAST_GUI_TABLE_ORDER = addStrProp("podcast-gui-table-order");
     public static StringProperty PODCAST_EDIT_DIALOG_SIZE = addStrProp("podcast-edit-dialog-size", "600:800");
+    public static DoubleProperty PODCAST_GUI_INFO_DIVIDER = addDoubleProp("podcast-gui-info-divider", 0.7);
 
     //Gui Download
     public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDoubleProp("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
@@ -146,6 +147,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty DOWNLOAD_GUI_TABLE_UP_DOWN = addStrProp("download-gui-table-up-down");
     public static StringProperty DOWNLOAD_GUI_TABLE_VIS = addStrProp("download-gui-table-vis");
     public static StringProperty DOWNLOAD_GUI_TABLE_ORDER = addStrProp("download-gui-table-order");
+    public static DoubleProperty DOWNLOAD_GUI_INFO_DIVIDER = addDoubleProp("download-gui-info-divider", 0.7);
 
     //Gui Episodes
     public static DoubleProperty EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
@@ -160,6 +162,7 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty EPISODE_GUI_TABLE_VIS = addStrProp("episode-gui-table-vis");
     public static StringProperty EPISODE_GUI_TABLE_ORDER = addStrProp("episode-gui-table-order");
     public static BooleanProperty EPISODE_SHOW_NOTIFICATION = addBoolProp("episode-show-notification", Boolean.TRUE);
+    public static DoubleProperty EPISODE_GUI_INFO_DIVIDER = addDoubleProp("episode-gui-info-divider", 0.7);
 
     //Gui SmallEpisode
     public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBoolProp("small-episode-gui-filter-on", Boolean.TRUE);
