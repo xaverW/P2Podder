@@ -20,7 +20,7 @@ import de.p2tools.p2lib.dialogs.PDirFileChooser;
 import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -52,7 +52,7 @@ public class DownPathPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(stage, txtPath);
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Einen Pfad zum Speichern auswählen"));
 
         final Button btnHelp = PButton.helpButton(stage,

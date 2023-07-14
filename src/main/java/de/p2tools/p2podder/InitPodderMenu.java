@@ -25,7 +25,7 @@ import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
@@ -62,7 +62,7 @@ public class InitPodderMenu {
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             POpen.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         });
 
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
@@ -83,7 +83,7 @@ public class InitPodderMenu {
 
         menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         menuButton.getStyleClass().addAll("btnFunction", "btnFunc-1");
-        menuButton.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU_TOP.getImageView());
+        menuButton.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU_TOP.getImageView());
         menuButton.getItems().addAll(miConfig, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }

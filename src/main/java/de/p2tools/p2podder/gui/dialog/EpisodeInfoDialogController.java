@@ -23,7 +23,7 @@ import de.p2tools.p2lib.guitools.PHyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
@@ -56,9 +56,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     private final ImageView ivNew = new ImageView();
     private final TextArea taDescription = new TextArea();
     private final PHyperlink pHyperlinkUrl = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
     private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
 
     private Episode episode;
     private final ProgData progData;
@@ -124,23 +124,23 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         });
 
         btnPrev.setTooltip(new Tooltip("weniger Informationen zur Episode anzeigen"));
-        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> {
             progData.episodeGui.getEpisodeGuiController().setPreviousStation();
         });
 
         btnNext.setTooltip(new Tooltip("weniger Informationen zur Episode anzeigen"));
-        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setGraphic(ProgIconsP2Podder.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> {
             progData.episodeGui.getEpisodeGuiController().setNextStation();
         });
 
         btnStart.setTooltip(new Tooltip("Episode abspielen"));
-        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
+        btnStart.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> EpisodeFactory.playEpisode());
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIconsP2Podder.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
 
         initUrl();
@@ -330,7 +330,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         btnUpDown.setTooltip(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue() ? new Tooltip("weniger Informationen zur Episode anzeigen") :
                 new Tooltip("mehr Informationen zur Episode anzeigen"));
         btnUpDown.setGraphic(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue() ?
-                ProgIcons.Icons.ICON_BUTTON_UP.getImageView() : ProgIcons.Icons.ICON_BUTTON_DOWN.getImageView());
+                ProgIconsP2Podder.ICON_BUTTON_UP.getImageView() : ProgIconsP2Podder.ICON_BUTTON_DOWN.getImageView());
     }
 
     private void initUrl() {

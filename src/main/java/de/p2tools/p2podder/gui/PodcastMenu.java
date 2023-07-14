@@ -20,7 +20,7 @@ import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.podcast.PodcastFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
@@ -53,13 +53,13 @@ public class PodcastMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btUpdate = new ToolBarButton(vBox,
-                "Alle Podcasts aktualisieren", "Alle Podcasts aktualisieren", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_UPDATE.getImageView());
+                "Alle Podcasts aktualisieren", "Alle Podcasts aktualisieren", ProgIconsP2Podder.ICON_TOOLBAR_PODCAST_UPDATE.getImageView());
         final ToolBarButton btnAdd = new ToolBarButton(vBox,
-                "Einen neuen Podcast anlegen", "Einen neuen Podcast anlegen", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_ADD.getImageView());
+                "Einen neuen Podcast anlegen", "Einen neuen Podcast anlegen", ProgIconsP2Podder.ICON_TOOLBAR_PODCAST_ADD.getImageView());
         final ToolBarButton btnDel = new ToolBarButton(vBox,
-                "Markierten Podcast löschen", "Markierten Podcast löschen", ProgIcons.Icons.ICON_TOOLBAR_PODCAST_DEL.getImageView());
+                "Markierten Podcast löschen", "Markierten Podcast löschen", ProgIconsP2Podder.ICON_TOOLBAR_PODCAST_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIconsP2Podder.ICON_TOOLBAR_INFO.getImageView());
 
         vBoxSpace = new VBox();
         vBoxSpace.setMaxHeight(10);
@@ -75,7 +75,7 @@ public class PodcastMenu {
     private void initPodcastMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Podcastmenü anzeigen"));
-        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final MenuItem miUpdate = new MenuItem("Markierte Podcasts aktualisieren");

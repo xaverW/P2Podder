@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -72,7 +72,7 @@ public class PaneProg {
         btnFile.setOnAction(event -> {
             PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtFileManagerWeb);
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Einen Webbrowser zum Öffnen von URLs auswählen"));
 
         final Button btnHelp = PButton.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);

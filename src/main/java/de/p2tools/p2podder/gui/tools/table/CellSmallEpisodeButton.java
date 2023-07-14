@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.event.ActionEvent;
@@ -63,7 +63,7 @@ public class CellSmallEpisodeButton<S, T> extends TableCell<S, T> {
                     btnStop = new Button("");
                     btnStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnStop.setTooltip(new Tooltip("Episode stoppen"));
-                    btnStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_STOP_PLAY.getImageView());
+                    btnStop.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_EPISODE_STOP_PLAY.getImageView());
                     btnStop.setOnAction((ActionEvent event) -> {
                         EpisodeFactory.stopEpisode(episode);
                         getTableView().getSelectionModel().clearSelection();
@@ -79,7 +79,7 @@ public class CellSmallEpisodeButton<S, T> extends TableCell<S, T> {
                     btnPlay = new Button("");
                     btnPlay.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnPlay.setTooltip(new Tooltip("Episode abspielen"));
-                    btnPlay.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_PLAY.getImageView());
+                    btnPlay.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_EPISODE_PLAY.getImageView());
                     btnPlay.setOnAction((ActionEvent event) -> {
                         EpisodeFactory.playEpisode(episode);
                         getTableView().getSelectionModel().clearSelection();
@@ -94,7 +94,7 @@ public class CellSmallEpisodeButton<S, T> extends TableCell<S, T> {
                 btnDel = new Button("");
                 btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Episode löschen"));
-                btnDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_EPISODE_DEL.getImageView());
+                btnDel.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_EPISODE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     EpisodeFactory.delEpisode(episode);
                 });

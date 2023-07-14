@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PButtonClearFilterFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -45,17 +45,17 @@ public class EpisodeFilterControllerClearFilter extends HBox {
         Button btnGoForward = new Button("");
         Button btnHelp = PButton.helpButton("Filter", HelpText.GUI_STATION_FILTER);
 
-        btnGoBack.setGraphic(ProgIcons.Icons.ICON_BUTTON_BACKWARD.getImageView());
+        btnGoBack.setGraphic(ProgIconsP2Podder.ICON_BUTTON_BACKWARD.getImageView());
         btnGoBack.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goBackward());
         btnGoBack.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().backwardProperty().not());
         btnGoBack.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnGoForward.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
+        btnGoForward.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FORWARD.getImageView());
         btnGoForward.setOnAction(a -> progData.episodeFilter.getEpisodeFilterForwardBackward().goForward());
         btnGoForward.disableProperty().bind(progData.episodeFilter.getEpisodeFilterForwardBackward().forwardProperty().not());
         btnGoForward.setTooltip(new Tooltip("letzte Filtereinstellung wieder herstellen"));
 
-        btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        btnClearFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
 

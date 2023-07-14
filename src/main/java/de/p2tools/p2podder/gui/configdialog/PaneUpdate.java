@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -99,7 +99,7 @@ public class PaneUpdate {
         tglSearchBeta.selectedProperty().addListener((ob, ol, ne) -> checkBeta());
 
         PHyperlink hyperlink = new PHyperlink(ProgConst.URL_WEBSITE,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         HBox hBoxHyper = new HBox();
         hBoxHyper.setAlignment(Pos.CENTER_LEFT);
         hBoxHyper.setPadding(new Insets(10, 0, 0, 0));

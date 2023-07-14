@@ -20,7 +20,7 @@ package de.p2tools.p2podder.gui.tools.table;
 import de.p2tools.p2lib.guitools.POpen;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
@@ -70,7 +70,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownStart = new Button("");
                     btnDownStart.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownStart.setTooltip(new Tooltip("Download starten"));
-                    btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
+                    btnDownStart.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         ProgData.getInstance().downloadList.startDownloads(download);
@@ -79,7 +79,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownBack = new Button("");
                     btnDownBack.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownBack.setTooltip(new Tooltip("Download zurückstellen, beim nächsten Suchen wieder anzeigen"));
-                    btnDownBack.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_BACK.getImageView());
+                    btnDownBack.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_BACK.getImageView());
                     btnDownBack.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         ProgData.getInstance().downloadList.putBackDownloads(download);
@@ -88,7 +88,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -104,7 +104,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownStop = new Button("");
                     btnDownStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownStop.setTooltip(new Tooltip("Download stoppen"));
-                    btnDownStop.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_STOP.getImageView());
+                    btnDownStop.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_STOP.getImageView());
                     btnDownStop.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         download.stopDownload();
@@ -113,7 +113,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -128,10 +128,10 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnOpenDirectory = new Button();
                     btnOpenDirectory.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnOpenDirectory.setTooltip(new Tooltip("Ordner mit gespeichertem Film öffnen"));
-                    btnOpenDirectory.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
+                    btnOpenDirectory.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
-                        POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+                        POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
                     });
 
                     Table.setButtonSize(btnOpenDirectory);
@@ -142,7 +142,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownStart = new Button("");
                     btnDownStart.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownStart.setTooltip(new Tooltip("Download wider starten"));
-                    btnDownStart.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_START.getImageView());
+                    btnDownStart.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_START.getImageView());
                     btnDownStart.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         List<DownloadData> list = new ArrayList<>();
@@ -153,7 +153,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.Icons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);

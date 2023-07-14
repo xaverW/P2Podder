@@ -20,7 +20,7 @@ import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.scene.control.*;
@@ -48,16 +48,16 @@ public class EpisodeMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierte Episoden abspielen", "Markierte Episoden abspielen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_START.getImageView());
+                "Markierte Episoden abspielen", "Markierte Episoden abspielen", ProgIconsP2Podder.ICON_TOOLBAR_EPISODE_START.getImageView());
         final ToolBarButton btPlayNext = new ToolBarButton(vBox,
                 "Nächste gestartete Episoden abspielen", "Nächste gestartete Episoden abspielen",
-                ProgIcons.Icons.ICON_TOOLBAR_EPISODE_PLAY_NEXT.getImageView());
+                ProgIconsP2Podder.ICON_TOOLBAR_EPISODE_PLAY_NEXT.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_STOP.getImageView());
+                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", ProgIconsP2Podder.ICON_TOOLBAR_EPISODE_STOP.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierte Episoden löschen", "Markierte Episoden löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
+                "Markierte Episoden löschen", "Markierte Episoden löschen", ProgIconsP2Podder.ICON_TOOLBAR_EPISODE_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIconsP2Podder.ICON_TOOLBAR_INFO.getImageView());
 
         btStart.setOnAction(a -> EpisodeFactory.playSelEpisode());
         btPlayNext.setOnAction(a -> EpisodeFactory.playNextEpisode());
@@ -69,7 +69,7 @@ public class EpisodeMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Episoden-Menü anzeigen"));
-        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final boolean moreSets = progData.setDataList.size() > 1;

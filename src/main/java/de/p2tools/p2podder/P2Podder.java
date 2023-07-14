@@ -16,6 +16,7 @@
 package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.guitools.PGuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.duration.PDuration;
@@ -23,6 +24,7 @@ import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.ProgStartAfterGui;
 import de.p2tools.p2podder.controller.ProgStartBeforeGui;
 import de.p2tools.p2podder.controller.config.*;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import javafx.application.Application;
@@ -62,6 +64,9 @@ public class P2Podder extends Application {
     }
 
     private void initP2lib() {
+        ProgIconsP2Podder.initIcons();
+        ProgIconsP2Lib.initIcons();
+
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
                 "", ProgConfig.SYSTEM_DARK_THEME, ProgData.debug, ProgData.duration);
         P2LibInit.addCssFile(ProgConst.CSS_FILE);

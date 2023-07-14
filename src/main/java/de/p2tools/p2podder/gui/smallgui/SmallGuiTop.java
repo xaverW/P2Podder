@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.smallgui;
 import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -45,7 +45,7 @@ public class SmallGuiTop extends HBox {
         btnRadio.setOnAction(e -> progData.smallGuiPack.changeGui());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
+        btnRadio.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
@@ -53,7 +53,7 @@ public class SmallGuiTop extends HBox {
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP.getImageView());
+        btnClose.setGraphic(ProgIconsP2Podder.ICON_BUTTON_STOP.getImageView());
 
         ToggleGroup tg = new ToggleGroup();
         rbAll.setToggleGroup(tg);

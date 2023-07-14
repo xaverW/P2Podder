@@ -20,7 +20,7 @@ import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -88,7 +88,7 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
             quit();
         });
 
-        imageView.setImage(ProgIcons.Icons.IMAGE_ACHTUNG_64.getImage());
+        imageView.setImage(ProgIconsP2Podder.IMAGE_ACHTUNG_64.getImage());
 
         //start the countdown...
         lblTime.setText("");

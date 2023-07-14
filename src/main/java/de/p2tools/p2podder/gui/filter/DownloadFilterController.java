@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
@@ -72,7 +72,7 @@ public class DownloadFilterController extends FilterPane {
 
     private void addButton() {
         Button btnClearFilter = new Button("");
-        btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        btnClearFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> clearFilter(true));
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 

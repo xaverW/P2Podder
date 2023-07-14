@@ -24,7 +24,7 @@ import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -79,10 +79,10 @@ public class PanePodcast {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(ProgIcons.Icons.ICON_BUTTON_PROPOSE.getImageView());
+        btnReset.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Podcasts wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());

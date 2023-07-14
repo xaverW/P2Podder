@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2lib.icons.GetIcon;
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.date.DateFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
@@ -46,7 +46,7 @@ public class ProgStartAfterGui {
      * Podcast beim Programmstart!! laden
      */
     public static void workAfterGui() {
-        GetIcon.addWindowP2Icon(ProgData.getInstance().primaryStage);
+        P2WindowIcon.addWindowP2Icon(ProgData.getInstance().primaryStage);
         startMsg();
         setTitle(ProgData.getInstance().primaryStage);
 

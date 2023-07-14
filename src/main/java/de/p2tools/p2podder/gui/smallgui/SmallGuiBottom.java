@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.PGuiTools;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.geometry.Insets;
@@ -111,7 +111,7 @@ public class SmallGuiBottom extends HBox {
     private void initStartButton() {
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.getStyleClass().add("btnSmallGui");
-        btnClearFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        btnClearFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(event -> {
             smallGuiPack.clearFilter();
         });
@@ -127,40 +127,40 @@ public class SmallGuiBottom extends HBox {
 
         btnRandom.setTooltip(new Tooltip("Eine Episode per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallGui");
-        btnRandom.setGraphic(ProgIcons.Icons.ICON_BUTTON_RANDOM.getImageView());
+        btnRandom.setGraphic(ProgIconsP2Podder.ICON_BUTTON_RANDOM.getImageView());
         btnRandom.setOnAction(event -> smallGuiPack.playRandomStation());
 
         btnPrev.setTooltip(new Tooltip("vorherige Episode auswählen"));
         btnPrev.getStyleClass().add("btnSmallGui");
-        btnPrev.setGraphic(ProgIcons.Icons.ICON_BUTTON_PREV.getImageView());
+        btnPrev.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PREV.getImageView());
         btnPrev.setOnAction(event -> smallGuiPack.setPreviousEpisode());
 
         btnNext.setTooltip(new Tooltip("nächste Episode auswählen"));
         btnNext.getStyleClass().add("btnSmallGui");
-        btnNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_NEXT.getImageView());
+        btnNext.setGraphic(ProgIconsP2Podder.ICON_BUTTON_NEXT.getImageView());
         btnNext.setOnAction(event -> smallGuiPack.setNextEpisode());
 
         btnStart.setTooltip(new Tooltip("Markierte Episoden abspielen"));
         btnStart.getStyleClass().add("btnSmallGui");
-        btnStart.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY.getImageView());
+        btnStart.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PLAY.getImageView());
         btnStart.setOnAction(event -> smallGuiPack.playEpisode());
 
         btnPlayNext.setTooltip(new Tooltip("Nächste gestartete Episode abspielen"));
         btnPlayNext.getStyleClass().add("btnSmallGui");
-        btnPlayNext.setGraphic(ProgIcons.Icons.ICON_BUTTON_PLAY_NEXT.getImageView());
+        btnPlayNext.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PLAY_NEXT.getImageView());
         btnPlayNext.setOnAction(event -> EpisodeFactory.playNextEpisode(progData.smallGuiPack.getStage()));
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
         btnStop.getStyleClass().add("btnSmallGui");
-        btnStop.setGraphic(ProgIcons.Icons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIconsP2Podder.ICON_BUTTON_STOP_PLAY.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
     }
 
     private void setBtnIcon() {
         if (ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue()) {
-            btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_BACKWARD.getImageView());
+            btnShowFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_BACKWARD.getImageView());
         } else {
-            btnShowFilter.setGraphic(ProgIcons.Icons.ICON_BUTTON_FORWARD.getImageView());
+            btnShowFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FORWARD.getImageView());
         }
     }
 }

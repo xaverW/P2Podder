@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
@@ -53,21 +53,21 @@ public class DownloadMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierte Downloads starten", "Markierten Download starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START.getImageView());
+                "Markierte Downloads starten", "Markierten Download starten", ProgIconsP2Podder.ICON_TOOLBAR_DOWNLOAD_START.getImageView());
         final ToolBarButton btStartAll = new ToolBarButton(vBox,
-                "Alle Downloads starten", "Alle Downloads starten", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
+                "Alle Downloads starten", "Alle Downloads starten", ProgIconsP2Podder.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Downloads stoppen", "Alle laufenden Downloads stoppen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
+                "Alle laufenden Downloads stoppen", "Alle laufenden Downloads stoppen", ProgIconsP2Podder.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
 
         final ToolBarButton btBack = new ToolBarButton(vBox,
-                "Markierte Downloads zurückstellen", "Markierte Downloads zurückstellen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
+                "Markierte Downloads zurückstellen", "Markierte Downloads zurückstellen", ProgIconsP2Podder.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierten Download löschen", "Markierten Download löschen", ProgIcons.Icons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
+                "Markierten Download löschen", "Markierten Download löschen", ProgIconsP2Podder.ICON_TOOLBAR_EPISODE_DEL.getImageView());
         final ToolBarButton btDownloadClear = new ToolBarButton(vBox,
-                "Downloads aufräumen", "Liste der Downloads aufräumen", ProgIcons.Icons.ICON_TOOLBAR_DOWNLOAD_CLEAN.getImageView());
+                "Downloads aufräumen", "Liste der Downloads aufräumen", ProgIconsP2Podder.ICON_TOOLBAR_DOWNLOAD_CLEAN.getImageView());
 
         final ToolBarButton btInfo = new ToolBarButton(vBox,
-                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.Icons.ICON_TOOLBAR_INFO.getImageView());
+                "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIconsP2Podder.ICON_TOOLBAR_INFO.getImageView());
 
         btStart.setOnAction(a -> {
             List<DownloadData> downloadList = progData.downloadGui.getDownloadGuiController().getSelList();
@@ -93,7 +93,7 @@ public class DownloadMenu {
     private void initMenu() {
         final MenuButton mb = new MenuButton("");
         mb.setTooltip(new Tooltip("Download-Menü anzeigen"));
-        mb.setGraphic(ProgIcons.Icons.ICON_TOOLBAR_MENU.getImageView());
+        mb.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU.getImageView());
         mb.getStyleClass().addAll("btnFunction", "btnFunc-1");
 
         final MenuItem miDownloadStart = new MenuItem("Download starten");

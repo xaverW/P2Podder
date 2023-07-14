@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.guitools.PStyles;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIcons;
+import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
@@ -89,7 +89,7 @@ public class PaneSetData extends TitledPane {
         this.setMaxHeight(Double.MAX_VALUE);
 
         btnFile.setOnAction(event -> PDirFileChooser.FileChooserOpenFile(ProgData.getInstance().primaryStage, txtProgPath));
-        btnFile.setGraphic(ProgIcons.Icons.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Ein Programm zum verarbeiten der URL auswählen"));
 
         btnFind.setOnAction(event -> {
