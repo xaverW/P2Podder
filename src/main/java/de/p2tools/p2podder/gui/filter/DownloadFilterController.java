@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -85,7 +85,7 @@ public class DownloadFilterController extends FilterPane {
         separator.getStyleClass().add("pseperator2");
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.getChildren().addAll(PGuiTools.getHDistance(10), separator, hBoxAll);
+        vBoxFilter.getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
     }
 
     private void initTable() {

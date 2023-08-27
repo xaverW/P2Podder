@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.smallgui;
 
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
@@ -64,8 +64,8 @@ public class SmallGuiTop extends HBox {
 
         setAlignment(Pos.CENTER_LEFT);
         setSpacing(15);
-        getChildren().addAll(btnRadio, PGuiTools.getHBoxGrower(),
-                new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown, PGuiTools.getHBoxGrower(), btnClose);
+        getChildren().addAll(btnRadio, P2GuiTools.getHBoxGrower(),
+                new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown, P2GuiTools.getHBoxGrower(), btnClose);
 
         initFilter();
     }

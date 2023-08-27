@@ -73,7 +73,7 @@ public class TablePodcast extends PTable<Podcast> {
 
         final TableColumn<Podcast, Boolean> activeColumn = new TableColumn<>(PodcastNames.PODCAST_ACTIVE);
         activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
-        activeColumn.setCellFactory(new CellCheckBox().cellFactoryBool);
+        activeColumn.setCellFactory(new CellCheckBox().cellFactory);
         activeColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, String> genreColumn = new TableColumn<>(PodcastNames.PODCAST_GENRE);

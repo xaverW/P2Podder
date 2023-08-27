@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -70,8 +70,8 @@ public class SmallGuiBottom extends HBox {
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxButton.getChildren().addAll(btnRandom, sp1, btnPrev, btnNext, sp2, btnStart, btnPlayNext, btnStop);
-        getChildren().addAll(btnShowFilter, btnClearFilter, PGuiTools.getVDistance(20),
-                getInfoBox(), PGuiTools.getHBoxGrower(), hBoxButton);
+        getChildren().addAll(btnShowFilter, btnClearFilter, P2GuiTools.getVDistance(20),
+                getInfoBox(), P2GuiTools.getHBoxGrower(), hBoxButton);
     }
 
     private GridPane getInfoBox() {
