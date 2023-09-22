@@ -31,21 +31,29 @@ import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 
-public class InitPodderMenu {
+public class ProgMenu extends MenuButton {
 
-    public MenuButton getMenu() {
-        MenuButton menuButton = new MenuButton();
-        initMenu(menuButton);
-        return menuButton;
+    public ProgMenu() {
+        makeMenu();
+        setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                ProgConfig.SYSTEM_DARK_THEME.setValue(!ProgConfig.SYSTEM_DARK_THEME.getValue());
+
+            }
+        });
     }
 
-    private void initMenu(MenuButton menuButton) {
+    private void makeMenu() {
         ProgData progData = ProgData.getInstance();
 
         // Menü
         final MenuItem miConfig = new MenuItem("Einstellungen des Programms");
         miConfig.setOnAction(e -> new ConfigDialogController(progData));
+
+        final CheckMenuItem miDarkMode = new CheckMenuItem("Dark Mode");
+        miDarkMode.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_DARK_THEME);
 
         final MenuItem miQuit = new MenuItem("Beenden");
         miQuit.setOnAction(e -> ProgQuitFactory.quit(progData.primaryStage, true));
@@ -81,10 +89,10 @@ public class InitPodderMenu {
             mHelp.getItems().addAll(miSave);
         }
 
-        menuButton.setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
-        menuButton.getStyleClass().addAll("btnFunction", "btnFunc-1");
-        menuButton.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU_TOP.getImageView());
-        menuButton.getItems().addAll(miConfig, mHelp,
+        setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
+        getStyleClass().addAll("btnFunction", "btnFunc-1");
+        setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU_TOP.getImageView());
+        getItems().addAll(miConfig, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }
 }

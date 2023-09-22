@@ -74,7 +74,7 @@ public class P2PodderController extends StackPane {
             tilePaneStationFavourite.setAlignment(Pos.CENTER);
             tilePaneStationFavourite.getChildren().addAll(btnEpisodes, btnPodcasts, btnDownloads);
             HBox.setHgrow(tilePaneStationFavourite, Priority.ALWAYS);
-            hBoxTop.getChildren().addAll(btnSmallGui, tilePaneStationFavourite, new InitPodderMenu().getMenu());
+            hBoxTop.getChildren().addAll(btnSmallGui, tilePaneStationFavourite, new ProgMenu());
 
             // Center
             paneEpisodeGui = episodeGui.pack();
