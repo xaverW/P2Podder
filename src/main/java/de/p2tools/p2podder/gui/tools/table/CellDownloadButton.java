@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.POpen;
+import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
@@ -131,7 +131,7 @@ public class CellDownloadButton<S, T> extends TableCell<S, T> {
                     btnOpenDirectory.setGraphic(ProgIconsP2Podder.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
-                        POpen.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+                        P2Open.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
                     });
 
                     Table.setButtonSize(btnOpenDirectory);

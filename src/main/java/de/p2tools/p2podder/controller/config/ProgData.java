@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.config;
 
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PEventHandler;
@@ -65,7 +65,7 @@ public class ProgData {
 
     // Gui
     public Stage primaryStage = null;
-    public PMaskerPane maskerPane = null;
+    public P2MaskerPane maskerPane = null;
     public P2PodderController p2PodderController = null;
 
     public EpisodeGui episodeGui = null;

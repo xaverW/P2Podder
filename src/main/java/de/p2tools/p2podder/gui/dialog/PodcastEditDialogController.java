@@ -19,8 +19,8 @@ package de.p2tools.p2podder.gui.dialog;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.data.PColorData;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PTextAreaIgnoreTab;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2TextAreaIgnoreTab;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -47,7 +47,7 @@ public class PodcastEditDialogController extends PDialogExtra {
 
     private final Label[] lbl = new Label[PodcastNames.MAX_ELEM];
     private final TextField[] txt = new TextField[PodcastNames.MAX_ELEM];
-    private final TextArea textArea = new PTextAreaIgnoreTab(false, true);
+    private final TextArea textArea = new P2TextAreaIgnoreTab(false, true);
     private final ComboBox<String> cboGenre = new ComboBox<>();
 
     private boolean addNewPodcast;
@@ -113,9 +113,9 @@ public class PodcastEditDialogController extends PDialogExtra {
         gridPane.setMaxWidth(Double.MAX_VALUE);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         int grid = 0;

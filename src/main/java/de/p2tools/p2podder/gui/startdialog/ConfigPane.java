@@ -19,10 +19,10 @@ package de.p2tools.p2podder.gui.startdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetFactory;
@@ -40,7 +40,7 @@ import java.io.File;
 
 public class ConfigPane {
     private final Stage stage;
-    private final PToggleSwitch tglSearch = new PToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
+    private final P2ToggleSwitch tglSearch = new P2ToggleSwitch("einmal am Tag nach einer neuen Programmversion suchen");
     private final GridPane gridPane = new GridPane();
     private final TextField txtPlayer = new TextField();
     private TextField txtPodDest = new TextField();
@@ -55,7 +55,7 @@ public class ConfigPane {
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         makeDestPath();
         makeVLCPath();
@@ -77,7 +77,7 @@ public class ConfigPane {
         gridPane.add(new Label(" "), 2, row);
         gridPane.add(text, 0, row);
 
-        final Button btnHelp = PButton.helpButton(stage, "Speicherordner Episoden", HelpText.DEST_DIR_EPISODES);
+        final Button btnHelp = P2Button.helpButton(stage, "Speicherordner Episoden", HelpText.DEST_DIR_EPISODES);
         if (ProgData.debug) {
             //dann einen anderen Pfad
             ProgConfig.SYSTEM_POD_DIR.setValue("/tmp/Podcast");
@@ -116,7 +116,7 @@ public class ConfigPane {
         Text text = new Text("Pfad zum Media-Player auswählen");
         text.setStyle("-fx-font-weight: bold");
 
-        PHyperlink hyperlink = new PHyperlink(stage,
+        P2Hyperlink hyperlink = new P2Hyperlink(stage,
                 ProgConst.ADRESSE_WEBSITE_VLC,
                 ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
 
@@ -143,7 +143,7 @@ public class ConfigPane {
         btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
 
-        final Button btnHelp = PButton.helpButton(stage,
+        final Button btnHelp = P2Button.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
 
         HBox hBox = new HBox();
@@ -169,7 +169,7 @@ public class ConfigPane {
         Text text = new Text("Suche nach einem Programmupdate");
         text.setStyle("-fx-font-weight: bold");
 
-        final Button btnHelp = PButton.helpButton(stage, "Programmupdate suchen",
+        final Button btnHelp = P2Button.helpButton(stage, "Programmupdate suchen",
                 "Beim Programmstart wird geprüft, ob es eine neue Version des Programms gibt. Wenn es " +
                         "eine neue Version gibt, wird das mit einer Nachricht mitgeteilt. Es wird nicht " +
                         "automatisch das Programm verändert.");

@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.starterdownload;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PSizeTools;
+import de.p2tools.p2lib.guitools.P2SizeTools;
 import de.p2tools.p2lib.tools.date.DateFactory;
 import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -162,8 +162,8 @@ public class DownloadStarterFactory {
         }
 
         if (download.getDownloadStart().getInputStream() != null) {
-            list.add("Bytes gelesen: " + PSizeTools.humanReadableByteCount(download.getDownloadStart().getInputStream().getSumByte(), true));
-            list.add("Bandbreite: " + PSizeTools.humanReadableByteCount(download.getDownloadStart().getInputStream().getSumBandwidth(), true));
+            list.add("Bytes gelesen: " + P2SizeTools.humanReadableByteCount(download.getDownloadStart().getInputStream().getSumByte(), true));
+            list.add("Bandbreite: " + P2SizeTools.humanReadableByteCount(download.getDownloadStart().getInputStream().getSumBandwidth(), true));
         }
         list.add("URL: " + download.getEpisodeUrl());
 
@@ -191,7 +191,7 @@ public class DownloadStarterFactory {
             download.getDownloadSize().setActFileSize(-1);
 
             if (start.getInputStream() != null) {
-                download.setBandwidth("Ø " + PSizeTools.humanReadableByteCount(start.getInputStream().getSumBandwidth(), true));
+                download.setBandwidth("Ø " + P2SizeTools.humanReadableByteCount(start.getInputStream().getSumBandwidth(), true));
             }
 
             final long dauer = start.getStartTime().diffInMinutes();

@@ -16,7 +16,7 @@
 package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import javafx.application.Application;
@@ -69,7 +69,7 @@ public class MTStartErrorWindow extends Application {
 
             HBox hBoxUrl = new HBox(10);
             hBoxUrl.setAlignment(Pos.CENTER_LEFT);
-            PHyperlink hyperlink = new PHyperlink(url,
+            P2Hyperlink hyperlink = new P2Hyperlink(url,
                     ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
             hBoxUrl.getChildren().addAll(new Label("Infos:"), hyperlink);
 

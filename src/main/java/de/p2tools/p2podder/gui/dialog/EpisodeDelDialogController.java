@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -54,7 +54,7 @@ public class EpisodeDelDialogController extends PDialogExtra {
     }
 
     public void close() {
-        PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_DEL, getStage());
+        P2GuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_DEL, getStage());
         super.close();
     }
 

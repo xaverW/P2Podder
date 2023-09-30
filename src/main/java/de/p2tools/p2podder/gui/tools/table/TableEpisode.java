@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.PTableFactory;
-import de.p2tools.p2lib.guitools.ptable.CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
-import de.p2tools.p2lib.guitools.ptable.CellPFileSize;
+import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
+import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
+import de.p2tools.p2lib.guitools.ptable.P2CellPFileSize;
 import de.p2tools.p2lib.tools.file.PFileSize;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -58,16 +58,16 @@ public class TableEpisode extends PTable<Episode> {
     private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
-        ProgColorList.EPISODE_NEW_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_STARTED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_RUNNING_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_ERROR_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.EPISODE_NEW_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_STARTED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_RUNNING_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_ERROR_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
     }
 
     private void initColumn() {
@@ -80,7 +80,7 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        noColumn.setCellFactory(new CellIntMax<Episode, Integer>().cellFactory);
+        noColumn.setCellFactory(new P2CellIntMax<Episode, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Episode, String> podcastNameColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_PODCAST_NAME);
@@ -101,7 +101,7 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
@@ -110,7 +110,7 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, PFileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
-        sizeColumn.setCellFactory(new CellPFileSize<Episode, PFileSize>().cellFactory);
+        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, PFileSize>().cellFactory);
         sizeColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Episode, String> fileColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_NAME);

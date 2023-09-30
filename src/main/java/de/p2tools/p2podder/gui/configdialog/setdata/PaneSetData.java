@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui.configdialog.setdata;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PStyles;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Styles;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetData;
@@ -61,7 +61,7 @@ public class PaneSetData extends TitledPane {
     PaneSetData(ControllerSet controllerSet) {
         this.controllerSet = controllerSet;
         this.stage = controllerSet.getStage();
-        this.btnHelpSearch = PButton.helpButton(stage,
+        this.btnHelpSearch = P2Button.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);
 
         makePane();
@@ -99,7 +99,7 @@ public class PaneSetData extends TitledPane {
         txtProgPath.textProperty().addListener((observable, oldValue, newValue) -> {
             File file = new File(txtProgPath.getText());
             if (!file.exists() || !file.isFile()) {
-                txtProgPath.setStyle(PStyles.PTEXTFIELD_ERROR);
+                txtProgPath.setStyle(P2Styles.PTEXTFIELD_ERROR);
             } else {
                 txtProgPath.setStyle("");
             }
@@ -131,11 +131,11 @@ public class PaneSetData extends TitledPane {
         gridPane.add(txtProgSwitch, 1, row, 4, 1);
 
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
         vBox.getChildren().add(gridPane);
 
-        final Button btnHelp = PButton.helpButton(stage, "Set", HelpTextPset.HELP_PSET);
+        final Button btnHelp = P2Button.helpButton(stage, "Set", HelpTextPset.HELP_PSET);
         HBox hBox = new HBox();
         VBox.setVgrow(hBox, Priority.ALWAYS);
         hBox.setAlignment(Pos.BOTTOM_RIGHT);

@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogOnly;
-import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
@@ -94,7 +94,7 @@ public class SmallGuiPack extends PDialogOnly {
     }
 
     private void saveMe() {
-        PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
+        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 
     public void saveTable() {
@@ -112,9 +112,9 @@ public class SmallGuiPack extends PDialogOnly {
         close();
 
         Platform.runLater(() -> {
-                    PGuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                    progData.primaryStage.setWidth(PGuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.setHeight(PGuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
+                    P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
+                    progData.primaryStage.setWidth(P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
+                    progData.primaryStage.setHeight(P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
                     progData.primaryStage.show();
                 }
         );
@@ -158,6 +158,6 @@ public class SmallGuiPack extends PDialogOnly {
 
     private void getSize() {
         smallGuiCenter.saveTable();
-        PGuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
+        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 }

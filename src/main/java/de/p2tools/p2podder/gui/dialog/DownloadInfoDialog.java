@@ -17,8 +17,8 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -66,10 +66,10 @@ public class DownloadInfoDialog extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(10));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
         int row = 0;
@@ -107,11 +107,11 @@ public class DownloadInfoDialog extends PDialogExtra {
 
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_URL + ":"), 0, row);
-        gridPane.add(new PHyperlink(downloadData.getEpisodeUrl()), 1, row, 3, 1);
+        gridPane.add(new P2Hyperlink(downloadData.getEpisodeUrl()), 1, row, 3, 1);
 
         ++row;
         gridPane.add(new Label(DownloadFieldNames.DOWNLOAD_WEBSITE + ":"), 0, row);
-        gridPane.add(new PHyperlink(downloadData.getEpisodeWebsite()), 1, row, 3, 1);
+        gridPane.add(new P2Hyperlink(downloadData.getEpisodeWebsite()), 1, row, 3, 1);
 
         ++row;
         gridAdd(DownloadFieldNames.DOWNLOAD_DATE, PLDateFactory.toString(downloadData.getPubDate()), row);

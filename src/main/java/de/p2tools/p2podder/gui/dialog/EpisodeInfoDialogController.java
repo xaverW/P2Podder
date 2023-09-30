@@ -17,9 +17,9 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PGuiSize;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -55,9 +55,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
     private final Button btnOk = new Button("_Ok");
     private final ImageView ivNew = new ImageView();
     private final TextArea taDescription = new TextArea();
-    private final PHyperlink pHyperlinkUrl = new PHyperlink("",
+    private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
-    private final PHyperlink pHyperlinkWebsite = new PHyperlink("",
+    private final P2Hyperlink pHyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
 
     private Episode episode;
@@ -76,7 +76,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         //damit die Größe im ausgeklappten/eingeklappten Modus getrennt gespeichert wird
         setSizeConfiguration(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                 ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
-        PGuiSize.setSizePos(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+        P2GuiSize.setSizePos(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                         ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                 this.getStage(), null);
         getStage().show();
@@ -109,16 +109,16 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         setBtnUpDownToolTip();
         btnUpDown.setOnAction(event -> {
             if (ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get()) {
-                PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, getStage());
+                P2GuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, getStage());
                 ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
                 makePane();
-                PGuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, this.getStage());
+                P2GuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, this.getStage());
 
             } else {
-                PGuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, getStage());
+                P2GuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, getStage());
                 ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
                 makePane();
-                PGuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, this.getStage());
+                P2GuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, this.getStage());
             }
             setBtnUpDownToolTip();
         });
@@ -165,16 +165,16 @@ public class EpisodeInfoDialogController extends PDialogExtra {
 
     private void addStageSize() {
         if (this.getStage().isShowing()) {
-            PGuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                             ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                     this.getStage());
-            PGuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                             ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                     this.getStage());
-            PGuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                             ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                     this.getStage());
-            PGuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                             ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                     this.getStage());
         }
@@ -189,9 +189,9 @@ public class EpisodeInfoDialogController extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(5));
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         for (int i = 0; i < EpisodeFieldNames.MAX_ELEM; ++i) {
             textTitle[i] = new Text(EpisodeFieldNames.COLUMN_NAMES[i] + ":");

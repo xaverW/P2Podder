@@ -18,8 +18,8 @@ package de.p2tools.p2podder.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
@@ -60,7 +60,7 @@ public class PaneProg {
         result.add(tpConfig);
 
         addWebbrowser(gridPane, 0);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
     }
 
     private void addWebbrowser(GridPane gridPane, int row) {
@@ -75,7 +75,7 @@ public class PaneProg {
         btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Einen Webbrowser zum Öffnen von URLs auswählen"));
 
-        final Button btnHelp = PButton.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);
+        final Button btnHelp = P2Button.helpButton(stage, "Webbrowser", HelpText.WEBBROWSER);
 
         gridPane.add(txtFileManagerWeb, 0, row + 1);
         gridPane.add(btnFile, 1, row + 1);

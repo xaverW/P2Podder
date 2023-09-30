@@ -17,9 +17,9 @@
 package de.p2tools.p2podder.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
@@ -36,7 +36,7 @@ public class PaneEpisode {
 
     private final ProgData progData;
 
-    private PToggleSwitch tglDelFile = new PToggleSwitch("");
+    private P2ToggleSwitch tglDelFile = new P2ToggleSwitch("");
     private CheckBox chkAsk = new CheckBox("Vorher immer fragen");
 
     private final Stage stage;
@@ -65,7 +65,7 @@ public class PaneEpisode {
         chkAsk.disableProperty().bind(ProgConfig.SYSTEM_DELETE_EPISODE_FILE.not());
 
 
-        final Button btnCleanHelp = PButton.helpButton(stage, "Speicherordner aufräumen", HelpText.DEST_DIR_CLEAN);
+        final Button btnCleanHelp = P2Button.helpButton(stage, "Speicherordner aufräumen", HelpText.DEST_DIR_CLEAN);
         Button btnClean = new Button("Aufräumen");
         btnClean.setTooltip(new Tooltip("Dateien ohne entsprechende Episode löschen."));
         btnClean.setOnAction(a -> DownloadFactory.cleanUpDownloadDir());
@@ -82,9 +82,9 @@ public class PaneEpisode {
         gridPane.add(btnCleanHelp, 3, row);
         GridPane.setHalignment(btnClean, HPos.RIGHT);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcPrefSize());
     }
 }

@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.starterdownload;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.guitools.PSizeTools;
+import de.p2tools.p2lib.guitools.P2SizeTools;
 import de.p2tools.p2lib.tools.date.PDate;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
@@ -52,7 +52,7 @@ public final class DownloadStart extends StartProps {
 
     public void setBandwidth(long bandwidth) {
         this.bandwidth = bandwidth;
-        downloadData.setBandwidth(PSizeTools.humanReadableByteCount(bandwidth, true));
+        downloadData.setBandwidth(P2SizeTools.humanReadableByteCount(bandwidth, true));
     }
 
     public PDate getStartTime() {

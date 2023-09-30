@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.PTableFactory;
-import de.p2tools.p2lib.guitools.ptable.CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
+import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
+import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2lib.mtdownload.DownloadSizeData;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -57,14 +57,14 @@ public class TableDownload extends PTable<DownloadData> {
     private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
-        ProgColorList.DOWNLOAD_WAIT_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_WAIT.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_RUN_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_ERROR_BG.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_ERROR.colorProperty().addListener((a, b, c) -> PTableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_WAIT_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_WAIT.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_RUN_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_ERROR_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgColorList.DOWNLOAD_ERROR.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
     }
 
     private void initColumn() {
@@ -77,7 +77,7 @@ public class TableDownload extends PTable<DownloadData> {
 
         final TableColumn<DownloadData, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        noColumn.setCellFactory(new CellIntMax<DownloadData, Integer>().cellFactory);
+        noColumn.setCellFactory(new P2CellIntMax<DownloadData, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<DownloadData, String> genreColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_GENRE);
@@ -120,7 +120,7 @@ public class TableDownload extends PTable<DownloadData> {
 
         final TableColumn<DownloadData, LocalDate> dateColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<DownloadData, String> fileColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME);

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -43,7 +43,7 @@ public class P2PodderController extends StackPane {
     private BorderPane borderPane = new BorderPane();
     private StackPane stackPaneCont = new StackPane();
 
-    private PMaskerPane maskerPane = new PMaskerPane();
+    private P2MaskerPane maskerPane = new P2MaskerPane();
     private PodcastBarController podcastBarController;
 
     private Pane paneEpisodeGui;

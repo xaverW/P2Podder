@@ -17,9 +17,9 @@
 package de.p2tools.p2podder.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.PStringUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -40,7 +40,7 @@ public class PaneConfig {
 
     private final ProgData progData;
 
-    private final PToggleSwitch tglSmallButton = new PToggleSwitch("In den Tabellen nur kleine Buttons anzeigen");
+    private final P2ToggleSwitch tglSmallButton = new P2ToggleSwitch("In den Tabellen nur kleine Buttons anzeigen");
 
     private TextField txtUserAgent;
     private final Stage stage;
@@ -65,10 +65,10 @@ public class PaneConfig {
         result.add(tpConfig);
 
         tglSmallButton.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW);
-        final Button btnHelpSize = PButton.helpButton(stage, "Nur kleine Button anzeigen",
+        final Button btnHelpSize = P2Button.helpButton(stage, "Nur kleine Button anzeigen",
                 HelpText.SMALL_BUTTON);
         GridPane.setHalignment(btnHelpSize, HPos.RIGHT);
-        final Button btnHelpUserAgent = PButton.helpButton(stage, "User Agent festlegen",
+        final Button btnHelpUserAgent = P2Button.helpButton(stage, "User Agent festlegen",
                 HelpText.USER_AGENT);
         GridPane.setHalignment(btnHelpUserAgent, HPos.RIGHT);
         txtUserAgent = new TextField() {
@@ -108,7 +108,7 @@ public class PaneConfig {
         gridPane.add(txtUserAgent, 1, row);
         gridPane.add(btnHelpUserAgent, 2, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
     }
 }

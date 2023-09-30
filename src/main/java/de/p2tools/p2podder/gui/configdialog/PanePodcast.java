@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.guitools.PButton;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.ptoggleswitch.PToggleSwitch;
+import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
@@ -43,8 +43,8 @@ public class PanePodcast {
 
     private TextField txtPodDest = new TextField();
 
-    private final PToggleSwitch tglUpdatePodcastDaily = new PToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
-    private final PToggleSwitch tglStartDownload = new PToggleSwitch("und den Download der Episoden gleich starten");
+    private final P2ToggleSwitch tglUpdatePodcastDaily = new P2ToggleSwitch("Die Podcasts einmal am Tage aktualisieren");
+    private final P2ToggleSwitch tglStartDownload = new P2ToggleSwitch("und den Download der Episoden gleich starten");
 
     private final Stage stage;
 
@@ -68,7 +68,7 @@ public class PanePodcast {
         TitledPane tpConfig = new TitledPane("Speicherordner", gridPane);
         result.add(tpConfig);
 
-        final Button btnHelp = PButton.helpButton(stage, "Speicherordner Podcasts", HelpText.DEST_DIR);
+        final Button btnHelp = P2Button.helpButton(stage, "Speicherordner Podcasts", HelpText.DEST_DIR);
         txtPodDest.textProperty().bindBidirectional(ProgConfig.SYSTEM_POD_DIR);
         if (txtPodDest.getText().isEmpty()) {
             txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
@@ -96,7 +96,7 @@ public class PanePodcast {
                 tglStartDownload.setSelected(false);
             }
         });
-        final Button btnHelpLoadStationList = PButton.helpButton(stage, "Nach neuen Episoden suchen",
+        final Button btnHelpLoadStationList = P2Button.helpButton(stage, "Nach neuen Episoden suchen",
                 HelpText.LOAD_PODCASTS_EVERY_DAYS);
         GridPane.setHalignment(btnHelpLoadStationList, HPos.RIGHT);
 
@@ -119,9 +119,9 @@ public class PanePodcast {
         gridPane.add(hBox, 0, ++row, 3, 1);
 
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(),
-                PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcPrefSize());
     }
 }

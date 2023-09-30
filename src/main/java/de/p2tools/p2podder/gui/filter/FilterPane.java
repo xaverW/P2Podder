@@ -16,11 +16,11 @@
 
 package de.p2tools.p2podder.gui.filter;
 
-import de.p2tools.p2lib.guitools.pclosepane.PClosePaneV;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneV;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.layout.VBox;
 
-public class FilterPane extends PClosePaneV {
+public class FilterPane extends P2ClosePaneV {
 
     public FilterPane(BooleanProperty divOn) {
         super(divOn, true);

@@ -17,9 +17,9 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
-import de.p2tools.p2lib.guitools.pclosepane.PClosePaneH;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
@@ -34,13 +34,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class EpisodeGuiInfoController extends PClosePaneH {
+public class EpisodeGuiInfoController extends P2ClosePaneH {
     private final Label lblTitle = new Label("");
     private final Label lblGenre = new Label("");
     private final Label lblDate = new Label("");
     private final Label lblLength = new Label("");
     private final Label size = new Label("");
-    private final PHyperlink hyperlinkWebsite = new PHyperlink("",
+    private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
     private final TextArea taDescription = new TextArea();
 
@@ -70,8 +70,8 @@ public class EpisodeGuiInfoController extends PClosePaneH {
         gridPaneLeft.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPaneLeft.setPadding(new Insets(P2LibConst.DIST_GRIDPANE_PADDING));
 
-        gridPaneLeft.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPaneLeft.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
         gridPaneLeft.add(new Label("Titel: "), 0, row);
@@ -87,8 +87,8 @@ public class EpisodeGuiInfoController extends PClosePaneH {
         gridPaneRight.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPaneRight.setPadding(new Insets(P2LibConst.DIST_GRIDPANE_PADDING));
 
-        gridPaneRight.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPaneRight.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         row = 0;
         gridPaneRight.add(new Label("Genre:"), 0, row);

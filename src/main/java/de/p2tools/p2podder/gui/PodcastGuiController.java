@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -160,7 +160,7 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     public void refreshTable() {
-        PTableFactory.refreshTable(tableView);
+        P2TableFactory.refreshTable(tableView);
     }
 
     public ArrayList<Podcast> getSelList() {
@@ -263,11 +263,11 @@ public class PodcastGuiController extends AnchorPane {
 
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
+                P2TableFactory.scrollVisibleRangeDown(tableView);
                 event.consume();
             }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
+            if (P2TableFactory.SPACE_SHIFT.match(event)) {
+                P2TableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
 

@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.ptable.CellCheckBox;
-import de.p2tools.p2lib.guitools.ptable.CellLocalDate;
+import de.p2tools.p2lib.guitools.ptable.P2CellCheckBox;
+import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -73,7 +73,7 @@ public class TablePodcast extends PTable<Podcast> {
 
         final TableColumn<Podcast, Boolean> activeColumn = new TableColumn<>(PodcastNames.PODCAST_ACTIVE);
         activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
-        activeColumn.setCellFactory(new CellCheckBox().cellFactory);
+        activeColumn.setCellFactory(new P2CellCheckBox().cellFactory);
         activeColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, String> genreColumn = new TableColumn<>(PodcastNames.PODCAST_GENRE);
@@ -90,7 +90,7 @@ public class TablePodcast extends PTable<Podcast> {
 
         final TableColumn<Podcast, LocalDate> dateColumn = new TableColumn<>(PodcastNames.PODCAST_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        dateColumn.setCellFactory(new CellLocalDate().cellFactory);
+        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Podcast, String> websiteColumn = new TableColumn<>(PodcastNames.PODCAST_WEBSITE);

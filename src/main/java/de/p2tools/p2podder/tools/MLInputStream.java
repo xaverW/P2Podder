@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.tools;
 
-import de.p2tools.p2lib.guitools.PSizeTools;
+import de.p2tools.p2lib.guitools.P2SizeTools;
 import javafx.beans.property.IntegerProperty;
 
 import java.io.IOException;
@@ -107,15 +107,15 @@ public class MLInputStream extends InputStream {
     public String toString() {
         final long bytesRead = calculationTask.getTotalBytesRead();
         final long b = getSumBandwidth();
-        final String s = PSizeTools.humanReadableByteCount(bytesRead, true);
-        return "Download: Bytes gelesen: " + s + "  Bandbreite: " + PSizeTools.humanReadableByteCount(b, true);
+        final String s = P2SizeTools.humanReadableByteCount(bytesRead, true);
+        return "Download: Bytes gelesen: " + s + "  Bandbreite: " + P2SizeTools.humanReadableByteCount(b, true);
     }
 
     public String[] getMsg() {
         final long bytesRead = calculationTask.getTotalBytesRead();
         final long b = getSumBandwidth();
-        final String s = PSizeTools.humanReadableByteCount(bytesRead, true);
-        return new String[]{"Download", "Bytes gelesen: " + s, "Bandbreite: " + PSizeTools.humanReadableByteCount(b, true)};
+        final String s = P2SizeTools.humanReadableByteCount(bytesRead, true);
+        return new String[]{"Download", "Bytes gelesen: " + s, "Bandbreite: " + P2SizeTools.humanReadableByteCount(b, true)};
     }
 
     /**

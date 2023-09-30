@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.starterepisode;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
@@ -123,8 +123,8 @@ public class StartEpisodeErrorDialogController extends PDialogExtra {
         gridPane.add(new Label("Fehler:"), 0, ++row);
         gridPane.add(txtCont, 1, row);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         HBox hBox = new HBox(10);
         VBox.setVgrow(hBox, Priority.ALWAYS);

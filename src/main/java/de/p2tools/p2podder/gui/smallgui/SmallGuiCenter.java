@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.PTableFactory;
+import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2podder.controller.config.Events;
@@ -135,11 +135,11 @@ public class SmallGuiCenter extends VBox {
     }
 
     public void setNextEpisode() {
-        PTableFactory.selectNextRow(tableView);
+        P2TableFactory.selectNextRow(tableView);
     }
 
     public void setPreviousEpisode() {
-        PTableFactory.selectPreviousRow(tableView);
+        P2TableFactory.selectPreviousRow(tableView);
     }
 
     public void playRandomStation() {
@@ -156,7 +156,7 @@ public class SmallGuiCenter extends VBox {
         progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
             public void pingGui(PEvent runEvent) {
-                PTableFactory.refreshTable(tableView);
+                P2TableFactory.refreshTable(tableView);
             }
         });
     }
@@ -216,12 +216,12 @@ public class SmallGuiCenter extends VBox {
         });
 
         tableView.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (PTableFactory.SPACE.match(event)) {
-                PTableFactory.scrollVisibleRangeDown(tableView);
+            if (P2TableFactory.SPACE.match(event)) {
+                P2TableFactory.scrollVisibleRangeDown(tableView);
                 event.consume();
             }
-            if (PTableFactory.SPACE_SHIFT.match(event)) {
-                PTableFactory.scrollVisibleRangeUp(tableView);
+            if (P2TableFactory.SPACE_SHIFT.match(event)) {
+                P2TableFactory.scrollVisibleRangeUp(tableView);
                 event.consume();
             }
         });
