@@ -188,7 +188,7 @@ public class DownloadStarterFactory {
             //dann ist er gelaufen
             start.setTimeLeftSeconds(0);
             download.setProgress(DownloadConstants.PROGRESS_FINISHED);
-            download.getDownloadSize().setActFileSize(-1);
+            download.getDownloadSize().setActuallySize(-1);
 
             if (start.getInputStream() != null) {
                 download.setBandwidth("Ø " + P2SizeTools.humanReadableByteCount(start.getInputStream().getSumBandwidth(), true));
@@ -226,7 +226,7 @@ public class DownloadStarterFactory {
             if (destFile.exists()) {
                 final long length = destFile.length();
                 if (length > 0)
-                    download.getDownloadSize().setActFileSize(length);
+                    download.getDownloadSize().setActuallySize(length);
             }
         } catch (
                 final Exception ex) {

@@ -80,8 +80,8 @@ public class DirectHttpDownload extends Thread {
                 file = new File(download.getDestPathFile());
 
                 if (!cancelDownload()) {
-                    download.getDownloadSize().setSize(getContentLength(url));
-                    download.getDownloadSize().setActFileSize(0);
+                    download.getDownloadSize().setTargetSize(getContentLength(url));
+                    download.getDownloadSize().setActuallySize(0);
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(1000 * ProgConfig.SYSTEM_PARAMETER_DOWNLOAD_TIMEOUT_SECOND.getValue());
                     conn.setReadTimeout(1000 * ProgConfig.SYSTEM_PARAMETER_DOWNLOAD_TIMEOUT_SECOND.getValue());
@@ -236,11 +236,11 @@ public class DirectHttpDownload extends Thread {
             download.getDownloadSize().addActFileSize(len);
 
             // für die Anzeige prüfen ob sich was geändert hat
-            if (aktSize != download.getDownloadSize().getActFileSize()) {
-                aktSize = download.getDownloadSize().getActFileSize();
+            if (aktSize != download.getDownloadSize().getActuallySize()) {
+                aktSize = download.getDownloadSize().getActuallySize();
             }
-            if (download.getDownloadSize().getSize() > 0) {
-                percent = 1.0 * aktSize / download.getDownloadSize().getSize();
+            if (download.getDownloadSize().getTargetSize() > 0) {
+                percent = 1.0 * aktSize / download.getDownloadSize().getTargetSize();
                 if (startPercent == DownloadConstants.PROGRESS_NOT_STARTED) {
                     startPercent = percent;
                 }
@@ -258,7 +258,7 @@ public class DirectHttpDownload extends Thread {
                     // Restzeit ermitteln
                     if (percent > (DownloadConstants.PROGRESS_STARTED) && percent > startPercent) {
                         long timeLeft = 0;
-                        long sizeLeft = download.getDownloadSize().getSize() - download.getDownloadSize().getActFileSize();
+                        long sizeLeft = download.getDownloadSize().getTargetSize() - download.getDownloadSize().getActuallySize();
                         if (sizeLeft <= 0) {
                             timeLeft = 0;
                         } else if (aktBandwidth > 0) {

@@ -46,7 +46,7 @@ public final class Episode extends EpisodeProps {
         setGenre(download.getGenre());
         setFileName(download.getDestFileName());
         setFilePath(download.getDestPath());
-        getPFileSize().setSizeL(download.getDownloadSize().getSize());
+        getPFileSize().setSizeL(download.getDownloadSize().getTargetSize());
         setPubDate(download.getPubDate());
         if (podcast != null) {
             setPodcastName(podcast.getName());

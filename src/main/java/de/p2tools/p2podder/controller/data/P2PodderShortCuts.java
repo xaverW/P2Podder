@@ -17,43 +17,43 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2lib.tools.shortcut.PShortcut;
+import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class P2PodderShortCuts {
     // Menü
-    public static final PShortcut SHORTCUT_QUIT_PROGRAM =
-            new PShortcut(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
+    public static final P2ShortcutKey SHORTCUT_QUIT_PROGRAM =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
                     "Programm beenden",
                     "Das Programm wird beendet.");
 
     // Tabelle Episode
-    public static final PShortcut SHORTCUT_UPDATE_PODCAST =
-            new PShortcut(ProgConfig.SHORTCUT_UPDATE_PODCAST, ProgConfig.SHORTCUT_UPDATE_PODCAST_INIT,
+    public static final P2ShortcutKey SHORTCUT_UPDATE_PODCAST =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_UPDATE_PODCAST, ProgConfig.SHORTCUT_UPDATE_PODCAST_INIT,
                     "Podcast aktualisieren",
                     "Die markierten Podcasts in der Tabelle \"Podcast\" wirden aktualisiert");
 
-    public static final PShortcut SHORTCUT_SAVE_PODCAST =
-            new PShortcut(ProgConfig.SHORTCUT_SAVE_PODCAST, ProgConfig.SHORTCUT_SAVE_PODCAST_INIT,
+    public static final P2ShortcutKey SHORTCUT_SAVE_PODCAST =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_SAVE_PODCAST, ProgConfig.SHORTCUT_SAVE_PODCAST_INIT,
                     "Podcast speichern",
                     "Der markierte Podcast in der Tabelle \"Podcast\" wird gespeichert.");
 
-    public static final PShortcut SHORTCUT_EPOSODE_START =
-            new PShortcut(ProgConfig.SHORTCUT_EPISODE_START, ProgConfig.SHORTCUT_EPISODE_START_INIT,
+    public static final P2ShortcutKey SHORTCUT_EPOSODE_START =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_EPISODE_START, ProgConfig.SHORTCUT_EPISODE_START_INIT,
                     "Episode abspielen",
                     "Die markierte Episode in der Tabelle \"Episoden\" wird gestartet.");
-    public static final PShortcut SHORTCUT_EPISODE_STOP =
-            new PShortcut(ProgConfig.SHORTCUT_EPISODE_STOP, ProgConfig.SHORTCUT_EPISODE_STOP_INIT,
+    public static final P2ShortcutKey SHORTCUT_EPISODE_STOP =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_EPISODE_STOP, ProgConfig.SHORTCUT_EPISODE_STOP_INIT,
                     "Episode stoppen",
                     "Die markierte Episode in der Tabelle \"Episoden\" wird gestoppt.");
-    public static final PShortcut SHORTCUT_EPISODE_CHANGE =
-            new PShortcut(ProgConfig.SHORTCUT_EPISODE_CHANGE, ProgConfig.SHORTCUT_EPISODE_CHANGE_INIT,
+    public static final P2ShortcutKey SHORTCUT_EPISODE_CHANGE =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_EPISODE_CHANGE, ProgConfig.SHORTCUT_EPISODE_CHANGE_INIT,
                     "Episode ändern",
                     "Die markierte Episode in der Tabelle \"Episoden\" kann geändert werden.");
 
-    private static ObservableList<PShortcut> shortcutList = FXCollections.observableArrayList();
+    private static ObservableList<P2ShortcutKey> shortcutList = FXCollections.observableArrayList();
 
     public P2PodderShortCuts() {
         shortcutList.add(SHORTCUT_QUIT_PROGRAM);
@@ -66,7 +66,7 @@ public class P2PodderShortCuts {
         shortcutList.add(SHORTCUT_EPISODE_CHANGE);
     }
 
-    public static synchronized ObservableList<PShortcut> getShortcutList() {
+    public static synchronized ObservableList<P2ShortcutKey> getShortcutList() {
         return shortcutList;
     }
 }

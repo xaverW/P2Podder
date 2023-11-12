@@ -106,7 +106,7 @@ public final class DownloadData extends DownloadDataProps {
         }
 
         final DownloadSize downSize = getDownloadSize();
-        downSize.reset();
+        downSize.resetActFileSize();
         setRemaining("");
         setBandwidth("");
         getDownloadStart().setBandwidth(0);
@@ -201,7 +201,7 @@ public final class DownloadData extends DownloadDataProps {
     public void restartDownload() {
         // stoppen und alles zurücksetzen
         final DownloadSize downSize = getDownloadSize();
-        downSize.reset();
+        downSize.resetActFileSize();
         setRemaining("");
         setBandwidth("");
         getDownloadStart().setBandwidth(0);
