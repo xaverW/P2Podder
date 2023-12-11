@@ -21,9 +21,9 @@ import de.p2tools.p2lib.dialogs.PDirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -74,7 +74,7 @@ public class PaneTray {
                 txtPath.setText(s);
             }
         });
-        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.disableProperty().bind(tglOwnIcon.selectedProperty().not().or(tglTray.selectedProperty().not()));
 
         txtPath.textProperty().bindBidirectional(ProgConfig.SYSTEM_TRAY_ICON_PATH);

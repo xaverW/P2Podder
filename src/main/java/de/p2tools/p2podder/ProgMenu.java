@@ -20,12 +20,12 @@ package de.p2tools.p2podder;
 import de.p2tools.p2lib.guitools.P2Open;
 import de.p2tools.p2lib.tools.log.PLogger;
 import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.configdialog.ConfigDialogController;
 import de.p2tools.p2podder.gui.dialog.AboutDialogController;
 import de.p2tools.p2podder.gui.dialog.ResetDialogController;
@@ -70,7 +70,7 @@ public class ProgMenu extends MenuButton {
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");
         miUrlHelp.setOnAction(event -> {
             P2Open.openURL(ProgConst.URL_WEBSITE_HELP,
-                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+                    ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         });
 
         final MenuItem miReset = new MenuItem("Einstellungen zurücksetzen");
@@ -91,7 +91,7 @@ public class ProgMenu extends MenuButton {
 
         setTooltip(new Tooltip("Programmeinstellungen anzeigen"));
         getStyleClass().addAll("btnFunction", "btnFunc-1");
-        setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_MENU_TOP.getImageView());
+        setGraphic(ProgIcons.ICON_TOOLBAR_MENU_TOP.getImageView());
         getItems().addAll(miConfig, miDarkMode, mHelp,
                 new SeparatorMenuItem(), miQuit);
     }

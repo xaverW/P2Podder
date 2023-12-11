@@ -130,9 +130,13 @@ public class PodcastEditDialogController extends PDialogExtra {
                     gridPane.add(lbl[i], 0, grid);
                     gridPane.add(new Label(podcast.getNo() + ""), 1, grid++);
                     break;
-                case PodcastNames.PODCAST_DATE_NO:
+                case PodcastNames.PODCAST_MAX_AGE_NO:
                     gridPane.add(lbl[i], 0, grid);
-                    gridPane.add(new Label(PLDateFactory.toString(podcast.getDate())), 1, grid++);
+                    gridPane.add(new Label(podcast.getMaxAge() + ""), 1, grid++);
+                    break;
+                case PodcastNames.PODCAST_GEN_DATE_NO:
+                    gridPane.add(lbl[i], 0, grid);
+                    gridPane.add(new Label(PLDateFactory.toString(podcast.getGenDate())), 1, grid++);
                     break;
                 case PodcastNames.PODCAST_WEBSITE_NO:
                     gridPane.add(lbl[i], 0, grid);

@@ -32,12 +32,13 @@ public class PodcastProps extends PDataSample<Podcast> {
     private final LongProperty id = new SimpleLongProperty();
     private final StringProperty name = new SimpleStringProperty("");
     private final BooleanProperty active = new SimpleBooleanProperty(true);
-    private final StringProperty genre = new SimpleStringProperty("");
+    private final StringProperty genre = new SimpleStringProperty("Nachrichten");
     private final StringProperty description = new SimpleStringProperty("");
     private final IntegerProperty amountEpisodes = new SimpleIntegerProperty();
-    private LocalDate date = LocalDate.now();
+    private final IntegerProperty maxAge = new SimpleIntegerProperty();
     private final StringProperty website = new SimpleStringProperty("");
     private final StringProperty url = new SimpleStringProperty("");
+    private LocalDate genDate = LocalDate.now();
 
     @Override
     public Config[] getConfigsArr() {
@@ -48,14 +49,15 @@ public class PodcastProps extends PDataSample<Podcast> {
         list.add(new Config_stringProp("genre", genre));
         list.add(new Config_stringProp("description", description));
         list.add(new Config_intProp("amountEpisodes", amountEpisodes));
-        list.add(new Config_lDate("date", PLDateFactory.toString(date)) {
-            @Override
-            public void setUsedValue(LocalDate act) {
-                date = act;
-            }
-        });
+        list.add(new Config_intProp("maxAge", maxAge));
         list.add(new Config_stringProp("website", website));
         list.add(new Config_stringProp("url", url));
+        list.add(new Config_lDate("genDate", PLDateFactory.toString(genDate)) {
+            @Override
+            public void setUsedValue(LocalDate act) {
+                genDate = act;
+            }
+        });
 
         return list.toArray(new Config[]{});
     }
@@ -69,12 +71,12 @@ public class PodcastProps extends PDataSample<Podcast> {
         return no.get();
     }
 
-    public void setNo(int no) {
-        this.no.setValue(no);
-    }
-
     public IntegerProperty noProperty() {
         return no;
+    }
+
+    public void setNo(int no) {
+        this.no.set(no);
     }
 
     public long getId() {
@@ -113,18 +115,6 @@ public class PodcastProps extends PDataSample<Podcast> {
         this.active.set(active);
     }
 
-    public int getAmountEpisodes() {
-        return amountEpisodes.get();
-    }
-
-    public IntegerProperty amountEpisodesProperty() {
-        return amountEpisodes;
-    }
-
-    public void setAmountEpisodes(int amountEpisodes) {
-        this.amountEpisodes.set(amountEpisodes);
-    }
-
     public String getGenre() {
         return genre.get();
     }
@@ -149,12 +139,28 @@ public class PodcastProps extends PDataSample<Podcast> {
         this.description.set(description);
     }
 
-    public LocalDate getDate() {
-        return date;
+    public int getAmountEpisodes() {
+        return amountEpisodes.get();
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public IntegerProperty amountEpisodesProperty() {
+        return amountEpisodes;
+    }
+
+    public void setAmountEpisodes(int amountEpisodes) {
+        this.amountEpisodes.set(amountEpisodes);
+    }
+
+    public int getMaxAge() {
+        return maxAge.get();
+    }
+
+    public IntegerProperty maxAgeProperty() {
+        return maxAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge.set(maxAge);
     }
 
     public String getWebsite() {
@@ -181,6 +187,14 @@ public class PodcastProps extends PDataSample<Podcast> {
         this.url.set(url);
     }
 
+    public LocalDate getGenDate() {
+        return genDate;
+    }
+
+    public void setGenDate(LocalDate genDate) {
+        this.genDate = genDate;
+    }
+
     @Override
     public int compareTo(Podcast arg0) {
         int ret;
@@ -189,5 +203,4 @@ public class PodcastProps extends PDataSample<Podcast> {
         }
         return ret;
     }
-
 }

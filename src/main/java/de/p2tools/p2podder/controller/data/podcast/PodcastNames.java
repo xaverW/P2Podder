@@ -25,9 +25,10 @@ public class PodcastNames {
     public static final String PODCAST_GENRE = "Genre";
     public static final String PODCAST_DESCRIPTION = "Beschreibung";
     public static final String PODCAST_AMOUNT_EPISODES = "Episoden";
-    public static final String PODCAST_DATE = "Datum";
+    public static final String PODCAST_MAX_AGE = "Max. Alter";
     public static final String PODCAST_WEBSITE = "Website";
     public static final String PODCAST_URL = "Url";
+    public static final String PODCAST_GEN_DATE = "Erstellt";
 
     public static final int PODCAST_NO_NO = 0;
     public static final int PODCAST_ID_NO = 1;
@@ -36,9 +37,10 @@ public class PodcastNames {
     public static final int PODCAST_GENRE_NO = 4;
     public static final int PODCAST_DESCRIPTION_NO = 5;
     public static final int PODCAST_AMOUNT_EPISODES_NO = 6;
-    public static final int PODCAST_DATE_NO = 7;
+    public static final int PODCAST_MAX_AGE_NO = 7;
     public static final int PODCAST_WEBSITE_NO = 8;
     public static final int PODCAST_URL_NO = 9;
+    public static final int PODCAST_GEN_DATE_NO = 10;
 
     public static final String[] COLUMN_NAMES = {
             PodcastNames.PODCAST_NO,
@@ -48,9 +50,10 @@ public class PodcastNames {
             PodcastNames.PODCAST_GENRE,
             PodcastNames.PODCAST_DESCRIPTION,
             PodcastNames.PODCAST_AMOUNT_EPISODES,
-            PodcastNames.PODCAST_DATE,
+            PodcastNames.PODCAST_MAX_AGE,
             PodcastNames.PODCAST_WEBSITE,
             PodcastNames.PODCAST_URL,
+            PodcastNames.PODCAST_GEN_DATE,
     };
     public static final int MAX_ELEM = COLUMN_NAMES.length;
 }

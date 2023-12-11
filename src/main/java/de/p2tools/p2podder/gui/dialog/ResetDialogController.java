@@ -22,9 +22,9 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.P2Button;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -63,14 +63,14 @@ public class ResetDialogController extends PDialogExtra {
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
         // Set zurücksetzen
-        P2BigButton cancelButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton cancelButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Nichts ändern", "");
         cancelButton.setOnAction(e -> close());
 
         final Button btnHelp = P2Button.helpButton(this.getStage(), "Programm zurücksetzen",
                 HelpText.RESET_DIALOG);
 
-        P2BigButton setButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(),
+        P2BigButton setButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(),
                 "Einstellungen zum Abspielen zurücksetzen",
                 "Es werden alle Programmsets (auch eigene) gelöscht" + P2LibConst.LINE_SEPARATOR +
                         "und die Standardsets wieder angelegt.");
@@ -83,7 +83,7 @@ public class ResetDialogController extends PDialogExtra {
         });
 
         // alle Einstellungen
-        P2BigButton allButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(), "" +
+        P2BigButton allButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(), "" +
                 "Alle Einstellungen zurücksetzen!",
                 "ACHTUNG!" + P2LibConst.LINE_SEPARATOR +
                         "Alle Einstellungen gehen verloren!");
@@ -112,7 +112,7 @@ public class ResetDialogController extends PDialogExtra {
             }
         });
 
-        gridPane.add(ProgIconsP2Podder.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(btnHelp, 2, 1);

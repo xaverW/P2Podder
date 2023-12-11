@@ -23,8 +23,8 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.*;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.HPos;
@@ -96,10 +96,10 @@ public class ConfigPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
-        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(ProgIconsP2Podder.ICON_BUTTON_PROPOSE.getImageView());
+        btnReset.setGraphic(ProgIcons.ICON_BUTTON_PROPOSE.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für die Episoden wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtPodDest.setText(ProgInfosFactory.getStandardPodDestString());
@@ -118,7 +118,7 @@ public class ConfigPane {
 
         P2Hyperlink hyperlink = new P2Hyperlink(stage,
                 ProgConst.ADRESSE_WEBSITE_VLC,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnFind = new Button("suchen");
         btnFind.setOnAction(event -> {
@@ -140,7 +140,7 @@ public class ConfigPane {
         btnFile.setOnAction(event -> {
             PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
-        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
 
         final Button btnHelp = P2Button.helpButton(stage,

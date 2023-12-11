@@ -22,10 +22,10 @@ import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2lib.tools.log.PLogger;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -87,10 +87,10 @@ public class PaneLogFile {
         btnFile.setOnAction(event -> {
             PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtLogFile);
         });
-        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         final Button btnReset = new Button();
-        btnReset.setGraphic(ProgIconsP2Podder.ICON_BUTTON_RESET.getImageView());
+        btnReset.setGraphic(ProgIcons.ICON_BUTTON_RESET.getImageView());
         btnReset.setTooltip(new Tooltip("Standardpfad für das Logfile wieder herstellen"));
         btnReset.setOnAction(event -> {
             txtLogFile.setText(ProgInfosFactory.getStandardLogDirectoryString());

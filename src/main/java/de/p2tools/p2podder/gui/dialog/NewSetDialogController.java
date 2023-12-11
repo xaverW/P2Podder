@@ -21,8 +21,8 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -65,11 +65,11 @@ public class NewSetDialogController extends PDialogExtra {
                 "für das abspielen der Episoden.");
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
-        P2BigButton cancelButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(), "Nichts ändern",
+        P2BigButton cancelButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(), "Nichts ändern",
                 "");
         cancelButton.setOnAction(e -> close());
 
-        P2BigButton addButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(), "Neue Sets nur anfügen",
+        P2BigButton addButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(), "Neue Sets nur anfügen",
                 "Die bestehenden Einstellungen werden nicht verändert." + P2LibConst.LINE_SEPARATOR +
                         "Das neue Set wird nur angefügt und muss dann" + P2LibConst.LINE_SEPARATOR +
                         "erst noch in den Einstellungen aktiviert werden." + P2LibConst.LINE_SEPARATOR +
@@ -79,7 +79,7 @@ public class NewSetDialogController extends PDialogExtra {
             close();
         });
 
-        P2BigButton replaceButton = new P2BigButton(ProgIconsP2Podder.ICON_BUTTON_QUIT.getImageView(), "Aktuelle Sets durch neue ersetzen",
+        P2BigButton replaceButton = new P2BigButton(ProgIcons.ICON_BUTTON_QUIT.getImageView(), "Aktuelle Sets durch neue ersetzen",
                 "Es werden alle Programmsets (auch eigene) gelöscht" + P2LibConst.LINE_SEPARATOR +
                         "und die neuen Standardsets wieder angelegt." + P2LibConst.LINE_SEPARATORx2 +
                         "(Wenn Sie die Einstellungen nicht verändert haben" + P2LibConst.LINE_SEPARATOR +
@@ -90,7 +90,7 @@ public class NewSetDialogController extends PDialogExtra {
         });
 
 
-        gridPane.add(ProgIconsP2Podder.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
+        gridPane.add(ProgIcons.ICON_DIALOG_QUIT.getImageView(), 0, 0, 1, 1);
         gridPane.add(headerLabel, 1, 0);
         gridPane.add(cancelButton, 1, 1);
         gridPane.add(addButton, 1, 2);

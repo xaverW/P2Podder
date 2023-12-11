@@ -19,6 +19,7 @@ package de.p2tools.p2podder.controller.data;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.dialogs.PDialogFileChooser;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 
@@ -81,7 +82,7 @@ public class SetDataList extends SetDataListProps {
         if (ProgConfig.SYSTEM_PATH_VLC.get().isEmpty()) {
             ProgConfig.SYSTEM_PATH_VLC.setValue(PDialogFileChooser.showFileChooser(ProgData.getInstance().primaryStage, "VLC",
                     "VLC wird nicht gefunden.", "Bitte den Pfad zum" + P2LibConst.LINE_SEPARATOR +
-                            "VLC-Player angeben.", false, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView()));
+                            "VLC-Player angeben.", false, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView()));
         }
         return ProgConfig.SYSTEM_PATH_VLC.get();
     }

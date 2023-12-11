@@ -22,7 +22,7 @@ import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import de.p2tools.p2podder.gui.dialog.PodcastEditDialogController;
+import de.p2tools.p2podder.gui.podcastadd.PodcastAddDialogController;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TablePodcast;
 import javafx.application.Platform;
@@ -105,16 +105,22 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     public void changePodcast() {
-        final Optional<Podcast> optPodcast = getSel();
-        if (optPodcast.isPresent()) {
-            Podcast podcast = optPodcast.get();
-            Podcast podcastTmp = podcast.getCopy();
-            PodcastEditDialogController podcastEditDialogController =
-                    new PodcastEditDialogController(ProgData.getInstance(), podcastTmp, false);
-            if (podcastEditDialogController.isOk()) {
-                podcast.copyToMe(podcastTmp);
-            }
+        ArrayList<Podcast> list = getSelList();
+        if (list.isEmpty()) {
+            return;
         }
+        new PodcastAddDialogController(progData, list, false);
+
+//        final Optional<Podcast> optPodcast = getSel();
+//        if (optPodcast.isPresent()) {
+//            Podcast podcast = optPodcast.get();
+//            Podcast podcastTmp = podcast.getCopy();
+//            PodcastEditDialogController podcastEditDialogController =
+//                    new PodcastEditDialogController(ProgData.getInstance(), podcastTmp, false);
+//            if (podcastEditDialogController.isOk()) {
+//                podcast.copyToMe(podcastTmp);
+//            }
+//        }
     }
 
     private void setPodcast() {

@@ -18,10 +18,10 @@ package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastBarController;
@@ -117,7 +117,7 @@ public class P2PodderController extends StackPane {
         maskerPane.toFront();
         Button btnStop = maskerPane.getButton();
         maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIconsP2Podder.ICON_BUTTON_STOP.getImageView());
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
     }
 
     private void initButton() {
@@ -125,7 +125,7 @@ public class P2PodderController extends StackPane {
         btnSmallGui.setOnAction(e -> selPanelSmallRadio());
         btnSmallGui.setMaxWidth(Double.MAX_VALUE);
         btnSmallGui.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnSmallGui.setGraphic(ProgIconsP2Podder.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
+        btnSmallGui.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
 
         btnEpisodes.setTooltip(new Tooltip("Episoden anzeigen"));
         btnEpisodes.setOnAction(e -> selPanelEpisode());

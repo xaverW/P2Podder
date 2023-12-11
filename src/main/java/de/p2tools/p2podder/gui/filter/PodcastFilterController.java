@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -63,7 +63,7 @@ public class PodcastFilterController extends FilterPane {
 
     private void addButton() {
         Button btnClearFilter = new Button("");
-        btnClearFilter.setGraphic(ProgIconsP2Podder.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        btnClearFilter.setGraphic(ProgIcons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> progData.podcastFilter.clearFilter());
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 

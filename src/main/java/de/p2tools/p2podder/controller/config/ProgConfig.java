@@ -136,6 +136,8 @@ public class ProgConfig extends PDataProgConfig {
     public static StringProperty PODCAST_GUI_TABLE_ORDER = addStrProp("podcast-gui-table-order");
     public static StringProperty PODCAST_EDIT_DIALOG_SIZE = addStrProp("podcast-edit-dialog-size", "600:800");
     public static DoubleProperty PODCAST_GUI_INFO_DIVIDER = addDoubleProp("podcast-gui-info-divider", 0.7);
+    public static StringProperty PODCAST_DIALOG_ADD_SIZE = addStrProp("podcast-dialog-add-size", "700:700");
+    public static StringProperty PODCAST_DIALOG_ADD_MORE_SIZE = addStrProp("podcast-dialog-add-more-size", "800:700");
 
     //Gui Download
     public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDoubleProp("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);

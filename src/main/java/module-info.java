@@ -6,7 +6,8 @@ module p2podder {
     opens de.p2tools.p2podder.controller.data.podcast;
     opens de.p2tools.p2podder.controller.data.download;
     opens de.p2tools.p2podder.controller.data.episode;
-    
+    opens de.p2tools.p2podder.controller;
+
     requires de.p2tools.p2lib;
     requires javafx.controls;
     requires org.controlsfx.controls;

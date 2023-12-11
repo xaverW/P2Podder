@@ -27,7 +27,6 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import org.jdom.Element;
 
 import java.net.URL;
@@ -41,7 +40,7 @@ public class ParseRss {
     private ParseRss() {
     }
 
-    public static void parse(ProgData progData, Podcast podcast) {
+    public static void parse(ProgData progData, de.p2tools.p2podder.controller.data.podcast.Podcast podcast) {
         try {
 //            URL feedUrl = new URL("https://www.deutschlandfunk.de/podcast-deutschlandfunk-der-tag.3417.de.podcast.xml");
             URL feedUrl = new URL(podcast.getUrl());

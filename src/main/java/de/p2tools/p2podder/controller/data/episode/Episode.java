@@ -19,7 +19,6 @@ package de.p2tools.p2podder.controller.data.episode;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterepisode.Start;
 
 import java.time.LocalDate;
@@ -35,7 +34,7 @@ public final class Episode extends EpisodeProps {
     }
 
     public Episode(DownloadData download) {
-        Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
+        de.p2tools.p2podder.controller.data.podcast.Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
 
         setDuration(download.getDuration());
         setDescription(download.getDescription());
@@ -85,7 +84,7 @@ public final class Episode extends EpisodeProps {
         return false;
     }
 
-    public void setThePodcast(Podcast podcast) {
+    public void setThePodcast(de.p2tools.p2podder.controller.data.podcast.Podcast podcast) {
         if (podcast == null) {
             // bei gespeicherten Episoden kann es den Podcast nicht mehr geben
             return;

@@ -73,7 +73,13 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     @Override
     public void addNewItem(Object obj) {
         if (obj.getClass().equals(Podcast.class)) {
-            importPodcastOnlyWithNr((Podcast) obj);
+            importPodcastOnlyWithNo((Podcast) obj);
+        }
+    }
+
+    public void addNewItem(List<Podcast> podcastList) {
+        for (Podcast p : podcastList) {
+            importPodcastOnlyWithNo(p);
         }
     }
 
@@ -116,7 +122,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         filteredList.setPredicate(predicate);
     }
 
-    public synchronized boolean importPodcastOnlyWithNr(Podcast podcast) {
+    public synchronized boolean importPodcastOnlyWithNo(Podcast podcast) {
         //hier nur beim Laden aus einer fertigen Podcastliste mit der GUI
         //die Podcasts sind schon sortiert, nur die Nummer muss noch ergänzt werden
         podcast.setNo(nr++);

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2podder.controller.data;
+package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgIconsP2Podder {
+public class ProgIcons {
     private final static String ICON_PATH = "res/program/";
     public static String ICON_PATH_LONG = "de/p2tools/p2podder/res/program/";
 
@@ -89,6 +89,7 @@ public class ProgIconsP2Podder {
     public static P2IconPodder ICON_TOOLBAR_EPISODE_STOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-stop.png", 32, 32);
     public static P2IconPodder ICON_TOOLBAR_PODCAST_UPDATE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-update.png", 32, 32);
     public static P2IconPodder ICON_TOOLBAR_PODCAST_DEL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-del.png", 32, 32);
+    public static P2IconPodder ICON_TOOLBAR_PODCAST_CHANGE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-change.png", 32, 32);
     public static P2IconPodder ICON_TOOLBAR_PODCAST_ADD = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-add.png", 32, 32);
     public static P2IconPodder ICON_TOOLBAR_INFO = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-info.png", 32, 32);
 

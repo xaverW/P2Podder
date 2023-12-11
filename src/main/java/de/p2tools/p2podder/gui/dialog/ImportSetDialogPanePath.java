@@ -21,9 +21,9 @@ import de.p2tools.p2lib.dialogs.PDirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
-import de.p2tools.p2podder.controller.data.ProgIconsP2Podder;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.geometry.Insets;
@@ -76,7 +76,7 @@ public class ImportSetDialogPanePath {
         });
         hyperlink = new P2Hyperlink(stage,
                 ProgConst.ADRESSE_WEBSITE_VLC,
-                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+                ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 
         text.setStyle("-fx-font-weight: bold");
 
@@ -94,7 +94,7 @@ public class ImportSetDialogPanePath {
         btnFile.setOnAction(event -> {
             PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
-        btnFile.setGraphic(ProgIconsP2Podder.ICON_BUTTON_FILE_OPEN.getImageView());
+        btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));
         final Button btnHelp = P2Button.helpButton(stage,
                 "Videoplayer", HelpText.PROG_PATHS);

@@ -88,10 +88,9 @@ public class TablePodcast extends PTable<Podcast> {
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amountEpisodes"));
         amountColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Podcast, LocalDate> dateColumn = new TableColumn<>(PodcastNames.PODCAST_DATE);
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
-        dateColumn.getStyleClass().add("alignCenter");
+        final TableColumn<Podcast, Integer> startDateColumn = new TableColumn<>(PodcastNames.PODCAST_MAX_AGE);
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("maxAge"));
+        startDateColumn.getStyleClass().add("alignCenterLeft");
 
         final TableColumn<Podcast, String> websiteColumn = new TableColumn<>(PodcastNames.PODCAST_WEBSITE);
         websiteColumn.setCellValueFactory(new PropertyValueFactory<>("website"));
@@ -100,6 +99,11 @@ public class TablePodcast extends PTable<Podcast> {
         final TableColumn<Podcast, String> urlColumn = new TableColumn<>(PodcastNames.PODCAST_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
         urlColumn.getStyleClass().add("alignCenterLeft");
+
+        final TableColumn<Podcast, LocalDate> dateColumn = new TableColumn<>(PodcastNames.PODCAST_GEN_DATE);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("genDate"));
+        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
+        dateColumn.getStyleClass().add("alignCenter");
 
         nrColumn.setPrefWidth(50);
         nameColumn.setPrefWidth(150);
@@ -110,6 +114,6 @@ public class TablePodcast extends PTable<Podcast> {
 
         getColumns().addAll(
                 nrColumn, nameColumn, activeColumn, genreColumn, startColumn, amountColumn,
-                dateColumn, websiteColumn, urlColumn);
+                startDateColumn, websiteColumn, urlColumn, dateColumn);
     }
 }

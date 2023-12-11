@@ -20,9 +20,10 @@ package de.p2tools.p2podder.controller.data.podcast;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.dialog.PodcastEditDialogController;
+import de.p2tools.p2podder.gui.podcastadd.PodcastAddDialogController;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,12 +37,16 @@ public class PodcastFactory {
     }
 
     public static void addNewPodcast() {
-        Podcast podcast = new Podcast();
-        PodcastEditDialogController podcastEditDialogController =
-                new PodcastEditDialogController(ProgData.getInstance(), podcast, true);
-        if (podcastEditDialogController.isOk()) {
-            ProgData.getInstance().podcastList.addNewItem(podcast);
-        }
+        ArrayList<Podcast> list = new ArrayList<>();
+        list.add(new Podcast());
+        new PodcastAddDialogController(ProgData.getInstance(), list, true);
+
+//        Podcast podcast = new Podcast();
+//        PodcastEditDialogController podcastEditDialogController =
+//                new PodcastEditDialogController(ProgData.getInstance(), podcast, true);
+//        if (podcastEditDialogController.isOk()) {
+//            ProgData.getInstance().podcastList.addNewItem(podcast);
+//        }
     }
 
     public static void cleanFaultyCharacterStationList() {
