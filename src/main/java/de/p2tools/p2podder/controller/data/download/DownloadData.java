@@ -26,8 +26,6 @@ import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterdownload.DownloadStart;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -39,17 +37,11 @@ public final class DownloadData extends DownloadDataProps {
     public DownloadData() {
     }
 
-    public DownloadData(String episodeUri, String title, String website, String pubDate, String description, Podcast podcast) {
+    public DownloadData(String episodeUri, String title, String website, LocalDate pubDate, String description, Podcast podcast) {
         setEpisodeUrl(episodeUri);
         setEpisodeTitle(title);
         setEpisodeWebsite(website);
-        try {
-            LocalDate ld = LocalDate.parse(pubDate, DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US));
-            setPubDate(ld);
-        } catch (Exception ex) {
-            //dann halt nicht :)
-            setPubDate(LocalDate.now());
-        }
+        setPubDate(pubDate);
         setDescription(description);
 
         setPodcastId(podcast.getId());

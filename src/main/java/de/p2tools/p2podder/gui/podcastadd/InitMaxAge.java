@@ -32,7 +32,7 @@ public class InitMaxAge {
     }
 
     private void init() {
-        addPodcastDto.slMaxAge.setMin(0);
+        addPodcastDto.slMaxAge.setMin(FilterCheck.FILTER_ALL_OR_MIN);
         addPodcastDto.slMaxAge.setMax(100);
         addPodcastDto.slMaxAge.setShowTickLabels(true);
         addPodcastDto.slMaxAge.setMinorTickCount(9);
@@ -42,7 +42,7 @@ public class InitMaxAge {
         addPodcastDto.slMaxAge.setLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Double x) {
-                if (x == 0) {
+                if (x == FilterCheck.FILTER_ALL_OR_MIN) {
                     return "alles";
                 }
                 return x.intValue() + "";

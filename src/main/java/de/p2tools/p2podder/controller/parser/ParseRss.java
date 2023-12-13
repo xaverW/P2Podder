@@ -24,23 +24,30 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.mtfilter.FilterCheck;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import org.jdom.Element;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ParseRss {
 
     private ParseRss() {
     }
 
-    public static void parse(ProgData progData, de.p2tools.p2podder.controller.data.podcast.Podcast podcast) {
+    public static void parse(ProgData progData, Podcast podcast) {
         try {
 //            URL feedUrl = new URL("https://www.deutschlandfunk.de/podcast-deutschlandfunk-der-tag.3417.de.podcast.xml");
             URL feedUrl = new URL(podcast.getUrl());
@@ -99,11 +106,23 @@ public class ParseRss {
                     }
                 }
 
-                DownloadData download = new DownloadData(uri, title, website, pubDate, description, podcast);
-                download.getDownloadSize().setTargetSize(size);
-                download.setDuration(duration);
+                int days;
+                LocalDate date;
+                try {
+                    date = LocalDate.parse(pubDate, DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US));
+                    days = (int) DAYS.between(date, LocalDate.now());
+                } catch (Exception ex) {
+                    //dann halt nicht :)
+                    date = LocalDate.now();
+                    days = FilterCheck.FILTER_ALL_OR_MIN;
+                }
 
-                downloads.add(download);
+                if (podcast.getMaxAge() == FilterCheck.FILTER_ALL_OR_MIN || days <= podcast.getMaxAge()) {
+                    DownloadData download = new DownloadData(uri, title, website, date, description, podcast);
+                    download.getDownloadSize().setTargetSize(size);
+                    download.setDuration(duration);
+                    downloads.add(download);
+                }
             }
             if (!downloads.isEmpty()) {
                 progData.downloadList.addNewDownloads(downloads);
