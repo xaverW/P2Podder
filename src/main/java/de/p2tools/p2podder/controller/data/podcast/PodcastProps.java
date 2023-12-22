@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -52,7 +52,7 @@ public class PodcastProps extends PDataSample<Podcast> {
         list.add(new Config_intProp("maxAge", maxAge));
         list.add(new Config_stringProp("website", website));
         list.add(new Config_stringProp("url", url));
-        list.add(new Config_lDate("genDate", PLDateFactory.toString(genDate)) {
+        list.add(new Config_lDate("genDate", P2LDateFactory.toString(genDate)) {
             @Override
             public void setUsedValue(LocalDate act) {
                 genDate = act;

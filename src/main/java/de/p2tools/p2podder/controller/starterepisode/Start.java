@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.starterepisode;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -36,7 +36,7 @@ public final class Start extends StartProps {
     private final StringProperty programCallArray = new SimpleStringProperty("");
 
     private Process process = null; //Prozess des Programms (VLC)
-    private PDate startTime = new PDate();
+    private P2Date startTime = new P2Date();
 
     private SetData setData = null;
     private EpisodeStarterFactory episodeStarterFactory = null;
@@ -55,11 +55,11 @@ public final class Start extends StartProps {
         StartProgramFactory.makeProgParameter(this);
     }
 
-    public PDate getStartTime() {
+    public P2Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(PDate startTime) {
+    public void setStartTime(P2Date startTime) {
         this.startTime = startTime;
     }
 

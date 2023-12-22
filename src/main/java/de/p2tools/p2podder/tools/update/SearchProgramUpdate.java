@@ -19,7 +19,7 @@ package de.p2tools.p2podder.tools.update;
 import de.p2tools.p2lib.checkforactinfos.FoundAll;
 import de.p2tools.p2lib.checkforactinfos.FoundSearchData;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -61,7 +61,7 @@ public class SearchProgramUpdate {
         }
 
 //        final PDate pd = new PDate(ProgConfig.SYSTEM_PROG_BUILD_DATE.get());
-        final PDate pd = new PDate(ProgramToolsFactory.getCompileDate());
+        final P2Date pd = new P2Date(ProgramToolsFactory.getCompileDate());
         String buildDate = pd.get_yyyy_MM_dd();
 
         FoundSearchData foundSearchData = new FoundSearchData(

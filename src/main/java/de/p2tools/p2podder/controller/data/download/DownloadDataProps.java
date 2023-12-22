@@ -21,7 +21,7 @@ import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2lib.mtdownload.DownloadSize;
-import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
@@ -57,7 +57,7 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
     private long podcastId = 0;
     private final StringProperty episodeWebsite = new SimpleStringProperty("");
 
-    private final PLDateProperty pubDate = new PLDateProperty();
+    private final P2LDateProperty pubDate = new P2LDateProperty();
 
     DownloadDataProps() {
     }
@@ -343,7 +343,7 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
         return pubDate.getValue();
     }
 
-    public PLDateProperty pubDateProperty() {
+    public P2LDateProperty pubDateProperty() {
         return pubDate;
     }
 

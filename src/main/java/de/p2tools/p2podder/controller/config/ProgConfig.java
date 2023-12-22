@@ -23,7 +23,7 @@ import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.data.PDataProgConfig;
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.date.PLDateTimeProperty;
+import de.p2tools.p2lib.tools.date.P2LDateTimeProperty;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
@@ -103,7 +103,7 @@ public class ProgConfig extends PDataProgConfig {
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBoolProp("system-delete-episode-file", Boolean.TRUE);
 
     //Meta-Daten
-    public static PLDateTimeProperty META_PODCAST_LIST_DATE = addPLocalDateTimeProp("meta-podcast-list-date", LocalDateTime.MIN);
+    public static P2LDateTimeProperty META_PODCAST_LIST_DATE = addPLocalDateTimeProp("meta-podcast-list-date", LocalDateTime.MIN);
 
     // Fenstereinstellungen
     public static StringProperty SYSTEM_SIZE_GUI = addStrProp("system-size-gui", "1000:800");

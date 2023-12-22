@@ -53,7 +53,7 @@ public class PodcastFilterController extends FilterPane {
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
         vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
         vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTxt);
 

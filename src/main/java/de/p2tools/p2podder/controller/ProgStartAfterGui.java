@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.LogMessage;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -69,11 +69,11 @@ public class ProgStartAfterGui {
             } else {
                 //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
                 if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
-                    if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
+                    if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
                         PLog.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
                     } else {
                         PLog.sysLog("nach neuen Episoden suchen");
-                        ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+                        ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
                         new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
                     }
                 } else {
@@ -179,12 +179,12 @@ public class ProgStartAfterGui {
     }
 
     private static boolean updateCheckTodayDone() {
-        return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+        return ProgConfig.SYSTEM_UPDATE_DATE.get().equals(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
     }
 
     private static void runUpdateCheck(boolean showAlways) {
         //prüft auf neue Version, ProgVersion und auch (wenn gewünscht) BETA-Version, ..
-        ProgConfig.SYSTEM_UPDATE_DATE.setValue(DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date()));
+        ProgConfig.SYSTEM_UPDATE_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
         new SearchProgramUpdate(ProgData.getInstance()).searchNewProgramVersion(showAlways);
     }
 }

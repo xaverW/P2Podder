@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
-import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.PFileSize;
 import javafx.beans.property.*;
 
@@ -46,7 +46,7 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final StringProperty episodeWebsite = new SimpleStringProperty("");
 
-    private final PLDateProperty pubDate = new PLDateProperty();
+    private final P2LDateProperty pubDate = new P2LDateProperty();
 
     @Override
     public Config[] getConfigsArr() {
@@ -221,7 +221,7 @@ public class EpisodeProps extends PDataSample<Episode> {
         return pubDate.get();
     }
 
-    public PLDateProperty pubDateProperty() {
+    public P2LDateProperty pubDateProperty() {
         return pubDate;
     }
 

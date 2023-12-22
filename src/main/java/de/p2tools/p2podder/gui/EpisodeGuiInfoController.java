@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -68,7 +68,7 @@ public class EpisodeGuiInfoController extends P2ClosePaneH {
 
         gridPaneLeft.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPaneLeft.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-        gridPaneLeft.setPadding(new Insets(P2LibConst.DIST_GRIDPANE_PADDING));
+        gridPaneLeft.setPadding(new Insets(P2LibConst.PADDING_GRIDPANE));
 
         gridPaneLeft.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
@@ -85,7 +85,7 @@ public class EpisodeGuiInfoController extends P2ClosePaneH {
 
         gridPaneRight.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPaneRight.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-        gridPaneRight.setPadding(new Insets(P2LibConst.DIST_GRIDPANE_PADDING));
+        gridPaneRight.setPadding(new Insets(P2LibConst.PADDING_GRIDPANE));
 
         gridPaneRight.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
@@ -123,7 +123,7 @@ public class EpisodeGuiInfoController extends P2ClosePaneH {
 
         lblTitle.setText(episode.getEpisodeTitle());
         lblGenre.setText(episode.getGenre());
-        lblDate.setText(PLDateFactory.toString(episode.getPubDate()));
+        lblDate.setText(P2LDateFactory.toString(episode.getPubDate()));
         lblLength.setText(episode.getDuration());
         size.setText(episode.getPFileSize().getSizeStr());
         hyperlinkWebsite.setUrl(episode.getEpisodeWebsite());

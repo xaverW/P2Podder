@@ -61,7 +61,7 @@ public class DownloadFilterController extends FilterPane {
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
         vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
         vBoxFilter.getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
 

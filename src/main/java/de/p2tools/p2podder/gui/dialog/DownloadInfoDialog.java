@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.dialog;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
@@ -114,7 +114,7 @@ public class DownloadInfoDialog extends PDialogExtra {
         gridPane.add(new P2Hyperlink(downloadData.getEpisodeWebsite()), 1, row, 3, 1);
 
         ++row;
-        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, PLDateFactory.toString(downloadData.getPubDate()), row);
+        gridAdd(DownloadFieldNames.DOWNLOAD_DATE, P2LDateFactory.toString(downloadData.getPubDate()), row);
     }
 
     private void gridAdd(String name, String value, int row) {

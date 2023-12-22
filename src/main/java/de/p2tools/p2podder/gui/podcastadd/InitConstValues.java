@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.gui.podcastadd;
 
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 
 public class InitConstValues {
     AddPodcastDto addPodcastDto;
@@ -29,6 +29,6 @@ public class InitConstValues {
     public void makeAct() {
         addPodcastDto.lblNo.setText(addPodcastDto.getAct().podcast.getNo() + "");
         addPodcastDto.lblSumEpisodes.setText(addPodcastDto.getAct().podcast.getAmountEpisodes() + "");
-        addPodcastDto.lblGenDate.setText(PLDateFactory.toString(addPodcastDto.getAct().podcast.getGenDate()));
+        addPodcastDto.lblGenDate.setText(P2LDateFactory.toString(addPodcastDto.getAct().podcast.getGenDate()));
     }
 }

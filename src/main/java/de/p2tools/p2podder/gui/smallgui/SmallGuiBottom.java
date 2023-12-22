@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -59,7 +59,7 @@ public class SmallGuiBottom extends HBox {
     }
 
     public void init() {
-        setSpacing(P2LibConst.DIST_HBOX);
+        setSpacing(P2LibConst.PADDING_HBOX);
         setAlignment(Pos.CENTER);
 
         Separator sp1 = new Separator(Orientation.VERTICAL);
@@ -96,7 +96,7 @@ public class SmallGuiBottom extends HBox {
             lblPodcast.setText("");
             lblTitle.setText("");
         } else {
-            String date = PLDateFactory.toString(episode.getPubDate());
+            String date = P2LDateFactory.toString(episode.getPubDate());
             String dur = episode.getDuration();
             if (!date.isEmpty() && !dur.isEmpty()) {
                 lblDate.setText(date + "  /  " + dur);

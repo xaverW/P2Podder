@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.tools.date.PLDateTimeFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -154,7 +154,7 @@ public class PodcastBarController extends AnchorPane {
             strText += "Podcasts heute geladen";
         } else if (day > 0) {
             strText = "Podcasts geladen: ";
-            strText += PLDateTimeFactory.toStringDate(ProgConfig.META_PODCAST_LIST_DATE.getValue());
+            strText += P2LDateTimeFactory.toStringDate(ProgConfig.META_PODCAST_LIST_DATE.getValue());
             strText += "  ";
             strText += "||  Alter: ";
             String strDay = String.valueOf(day);

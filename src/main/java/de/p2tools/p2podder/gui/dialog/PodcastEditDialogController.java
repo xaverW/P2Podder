@@ -21,7 +21,7 @@ import de.p2tools.p2lib.data.PColorData;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2TextAreaIgnoreTab;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -136,7 +136,7 @@ public class PodcastEditDialogController extends PDialogExtra {
                     break;
                 case PodcastNames.PODCAST_GEN_DATE_NO:
                     gridPane.add(lbl[i], 0, grid);
-                    gridPane.add(new Label(PLDateFactory.toString(podcast.getGenDate())), 1, grid++);
+                    gridPane.add(new Label(P2LDateFactory.toString(podcast.getGenDate())), 1, grid++);
                     break;
                 case PodcastNames.PODCAST_WEBSITE_NO:
                     gridPane.add(lbl[i], 0, grid);

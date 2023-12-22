@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2lib.tools.date.PDateFactory;
+import de.p2tools.p2lib.tools.date.P2DateFactory;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -89,7 +89,7 @@ public final class EpisodeFilterForwardBackward {
     }
 
     private boolean checkIsTheSame(EpisodeFilter ep, EpisodeFilter act) {
-        if (PDateFactory.diffInSeconds(date) > 3) {
+        if (P2DateFactory.diffInSeconds(date) > 3) {
             //dann wars ein gewollter Filter
             return false;
         }

@@ -16,14 +16,14 @@
 
 package de.p2tools.p2podder.gui.tools;
 
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.Date;
 import java.util.TimeZone;
 
 @SuppressWarnings("serial")
-public class DownloadDate extends PDate {
+public class DownloadDate extends P2Date {
 
     // die Filme werden immer in der Zeitzone "Europe/Berlin" gesucht
     private static final FastDateFormat FORMAT_dd_MM_YYYY = FastDateFormat.getInstance("dd.MM.yyyy", TimeZone.getTimeZone("Europe/Berlin"));

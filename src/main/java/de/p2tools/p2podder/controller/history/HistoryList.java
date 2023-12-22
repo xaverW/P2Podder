@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.history;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
@@ -117,7 +117,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
 
         PDuration.counterStart("History: addDataToHistory");
         final ArrayList<HistoryData> list = new ArrayList<>();
-        final String datum = DateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
+        final String datum = P2DateConst.F_FORMAT_dd_MM_yyyy.format(new Date());
         HistoryData historyData = new HistoryData(datum, theme, title, url);
         addToThisList(historyData);
         list.add(historyData);
@@ -133,7 +133,7 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
         }
 
         final ArrayList<HistoryData> list = new ArrayList<>(downloadList.size());
-        final String datum = DateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
+        final String datum = P2DateConst.F_FORMAT_dd_MM_yyyy.format(new Date());
 
         PDuration.counterStart("History: addDataToHistory");
         for (final DownloadData download : downloadList) {

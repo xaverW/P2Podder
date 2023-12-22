@@ -20,7 +20,7 @@ import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -319,7 +319,7 @@ public class EpisodeInfoDialogController extends PDialogExtra {
                         pHyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
                         break;
                     case EpisodeFieldNames.EPISODE_DATE_NO:
-                        lblCont[i].setText(PLDateFactory.toString(episode.getPubDate()));
+                        lblCont[i].setText(P2LDateFactory.toString(episode.getPubDate()));
                         break;
                 }
             }

@@ -81,7 +81,7 @@ public class PaneSetData extends TitledPane {
 
         VBox vBox = new VBox(P2LibConst.DIST_BUTTON);
         vBox.setFillWidth(true);
-        vBox.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBox.setPadding(new Insets(P2LibConst.PADDING));
 
         this.setText("Set Einstellungen");
         this.setContent(vBox);

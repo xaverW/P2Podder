@@ -79,7 +79,7 @@ public class EpisodeFilterController extends FilterPane {
         vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
         final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
         vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
         vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
 

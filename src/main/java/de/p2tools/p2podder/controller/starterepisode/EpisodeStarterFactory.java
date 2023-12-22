@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.controller.starterepisode;
 
-import de.p2tools.p2lib.tools.date.DateFactory;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
+import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -214,7 +214,7 @@ public class EpisodeStarterFactory {
             list.add("Episode abspielen");
 
             list.add("URL: " + starter.getFilePathName());
-            list.add("Startzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(starter.getStartTime()));
+            list.add("Startzeit: " + P2DateConst.F_FORMAT_HH__mm__ss.format(starter.getStartTime()));
             list.add("Programmaufruf: " + starter.getProgramCall());
             list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
@@ -243,8 +243,8 @@ public class EpisodeStarterFactory {
             final ArrayList<String> list = new ArrayList<>();
             list.add(PLog.LILNE3);
             list.add("Episode abspielen beendet");
-            list.add("Startzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(start.getStartTime()));
-            list.add("Endzeit: " + DateFactory.F_FORMAT_HH__mm__ss.format(new PDate().getTime()));
+            list.add("Startzeit: " + P2DateConst.F_FORMAT_HH__mm__ss.format(start.getStartTime()));
+            list.add("Endzeit: " + P2DateConst.F_FORMAT_HH__mm__ss.format(new P2Date().getTime()));
 
             if (start.getRestartCounter() > 0) {
                 list.add("Restarts: " + start.getRestartCounter());
