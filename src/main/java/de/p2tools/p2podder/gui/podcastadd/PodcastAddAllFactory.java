@@ -108,7 +108,7 @@ public class PodcastAddAllFactory {
 
     private static void addCheckAllCss(AddPodcastDto addPodcastDto) {
         if (isAllSelected(addPodcastDto)) {
-            final String c = P2Color.getCssColor(PodcastAddDialogFactory.getBlue());
+            final String c = P2Color.getCssColor(PodcastAddDialogFactory.getBlue(), false);
             addPodcastDto.btnAll.setStyle("-fx-text-fill: #" + c);
 
         } else {
