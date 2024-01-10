@@ -3,7 +3,7 @@
 <br />
 **Release 1**
 
-    ==> Die Java-Version wurde auf mind. Java 17 angehoben!! (Mind. Java 17 muss installiert sein oder Sie verwenden die Programmversion die Java bereits enthält)
+==> Die Java-Version wurde auf mind. Java 17 angehoben!! (Mind. Java 17 muss installiert sein oder Sie verwenden die Programmversion die Java bereits enthält)
 
 * Gui-Elemente überarbeitet: RangeSlider
 * Button für den Dark Mode im Progamm-Menü
