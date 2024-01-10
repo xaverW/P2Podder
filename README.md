@@ -2,18 +2,14 @@
 
 # P2Podder
 
-P2Podder ist ein Podcatcher. Mit dem Programm können Podcasts verwaltet werden. Es können Podcasts angelegt werden,
-diese können dann immer wieder auf neue Episoden geprüft werden. Die neuen Episoden werden heruntergeladen und können
+P2Podder ist ein Podcatcher. Mit dem Programm können Podcasts verwaltet werden. Es können Podcasts angelegt werden, diese können dann immer wieder auf neue Episoden geprüft werden. Die neuen Episoden werden heruntergeladen und können
 abgespielt werden.
-
 <br />
 
 
 ## Infos
 
-Das Programm nutzt den Ordner ".p2Podder" unter Linux und den versteckten Ordner "p2Podder" unter Windows als
-Konfig-Ordner. Man kann dem Programm auch einen Ordner für die Einstellungen mitgeben (und es z.B. auf einem USB-Stick
-verwenden):
+Das Programm nutzt den Ordner ".p2Podder" unter Linux und den versteckten Ordner "p2Podder" unter Windows als Konfig-Ordner. Man kann dem Programm auch einen Ordner für die Einstellungen mitgeben (und es z.B. auf einem USB-Stick verwenden):
 
 ```
 java -jar P2Podder.jar ORDNER
@@ -28,8 +24,7 @@ https://www.p2tools.de
 
 Unterstützt wird Windows und Linux.
 
-Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird
-OpenJDK17 empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
+Das Programm benötigt unter Windows und Linux eine aktuelle Java-VM ab Version: Java 17. Für Linux-Benutzer wird OpenJDK empfohlen. (FX-Runtime bringt das Programm bereits mit und muss nicht installiert werden).
 
 <br />
 
