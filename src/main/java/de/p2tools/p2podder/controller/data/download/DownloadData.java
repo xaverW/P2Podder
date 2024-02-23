@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.data.download;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.mtdownload.DownloadSize;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -49,7 +49,7 @@ public final class DownloadData extends DownloadDataProps {
         setGenre(podcast.getGenre());
 
         // und endlich Aufruf bauen :)
-        String path = PFileUtils.addsPath(ProgConfig.SYSTEM_POD_DIR.getValueSafe(), podcast.getGenre());
+        String path = P2FileUtils.addsPath(ProgConfig.SYSTEM_POD_DIR.getValueSafe(), podcast.getGenre());
         String name = PUrlTools.getFileName(episodeUri);
         DownloadProgram.makeProgParameter(this, name, path);
     }

@@ -20,7 +20,7 @@ package de.p2tools.p2podder.controller.data.episode;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.PSystemUtils;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -248,7 +248,7 @@ public class EpisodeFactory {
         if (ProgConfig.SYSTEM_DELETE_EPISODE_FILE.getValue()) {
             //und dann wenn gewünscht, auch noch die Datei löschen
             delList.stream().forEach(episode -> {
-                final String path = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+                final String path = P2FileUtils.addsPath(episode.getFilePath(), episode.getFileName());
                 final File file = new File(path);
                 try {
                     if (file.exists()) {
@@ -265,11 +265,11 @@ public class EpisodeFactory {
     }
 
     private static synchronized void startFileWithProgram(Episode episode, SetData setData) {
-        final String pathName = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+        final String pathName = P2FileUtils.addsPath(episode.getFilePath(), episode.getFileName());
         if (episode.getFilePath().isEmpty() || episode.getFileName().isEmpty()) {
             return;
         }
-        if (!PFileUtils.fileExist(pathName)) {
+        if (!P2FileUtils.fileExist(pathName)) {
             PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
                     "Episode abspielen",
                     "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");
@@ -291,11 +291,11 @@ public class EpisodeFactory {
 
     private static synchronized void startFileWithProgram(List<Episode> episodeList, SetData setData) {
         episodeList.stream().forEach(episode -> {
-            final String pathName = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+            final String pathName = P2FileUtils.addsPath(episode.getFilePath(), episode.getFileName());
             if (episode.getFilePath().isEmpty() || episode.getFileName().isEmpty()) {
                 return;
             }
-            if (!PFileUtils.fileExist(pathName)) {
+            if (!P2FileUtils.fileExist(pathName)) {
                 PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
                         "Episode abspielen",
                         "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");

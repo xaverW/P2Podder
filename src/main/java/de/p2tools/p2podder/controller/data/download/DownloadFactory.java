@@ -20,7 +20,7 @@ package de.p2tools.p2podder.controller.data.download;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -100,7 +100,7 @@ public class DownloadFactory {
             boolean found = false;
 
             for (Episode episode : ProgData.getInstance().episodeList) {
-                String ePath = PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+                String ePath = P2FileUtils.addsPath(episode.getFilePath(), episode.getFileName());
                 String fPath = file.getPath();
                 if (ePath.equals(fPath)) {
                     found = true;

@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -44,7 +44,7 @@ public class DownloadProgram {
 
         // in Win dürfen die Pfade nicht länger als 255 Zeichen haben
         final String[] pathName = {path, name};
-        PFileUtils.checkLengthPath(pathName);
+        P2FileUtils.checkLengthPath(pathName);
 
         download.setDestFileName(pathName[1]);
         download.setDestPath(pathName[0]);

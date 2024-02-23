@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.scene.control.Button;
@@ -71,7 +71,7 @@ public class DownloadFileDelDialogController extends PDialogExtra {
         ListView<String> listView = new ListView<>();
 
         fileList.stream().forEach(file -> {
-            final String path = PFileUtils.addsPath(file.getPath(), file.getName());
+            final String path = P2FileUtils.addsPath(file.getPath(), file.getName());
             listView.getItems().add(path);
         });
 

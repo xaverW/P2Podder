@@ -21,7 +21,7 @@ import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
-import de.p2tools.p2lib.tools.file.PFileSize;
+import de.p2tools.p2lib.tools.file.P2FileSize;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -40,7 +40,7 @@ public class EpisodeProps extends PDataSample<Episode> {
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty fileName = new SimpleStringProperty("");
     private final StringProperty filePath = new SimpleStringProperty("");
-    private final PFileSize pFileSize = new PFileSize(0);
+    private final P2FileSize pFileSize = new P2FileSize(0);
 
     private final StringProperty episodeUrl = new SimpleStringProperty("");
     private final LongProperty podcastId = new SimpleLongProperty(0);
@@ -62,7 +62,7 @@ public class EpisodeProps extends PDataSample<Episode> {
         list.add(new Config_stringProp("fileName", fileName));
         list.add(new Config_stringProp("filePath", filePath));
         list.add(new Config_pFileSize("pFfileSize", pFileSize) {
-            public void setUsedValue(PFileSize value) {
+            public void setUsedValue(P2FileSize value) {
                 pFileSize.setSizeL(value.getSizeL());
             }
         });
@@ -177,7 +177,7 @@ public class EpisodeProps extends PDataSample<Episode> {
         this.filePath.set(filePath);
     }
 
-    public PFileSize getPFileSize() {
+    public P2FileSize getPFileSize() {
         return pFileSize;
     }
 

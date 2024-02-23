@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.tools.table;
 import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
 import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2lib.guitools.ptable.P2CellPFileSize;
-import de.p2tools.p2lib.tools.file.PFileSize;
+import de.p2tools.p2lib.tools.file.P2FileSize;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -93,9 +93,9 @@ public class TableSmallEpisode extends PTable<Episode> {
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
 
-        final TableColumn<Episode, PFileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
+        final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
-        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, PFileSize>().cellFactory);
+        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, P2FileSize>().cellFactory);
         sizeColumn.getStyleClass().add("alignCenter");
 
         final TableColumn<Episode, String> fileColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_NAME);

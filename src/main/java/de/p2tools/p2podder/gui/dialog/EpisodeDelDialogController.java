@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.dialog;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -94,7 +94,7 @@ public class EpisodeDelDialogController extends PDialogExtra {
 
         episodeList.stream().forEach(episode -> {
             final String path = episode.getEpisodeTitle() + P2LibConst.LINE_SEPARATOR +
-                    PFileUtils.addsPath(episode.getFilePath(), episode.getFileName());
+                    P2FileUtils.addsPath(episode.getFilePath(), episode.getFileName());
             listView.getItems().add(path);
         });
 

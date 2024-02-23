@@ -22,7 +22,7 @@ import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
 import de.p2tools.p2lib.mtdownload.DownloadSize;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.tools.Data;
 import javafx.application.Platform;
@@ -304,7 +304,7 @@ public class DownloadDataProps extends PDataSample<DownloadData> {
     }
 
     public String getDestPathFile() {
-        return PFileUtils.addsPath(destPath.getValueSafe(), destFileName.getValueSafe());
+        return P2FileUtils.addsPath(destPath.getValueSafe(), destFileName.getValueSafe());
     }
 
     public String getEpisodeUrl() {
