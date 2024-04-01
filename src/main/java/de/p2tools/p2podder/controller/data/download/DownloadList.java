@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -188,7 +188,7 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements PD
     }
 
     public synchronized void genGenreList() {
-        PLog.sysLog("DownloadList: genGenreList");
+        P2Log.sysLog("DownloadList: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<String> arrayList = new ArrayList<>();
         stream().forEach((download) -> {

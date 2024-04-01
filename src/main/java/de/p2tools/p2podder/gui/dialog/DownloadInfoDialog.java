@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
@@ -33,7 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class DownloadInfoDialog extends PDialogExtra {
+public class DownloadInfoDialog extends P2DialogExtra {
 
     private Button btnOk = new Button("_Ok");
 

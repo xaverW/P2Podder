@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -100,7 +100,7 @@ public class PodcastBarController extends AnchorPane {
                         setStatusbarIndex(statusbarIndex);
                     }
                 } catch (final Exception ex) {
-                    PLog.errorLog(936251087, ex);
+                    P2Log.errorLog(936251087, ex);
                 }
             }
         });

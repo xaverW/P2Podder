@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogOnly;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.events.PEvent;
 import de.p2tools.p2lib.tools.events.PListener;
@@ -35,7 +35,7 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class SmallGuiPack extends PDialogOnly {
+public class SmallGuiPack extends P2DialogOnly {
 
     private final SmallGuiTop smallGuiTop;
     private final SmallGuiCenter smallGuiCenter;

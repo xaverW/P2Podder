@@ -21,7 +21,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.SetData;
@@ -252,13 +252,13 @@ public class EpisodeFactory {
                 final File file = new File(path);
                 try {
                     if (file.exists()) {
-                        PLog.sysLog("Episode (Datei) löschen: " + file.getAbsolutePath());
+                        P2Log.sysLog("Episode (Datei) löschen: " + file.getAbsolutePath());
                         if (!file.delete()) {
                             throw new Exception();
                         }
                     }
                 } catch (final Exception ex) {
-                    PLog.errorLog(915200147, "Fehler beim löschen: " + file.getAbsolutePath());
+                    P2Log.errorLog(915200147, "Fehler beim löschen: " + file.getAbsolutePath());
                 }
             });
         }

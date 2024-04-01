@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.podcastadd;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -27,7 +27,7 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PodcastAddDialogController extends PDialogExtra {
+public class PodcastAddDialogController extends P2DialogExtra {
 
     private final ProgData progData;
     private final Button btnOk = new Button("_Ok");

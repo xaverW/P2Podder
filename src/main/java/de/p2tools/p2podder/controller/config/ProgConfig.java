@@ -24,7 +24,7 @@ import de.p2tools.p2lib.data.PDataProgConfig;
 import de.p2tools.p2lib.tools.PSystemUtils;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeProperty;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.data.SetFactory;
 import de.p2tools.p2podder.tools.MLBandwidthTokenBucket;
 import javafx.beans.property.*;
@@ -231,7 +231,7 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void getConfigLog(ArrayList<String> list) {
-        list.add(PLog.LILNE2);
+        list.add(P2Log.LILNE2);
         list.add("Programmeinstellungen");
         list.add("===========================");
         arrayList.stream().forEach(c -> {

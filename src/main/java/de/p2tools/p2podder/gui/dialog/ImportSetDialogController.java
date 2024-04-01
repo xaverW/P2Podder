@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -31,7 +31,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class ImportSetDialogController extends PDialogExtra {
+public class ImportSetDialogController extends P2DialogExtra {
 
     private final ProgData progData;
     Button btnCancel = new Button("_Abbrechen");

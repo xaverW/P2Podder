@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.startdialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -32,7 +32,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 
-public class StartDialogController extends PDialogExtra {
+public class StartDialogController extends P2DialogExtra {
 
     private boolean ok = false;
 

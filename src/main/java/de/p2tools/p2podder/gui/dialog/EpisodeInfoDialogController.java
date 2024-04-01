@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -41,7 +41,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class EpisodeInfoDialogController extends PDialogExtra {
+public class EpisodeInfoDialogController extends P2DialogExtra {
 
     private final int FREE = 220;
     private final Text[] textTitle = new Text[EpisodeFieldNames.MAX_ELEM];

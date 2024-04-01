@@ -17,7 +17,7 @@
 package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -106,7 +106,7 @@ public class P2PodderController extends StackPane {
                     initPanelDownload();
             }
         } catch (Exception ex) {
-            PLog.errorLog(597841023, ex);
+            P2Log.errorLog(597841023, ex);
         }
     }
 

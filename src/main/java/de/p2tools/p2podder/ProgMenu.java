@@ -18,7 +18,7 @@
 package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.guitools.P2Open;
-import de.p2tools.p2lib.tools.log.PLogger;
+import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
@@ -64,7 +64,7 @@ public class ProgMenu extends MenuButton {
 
         final MenuItem miLog = new MenuItem("Logdatei öffnen");
         miLog.setOnAction(event -> {
-            PLogger.openLogFile();
+            P2Logger.openLogFile();
         });
 
         final MenuItem miUrlHelp = new MenuItem("Anleitung im Web");

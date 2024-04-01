@@ -21,7 +21,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -93,7 +93,7 @@ public class DownloadFactory {
                     .map(path -> path.toFile())
                     .collect(Collectors.toList()));
         } catch (IOException e) {
-            PLog.errorLog(456201247, e);
+            P2Log.errorLog(456201247, e);
         }
 
         for (File file : fileList) {
@@ -128,7 +128,7 @@ public class DownloadFactory {
             delList.stream().forEach(delFile -> {
                 try {
                     if (delFile.exists()) {
-                        PLog.sysLog("Episode (Datei) löschen: " + delFile.getAbsolutePath());
+                        P2Log.sysLog("Episode (Datei) löschen: " + delFile.getAbsolutePath());
                         if (!delFile.delete()) {
                             throw new Exception();
                         }
@@ -138,7 +138,7 @@ public class DownloadFactory {
                             "Das löschen der Datei: " + P2LibConst.LINE_SEPARATOR
                                     + delFile.getAbsolutePath() + P2LibConst.LINE_SEPARATOR +
                                     " hat nicht geklappt!");
-                    PLog.errorLog(901254123, "Fehler beim löschen: " + delFile.getAbsolutePath());
+                    P2Log.errorLog(901254123, "Fehler beim löschen: " + delFile.getAbsolutePath());
                 }
             });
         }

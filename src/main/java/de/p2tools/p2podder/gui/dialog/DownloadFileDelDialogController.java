@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -27,7 +27,7 @@ import javafx.scene.control.ListView;
 import java.io.File;
 import java.util.List;
 
-public class DownloadFileDelDialogController extends PDialogExtra {
+public class DownloadFileDelDialogController extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final Button btnCancel = new Button("_Abbrechen");

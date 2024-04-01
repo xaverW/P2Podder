@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.data.download;
 
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -193,7 +193,7 @@ public class DownloadListStartFactory {
             }
             return true;
         } catch (Exception ex) {
-            PLog.errorLog(794519083, ex);
+            P2Log.errorLog(794519083, ex);
         }
         return false;
     }

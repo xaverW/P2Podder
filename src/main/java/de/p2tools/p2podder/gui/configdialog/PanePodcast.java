@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.configdialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.PDirFileChooser;
+import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
@@ -77,7 +77,7 @@ public class PanePodcast {
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für die Podcasts auswählen"));
         btnFile.setOnAction(event -> {
-            PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
+            P2DirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
         btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 

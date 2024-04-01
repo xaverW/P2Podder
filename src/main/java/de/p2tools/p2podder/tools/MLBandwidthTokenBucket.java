@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.IntegerProperty;
 
 import java.util.concurrent.Semaphore;
@@ -44,7 +44,7 @@ public class MLBandwidthTokenBucket {
 
         setBucketCapacity(getBandwidth());
         this.bandwidthValue.addListener(l -> {
-            PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
+            P2Log.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
             setBucketCapacity(getBandwidth());
         });
     }
@@ -133,7 +133,7 @@ public class MLBandwidthTokenBucket {
             final int maxKBytePerSec = bandwidthValue.get();
             bytesPerSecond = maxKBytePerSec * 1_000;
         } catch (final Exception ex) {
-            PLog.errorLog(612547803, ex, "reset Bandwidth");
+            P2Log.errorLog(612547803, ex, "reset Bandwidth");
             bytesPerSecond = BANDWIDTH_MAX_KBYTE * 1_000;
             bandwidthValue.set(BANDWIDTH_MAX_KBYTE);
         }

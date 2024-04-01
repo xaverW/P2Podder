@@ -20,8 +20,8 @@ import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
-import de.p2tools.p2lib.tools.log.PLogger;
+import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -44,7 +44,7 @@ public class ProgStartBeforeGui {
     public static boolean workBeforeGui() {
         boolean loadOk = loadProgConfigData();
         if (ProgConfig.SYSTEM_LOG_ON.get()) {
-            PLogger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
+            P2Logger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
         }
 
         if (!loadOk) {
@@ -84,11 +84,11 @@ public class ProgStartBeforeGui {
         try {
             if (!Files.exists(xmlFilePath)) {
                 //dann gibts das Konfig-File gar nicht
-                PLog.sysLog("Konfig existiert nicht!");
+                P2Log.sysLog("Konfig existiert nicht!");
                 return false;
             }
 
-            PLog.sysLog("Programmstart und ProgConfig laden von: " + xmlFilePath);
+            P2Log.sysLog("Programmstart und ProgConfig laden von: " + xmlFilePath);
             ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true) {
                 @Override
                 public void clearConfigFile() {
@@ -97,16 +97,16 @@ public class ProgStartBeforeGui {
             };
             ProgConfig.addConfigData(configFile);
             if (ConfigReadFile.readConfig(configFile)) {
-                PLog.sysLog("Konfig wurde geladen!");
+                P2Log.sysLog("Konfig wurde geladen!");
                 return true;
 
             } else {
                 // dann hat das Laden nicht geklappt
-                PLog.sysLog("Konfig konnte nicht geladen werden!");
+                P2Log.sysLog("Konfig konnte nicht geladen werden!");
                 return false;
             }
         } catch (final Exception ex) {
-            PLog.errorLog(915470101, ex);
+            P2Log.errorLog(915470101, ex);
         }
         return false;
     }
@@ -117,10 +117,10 @@ public class ProgStartBeforeGui {
         boolean found;
         if ((found = loadProgConfig()) == false) {
             //todo? teils geladene Reste entfernen
-            PLog.sysLog("-> konnte nicht geladen werden!");
+            P2Log.sysLog("-> konnte nicht geladen werden!");
             clearTheConfigs();
         } else {
-            PLog.sysLog("-> wurde gelesen!");
+            P2Log.sysLog("-> wurde gelesen!");
         }
         return found;
     }
@@ -131,9 +131,9 @@ public class ProgStartBeforeGui {
                 !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
 
             //dann ist eine neue Version/Build
-            PLog.sysLog("===============================");
-            PLog.sysLog(" eine neue Version/Build");
-            PLog.sysLog(" Einstellung zurücksetzen");
+            P2Log.sysLog("===============================");
+            P2Log.sysLog(" eine neue Version/Build");
+            P2Log.sysLog(" Einstellung zurücksetzen");
 
             ProgConfig.PODCAST_GUI_TABLE_WIDTH.setValue("");
             ProgConfig.PODCAST_GUI_TABLE_SORT.setValue("");

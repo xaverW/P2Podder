@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.PDirFileChooser;
+import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -92,7 +92,7 @@ public class ImportSetDialogPanePath {
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {
-            PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
+            P2DirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
         btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));

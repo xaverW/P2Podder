@@ -20,8 +20,8 @@ import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.LogMessage;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -70,14 +70,14 @@ public class ProgStartAfterGui {
                 //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
                 if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
                     if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
-                        PLog.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
+                        P2Log.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
                     } else {
-                        PLog.sysLog("nach neuen Episoden suchen");
+                        P2Log.sysLog("nach neuen Episoden suchen");
                         ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
                         new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
                     }
                 } else {
-                    PLog.sysLog("keine neuen Episoden suchen: Nicht gewünscht");
+                    P2Log.sysLog("keine neuen Episoden suchen: Nicht gewünscht");
                 }
             }
         });
@@ -88,8 +88,8 @@ public class ProgStartAfterGui {
 
     private static void addStartPodcasts() {
         //schon mal ein paar eintragen
-        PLog.sysLog(PLog.LILNE1);
-        PLog.sysLog("erster Programmstart, ein paar Pods eintragen");
+        P2Log.sysLog(P2Log.LILNE1);
+        P2Log.sysLog("erster Programmstart, ein paar Pods eintragen");
 
         Podcast podcast = new Podcast();
         podcast.setName("Deutschlandfunk – Der Tag");
@@ -139,12 +139,12 @@ public class ProgStartAfterGui {
         list.add("Verzeichnisse:");
         list.add("Programmpfad: " + ProgInfosFactory.getPathJar());
         list.add("Verzeichnis Einstellungen: " + ProgInfosFactory.getSettingsDirectoryString());
-        list.add(PLog.LILNE2);
+        list.add(P2Log.LILNE2);
         list.add("");
         list.add("Programmsets:");
         list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
         ProgConfig.getConfigLog(list);
-        LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
+        P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
     }
 
     public static void setTitle(Stage stage) {
@@ -174,7 +174,7 @@ public class ProgStartAfterGui {
             if (updateCheckTodayDone()) {
                 list.add("  heute schon gemacht");
             }
-            PLog.sysLog(list);
+            P2Log.sysLog(list);
         }
     }
 

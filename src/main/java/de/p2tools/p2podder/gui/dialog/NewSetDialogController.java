@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.dialog;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.ptoggleswitch.P2ToggleSwitch;
 import de.p2tools.p2podder.controller.ProgIcons;
@@ -27,7 +27,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
-public class NewSetDialogController extends PDialogExtra {
+public class NewSetDialogController extends P2DialogExtra {
 
     final ProgData progData;
 

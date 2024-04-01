@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.io.FilenameUtils;
 
@@ -89,7 +89,7 @@ public class DownloadListFactory {
                 alreadyDone.add(download);
             });
         } catch (final Exception ex) {
-            PLog.errorLog(303021458, ex);
+            P2Log.errorLog(303021458, ex);
         }
     }
 

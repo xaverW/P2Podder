@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.controller.starterepisode;
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -36,7 +36,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class StartEpisodeErrorDialogController extends PDialogExtra {
+public class StartEpisodeErrorDialogController extends P2DialogExtra {
 
     private final HBox hBoxTitle;
     private final VBox vBoxCont;

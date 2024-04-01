@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.history;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.GermanStringSorter;
 import de.p2tools.p2lib.tools.PStringUtils;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.gui.tools.DownloadDate;
 import org.apache.commons.lang3.time.FastDateFormat;
 
@@ -127,7 +127,7 @@ public class HistoryData implements Comparable<HistoryData> {
                 url = line;
             }
         } catch (final Exception ex) {
-            PLog.errorLog(398853224, ex);
+            P2Log.errorLog(398853224, ex);
         }
         return new HistoryData(date, theme, title, url);
     }

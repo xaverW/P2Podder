@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.startdialog;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.PDirFileChooser;
+import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -94,7 +94,7 @@ public class ConfigPane {
         final Button btnFile = new Button();
         btnFile.setTooltip(new Tooltip("Einen Ordner für die Episoden auswählen"));
         btnFile.setOnAction(event -> {
-            PDirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
+            P2DirFileChooser.DirChooser(ProgData.getInstance().primaryStage, txtPodDest);
         });
         btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
 
@@ -138,7 +138,7 @@ public class ConfigPane {
 
         final Button btnFile = new Button();
         btnFile.setOnAction(event -> {
-            PDirFileChooser.FileChooserOpenFile(stage, txtPlayer);
+            P2DirFileChooser.FileChooserOpenFile(stage, txtPlayer);
         });
         btnFile.setGraphic(ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
         btnFile.setTooltip(new Tooltip("Programmdatei auswählen"));

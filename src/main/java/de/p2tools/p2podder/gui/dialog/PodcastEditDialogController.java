@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.data.PColorData;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2TextAreaIgnoreTab;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
@@ -35,7 +35,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class PodcastEditDialogController extends PDialogExtra {
+public class PodcastEditDialogController extends P2DialogExtra {
 
     // DialogPodcast
     private static final PColorData PODCAST_NAME_ERROR = new PColorData("COLOR_PODCAST_NAME_ERROR",

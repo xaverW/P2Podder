@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2lib.configfile.pdata.PDataSample;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.StringProperty;
@@ -107,7 +107,7 @@ public class Table {
                 }
             }
         } catch (final Exception ex) {
-            PLog.errorLog(642103218, ex.getMessage());
+            P2Log.errorLog(642103218, ex.getMessage());
             resetTable(table);
         }
     }

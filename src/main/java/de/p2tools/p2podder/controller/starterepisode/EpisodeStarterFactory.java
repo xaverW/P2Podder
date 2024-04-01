@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.starterepisode;
 
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -83,7 +83,7 @@ public class EpisodeStarterFactory {
                 }
 
             } catch (final Exception ex) {
-                PLog.errorLog(903273049, ex);
+                P2Log.errorLog(903273049, ex);
             }
         }
 
@@ -101,7 +101,7 @@ public class EpisodeStarterFactory {
                 }
             } catch (final Exception ex) {
                 final String exMessage = ex.getLocalizedMessage();
-                PLog.errorLog(987989569, ex);
+                P2Log.errorLog(987989569, ex);
 //                if (start == null) {
 //                    //dann schon beendet??
 //                    return;
@@ -210,7 +210,7 @@ public class EpisodeStarterFactory {
 
         private void startMsg(Start starter) {
             final ArrayList<String> list = new ArrayList<>();
-            list.add(PLog.LILNE3);
+            list.add(P2Log.LILNE3);
             list.add("Episode abspielen");
 
             list.add("URL: " + starter.getFilePathName());
@@ -218,8 +218,8 @@ public class EpisodeStarterFactory {
             list.add("Programmaufruf: " + starter.getProgramCall());
             list.add("Programmaufruf[]: " + starter.getProgramCallArray());
 
-            list.add(PLog.LILNE_EMPTY);
-            PLog.sysLog(list.toArray(new String[list.size()]));
+            list.add(P2Log.LILNE_EMPTY);
+            P2Log.sysLog(list.toArray(new String[list.size()]));
         }
 
         private void finalizePlaying(Episode episode) {
@@ -241,7 +241,7 @@ public class EpisodeStarterFactory {
             }
 
             final ArrayList<String> list = new ArrayList<>();
-            list.add(PLog.LILNE3);
+            list.add(P2Log.LILNE3);
             list.add("Episode abspielen beendet");
             list.add("Startzeit: " + P2DateConst.F_FORMAT_HH__mm__ss.format(start.getStartTime()));
             list.add("Endzeit: " + P2DateConst.F_FORMAT_HH__mm__ss.format(new P2Date().getTime()));
@@ -262,8 +262,8 @@ public class EpisodeStarterFactory {
             list.add("Programmaufruf: " + start.getProgramCall());
             list.add("Programmaufruf[]: " + start.getProgramCallArray());
 
-            list.add(PLog.LILNE_EMPTY);
-            PLog.sysLog(list);
+            list.add(P2Log.LILNE_EMPTY);
+            P2Log.sysLog(list);
         }
 
         private void refreshTable() {

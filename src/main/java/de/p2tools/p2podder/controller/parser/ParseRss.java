@@ -25,7 +25,7 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mtfilter.FilterCheck;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -128,7 +128,7 @@ public class ParseRss {
                 progData.downloadList.addNewDownloads(downloads);
             }
         } catch (Exception ex) {
-            PLog.errorLog(897451209, ex.getMessage());
+            P2Log.errorLog(897451209, ex.getMessage());
         }
     }
 

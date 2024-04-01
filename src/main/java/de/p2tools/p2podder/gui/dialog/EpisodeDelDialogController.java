@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.gui.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -33,7 +33,7 @@ import javafx.scene.layout.Priority;
 
 import java.util.List;
 
-public class EpisodeDelDialogController extends PDialogExtra {
+public class EpisodeDelDialogController extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final Button btnCancel = new Button("_Abbrechen");

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.history;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -67,7 +67,7 @@ public class HistoryWorker {
             }
 
         } catch (final Exception ex) {
-            PLog.errorLog(926362547, ex);
+            P2Log.errorLog(926362547, ex);
         }
     }
 
@@ -102,7 +102,7 @@ public class HistoryWorker {
             }
 
         } catch (final IOException ex) {
-            PLog.errorLog(915478960, ex);
+            P2Log.errorLog(915478960, ex);
         }
         return urlPath;
     }

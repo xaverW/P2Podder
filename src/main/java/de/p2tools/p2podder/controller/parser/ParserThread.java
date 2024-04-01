@@ -18,7 +18,7 @@
 package de.p2tools.p2podder.controller.parser;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
@@ -90,7 +90,7 @@ public class ParserThread {
                     if (stop) {
                         break;
                     }
-                    PLog.sysLog("Parse Podcast: " + podcast.getName());
+                    P2Log.sysLog("Parse Podcast: " + podcast.getName());
                     ParseRss.parse(progData, podcast);
                 }
 
@@ -100,7 +100,7 @@ public class ParserThread {
                 }
 
                 //dann die Downloads auch noch starten
-                PLog.sysLog("Downloads: " + progData.downloadList.getSize() + ", jetzt noch starten");
+                P2Log.sysLog("Downloads: " + progData.downloadList.getSize() + ", jetzt noch starten");
                 if (progData.downloadList.size() < 15) {
                     //wenn nicht zu viele, dann sofort starten
                     DownloadFactory.startAllDownloads();

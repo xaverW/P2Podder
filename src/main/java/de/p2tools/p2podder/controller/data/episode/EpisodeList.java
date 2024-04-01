@@ -20,7 +20,7 @@ import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2lib.tools.GermanStringSorter;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.beans.property.BooleanProperty;
@@ -191,7 +191,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
 
     private synchronized void genPodcastList() {
         PDuration.counterStart("genPodcastList");
-        PLog.sysLog("Episoden: genPodcastList");
+        P2Log.sysLog("Episoden: genPodcastList");
         final LinkedHashSet<Podcast> hashSet = new LinkedHashSet<>(10);
         final ArrayList<Podcast> items = new ArrayList<>();
 
@@ -212,7 +212,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     private synchronized void genGenreList() {
-        PLog.sysLog("Episoden: genGenreList");
+        P2Log.sysLog("Episoden: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         final ArrayList<String> items = new ArrayList<>();
         stream().forEach((episode) -> {

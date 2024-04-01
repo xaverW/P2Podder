@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.data.podcast;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.configfile.pdata.PDataList;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -149,7 +149,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
             });
 
         } catch (Exception ex) {
-            PLog.errorLog(951024789, ex);
+            P2Log.errorLog(951024789, ex);
         }
         PDuration.counterStop("Podcast markieren");
 
@@ -216,7 +216,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     }
 
     private synchronized void genGenreList() {
-        PLog.sysLog("PodcastList: genGenreList");
+        P2Log.sysLog("PodcastList: genGenreList");
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<String> arrayList = new ArrayList<>();
         stream().forEach((episode) -> {
