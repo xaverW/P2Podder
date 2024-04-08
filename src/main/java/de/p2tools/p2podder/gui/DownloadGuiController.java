@@ -16,11 +16,11 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.tools.PSystemUtils;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -120,7 +120,7 @@ public class DownloadGuiController extends AnchorPane {
         if (!download.isPresent()) {
             return;
         }
-        PSystemUtils.copyToClipboard(download.get().getEpisodeUrl());
+        P2SystemUtils.copyToClipboard(download.get().getEpisodeUrl());
     }
 
     private void setSelectedDownload() {
@@ -166,8 +166,8 @@ public class DownloadGuiController extends AnchorPane {
             } else {
                 text = "Sollen die Downloads gelöscht werden?";
             }
-            if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Downloads löschen?", "Downloads löschen?", text)
-                    .equals(PAlert.BUTTON.YES)) {
+            if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Downloads löschen?", "Downloads löschen?", text)
+                    .equals(P2Alert.BUTTON.YES)) {
                 DownloadListStartStopFactory.delDownloads(list);
             }
 
@@ -180,8 +180,8 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public void deleteDownloads(DownloadData download) {
-        if (PAlert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Download löschen?", "Download löschen?",
-                "Soll der Download gelöscht werden?").equals(PAlert.BUTTON.YES)) {
+        if (P2Alert.showAlert_yes_no(ProgData.getInstance().primaryStage, "Download löschen?", "Download löschen?",
+                "Soll der Download gelöscht werden?").equals(P2Alert.BUTTON.YES)) {
             DownloadListStartStopFactory.delDownloads(download);
         }
     }
@@ -201,7 +201,7 @@ public class DownloadGuiController extends AnchorPane {
         final ArrayList<DownloadData> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return ret;
     }
@@ -217,21 +217,21 @@ public class DownloadGuiController extends AnchorPane {
         }
 
         if (show) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return Optional.empty();
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
-            public void pingGui(PEvent runEvent) {
+            public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new PListener(Events.COLORS_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
             @Override
-            public void pingGui(PEvent runEvent) {
+            public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
             }
         });

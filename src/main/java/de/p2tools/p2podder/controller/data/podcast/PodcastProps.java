@@ -17,14 +17,14 @@
 package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2lib.configfile.config.*;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class PodcastProps extends PDataSample<Podcast> {
+public class PodcastProps extends P2DataSample<Podcast> {
 
     public static final String TAG = "Podcast";
 

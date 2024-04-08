@@ -17,11 +17,11 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.guitools.P2WindowIcon;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.P2LogMessage;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -61,7 +61,7 @@ public class ProgStartAfterGui {
     public static void loadPodcastListProgStart() {
         // Gui startet ein wenig flüssiger
         Thread th = new Thread(() -> {
-            PDuration.onlyPing("Programmstart Podcastliste laden: start");
+            P2Duration.onlyPing("Programmstart Podcastliste laden: start");
 
             if (ProgStartBeforeGui.firstProgramStart) {
                 //schon mal ein paar eintragen
@@ -149,15 +149,15 @@ public class ProgStartAfterGui {
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
     }
 
     private static void checkProgUpdate() {
         // Prüfen obs ein Programmupdate gibt
-        PDuration.onlyPing("checkProgUpdate");
+        P2Duration.onlyPing("checkProgUpdate");
 
         if (ProgConfig.SYSTEM_UPDATE_SEARCH_ACT.get() &&
                 !updateCheckTodayDone()) {

@@ -18,8 +18,8 @@
 package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -77,7 +77,7 @@ public class DownloadFactory {
     public static void cleanUpDownloadDir() {
         File destDir = new File(ProgConfig.SYSTEM_POD_DIR.getValueSafe());
         if (!destDir.exists()) {
-            PAlert.showInfoAlert("Downloads aufräumen",
+            P2Alert.showInfoAlert("Downloads aufräumen",
                     "Dateien ohne Episode suchen",
                     "Das Verzeichnis mit den Downloads existiert nicht!");
             return;
@@ -116,7 +116,7 @@ public class DownloadFactory {
         //delete Files
         if (delList.isEmpty()) {
             //alles sauber
-            PAlert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen", "Es wurden keine " +
+            P2Alert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen", "Es wurden keine " +
                     "Dateien ohne passende Episode, gefunden.");
             return;
         }
@@ -134,7 +134,7 @@ public class DownloadFactory {
                         }
                     }
                 } catch (final Exception ex) {
-                    PAlert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen",
+                    P2Alert.showInfoAlert("Downloads aufräumen", "Dateien ohne Episode suchen",
                             "Das löschen der Datei: " + P2LibConst.LINE_SEPARATOR
                                     + delFile.getAbsolutePath() + P2LibConst.LINE_SEPARATOR +
                                     " hat nicht geklappt!");
@@ -149,7 +149,7 @@ public class DownloadFactory {
     }
 
     public static synchronized List<Podcast> getPodcastList() {
-        PDuration.counterStart("getPodcastList");
+        P2Duration.counterStart("getPodcastList");
 
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<Podcast> arrayList = new ArrayList<>();
@@ -162,7 +162,7 @@ public class DownloadFactory {
             }
         });
 
-        PDuration.counterStop("getPodcastList");
+        P2Duration.counterStop("getPodcastList");
         return arrayList;
     }
 

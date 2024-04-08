@@ -18,7 +18,7 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.icons.P2Icon;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.config.ProgConst;
@@ -95,7 +95,7 @@ public class ProgIcons {
 
     public static void initIcons() {
         iconList.forEach(p -> {
-            String url = p.genUrl(P2PodderController.class, ProgIconsP2Lib.class, ProgConst.class, ProgIconsP2Lib.class, P2LibConst.class);
+            String url = p.genUrl(P2PodderController.class, P2ProgIcons.class, ProgConst.class, P2ProgIcons.class, P2LibConst.class);
             if (url.isEmpty()) {
                 // dann wurde keine gefunden
                 System.out.println("ProgIconsInfo: keine URL, icon: " + p.getPathFileNameDark() + " - " + p.getFileName());
@@ -112,11 +112,11 @@ public class ProgIcons {
         public boolean searchUrl(String p, Class<?>... clazzAr) {
             URL url;
             url = P2PodderController.class.getResource(p);
-            if (set(url, p, "P2InfoController.class.getResource")) return true;
+            if (set(url, p, "P2PodderController.class.getResource")) return true;
             url = ProgConst.class.getResource(p);
             if (set(url, p, "ProgConst.class.getResource")) return true;
-            url = ProgIconsP2Lib.class.getResource(p);
-            if (set(url, p, "ProgIconsInfo.class.getResource")) return true;
+            url = P2ProgIcons.class.getResource(p);
+            if (set(url, p, "P2ProgIcons.class.getResource")) return true;
             url = this.getClass().getResource(p);
             if (set(url, p, "this.getClass().getResource")) return true;
 

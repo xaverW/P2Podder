@@ -18,8 +18,8 @@ package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.P2FileSize;
 import javafx.beans.property.*;
@@ -27,8 +27,8 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class EpisodeProps extends PDataSample<Episode> {
-    public static final String TAG = "episode" + PData.TAGGER + "Episode";
+public class EpisodeProps extends P2DataSample<Episode> {
+    public static final String TAG = "episode" + P2Data.TAGGER + "Episode";
 
     private final IntegerProperty no = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
 

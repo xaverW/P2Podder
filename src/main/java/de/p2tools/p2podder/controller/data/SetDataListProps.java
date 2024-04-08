@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
-import de.p2tools.p2lib.tools.PIndex;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.tools.P2Index;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -27,11 +27,11 @@ import javafx.collections.FXCollections;
 import java.util.Collection;
 
 @SuppressWarnings("serial")
-public class SetDataListProps extends SimpleListProperty<SetData> implements PDataList<SetData> {
+public class SetDataListProps extends SimpleListProperty<SetData> implements P2DataList<SetData> {
     // Liste aller Programmsets
 
     public static final String PATTERN_PATH_VLC = "PFAD_VLC";
-    public static final String TAG = "setDataList" + PData.TAGGER + "SetDataList";
+    public static final String TAG = "setDataList" + P2Data.TAGGER + "SetDataList";
     public String version = "";
 
     private BooleanProperty listChanged = new SimpleBooleanProperty(true);
@@ -106,7 +106,7 @@ public class SetDataListProps extends SimpleListProperty<SetData> implements PDa
 
                 if (sd.getId().equals(setData.getId())) {
                     found = true;
-                    setData.setId(PIndex.getIndexStr());
+                    setData.setId(P2Index.getIndexStr());
                     break;
                 }
                 found = false;

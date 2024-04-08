@@ -19,8 +19,8 @@ package de.p2tools.p2podder.gui.smallgui;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -41,8 +41,8 @@ public class SmallGuiPack extends P2DialogOnly {
     private final SmallGuiCenter smallGuiCenter;
     private final SmallGuiBottom smallGuiBottom;
     private final ProgData progData;
-    private final PListener listener = new PListener(Events.REFRESH_TABLE) {
-        public void pingGui(PEvent event) {
+    private final P2Listener listener = new P2Listener(Events.REFRESH_TABLE) {
+        public void pingGui(P2Event event) {
             tableRefresh();
         }
     };

@@ -17,9 +17,9 @@
 package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import javafx.beans.property.BooleanProperty;
@@ -36,9 +36,9 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.function.Predicate;
 
-public class DownloadList extends SimpleListProperty<DownloadData> implements PDataList<DownloadData> {
+public class DownloadList extends SimpleListProperty<DownloadData> implements P2DataList<DownloadData> {
 
-    public static final String TAG = "downloadList" + PData.TAGGER + "DownloadList";
+    public static final String TAG = "downloadList" + P2Data.TAGGER + "DownloadList";
     private final ProgData progData;
     private int no = 0;
     private boolean found = false;
@@ -86,14 +86,14 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements PD
     public synchronized void initList() {
         // bei Downloads nach einem Programmstart
         // den Podcast wieder eintragen
-        PDuration.counterStart("initList");
+        P2Duration.counterStart("initList");
         for (DownloadData download : this) {
             download.setPodcast(progData.podcastList.getPodcastById(download.getPodcastId()));
             download.setGuiState(download.getState());
         }
         genGenreList();
         this.addListener((v, o, n) -> genGenreList());
-        PDuration.counterStop("initList");
+        P2Duration.counterStop("initList");
     }
 
     public SortedList<DownloadData> getSortedList() {

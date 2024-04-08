@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.history;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.GermanStringSorter;
-import de.p2tools.p2lib.tools.PStringUtils;
+import de.p2tools.p2lib.tools.P2StringUtils;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.gui.tools.DownloadDate;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -95,12 +95,12 @@ public class HistoryData implements Comparable<HistoryData> {
         if (theme.length() < MAX_THEME) {
             // nur wenn zu kurz, dann anpassen, so bleibt das Log ~lesbar
             // und Titel werden nicht abgeschnitten
-            theme = PStringUtils.shortenString(MAX_THEME, theme, false /* mitte */, false /*addVorne*/);
+            theme = P2StringUtils.shortenString(MAX_THEME, theme, false /* mitte */, false /*addVorne*/);
         }
         if (title.length() < MAX_TITLE) {
             // nur wenn zu kurz, dann anpassen, so bleibt das Log ~lesbar
             // und Titel werden nicht abgeschnitten
-            title = PStringUtils.shortenString(MAX_TITLE, title, false /* mitte */, false /*addVorne*/);
+            title = P2StringUtils.shortenString(MAX_TITLE, title, false /* mitte */, false /*addVorne*/);
         }
 
         return dateStr + SEPARATOR_1

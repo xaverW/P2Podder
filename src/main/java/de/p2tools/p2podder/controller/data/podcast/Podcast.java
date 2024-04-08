@@ -17,13 +17,13 @@
 package de.p2tools.p2podder.controller.data.podcast;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.tools.PIndex;
+import de.p2tools.p2lib.tools.P2Index;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 
 public class Podcast extends PodcastProps {
 
     public Podcast() {
-        setId(PIndex.getIndex());
+        setId(P2Index.getIndex());
     }
 
     public void copyToMe(Podcast podcast) {

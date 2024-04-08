@@ -18,8 +18,8 @@ package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -48,7 +48,7 @@ public class ProgStartBeforeGui {
         }
 
         if (!loadOk) {
-            PDuration.onlyPing("Erster Start");
+            P2Duration.onlyPing("Erster Start");
             firstProgramStart = true;
 
             StartDialogController startDialogController = new StartDialogController();
@@ -80,7 +80,7 @@ public class ProgStartBeforeGui {
 
     private static boolean loadProgConfig() {
         final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
         try {
             if (!Files.exists(xmlFilePath)) {
                 //dann gibts das Konfig-File gar nicht
@@ -113,7 +113,7 @@ public class ProgStartBeforeGui {
 
 
     private static boolean loadProgConfigData() {
-        PDuration.onlyPing("ProgStartFactory.loadProgConfigData");
+        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
         boolean found;
         if ((found = loadProgConfig()) == false) {
             //todo? teils geladene Reste entfernen
@@ -126,9 +126,9 @@ public class ProgStartBeforeGui {
     }
 
     private static void resetConfigs() {
-        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(ProgramToolsFactory.getProgVersion()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(ProgramToolsFactory.getBuild()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(ProgramToolsFactory.getCompileDate())) {
+        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(P2ToolsFactory.getProgVersion()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(P2ToolsFactory.getBuild()) ||
+                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(P2ToolsFactory.getCompileDate())) {
 
             //dann ist eine neue Version/Build
             P2Log.sysLog("===============================");
@@ -163,23 +163,23 @@ public class ProgStartBeforeGui {
 
     private static void addStandarSets() {
         Platform.runLater(() -> {
-            PDuration.onlyPing("Erster Start: PSet");
+            P2Duration.onlyPing("Erster Start: PSet");
             // kann ein Dialog aufgehen
             final SetDataList pSet = ImportSetDataFactory.getStandarset();
             if (pSet != null) {
                 ProgData.getInstance().setDataList.addSetData(pSet);
                 ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
             }
-            PDuration.onlyPing("Erster Start: PSet geladen");
+            P2Duration.onlyPing("Erster Start: PSet geladen");
         });
 
     }
 
     public static void setTitle(Stage stage) {
         if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion() + " / DEBUG");
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
         } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + ProgramToolsFactory.getProgVersion());
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
     }
 }

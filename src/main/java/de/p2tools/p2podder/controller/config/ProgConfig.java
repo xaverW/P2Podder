@@ -19,10 +19,10 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.data.PDataProgConfig;
-import de.p2tools.p2lib.tools.PSystemUtils;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.data.P2DataProgConfig;
+import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeProperty;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.data.SetFactory;
@@ -32,7 +32,7 @@ import javafx.beans.property.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class ProgConfig extends PDataProgConfig {
+public class ProgConfig extends P2DataProgConfig {
 
     private static ProgConfig instance;
     private static final ArrayList<Config> arrayList = new ArrayList<>();
@@ -183,7 +183,7 @@ public class ProgConfig extends PDataProgConfig {
     public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDoubleProp("config-dialog-shortcut-divider", 0.1);
 
     //StartDialog
-    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", PSystemUtils.getStandardDownloadPath());
+    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", P2SystemUtils.getStandardDownloadPath());
 
     //EpisodeInfoDialog
     public static BooleanProperty EPISODE_INFO_DIALOG_SHOW_BIG = addBoolProp("episode-info-dialog-show-big", Boolean.TRUE);
@@ -210,7 +210,7 @@ public class ProgConfig extends PDataProgConfig {
 
 
     private ProgConfig() {
-        super("progConfig" + PData.TAGGER + "ProgConfig");
+        super("progConfig" + P2Data.TAGGER + "ProgConfig");
     }
 
     public static final ProgConfig getInstance() {
@@ -218,9 +218,9 @@ public class ProgConfig extends PDataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
-        ProgConfig.SYSTEM_PROG_VERSION.set(ProgramToolsFactory.getProgVersion());
-        ProgConfig.SYSTEM_PROG_BUILD_NO.set(ProgramToolsFactory.getBuild());
-        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(ProgramToolsFactory.getCompileDate());
+        ProgConfig.SYSTEM_PROG_VERSION.set(P2ToolsFactory.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(P2ToolsFactory.getBuild());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(P2ToolsFactory.getCompileDate());
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getInstance());

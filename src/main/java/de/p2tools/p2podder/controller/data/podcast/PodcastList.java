@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -31,13 +31,13 @@ import java.util.*;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class PodcastList extends SimpleListProperty<Podcast> implements PDataList<Podcast> {
+public class PodcastList extends SimpleListProperty<Podcast> implements P2DataList<Podcast> {
 
     {
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
     }
 
-    public static final String TAG = "podcastList" + PData.TAGGER + "PodcastList";
+    public static final String TAG = "podcastList" + P2Data.TAGGER + "PodcastList";
 
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
@@ -84,11 +84,11 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
     }
 
     public synchronized void initList() {
-        PDuration.counterStart("initList");
+        P2Duration.counterStart("initList");
         createFilterLists();
         genGenreList();
         this.addListener((v, o, n) -> genGenreList());
-        PDuration.counterStop("initList");
+        P2Duration.counterStop("initList");
     }
 
     public boolean podcastExistsAlready(Podcast podcast) {
@@ -138,7 +138,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
 
         // todo exception parallel?? Unterschied ~10ms (bei Gesamt: 110ms)
-        PDuration.counterStart("Podcast markieren");
+        P2Duration.counterStart("Podcast markieren");
         try {
             countDouble = 0;
             this.stream().forEach(station -> {
@@ -151,7 +151,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         } catch (Exception ex) {
             P2Log.errorLog(951024789, ex);
         }
-        PDuration.counterStop("Podcast markieren");
+        P2Duration.counterStop("Podcast markieren");
 
         urlHashSet.clear();
         return countDouble;
@@ -194,7 +194,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
      * Erstellt StringArrays der Codecs/Länder eines Podcasts.
      */
     public synchronized void createFilterLists() {
-        PDuration.counterStart("Filter-Listen suchen");
+        P2Duration.counterStart("Filter-Listen suchen");
 
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(21);
         //Genres
@@ -208,7 +208,7 @@ public class PodcastList extends SimpleListProperty<Podcast> implements PDataLis
         genres = hashSet.toArray(new String[hashSet.size()]);
 //        ProgData.getInstance().filterWorker.createFilterLists();//und im Filter eintragen
 
-        PDuration.counterStop("Filter-Listen suchen");
+        P2Duration.counterStop("Filter-Listen suchen");
     }
 
     public synchronized ObservableList<String> getGenreList() {

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.tools.shortcut.PShortcutWorker;
+import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -83,7 +83,7 @@ public class PodcastMenu {
 
         final MenuItem miUpdate = new MenuItem("Markierte Podcasts aktualisieren");
         miUpdate.setOnAction(a -> progData.worker.updatePodcast(false));
-        PShortcutWorker.addShortCut(miUpdate, P2PodderShortCuts.SHORTCUT_UPDATE_PODCAST);
+        P2ShortcutWorker.addShortCut(miUpdate, P2PodderShortCuts.SHORTCUT_UPDATE_PODCAST);
 
         final MenuItem miUpdateAll = new MenuItem("Alle Podcasts aktualisieren");
         miUpdateAll.setOnAction(a -> progData.worker.updatePodcast(true));

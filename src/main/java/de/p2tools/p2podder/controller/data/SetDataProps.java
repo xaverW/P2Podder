@@ -18,18 +18,18 @@ package de.p2tools.p2podder.controller.data;
 
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
-import de.p2tools.p2lib.tools.PIndex;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
+import de.p2tools.p2lib.tools.P2Index;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class SetDataProps extends PDataSample<SetData> {
+public class SetDataProps extends P2DataSample<SetData> {
 
     public static final String TAG = SetDataFieldNames.TAG;
 
-    private final StringProperty id = new SimpleStringProperty(PIndex.getIndexStr());
+    private final StringProperty id = new SimpleStringProperty(P2Index.getIndexStr());
     private final StringProperty name = new SimpleStringProperty("Name");
     private final StringProperty progPath = new SimpleStringProperty("");
     private final StringProperty progSwitch = new SimpleStringProperty("");

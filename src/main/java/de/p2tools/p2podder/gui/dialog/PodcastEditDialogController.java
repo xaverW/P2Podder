@@ -16,8 +16,8 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.data.PColorData;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.data.P2ColorData;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2TextAreaIgnoreTab;
@@ -38,7 +38,7 @@ import javafx.scene.paint.Color;
 public class PodcastEditDialogController extends P2DialogExtra {
 
     // DialogPodcast
-    private static final PColorData PODCAST_NAME_ERROR = new PColorData("COLOR_PODCAST_NAME_ERROR",
+    private static final P2ColorData PODCAST_NAME_ERROR = new P2ColorData("COLOR_PODCAST_NAME_ERROR",
             Color.rgb(255, 233, 233), Color.rgb(200, 183, 183));
 
     private final GridPane gridPane = new GridPane();
@@ -73,14 +73,14 @@ public class PodcastEditDialogController extends P2DialogExtra {
     private boolean checkChanges() {
         if (addNewPodcast && progData.podcastList.podcastExistsAlready(podcast)) {
             // dann gibts den Podcast schon
-            PAlert.showErrorAlert(getStage(), "Fehler", "Podcast anlegen",
+            P2Alert.showErrorAlert(getStage(), "Fehler", "Podcast anlegen",
                     "Ein Podcast mit den Einstellungen existiert bereits");
             return false;
         }
 
         if (podcast.getUrl().isEmpty()) {
             // dann ist die RSS-URL leer
-            PAlert.showErrorAlert(getStage(), "Fehler", "Podcast anlegen",
+            P2Alert.showErrorAlert(getStage(), "Fehler", "Podcast anlegen",
                     "Der Podcast enthält keine RSS-URL!");
             return false;
         }

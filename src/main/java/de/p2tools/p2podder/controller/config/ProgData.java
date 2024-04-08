@@ -18,9 +18,9 @@
 package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PEventHandler;
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetDataList;
@@ -101,10 +101,10 @@ public class ProgData {
     // Programmdaten
     boolean oneSecond = false;
 
-    public PEventHandler pEventHandler;
+    public P2EventHandler pEventHandler;
 
     private ProgData() {
-        pEventHandler = new PEventHandler();
+        pEventHandler = new P2EventHandler();
         pShortcut = new P2PodderShortCuts();
 
         episodeFilter = new EpisodeFilter(true);
@@ -147,11 +147,11 @@ public class ProgData {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setDelay(Duration.seconds(5));
         timeline.play();
-        PDuration.onlyPing("Timer gestartet");
+        P2Duration.onlyPing("Timer gestartet");
     }
 
     private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListener(new PEvent(Events.EREIGNIS_TIMER));
+        pEventHandler.notifyListener(new P2Event(Events.EREIGNIS_TIMER));
     }
 
     public synchronized static final ProgData getInstance() {

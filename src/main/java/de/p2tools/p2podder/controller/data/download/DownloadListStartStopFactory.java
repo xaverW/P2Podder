@@ -18,8 +18,8 @@ package de.p2tools.p2podder.controller.data.download;
 
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2podder.controller.config.ProgData;
 
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class DownloadListStartStopFactory {
      */
 
     public static synchronized boolean delDownloads(ArrayList<DownloadData> list) {
-        PDuration.counterStart("delDownloads");
+        P2Duration.counterStart("delDownloads");
         if (list == null || list.isEmpty()) {
             return false;
         }
@@ -109,7 +109,7 @@ public class DownloadListStartStopFactory {
         list.stream().filter(download -> download.isStateStartedRun()).forEach(download -> download.stopDownload());
         boolean found = ProgData.getInstance().downloadList.removeAll(list);
 
-        PDuration.counterStop("delDownloads");
+        P2Duration.counterStop("delDownloads");
         return found;
     }
 
@@ -138,8 +138,8 @@ public class DownloadListStartStopFactory {
     }
 
 
-    private static PAlert.BUTTON restartDownload(int size, String title, PAlert.BUTTON answer) {
-        if (answer.equals(PAlert.BUTTON.UNKNOWN)) {
+    private static P2Alert.BUTTON restartDownload(int size, String title, P2Alert.BUTTON answer) {
+        if (answer.equals(P2Alert.BUTTON.UNKNOWN)) {
             // nur einmal fragen
             String text;
             if (size > 1) {
@@ -147,7 +147,7 @@ public class DownloadListStartStopFactory {
             } else {
                 text = "Film nochmal starten?  ==> " + title;
             }
-            answer = new PAlert().showAlert_yes_no_cancel("Download", "Fehlerhafte Downloads", text);
+            answer = new P2Alert().showAlert_yes_no_cancel("Download", "Fehlerhafte Downloads", text);
         }
         return answer;
     }
@@ -172,7 +172,7 @@ public class DownloadListStartStopFactory {
             return false;
         }
 
-        PDuration.counterStart("startDownloads");
+        P2Duration.counterStart("startDownloads");
         final ArrayList<DownloadData> listStartDownloads = new ArrayList<>();
 
         // das Starten von neuen Downloads etwas Pausieren
@@ -191,7 +191,7 @@ public class DownloadListStartStopFactory {
         // alle Downloads starten/wiederstarten
         start(listStartDownloads);
 
-        PDuration.counterStop("startDownloads");
+        P2Duration.counterStop("startDownloads");
         return true;
     }
 
@@ -207,7 +207,7 @@ public class DownloadListStartStopFactory {
 
     private static boolean startAlsoFinishedDownloads(Collection<DownloadData> list, ArrayList<DownloadData> listStartDownloads) {
 
-        PAlert.BUTTON answer = PAlert.BUTTON.UNKNOWN;
+        P2Alert.BUTTON answer = P2Alert.BUTTON.UNKNOWN;
         final ArrayList<DownloadData> listDelDownloads = new ArrayList<>();
         final ArrayList<DownloadData> listDownloadsRemovePodcastHistory = new ArrayList<>();
 
@@ -225,7 +225,7 @@ public class DownloadListStartStopFactory {
 
             //fehlerhafte nur wenn gewollt wieder starten
             if (download.isStateError()) {
-                if (answer.equals(PAlert.BUTTON.UNKNOWN)) {
+                if (answer.equals(P2Alert.BUTTON.UNKNOWN)) {
                     answer = restartDownload(list.size(), download.getEpisodeTitle(), answer);
                 }
 
@@ -245,7 +245,7 @@ public class DownloadListStartStopFactory {
             }
         }
 
-        if (answer.equals(PAlert.BUTTON.CANCEL)) {
+        if (answer.equals(P2Alert.BUTTON.CANCEL)) {
             // dann machmer nix
             return false;
         }

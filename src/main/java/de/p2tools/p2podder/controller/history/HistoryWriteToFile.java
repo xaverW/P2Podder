@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.history;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 
@@ -54,7 +54,7 @@ public class HistoryWriteToFile implements Runnable {
             return;
         }
 
-        PDuration.counterStart("History: Thread: HistoryWriteToFile");
+        P2Duration.counterStart("History: Thread: HistoryWriteToFile");
         if (append) {
             P2Log.sysLog("An Historyliste anfügen: " + list.size() + ", Datei: " + historyWorker.getFileName());
         } else {
@@ -63,7 +63,7 @@ public class HistoryWriteToFile implements Runnable {
 
         // und jetzt schreiben
         writeHistoryDataToFile(list, append);
-        PDuration.counterStop("History: Thread: HistoryWriteToFile");
+        P2Duration.counterStop("History: Thread: HistoryWriteToFile");
     }
 
     private boolean writeHistoryDataToFile(List<HistoryData> list, boolean append) {

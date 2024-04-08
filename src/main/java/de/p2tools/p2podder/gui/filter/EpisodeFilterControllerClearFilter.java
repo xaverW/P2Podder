@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.filter;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2ButtonClearFilterFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.tools.HelpText;
@@ -74,7 +74,7 @@ public class EpisodeFilterControllerClearFilter extends HBox {
     }
 
     private void clearFilter() {
-        PDuration.onlyPing("Filter löschen");
+        P2Duration.onlyPing("Filter löschen");
         progData.episodeFilter.clearFilter();
     }
 }

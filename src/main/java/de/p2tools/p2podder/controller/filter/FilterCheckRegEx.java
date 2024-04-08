@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
-import de.p2tools.p2lib.data.PColorData;
+import de.p2tools.p2lib.data.P2ColorData;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -27,9 +27,9 @@ public class FilterCheckRegEx {
 
 
     // Filter wenn RegEx
-    private static final PColorData FILTER_REGEX = new PColorData("COLOR_FILTER_REGEX",
+    private static final P2ColorData FILTER_REGEX = new P2ColorData("COLOR_FILTER_REGEX",
             Color.rgb(206, 255, 202), Color.rgb(79, 129, 74));
-    private static final PColorData FILTER_REGEX_ERROR = new PColorData("COLOR_FILTER_REGEX_ERROR",
+    private static final P2ColorData FILTER_REGEX_ERROR = new P2ColorData("COLOR_FILTER_REGEX_ERROR",
             Color.rgb(255, 230, 230), Color.rgb(170, 0, 0));
 
     private final int COUNTER_MAX = 2_500;

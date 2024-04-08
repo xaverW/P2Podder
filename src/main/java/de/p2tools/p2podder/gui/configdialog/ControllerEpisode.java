@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.configdialog;
 
-import de.p2tools.p2lib.dialogs.accordion.PAccordionPane;
+import de.p2tools.p2lib.dialogs.accordion.P2AccordionPane;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ControllerEpisode extends PAccordionPane {
+public class ControllerEpisode extends P2AccordionPane {
 
     private final Stage stage;
     private PaneEpisode paneEpisode;

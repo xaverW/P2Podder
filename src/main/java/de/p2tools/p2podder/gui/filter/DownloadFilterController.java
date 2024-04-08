@@ -18,7 +18,7 @@ package de.p2tools.p2podder.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -203,7 +203,7 @@ public class DownloadFilterController extends FilterPane {
     };
 
     public void clearFilter(boolean clearTable) {
-        PDuration.onlyPing("Filter löschen");
+        P2Duration.onlyPing("Filter löschen");
         progData.downloadFilter.clearFilter();
         if (clearTable) {
             tableView.getSelectionModel().clearSelection();

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.podcastadd.PodcastAddDialogController;
@@ -53,7 +53,7 @@ public class PodcastFactory {
         //damit werden Unicode-Zeichen korrigiert
         //gibt da einen Java-Bug
         //https://github.com/javafxports/openjdk-jfx/issues/287
-        PDuration.counterStart("cleanFaultyCharacter");
+        P2Duration.counterStart("cleanFaultyCharacter");
         PodcastList podcastList = ProgData.getInstance().podcastList;
         podcastList.stream().forEach(station -> {
         });
@@ -64,7 +64,7 @@ public class PodcastFactory {
             P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
 
         }
-        PDuration.counterStop("cleanFaultyCharacter");
+        P2Duration.counterStop("cleanFaultyCharacter");
     }
 
 

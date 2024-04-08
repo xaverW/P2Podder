@@ -18,8 +18,8 @@
 package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.PSystemUtils;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -87,7 +87,7 @@ public class EpisodeFactory {
         if (episode.isPresent()) {
             return;
         }
-        PSystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
+        P2SystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
     }
 
     public static void playSelEpisode() {
@@ -171,7 +171,7 @@ public class EpisodeFactory {
         stopRunningEpisode();
 
         if (ProgData.getInstance().episodeStartingList.isEmpty()) {
-            PAlert.showErrorAlert(stage, "Keine Episoden", "Es sind keine weiteren " +
+            P2Alert.showErrorAlert(stage, "Keine Episoden", "Es sind keine weiteren " +
                     "Episoden gestartet");
         }
     }
@@ -270,7 +270,7 @@ public class EpisodeFactory {
             return;
         }
         if (!P2FileUtils.fileExist(pathName)) {
-            PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
+            P2Alert.showErrorAlert(ProgData.getInstance().primaryStage,
                     "Episode abspielen",
                     "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");
             return;
@@ -296,7 +296,7 @@ public class EpisodeFactory {
                 return;
             }
             if (!P2FileUtils.fileExist(pathName)) {
-                PAlert.showErrorAlert(ProgData.getInstance().primaryStage,
+                P2Alert.showErrorAlert(ProgData.getInstance().primaryStage,
                         "Episode abspielen",
                         "Die Datei: \n" + pathName + "\nexistiert nicht mehr!");
                 return;

@@ -18,8 +18,8 @@ package de.p2tools.p2podder.controller.data.download;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.config.*;
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.mtdownload.DownloadSize;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
@@ -31,8 +31,8 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class DownloadDataProps extends PDataSample<DownloadData> {
-    public static final String TAG = "download" + PData.TAGGER + "Download";
+public class DownloadDataProps extends P2DataSample<DownloadData> {
+    public static final String TAG = "download" + P2Data.TAGGER + "Download";
 
     private final IntegerProperty no = new SimpleIntegerProperty(P2LibConst.NUMBER_NOT_STARTED);
 

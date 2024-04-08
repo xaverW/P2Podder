@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.filter;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_boolProp;
 import de.p2tools.p2lib.configfile.config.Config_longProp;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -27,7 +27,7 @@ import javafx.beans.property.SimpleLongProperty;
 
 import java.util.ArrayList;
 
-public class EpisodeFilterSmallProps extends PDataSample<EpisodeFilter> implements Comparable<EpisodeFilter> {
+public class EpisodeFilterSmallProps extends P2DataSample<EpisodeFilter> implements Comparable<EpisodeFilter> {
 
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final BooleanProperty isAll = new SimpleBooleanProperty(true);//dient nur dazu, dass die anderen ausgeschaltet werden

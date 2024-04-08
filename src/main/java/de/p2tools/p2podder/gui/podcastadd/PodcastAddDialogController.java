@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui.podcastadd;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -97,7 +97,7 @@ public class PodcastAddDialogController extends P2DialogExtra {
         ok = false;
         for (AddPodcastData d : addPodcastDto.addPodcastData) {
             if (d.podcast == null) {
-                PAlert.showErrorAlert("Fehlerhafter Download!", "Fehlerhafter Download!",
+                P2Alert.showErrorAlert("Fehlerhafter Download!", "Fehlerhafter Download!",
                         "Download konnte nicht erstellt werden.");
 
             } else {

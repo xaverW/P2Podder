@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.controller.data.episode;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2lib.tools.GermanStringSorter;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -34,9 +34,9 @@ import javafx.collections.transformation.SortedList;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class EpisodeList extends SimpleListProperty<Episode> implements PDataList<Episode> {
+public class EpisodeList extends SimpleListProperty<Episode> implements P2DataList<Episode> {
 
-    public static final String TAG = "episodeList" + PData.TAGGER + "EpisodeList";
+    public static final String TAG = "episodeList" + P2Data.TAGGER + "EpisodeList";
     private final ProgData progData;
     private final EpisodeStartsFactory episodeStartsFactory;
     private int no = 0;
@@ -85,7 +85,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     public synchronized void initList() {
-        PDuration.counterStart("initList");
+        P2Duration.counterStart("initList");
         for (Episode episode : this) {
             episode.setThePodcast(progData.podcastList.getPodcastById(episode.getPodcastId()));
         }
@@ -96,7 +96,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
             genGenreList();
             genPodcastList();
         });
-        PDuration.counterStop("initList");
+        P2Duration.counterStop("initList");
     }
 
     public SortedList<Episode> getSortedList() {
@@ -190,7 +190,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
     }
 
     private synchronized void genPodcastList() {
-        PDuration.counterStart("genPodcastList");
+        P2Duration.counterStart("genPodcastList");
         P2Log.sysLog("Episoden: genPodcastList");
         final LinkedHashSet<Podcast> hashSet = new LinkedHashSet<>(10);
         final ArrayList<Podcast> items = new ArrayList<>();
@@ -204,7 +204,7 @@ public class EpisodeList extends SimpleListProperty<Episode> implements PDataLis
         });
         Collections.sort(items);
         podcastList.setAll(items);
-        PDuration.counterStop("getPodcastList");
+        P2Duration.counterStop("getPodcastList");
     }
 
     public synchronized ObservableList<String> getGenreList() {

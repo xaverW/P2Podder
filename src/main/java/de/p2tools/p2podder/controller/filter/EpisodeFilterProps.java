@@ -17,13 +17,13 @@
 package de.p2tools.p2podder.controller.filter;
 
 import de.p2tools.p2lib.configfile.config.*;
-import de.p2tools.p2lib.configfile.pdata.PDataSample;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.*;
 
 import java.util.ArrayList;
 
-public class EpisodeFilterProps extends PDataSample<EpisodeFilter> implements Comparable<EpisodeFilter> {
+public class EpisodeFilterProps extends P2DataSample<EpisodeFilter> implements Comparable<EpisodeFilter> {
 
     public static String TAG = "SelectedFilter";
     private final LongProperty podcastId = new SimpleLongProperty(0);

@@ -16,10 +16,10 @@
 
 package de.p2tools.p2podder.gui.smallgui;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.tools.events.PEvent;
-import de.p2tools.p2lib.tools.events.PListener;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -107,7 +107,7 @@ public class SmallGuiCenter extends VBox {
         final ArrayList<Episode> ret = new ArrayList<>();
         ret.addAll(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return ret;
     }
@@ -123,7 +123,7 @@ public class SmallGuiCenter extends VBox {
         }
 
         if (show) {
-            PAlert.showInfoNoSelection();
+            P2Alert.showInfoNoSelection();
         }
         return Optional.empty();
     }
@@ -153,9 +153,9 @@ public class SmallGuiCenter extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new PListener(Events.EREIGNIS_SETDATA_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_SETDATA_CHANGED) {
             @Override
-            public void pingGui(PEvent runEvent) {
+            public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
             }
         });

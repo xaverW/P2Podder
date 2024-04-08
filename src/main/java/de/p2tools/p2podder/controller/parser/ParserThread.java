@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.parser;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -110,11 +110,11 @@ public class ParserThread {
 
                 Platform.runLater(() -> {
                     //dann vorher auf jeden Fall fragen
-                    PAlert.BUTTON button = PAlert.showAlert_yes_no(progData.primaryStage, "Download der Episoden",
+                    P2Alert.BUTTON button = P2Alert.showAlert_yes_no(progData.primaryStage, "Download der Episoden",
                             "Viele Episoden gefunden", "Es wurden " + progData.downloadList.size() +
                                     " Episoden gefunden. Sollen die gefundenen Episoden jetzt " +
                                     "geladen werden?");
-                    if (button.equals(PAlert.BUTTON.YES)) {
+                    if (button.equals(P2Alert.BUTTON.YES)) {
                         DownloadFactory.startAllDownloads();
                     }
                 });
