@@ -22,10 +22,7 @@ import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
-import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.config.ProgConst;
-import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.config.ProgInfosFactory;
+import de.p2tools.p2podder.controller.config.*;
 import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startdialog.StartDialogController;
@@ -34,30 +31,48 @@ import javafx.stage.Stage;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class ProgStartBeforeGui {
-    public static boolean firstProgramStart = false;
+//    public static boolean firstProgramStart = false;
 
     private ProgStartBeforeGui() {
     }
 
-    public static boolean workBeforeGui() {
-        boolean loadOk = loadProgConfigData();
-        if (ProgConfig.SYSTEM_LOG_ON.get()) {
-            P2Logger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
-        }
-
-        if (!loadOk) {
+    public static void workBeforeGui() {
+        if (!loadAll()) {
+            // dann ist der erste Start
             P2Duration.onlyPing("Erster Start");
-            firstProgramStart = true;
+            ProgData.firstProgramStart = true;
+
+            ProgConfigUpdate.setUpdateDone(); // dann ist's ja kein Programmupdate
 
             StartDialogController startDialogController = new StartDialogController();
             if (!startDialogController.isOk()) {
-                // dann jetzt beenden -> Tschüss
+                // dann jetzt beenden -> Tschüs
                 Platform.exit();
                 System.exit(0);
             }
         }
+
+
+//        boolean loadOk = loadProgConfigData();
+//        if (ProgConfig.SYSTEM_LOG_ON.get()) {
+//            P2Logger.setFileHandler(ProgInfosFactory.getLogDirectoryString());
+//        }
+//
+//        if (!loadOk) {
+//            P2Duration.onlyPing("Erster Start");
+//            firstProgramStart = true;
+//
+//            StartDialogController startDialogController = new StartDialogController();
+//            if (!startDialogController.isOk()) {
+//                // dann jetzt beenden -> Tschüss
+//                Platform.exit();
+//                System.exit(0);
+//            }
+//        }
+
         ProgData.getInstance().episodeList.initList();
         ProgData.getInstance().podcastList.initList();
         ProgData.getInstance().downloadList.initList();
@@ -66,8 +81,8 @@ public class ProgStartBeforeGui {
             addStandarSets();
         }
 
-        resetConfigs();
-        return firstProgramStart;
+//        resetConfigs();
+//        return firstProgramStart;
     }
 
 
@@ -78,17 +93,36 @@ public class ProgStartBeforeGui {
         progData.episodeList.clear();
     }
 
-    private static boolean loadProgConfig() {
+    private static boolean loadAll() {
+        ArrayList<String> logList = new ArrayList<>();
+        boolean ret = load(logList);
+
+        if (ProgConfig.SYSTEM_LOG_ON.getValue()) {
+            // dann für den evtl. geänderten LogPfad
+            P2Logger.setFileHandler(ProgInfos.getLogDirectory_String());
+        }
+        P2Log.sysLog(logList);
+
+        if (!ret) {
+            P2Log.sysLog("Weder Konfig noch Backup konnte geladen werden!");
+            // teils geladene Reste entfernen
+            clearTheConfigs();
+        }
+
+        return ret;
+    }
+
+    private static boolean load(ArrayList<String> logList) {
         final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
         P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
         try {
             if (!Files.exists(xmlFilePath)) {
                 //dann gibts das Konfig-File gar nicht
-                P2Log.sysLog("Konfig existiert nicht!");
+                logList.add("Konfig existiert nicht!");
                 return false;
             }
 
-            P2Log.sysLog("Programmstart und ProgConfig laden von: " + xmlFilePath);
+            logList.add("Programmstart und ProgConfig laden von: " + xmlFilePath);
             ConfigFile configFile = new ConfigFile(xmlFilePath.toString(), true) {
                 @Override
                 public void clearConfigFile() {
@@ -97,69 +131,70 @@ public class ProgStartBeforeGui {
             };
             ProgConfig.addConfigData(configFile);
             if (ConfigReadFile.readConfig(configFile)) {
-                P2Log.sysLog("Konfig wurde geladen!");
+                initAfterLoad();
+                logList.add("Konfig wurde geladen!");
                 return true;
 
             } else {
                 // dann hat das Laden nicht geklappt
-                P2Log.sysLog("Konfig konnte nicht geladen werden!");
+                logList.add("Konfig konnte nicht geladen werden!");
                 return false;
             }
         } catch (final Exception ex) {
-            P2Log.errorLog(915470101, ex);
+            logList.add(ex.getLocalizedMessage());
         }
         return false;
     }
 
 
-    private static boolean loadProgConfigData() {
-        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
-        boolean found;
-        if ((found = loadProgConfig()) == false) {
-            //todo? teils geladene Reste entfernen
-            P2Log.sysLog("-> konnte nicht geladen werden!");
-            clearTheConfigs();
-        } else {
-            P2Log.sysLog("-> wurde gelesen!");
-        }
-        return found;
-    }
+//    private static boolean loadProgConfigData() {
+//        P2Duration.onlyPing("ProgStartFactory.loadProgConfigData");
+//        boolean found;
+//        if ((found = loadProgConfig()) == false) {
+//            //todo? teils geladene Reste entfernen
+//            P2Log.sysLog("-> konnte nicht geladen werden!");
+//            clearTheConfigs();
+//        } else {
+//            P2Log.sysLog("-> wurde gelesen!");
+//        }
+//        return found;
+//    }
 
-    private static void resetConfigs() {
-        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(P2ToolsFactory.getProgVersion()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(P2ToolsFactory.getBuild()) ||
-                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(P2ToolsFactory.getCompileDate())) {
-
-            //dann ist eine neue Version/Build
-            P2Log.sysLog("===============================");
-            P2Log.sysLog(" eine neue Version/Build");
-            P2Log.sysLog(" Einstellung zurücksetzen");
-
-            ProgConfig.PODCAST_GUI_TABLE_WIDTH.setValue("");
-            ProgConfig.PODCAST_GUI_TABLE_SORT.setValue("");
-            ProgConfig.PODCAST_GUI_TABLE_UP_DOWN.setValue("");
-            ProgConfig.PODCAST_GUI_TABLE_VIS.setValue("");
-            ProgConfig.PODCAST_GUI_TABLE_ORDER.setValue("");
-
-            ProgConfig.DOWNLOAD_GUI_TABLE_WIDTH.setValue("");
-            ProgConfig.DOWNLOAD_GUI_TABLE_SORT.setValue("");
-            ProgConfig.DOWNLOAD_GUI_TABLE_UP_DOWN.setValue("");
-            ProgConfig.DOWNLOAD_GUI_TABLE_VIS.setValue("");
-            ProgConfig.DOWNLOAD_GUI_TABLE_ORDER.setValue("");
-
-            ProgConfig.EPISODE_GUI_TABLE_WIDTH.setValue("");
-            ProgConfig.EPISODE_GUI_TABLE_SORT.setValue("");
-            ProgConfig.EPISODE_GUI_TABLE_UP_DOWN.setValue("");
-            ProgConfig.EPISODE_GUI_TABLE_VIS.setValue("");
-            ProgConfig.EPISODE_GUI_TABLE_ORDER.setValue("");
-
-            ProgConfig.SMALL_EPISODE_GUI_TABLE_WIDTH.setValue("");
-            ProgConfig.SMALL_EPISODE_GUI_TABLE_SORT.setValue("");
-            ProgConfig.SMALL_EPISODE_GUI_TABLE_UP_DOWN.setValue("");
-            ProgConfig.SMALL_EPISODE_GUI_TABLE_VIS.setValue("");
-            ProgConfig.SMALL_EPISODE_GUI_TABLE_ORDER.setValue("");
-        }
-    }
+//    private static void resetConfigs() {
+//        if (!ProgConfig.SYSTEM_PROG_VERSION.getValueSafe().equals(P2ToolsFactory.getProgVersion()) ||
+//                !ProgConfig.SYSTEM_PROG_BUILD_NO.getValueSafe().equals(P2ToolsFactory.getBuild()) ||
+//                !ProgConfig.SYSTEM_PROG_BUILD_DATE.getValueSafe().equals(P2ToolsFactory.getCompileDate())) {
+//
+//            //dann ist eine neue Version/Build
+//            P2Log.sysLog("===============================");
+//            P2Log.sysLog(" eine neue Version/Build");
+//            P2Log.sysLog(" Einstellung zurücksetzen");
+//
+//            ProgConfig.PODCAST_GUI_TABLE_WIDTH.setValue("");
+//            ProgConfig.PODCAST_GUI_TABLE_SORT.setValue("");
+//            ProgConfig.PODCAST_GUI_TABLE_UP_DOWN.setValue("");
+//            ProgConfig.PODCAST_GUI_TABLE_VIS.setValue("");
+//            ProgConfig.PODCAST_GUI_TABLE_ORDER.setValue("");
+//
+//            ProgConfig.DOWNLOAD_GUI_TABLE_WIDTH.setValue("");
+//            ProgConfig.DOWNLOAD_GUI_TABLE_SORT.setValue("");
+//            ProgConfig.DOWNLOAD_GUI_TABLE_UP_DOWN.setValue("");
+//            ProgConfig.DOWNLOAD_GUI_TABLE_VIS.setValue("");
+//            ProgConfig.DOWNLOAD_GUI_TABLE_ORDER.setValue("");
+//
+//            ProgConfig.EPISODE_GUI_TABLE_WIDTH.setValue("");
+//            ProgConfig.EPISODE_GUI_TABLE_SORT.setValue("");
+//            ProgConfig.EPISODE_GUI_TABLE_UP_DOWN.setValue("");
+//            ProgConfig.EPISODE_GUI_TABLE_VIS.setValue("");
+//            ProgConfig.EPISODE_GUI_TABLE_ORDER.setValue("");
+//
+//            ProgConfig.SMALL_EPISODE_GUI_TABLE_WIDTH.setValue("");
+//            ProgConfig.SMALL_EPISODE_GUI_TABLE_SORT.setValue("");
+//            ProgConfig.SMALL_EPISODE_GUI_TABLE_UP_DOWN.setValue("");
+//            ProgConfig.SMALL_EPISODE_GUI_TABLE_VIS.setValue("");
+//            ProgConfig.SMALL_EPISODE_GUI_TABLE_ORDER.setValue("");
+//        }
+//    }
 
     private static void addStandarSets() {
         Platform.runLater(() -> {
@@ -181,5 +216,10 @@ public class ProgStartBeforeGui {
         } else {
             stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
         }
+    }
+
+    private static void initAfterLoad() {
+        ProgConfigUpdate.update(); // falls es ein Programmupdate gab, Configs anpassen
+        ProgColorList.setColorTheme(); // Farben einrichten
     }
 }

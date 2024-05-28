@@ -41,6 +41,7 @@ public class ProgIcons {
     public static P2IconPodder ICON_BUTTON_FILTER = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-filter.png", 25, 20);
     public static P2IconPodder ICON_BUTTON_CLEAR_FILTER = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-clear-filter.png", 25, 20);
     public static P2IconPodder ICON_BUTTON_RESET = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-reset.png", 14, 14);
+    public static P2IconPodder ICON_BUTTON_CLEAN = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "clean_16.png", 16, 16);
     public static P2IconPodder ICON_BUTTON_PROPOSE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-propose.png", 16, 16);
     public static P2IconPodder ICON_BUTTON_BACKWARD = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-backward.png", 16, 16);
     public static P2IconPodder ICON_BUTTON_FORWARD = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "button-forward.png", 16, 16);
@@ -78,20 +79,20 @@ public class ProgIcons {
 
     public static P2IconPodder ICON_TOOLBAR_MENU = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-menu.png", 18, 15);
     public static P2IconPodder ICON_TOOLBAR_MENU_TOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-menu-top.png", 32, 18);
-    public static P2IconPodder ICON_TOOLBAR_EPISODE_DEL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-del.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_CLEAN = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-clean.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_BACK = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-back.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_START = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-start.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_START_ALL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-start-all.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_STOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-stop.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_EPISODE_START = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-start.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_EPISODE_PLAY_NEXT = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-play-next.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_EPISODE_STOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-stop.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_PODCAST_UPDATE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-update.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_PODCAST_DEL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-del.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_PODCAST_CHANGE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-change.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_PODCAST_ADD = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-add.png", 32, 32);
-    public static P2IconPodder ICON_TOOLBAR_INFO = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-info.png", 32, 32);
+    public static P2IconPodder ICON_TOOLBAR_EPISODE_DEL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-del.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_CLEAN = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-clean.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_BACK = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-back.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_START = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-start.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_START_ALL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-start-all.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_DOWNLOAD_STOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-download-stop.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_EPISODE_START = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-start.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_EPISODE_PLAY_NEXT = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-play-next.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_EPISODE_STOP = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-stop.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_PODCAST_UPDATE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-update.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_PODCAST_DEL = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-del.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_PODCAST_CHANGE = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-episode-change.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_PODCAST_ADD = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-podcast-add.png", 26, 26);
+    public static P2IconPodder ICON_TOOLBAR_INFO = new P2IconPodder(ICON_PATH_LONG, ICON_PATH, "toolbar-info.png", 26, 26);
 
     public static void initIcons() {
         iconList.forEach(p -> {

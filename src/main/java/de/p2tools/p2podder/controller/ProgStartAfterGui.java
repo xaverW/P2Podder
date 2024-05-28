@@ -63,7 +63,7 @@ public class ProgStartAfterGui {
         Thread th = new Thread(() -> {
             P2Duration.onlyPing("Programmstart Podcastliste laden: start");
 
-            if (ProgStartBeforeGui.firstProgramStart) {
+            if (ProgData.firstProgramStart) {
                 //schon mal ein paar eintragen
                 addStartPodcasts();
             } else {

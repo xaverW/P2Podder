@@ -54,6 +54,9 @@ public class ProgConfig extends P2DataProgConfig {
     //Filter Episoden
     public static IntegerProperty FILTER_EPISODE_SEL_FILTER = addIntProp("filter-episode-sel-filter");
 
+    // Configs zum Aktualisieren beim Programmupdate
+    public static BooleanProperty SYSTEM_CHANGE_LOG_DIR = addBoolProp("system-change-log-dir", Boolean.FALSE);
+
 
     // Configs der Programmversion
     public static StringProperty SYSTEM_PROG_VERSION = addStrProp("system-prog-version");
