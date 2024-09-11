@@ -56,9 +56,9 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
     private final ImageView ivNew = new ImageView();
     private final TextArea taDescription = new TextArea();
     private final P2Hyperlink pHyperlinkUrl = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink pHyperlinkWebsite = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
 
     private Episode episode;
     private final ProgData progData;

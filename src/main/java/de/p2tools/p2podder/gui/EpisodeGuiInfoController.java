@@ -21,7 +21,6 @@ import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
-import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import javafx.geometry.Insets;
@@ -41,7 +40,7 @@ public class EpisodeGuiInfoController extends P2ClosePaneH {
     private final Label lblLength = new Label("");
     private final Label size = new Label("");
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final TextArea taDescription = new TextArea();
 
     private Episode episode = null;

@@ -21,7 +21,6 @@ import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
-import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.geometry.Insets;
@@ -42,9 +41,9 @@ public class PodcastGuiInfoController extends P2ClosePaneH {
     private final CheckBox chkActive = new CheckBox();
 
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
     private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
-            ProgConfig.SYSTEM_PROG_OPEN_URL, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
 
     public PodcastGuiInfoController() {
         super(ProgConfig.PODCAST_GUI_INFO_ON, true);
