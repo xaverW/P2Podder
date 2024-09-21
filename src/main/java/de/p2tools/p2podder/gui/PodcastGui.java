@@ -16,9 +16,13 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.filter.PodcastFilterController;
+import de.p2tools.p2podder.gui.filter.DownloadFilterController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -30,36 +34,21 @@ public class PodcastGui {
     ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
-    private final PodcastFilterController podcastFilterController;
     private final PodcastGuiController podcastGuiController;
-    private boolean bound = false;
+    private final InfoController infoController;
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
 
 
     public PodcastGui() {
         progData = ProgData.getInstance();
         progData.podcastGui = this;
 
-        podcastFilterController = new PodcastFilterController();
+        infoController = new InfoController(new DownloadFilterController(),
+                ProgConfig.PODCAST__FILTER_IS_SHOWING, ProgConfig.PODCAST__FILTER_IS_RIP,
+                ProgConfig.PODCAST__FILTER_DIALOG_SIZE, ProgData.PODCAST_TAB_ON,
+                "Filter", "Podcast", true);
+
         podcastGuiController = new PodcastGuiController();
-    }
-
-    public void closeSplit() {
-        ProgConfig.PODCAST_GUI_FILTER_ON.setValue(!ProgConfig.PODCAST_GUI_FILTER_ON.get());
-    }
-
-    private void setSplit() {
-        if (ProgConfig.PODCAST_GUI_FILTER_ON.getValue()) {
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(podcastFilterController, podcastGuiController);
-            bound = true;
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.PODCAST_GUI_FILTER_DIVIDER);
-        } else {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.PODCAST_GUI_FILTER_DIVIDER);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(podcastGuiController);
-        }
     }
 
     public Pane pack() {
@@ -69,7 +58,7 @@ public class PodcastGui {
 
         // Gui
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(podcastFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(infoController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -77,12 +66,18 @@ public class PodcastGui {
         HBox.setHgrow(splitPane, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPane, menuController);
 
-        ProgConfig.PODCAST_GUI_FILTER_ON.addListener((observable, oldValue, newValue) -> setSplit());
+        ProgConfig.PODCAST__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
         return hBox;
     }
 
     public PodcastGuiController getPodcastGuiController() {
         return podcastGuiController;
+    }
+
+    private void setSplit() {
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, true,
+                podcastGuiController, ProgConfig.PODCAST__FILTER_DIVIDER, ProgConfig.PODCAST__FILTER_IS_SHOWING);
     }
 }

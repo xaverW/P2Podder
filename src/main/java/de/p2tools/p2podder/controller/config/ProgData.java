@@ -45,6 +45,8 @@ import de.p2tools.p2podder.gui.tools.ProgTray;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -98,6 +100,10 @@ public class ProgData {
     public SetDataList setDataList;
     public HistoryList historyDownloads; //erfolgreich geladenen Downloads
     public HistoryList historyEpisodes; //gehörte Episoden
+
+    public static BooleanProperty PODCAST_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+    public static BooleanProperty DOWNLOAD_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
+    public static BooleanProperty EPISODE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
 
     // Programmdaten
     boolean oneSecond = false;

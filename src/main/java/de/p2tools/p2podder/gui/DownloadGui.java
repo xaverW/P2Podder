@@ -16,9 +16,13 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.DownloadFilterController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,14 +35,19 @@ public class DownloadGui {
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
-    private final DownloadFilterController downloadFilterController;
-    private boolean bound = false;
+    private final InfoController infoController;
+
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public DownloadGui() {
         progData = ProgData.getInstance();
         progData.downloadGui = this;
 
-        downloadFilterController = new DownloadFilterController();
+        infoController = new InfoController(new DownloadFilterController(),
+                ProgConfig.DOWNLOAD__FILTER_IS_SHOWING, ProgConfig.DOWNLOAD__FILTER_IS_RIP,
+                ProgConfig.DOWNLOAD__FILTER_DIALOG_SIZE, ProgData.DOWNLOAD_TAB_ON,
+                "Filter", "Download", true);
+
         downloadGuiController = new DownloadGuiController();
     }
 
@@ -51,7 +60,7 @@ public class DownloadGui {
         menuController.setId("download-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(downloadFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(infoController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -59,27 +68,15 @@ public class DownloadGui {
         HBox.setHgrow(splitPane, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPane, menuController);
 
-        ProgConfig.DOWNLOAD_GUI_FILTER_ON.addListener((observable, oldValue, newValue) -> setSplit());
+        ProgConfig.DOWNLOAD__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
         return hBox;
     }
 
-    public void closeSplit() {
-        ProgConfig.DOWNLOAD_GUI_FILTER_ON.setValue(!ProgConfig.DOWNLOAD_GUI_FILTER_ON.get());
-    }
-
     private void setSplit() {
-        if (ProgConfig.DOWNLOAD_GUI_FILTER_ON.getValue()) {
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(downloadFilterController, downloadGuiController);
-            bound = true;
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER);
-        } else {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.DOWNLOAD_GUI_FILTER_DIVIDER);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(downloadGuiController);
-        }
+        // hier wird der Filter ein- ausgeblendet
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, true,
+                downloadGuiController, ProgConfig.DOWNLOAD__FILTER_DIVIDER, ProgConfig.DOWNLOAD__FILTER_IS_SHOWING);
     }
 }

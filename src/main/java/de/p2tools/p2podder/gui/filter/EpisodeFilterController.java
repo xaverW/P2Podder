@@ -18,7 +18,6 @@ package de.p2tools.p2podder.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -38,7 +37,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 
-public class EpisodeFilterController extends FilterPane {
+public class EpisodeFilterController extends VBox {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
@@ -50,7 +49,7 @@ public class EpisodeFilterController extends FilterPane {
     private final Label lblTimeRangeValue = new Label();
 
     public EpisodeFilterController() {
-        super(ProgConfig.EPISODE_GUI_FILTER_ON);
+//        super(ProgConfig.EPISODE_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
 
         //Tabelle
@@ -78,14 +77,13 @@ public class EpisodeFilterController extends FilterPane {
         vBoxTxt.getChildren().addAll(new Label("Titel:"), txtTitle);
         vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
-        final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
-        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
-        vBoxFilter.getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
+        setPadding(new Insets(P2LibConst.PADDING));
+        setSpacing(P2LibConst.DIST_BUTTON);
+        getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
 
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
-        vBoxFilter.getChildren().addAll(P2GuiTools.getHDistance(10), separator, new EpisodeFilterControllerClearFilter());
+        getChildren().addAll(P2GuiTools.getHDistance(10), separator, new EpisodeFilterControllerClearFilter());
 
         initDaysFilter();
         initTable();

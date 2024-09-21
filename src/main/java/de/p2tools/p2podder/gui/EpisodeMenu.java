@@ -113,9 +113,12 @@ public class EpisodeMenu {
 
         mb.getItems().add(new SeparatorMenuItem());
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
-        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.EPISODE_GUI_FILTER_ON);
+        miShowFilter.disableProperty().bind(ProgConfig.EPISODE__FILTER_IS_RIP);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.EPISODE__FILTER_IS_SHOWING);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
-        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER_ON);
+        miShowInfo.disableProperty().bind(ProgConfig.EPISODE__PANE_INFO_IS_RIP);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.EPISODE__INFO_IS_SHOWING);
         mb.getItems().addAll(miShowFilter, miShowInfo);
 
         vBox.getChildren().add(mb);

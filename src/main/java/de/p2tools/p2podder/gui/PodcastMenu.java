@@ -31,8 +31,8 @@ public class PodcastMenu {
     final private VBox vBox;
     final private ProgData progData;
 
-    BooleanProperty boolFilterOn = ProgConfig.PODCAST_GUI_FILTER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.PODCAST_GUI_INFO_ON;
+    BooleanProperty boolFilterOn = ProgConfig.PODCAST__FILTER_IS_SHOWING;
+    BooleanProperty boolInfoOn = ProgConfig.PODCAST__INFO_IS_SHOWING;
 
     public PodcastMenu(VBox vBox) {
         this.vBox = vBox;
@@ -102,8 +102,11 @@ public class PodcastMenu {
         mb.getItems().addAll(miUpdate, miUpdateAll, miDel, miDelAll, miSetActive, miSetOffActive);
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
+        miShowFilter.disableProperty().bind(ProgConfig.PODCAST__FILTER_IS_RIP);
         miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
+        miShowInfo.disableProperty().bind(ProgConfig.PODCAST__PANE_INFO_IS_RIP);
         miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
 
         mb.getItems().add(new SeparatorMenuItem());

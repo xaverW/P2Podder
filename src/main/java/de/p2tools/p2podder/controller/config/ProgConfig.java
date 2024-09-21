@@ -128,10 +128,10 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_SSL_ALWAYS_TRUE = addBoolProp("system-ssl-always-true");
 
     // Gui Podcast
-    public static DoubleProperty PODCAST_GUI_FILTER_DIVIDER = addDoubleProp("podcast-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty PODCAST_GUI_FILTER_ON = addBoolProp("podcast-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty PODCAST_GUI_DIVIDER = addDoubleProp("podcast-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty PODCAST_GUI_INFO_ON = addBoolProp("podcast-gui-info-on", Boolean.TRUE);
+//    public static DoubleProperty PODCAST_GUI_FILTER_DIVIDER = addDoubleProp("podcast-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+//    public static BooleanProperty PODCAST_GUI_FILTER_ON = addBoolProp("podcast-gui-filter-on", Boolean.TRUE);
+//    public static DoubleProperty PODCAST_GUI_DIVIDER = addDoubleProp("podcast-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
+    //    public static BooleanProperty PODCAST_GUI_INFO_ON = addBoolProp("podcast-gui-info-on", Boolean.TRUE);
     public static StringProperty PODCAST_GUI_TABLE_WIDTH = addStrProp("podcast-gui-table-width");
     public static StringProperty PODCAST_GUI_TABLE_SORT = addStrProp("podcast-gui-table-sort");
     public static StringProperty PODCAST_GUI_TABLE_UP_DOWN = addStrProp("podcast-gui-table-up-down");
@@ -146,7 +146,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDoubleProp("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty DOWNLOAD_GUI_FILTER_ON = addBoolProp("download-gui-filter-on", Boolean.TRUE);
     public static DoubleProperty DOWNLOAD_GUI_DIVIDER = addDoubleProp("download-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty DOWNLOAD_GUI_INFO_ON = addBoolProp("download-gui-info-on", Boolean.TRUE);
+    //    public static BooleanProperty DOWNLOAD_GUI_INFO_ON = addBoolProp("download-gui-info-on", Boolean.TRUE);
     public static StringProperty DOWNLOAD_GUI_TABLE_WIDTH = addStrProp("download-gui-table-width");
     public static StringProperty DOWNLOAD_GUI_TABLE_SORT = addStrProp("download-gui-table-sort");
     public static StringProperty DOWNLOAD_GUI_TABLE_UP_DOWN = addStrProp("download-gui-table-up-down");
@@ -158,7 +158,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
     public static BooleanProperty EPISODE_GUI_FILTER_ON = addBoolProp("episode-gui-filter-on", Boolean.TRUE);
     public static DoubleProperty EPISODE_GUI_DIVIDER = addDoubleProp("episode-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBoolProp("episode-gui-divider-on", Boolean.TRUE);
+    //    public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBoolProp("episode-gui-divider-on", Boolean.TRUE);
     public static StringProperty EPISODE_DIALOG_EDIT_SIZE = addStrProp("episode-dialog-edit-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
     public static StringProperty EPISODE_GUI_TABLE_WIDTH = addStrProp("episode-gui-table-width");
@@ -177,6 +177,41 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStrProp("small-episode-gui-table-up-down");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_VIS = addStrProp("small-episode-gui-table-vis");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_ORDER = addStrProp("small-episode-gui-table-order");
+
+    // Download Info
+    public static BooleanProperty DOWNLOAD__INFO_IS_SHOWING = addBoolProp("download--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty DOWNLOAD__PANE_INFO_IS_RIP = addBoolProp("download--pane-info-is-rip", Boolean.FALSE);
+    public static StringProperty DOWNLOAD__DIALOG_INFO_SIZE = addStrProp("download--dialog-info-size", "400:400");
+    public static DoubleProperty DOWNLOAD__INFO_DIVIDER = addDoubleProp("download--info-divider", ProgConst.GUI_DIVIDER_LOCATION);
+
+    public static DoubleProperty DOWNLOAD__FILTER_DIVIDER = addDoubleProp("download--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty DOWNLOAD__FILTER_IS_SHOWING = addBoolProp("download--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty DOWNLOAD__FILTER_IS_RIP = addBoolProp("download--filter-is-rip", Boolean.FALSE);
+    public static StringProperty DOWNLOAD__FILTER_DIALOG_SIZE = addStrProp("download--filter-dialog-size", "400:600");
+
+
+    // Episode Info
+    public static BooleanProperty EPISODE__INFO_IS_SHOWING = addBoolProp("episode--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty EPISODE__PANE_INFO_IS_RIP = addBoolProp("episode--pane-info-is-rip", Boolean.FALSE);
+    public static StringProperty EPISODE__DIALOG_INFO_SIZE = addStrProp("episode--dialog-info-size", "400:400");
+    public static DoubleProperty EPISODE__INFO_DIVIDER = addDoubleProp("episode--info-divider", ProgConst.GUI_DIVIDER_LOCATION);
+
+    public static DoubleProperty EPISODE__FILTER_DIVIDER = addDoubleProp("episode--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty EPISODE__FILTER_IS_SHOWING = addBoolProp("episode--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty EPISODE__FILTER_IS_RIP = addBoolProp("episode--filter-is-rip", Boolean.FALSE);
+    public static StringProperty EPISODE__FILTER_DIALOG_SIZE = addStrProp("episode--filter-dialog-size", "400:600");
+
+    // Podcast Info
+    public static BooleanProperty PODCAST__INFO_IS_SHOWING = addBoolProp("podcast--info-is-showing", Boolean.TRUE);
+    public static BooleanProperty PODCAST__PANE_INFO_IS_RIP = addBoolProp("podcast--pane-info-is-rip", Boolean.FALSE);
+    public static StringProperty PODCAST__DIALOG_INFO_SIZE = addStrProp("podcast--dialog-info-size", "400:400");
+    public static DoubleProperty PODCAST__INFO_DIVIDER = addDoubleProp("podcast--info-divider", ProgConst.GUI_DIVIDER_LOCATION);
+
+    public static DoubleProperty PODCAST__FILTER_DIVIDER = addDoubleProp("podcast--filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
+    public static BooleanProperty PODCAST__FILTER_IS_SHOWING = addBoolProp("podcast--filter-is-showing", Boolean.TRUE);
+    public static BooleanProperty PODCAST__FILTER_IS_RIP = addBoolProp("podcast--filter-is-rip", Boolean.FALSE);
+    public static StringProperty PODCAST__FILTER_DIALOG_SIZE = addStrProp("podcast--filter-dialog-size", "400:600");
+
 
     // ConfigDialog
     public static StringProperty CONFIG_DIALOG_SIZE = addStrProp("config-dialog-size");

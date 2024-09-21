@@ -20,7 +20,6 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2podder.controller.ProgIcons;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
@@ -38,14 +37,14 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 
-public class DownloadFilterController extends FilterPane {
+public class DownloadFilterController extends VBox {
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
     private ProgData progData;
 
     public DownloadFilterController() {
-        super(ProgConfig.DOWNLOAD_GUI_FILTER_ON);
+//        super(ProgConfig.DOWNLOAD_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
 
         VBox vBoxTable = new VBox();
@@ -60,10 +59,9 @@ public class DownloadFilterController extends FilterPane {
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
-        final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
-        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
-        vBoxFilter.getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
+        setPadding(new Insets(P2LibConst.PADDING));
+        setSpacing(P2LibConst.DIST_BUTTON);
+        getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
 
         addButton();
         initTable();
@@ -84,8 +82,7 @@ public class DownloadFilterController extends FilterPane {
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
 
-        final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
+        getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
     }
 
     private void initTable() {

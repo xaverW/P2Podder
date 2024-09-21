@@ -18,6 +18,8 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -27,10 +29,9 @@ import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TablePodcast;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
@@ -38,7 +39,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.TilePane;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -48,18 +48,18 @@ public class PodcastGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private final TilePane tilePaneButton = new TilePane();
-    private PodcastGuiInfoController podcastGuiInfoController;
+    private PanePodcastInfo panePodcastInfo;
+    private InfoController infoController;
+
     private final TablePodcast tableView;
 
     private final ProgData progData;
-    private boolean bound = false;
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
     private final SortedList<Podcast> sortedList;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
 
-    DoubleProperty splitPaneProperty = ProgConfig.PODCAST_GUI_DIVIDER;
-    BooleanProperty boolInfoOn = ProgConfig.PODCAST_GUI_INFO_ON;
+    BooleanProperty boolInfoOn = ProgConfig.PODCAST__INFO_IS_SHOWING;
 
     public PodcastGuiController() {
         progData = ProgData.getInstance();
@@ -81,7 +81,15 @@ public class PodcastGuiController extends AnchorPane {
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        initInfoPane();
+        panePodcastInfo = new PanePodcastInfo();
+        infoController = new InfoController(panePodcastInfo,
+                ProgConfig.PODCAST__INFO_IS_SHOWING, ProgConfig.PODCAST__PANE_INFO_IS_RIP,
+                ProgConfig.PODCAST__DIALOG_INFO_SIZE, ProgData.PODCAST_TAB_ON,
+                "Info", "Beschreibung", false);
+
+        ProgConfig.PODCAST__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
+        ProgConfig.PODCAST__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
+
         setInfoPane();
         initTable();
         initListener();
@@ -110,22 +118,11 @@ public class PodcastGuiController extends AnchorPane {
             return;
         }
         new PodcastAddDialogController(progData, list, false);
-
-//        final Optional<Podcast> optPodcast = getSel();
-//        if (optPodcast.isPresent()) {
-//            Podcast podcast = optPodcast.get();
-//            Podcast podcastTmp = podcast.getCopy();
-//            PodcastEditDialogController podcastEditDialogController =
-//                    new PodcastEditDialogController(ProgData.getInstance(), podcastTmp, false);
-//            if (podcastEditDialogController.isOk()) {
-//                podcast.copyToMe(podcastTmp);
-//            }
-//        }
     }
 
     private void setPodcast() {
         Podcast podcast = tableView.getSelectionModel().getSelectedItem();
-        podcastGuiInfoController.setStation(podcast);
+        panePodcastInfo.setStation(podcast);
     }
 
     private void selectPodcast() {
@@ -203,42 +200,11 @@ public class PodcastGuiController extends AnchorPane {
         });
     }
 
-    private void initInfoPane() {
-        podcastGuiInfoController = new PodcastGuiInfoController();
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-
-        tilePaneButton.setVgap(15);
-        tilePaneButton.setHgap(15);
-        tilePaneButton.setPadding(new Insets(10));
-        tilePaneButton.setStyle("-fx-border-color: -fx-text-box-border; " +
-                "-fx-border-radius: 5px; " +
-                "-fx-border-width: 1;");
-    }
-
     private void setInfoPane() {
-        if (boolInfoOn.getValue()) {
-            bound = true;
-            setInfoTabPane();
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(splitPaneProperty);
-
-        } else {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(splitPaneProperty);
-            }
-
-            if (splitPane.getItems().size() != 1) {
-                splitPane.getItems().clear();
-                splitPane.getItems().add(scrollPane);
-            }
-        }
-    }
-
-    private void setInfoTabPane() {
-        if (splitPane.getItems().size() != 2 || splitPane.getItems().get(1) != podcastGuiInfoController) {
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(scrollPane, podcastGuiInfoController);
-            SplitPane.setResizableWithParent(podcastGuiInfoController, false);
-        }
+        // hier wird das InfoPane ein- ausgeblendet
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, false,
+                scrollPane, ProgConfig.PODCAST__INFO_DIVIDER, ProgConfig.PODCAST__INFO_IS_SHOWING);
     }
 
     private void initTable() {
@@ -290,7 +256,7 @@ public class PodcastGuiController extends AnchorPane {
             row.hoverProperty().addListener((observable) -> {
                 final Podcast filmDataMTP = (Podcast) row.getItem();
                 if (row.isHover() && filmDataMTP != null) {
-                    podcastGuiInfoController.setStation(filmDataMTP);
+                    panePodcastInfo.setStation(filmDataMTP);
                 } else {
                     setPodcast();
                 }

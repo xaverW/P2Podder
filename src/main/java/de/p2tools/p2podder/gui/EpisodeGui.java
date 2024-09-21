@@ -16,9 +16,13 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.EpisodeFilterController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,14 +35,18 @@ public class EpisodeGui {
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final EpisodeGuiController episodeGuiController;
-    private final EpisodeFilterController epiDownFilterController;
-    private boolean bound = false;
+    private final InfoController infoController;
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public EpisodeGui() {
         progData = ProgData.getInstance();
         progData.episodeGui = this;
 
-        epiDownFilterController = new EpisodeFilterController();
+        infoController = new InfoController(new EpisodeFilterController(),
+                ProgConfig.EPISODE__FILTER_IS_SHOWING, ProgConfig.EPISODE__FILTER_IS_RIP,
+                ProgConfig.EPISODE__FILTER_DIALOG_SIZE, ProgData.EPISODE_TAB_ON,
+                "Filter", "Episoden", true);
+
         episodeGuiController = new EpisodeGuiController();
     }
 
@@ -51,7 +59,7 @@ public class EpisodeGui {
         menuController.setId("episode-menu-pane");
 
         splitPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        SplitPane.setResizableWithParent(epiDownFilterController, Boolean.FALSE);
+        SplitPane.setResizableWithParent(infoController, Boolean.FALSE);
 
         hBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         hBox.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -59,27 +67,14 @@ public class EpisodeGui {
         HBox.setHgrow(splitPane, Priority.ALWAYS);
         hBox.getChildren().addAll(splitPane, menuController);
 
-        ProgConfig.EPISODE_GUI_FILTER_ON.addListener((observable, oldValue, newValue) -> setSplit());
+        ProgConfig.EPISODE__FILTER_IS_SHOWING.addListener((observable, oldValue, newValue) -> setSplit());
         setSplit();
         return hBox;
     }
 
-    public void closeSplit() {
-        ProgConfig.EPISODE_GUI_FILTER_ON.setValue(!ProgConfig.EPISODE_GUI_FILTER_ON.get());
-    }
-
     private void setSplit() {
-        if (ProgConfig.EPISODE_GUI_FILTER_ON.getValue()) {
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(epiDownFilterController, episodeGuiController);
-            bound = true;
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.EPISODE_GUI_FILTER_DIVIDER);
-        } else {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.EPISODE_GUI_FILTER_DIVIDER);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(episodeGuiController);
-        }
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, true,
+                episodeGuiController, ProgConfig.EPISODE__FILTER_DIVIDER, ProgConfig.EPISODE__FILTER_IS_SHOWING);
     }
 }

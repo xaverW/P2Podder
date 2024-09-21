@@ -19,7 +19,6 @@ package de.p2tools.p2podder.gui.filter;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2podder.controller.ProgIcons;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.filter.FilterCheckRegEx;
 import javafx.application.Platform;
@@ -31,7 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class PodcastFilterController extends FilterPane {
+public class PodcastFilterController extends VBox {
 
     private final ComboBox<String> cboGenre = new ComboBox<>();
     private final TextField txtName = new TextField();
@@ -41,7 +40,7 @@ public class PodcastFilterController extends FilterPane {
     private ProgData progData;
 
     public PodcastFilterController() {
-        super(ProgConfig.PODCAST_GUI_FILTER_ON);
+//        super(ProgConfig.PODCAST_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
 
         VBox vBoxTxt = new VBox();
@@ -52,10 +51,9 @@ public class PodcastFilterController extends FilterPane {
         cboGenre.setMaxWidth(Double.MAX_VALUE);
         vBoxGenre.getChildren().addAll(new Label("Genre: "), cboGenre);
 
-        final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.setPadding(new Insets(P2LibConst.PADDING));
-        vBoxFilter.setSpacing(P2LibConst.DIST_BUTTON);
-        vBoxFilter.getChildren().addAll(vBoxGenre, vBoxTxt);
+        setPadding(new Insets(P2LibConst.PADDING));
+        setSpacing(P2LibConst.DIST_BUTTON);
+        getChildren().addAll(vBoxGenre, vBoxTxt);
 
         addButton();
         initFilter();
@@ -75,8 +73,7 @@ public class PodcastFilterController extends FilterPane {
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
 
-        final VBox vBoxFilter = getVBoxFilter();
-        vBoxFilter.getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
+        getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
     }
 
     private void initFilter() {

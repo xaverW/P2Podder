@@ -18,6 +18,8 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
@@ -27,6 +29,8 @@ import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableEpisode;
 import de.p2tools.p2podder.gui.tools.table.TableRowEpisode;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -48,7 +52,8 @@ public class EpisodeGuiController extends AnchorPane {
     private final ScrollPane scrollPane = new ScrollPane();
 
     private final TableEpisode tableView;
-    private EpisodeGuiInfoController episodeGuiInfoController;
+    private InfoController infoController;
+    private PaneEpisodeInfo paneEpisodeInfo;
 
     private final RadioButton rbAll = new RadioButton("Alle");
     private final RadioButton rbNew = new RadioButton("Neu");
@@ -57,7 +62,7 @@ public class EpisodeGuiController extends AnchorPane {
     private final RadioButton rbWasShown = new RadioButton("Gehört");
 
     private final ProgData progData;
-    private boolean bound = false;
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public EpisodeGuiController() {
         progData = ProgData.getInstance();
@@ -89,8 +94,14 @@ public class EpisodeGuiController extends AnchorPane {
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        ProgConfig.EPISODE_GUI_DIVIDER_ON.addListener((observable, oldValue, newValue) -> setInfoPane());
-        episodeGuiInfoController = new EpisodeGuiInfoController();
+        paneEpisodeInfo = new PaneEpisodeInfo();
+        infoController = new InfoController(paneEpisodeInfo,
+                ProgConfig.EPISODE__INFO_IS_SHOWING, ProgConfig.EPISODE__PANE_INFO_IS_RIP,
+                ProgConfig.EPISODE__DIALOG_INFO_SIZE, ProgData.EPISODE_TAB_ON,
+                "Info", "Beschreibung", false);
+
+        ProgConfig.EPISODE__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
+        ProgConfig.EPISODE__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
 
         setInfoPane();
         initFilter();
@@ -114,10 +125,10 @@ public class EpisodeGuiController extends AnchorPane {
     private void setSelectedEpisode() {
         Episode episode = tableView.getSelectionModel().getSelectedItem();
         if (episode != null) {
-            episodeGuiInfoController.setEpisode(episode);
+            paneEpisodeInfo.setEpisode(episode);
             progData.episodeInfoDialogController.setEpisode(episode);
         } else {
-            episodeGuiInfoController.setEpisode(null);
+            paneEpisodeInfo.setEpisode(null);
         }
     }
 
@@ -174,19 +185,10 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void setInfoPane() {
-        if (!ProgConfig.EPISODE_GUI_DIVIDER_ON.getValue()) {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().add(vBox);
-        } else {
-            bound = true;
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, episodeGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.EPISODE_GUI_DIVIDER);
-            SplitPane.setResizableWithParent(vBox, true);
-        }
+        // hier wird das InfoPane ein- ausgeblendet
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, false,
+                scrollPane, ProgConfig.EPISODE__INFO_DIVIDER, ProgConfig.EPISODE__INFO_IS_SHOWING);
     }
 
     private void initFilter() {
@@ -226,7 +228,7 @@ public class EpisodeGuiController extends AnchorPane {
             row.hoverProperty().addListener((observable) -> {
                 final Episode episode = (Episode) row.getItem();
                 if (row.isHover() && episode != null) {
-                    episodeGuiInfoController.setEpisode(episode);
+                    paneEpisodeInfo.setEpisode(episode);
                     progData.episodeInfoDialogController.setEpisode(episode);
                 } else {
                     setSelectedEpisode();

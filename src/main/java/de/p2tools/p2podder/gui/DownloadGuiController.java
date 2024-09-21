@@ -18,6 +18,8 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pclosepane.InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
@@ -32,15 +34,13 @@ import de.p2tools.p2podder.gui.tools.table.TableDownload;
 import de.p2tools.p2podder.gui.tools.table.TableRowDownload;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -56,13 +56,14 @@ public class DownloadGuiController extends AnchorPane {
     private final RadioButton rbLoading = new RadioButton("Lädt");
     private final RadioButton rbFinalized = new RadioButton("Abgeschlossen");
 
-    private DownloadGuiInfoController downloadGuiInfoController;
+    private InfoController infoController;
+    private PaneDownloadInfo paneDownloadInfo;
 
     private final ProgData progData;
-    private boolean bound = false;
+    private BooleanProperty bound = new SimpleBooleanProperty(false);
 
-    private DoubleProperty downloadGuiDivider = ProgConfig.DOWNLOAD_GUI_DIVIDER;
-    private BooleanProperty boolInfoOn = ProgConfig.DOWNLOAD_GUI_INFO_ON;
+    //    private DoubleProperty downloadGuiDivider = ProgConfig.DOWNLOAD_GUI_DIVIDER;
+    private BooleanProperty boolInfoOn = ProgConfig.DOWNLOAD__INFO_IS_SHOWING;
 
     public DownloadGuiController() {
         progData = ProgData.getInstance();
@@ -94,7 +95,14 @@ public class DownloadGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
-        downloadGuiInfoController = new DownloadGuiInfoController();
+        paneDownloadInfo = new PaneDownloadInfo();
+        infoController = new InfoController(paneDownloadInfo,
+                ProgConfig.DOWNLOAD__INFO_IS_SHOWING, ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP,
+                ProgConfig.DOWNLOAD__DIALOG_INFO_SIZE, ProgData.DOWNLOAD_TAB_ON,
+                "Info", "Beschreibung", false);
+
+        ProgConfig.DOWNLOAD__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
+        ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
 
         setInfoPane();
         initFilter();
@@ -126,9 +134,9 @@ public class DownloadGuiController extends AnchorPane {
     private void setSelectedDownload() {
         DownloadData download = tableView.getSelectionModel().getSelectedItem();
         if (download != null) {
-            downloadGuiInfoController.setDownload(download);
+            paneDownloadInfo.setDownload(download);
         } else {
-            downloadGuiInfoController.setDownload(null);
+            paneDownloadInfo.setDownload(null);
         }
     }
 
@@ -237,20 +245,37 @@ public class DownloadGuiController extends AnchorPane {
         });
     }
 
-    private void setInfoPane() {
-        if (!boolInfoOn.getValue()) {
-            if (bound) {
-                splitPane.getDividers().get(0).positionProperty().unbindBidirectional(downloadGuiDivider);
-            }
-            splitPane.getItems().clear();
-            splitPane.getItems().add(vBox);
-        } else {
-            bound = true;
-            splitPane.getItems().clear();
-            splitPane.getItems().addAll(vBox, downloadGuiInfoController);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(downloadGuiDivider);
-            SplitPane.setResizableWithParent(vBox, true);
+    public static void setSplit(BooleanProperty bound, SplitPane splitPane, InfoController infoController,
+                                Region pane, DoubleProperty divider, BooleanProperty isShowing) {
+        // hier wird der Filter ein- ausgeblendet
+        if (bound.get() && splitPane.getItems().size() > 1) {
+            bound.set(false);
+            splitPane.getDividers().get(0).positionProperty().unbindBidirectional(divider);
         }
+
+        splitPane.getItems().clear();
+        if (!infoController.arePanesShowing()) {
+            // dann wird nix angezeigt
+            splitPane.getItems().add(pane);
+            isShowing.set(false);
+            return;
+        }
+
+        if (isShowing.getValue()) {
+            bound.set(true);
+            splitPane.getItems().addAll(infoController, pane);
+            SplitPane.setResizableWithParent(infoController, false);
+            splitPane.getDividers().get(0).positionProperty().bindBidirectional(divider);
+
+        } else {
+            splitPane.getItems().add(pane);
+        }
+    }
+
+    private void setInfoPane() {
+        P2ClosePaneFactory.setSplit(bound, splitPane,
+                infoController, false,
+                scrollPane, ProgConfig.DOWNLOAD__INFO_DIVIDER, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
     }
 
     private void initFilter() {
@@ -288,7 +313,7 @@ public class DownloadGuiController extends AnchorPane {
             row.hoverProperty().addListener((observable) -> {
                 final DownloadData download = (DownloadData) row.getItem();
                 if (row.isHover() && download != null) {
-                    downloadGuiInfoController.setDownload(download);
+                    paneDownloadInfo.setDownload(download);
                 } else {
                     setSelectedDownload();
                 }

@@ -22,7 +22,6 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.download.DownloadListStartStopFactory;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
@@ -32,8 +31,6 @@ import java.util.List;
 public class DownloadMenu {
     final private VBox vBox;
     final private ProgData progData;
-    BooleanProperty boolFilterOn = ProgConfig.DOWNLOAD_GUI_FILTER_ON;
-    BooleanProperty boolInfoOn = ProgConfig.DOWNLOAD_GUI_INFO_ON;
 
     public DownloadMenu(VBox vBox) {
         this.vBox = vBox;
@@ -115,7 +112,7 @@ public class DownloadMenu {
         miDownloadDelAll.setOnAction(a -> progData.downloadGui.getDownloadGuiController().deleteDownloads(true));
 
         MenuItem miStationInfo = new MenuItem("Download-Infos anzeigen");
-        miStationInfo.setOnAction(a -> ProgConfig.DOWNLOAD_GUI_INFO_ON.setValue(!ProgConfig.DOWNLOAD_GUI_INFO_ON.get()));
+        miStationInfo.setOnAction(a -> ProgConfig.DOWNLOAD__INFO_IS_SHOWING.setValue(!ProgConfig.DOWNLOAD__INFO_IS_SHOWING.get()));
 
         MenuItem miCopyUrl = new MenuItem("Download-URL kopieren");
         miCopyUrl.setOnAction(a -> progData.downloadGui.getDownloadGuiController().copyUrl());
@@ -124,9 +121,12 @@ public class DownloadMenu {
         miCleanDownloadDir.setOnAction(a -> DownloadFactory.cleanUpDownloadDir());
 
         final CheckMenuItem miShowFilter = new CheckMenuItem("Filter anzeigen");
-        miShowFilter.selectedProperty().bindBidirectional(boolFilterOn);
+        miShowFilter.disableProperty().bind(ProgConfig.DOWNLOAD__FILTER_IS_RIP);
+        miShowFilter.selectedProperty().bindBidirectional(ProgConfig.DOWNLOAD__FILTER_IS_SHOWING);
+
         final CheckMenuItem miShowInfo = new CheckMenuItem("Infos anzeigen");
-        miShowInfo.selectedProperty().bindBidirectional(boolInfoOn);
+        miShowInfo.disableProperty().bind(ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP);
+        miShowInfo.selectedProperty().bindBidirectional(ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
 
         mb.getItems().addAll(miDownloadStart, miDownloadStop, miStopAll, miDownloadChange,
                 miDownloadDel, miDownloadDelAll, miCopyUrl, miCleanDownloadDir);

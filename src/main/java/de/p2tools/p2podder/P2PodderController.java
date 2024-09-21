@@ -145,7 +145,7 @@ public class P2PodderController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.EPISODE_GUI_DIVIDER_ON.setValue(!ProgConfig.EPISODE_GUI_DIVIDER_ON.get());
+                ProgConfig.EPISODE__INFO_IS_SHOWING.setValue(!ProgConfig.EPISODE__INFO_IS_SHOWING.get());
             }
         });
         btnPodcasts.setOnMouseClicked(mouseEvent -> {
@@ -154,7 +154,7 @@ public class P2PodderController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.PODCAST_GUI_INFO_ON.setValue(!ProgConfig.PODCAST_GUI_INFO_ON.get());
+                ProgConfig.PODCAST__INFO_IS_SHOWING.setValue(!ProgConfig.PODCAST__INFO_IS_SHOWING.get());
             }
         });
         btnDownloads.setOnMouseClicked(mouseEvent -> {
@@ -163,7 +163,7 @@ public class P2PodderController extends StackPane {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                ProgConfig.DOWNLOAD_GUI_INFO_ON.setValue(!ProgConfig.DOWNLOAD_GUI_INFO_ON.get());
+                ProgConfig.DOWNLOAD__INFO_IS_SHOWING.setValue(!ProgConfig.DOWNLOAD__INFO_IS_SHOWING.get());
             }
         });
     }
@@ -183,13 +183,18 @@ public class P2PodderController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
             // dann ist der 2. Klick
-            episodeGui.closeSplit();
+            if (!ProgConfig.EPISODE__FILTER_IS_RIP.get()) {
+                ProgConfig.EPISODE__FILTER_IS_SHOWING.setValue(!ProgConfig.EPISODE__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelEpisode();
     }
 
     private void initPanelEpisode() {
+        ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.EPISODE_TAB_ON.setValue(Boolean.TRUE);
+        ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);
         setButtonStyle(btnEpisodes);
         paneEpisodeGui.toFront();
         progData.episodeGui.getEpisodeGuiController().isShown();
@@ -203,13 +208,18 @@ public class P2PodderController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
             // dann ist der 2. Klick
-            podcastGui.closeSplit();
+            if (!ProgConfig.PODCAST__FILTER_IS_RIP.get()) {
+                ProgConfig.PODCAST__FILTER_IS_SHOWING.setValue(!ProgConfig.PODCAST__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelPodcast();
     }
 
     private void initPanelPodcast() {
+        ProgData.PODCAST_TAB_ON.setValue(Boolean.TRUE);
+        ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);
         setButtonStyle(btnPodcasts);
         panePodcastGui.toFront();
         progData.podcastGui.getPodcastGuiController().isShown();
@@ -223,13 +233,18 @@ public class P2PodderController extends StackPane {
         }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
             // dann ist der 2. Klick
-            downloadGui.closeSplit();
+            if (!ProgConfig.DOWNLOAD__FILTER_IS_RIP.get()) {
+                ProgConfig.DOWNLOAD__FILTER_IS_SHOWING.setValue(!ProgConfig.DOWNLOAD__FILTER_IS_SHOWING.get());
+            }
             return;
         }
         initPanelDownload();
     }
 
     private void initPanelDownload() {
+        ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.TRUE);
         setButtonStyle(btnDownloads);
         paneDownloadGui.toFront();
         progData.downloadGui.getDownloadGuiController().isShown();

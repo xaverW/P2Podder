@@ -19,10 +19,9 @@ package de.p2tools.p2podder.gui;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneH;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.data.episode.Episode;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -33,31 +32,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class EpisodeGuiInfoController extends P2ClosePaneH {
+public class PaneDownloadInfo extends VBox {
+    private final Label lblTitle_ = new Label("Titel:");
     private final Label lblTitle = new Label("");
-    private final Label lblGenre = new Label("");
     private final Label lblDate = new Label("");
     private final Label lblLength = new Label("");
-    private final Label size = new Label("");
+    private final Label lblSize = new Label("");
+
     private final P2Hyperlink hyperlinkWebsite = new P2Hyperlink("",
             ProgConfig.SYSTEM_PROG_OPEN_URL);
+    private final P2Hyperlink hyperlinkUrl = new P2Hyperlink("",
+            ProgConfig.SYSTEM_PROG_OPEN_URL);
+    private final Label lblDescription = new Label("Beschreibung: ");
     private final TextArea taDescription = new TextArea();
 
-    private Episode episode = null;
+    private DownloadData downloadData = null;
 
-    public EpisodeGuiInfoController() {
-        super(ProgConfig.EPISODE_GUI_DIVIDER_ON, true);
+    public PaneDownloadInfo() {
+//        super(ProgConfig.DOWNLOAD_GUI_INFO_ON, true);
         initInfo();
+        VBox.setVgrow(this, Priority.ALWAYS);
     }
 
     public void initInfo() {
-        final GridPane gridPaneLeft = new GridPane();
         final GridPane gridPaneRight = new GridPane();
-        final SplitPane splitPane = new SplitPane();
+        final GridPane gridPaneLeft = new GridPane();
+        SplitPane splitPane = new SplitPane();
         splitPane.getItems().addAll(gridPaneLeft, gridPaneRight);
-        splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.EPISODE_GUI_INFO_DIVIDER);
+        splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.DOWNLOAD_GUI_INFO_DIVIDER);
         VBox.setVgrow(splitPane, Priority.ALWAYS);
-        getVBoxAll().getChildren().add(splitPane);
+        getChildren().add(splitPane);
 
         lblTitle.setFont(Font.font(null, FontWeight.BOLD, -1));
 
@@ -68,64 +72,60 @@ public class EpisodeGuiInfoController extends P2ClosePaneH {
         gridPaneLeft.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPaneLeft.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPaneLeft.setPadding(new Insets(P2LibConst.PADDING_GRIDPANE));
-
         gridPaneLeft.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         int row = 0;
-        gridPaneLeft.add(new Label("Titel: "), 0, row);
+        gridPaneLeft.add(lblTitle_, 0, row);
         gridPaneLeft.add(lblTitle, 1, row);
-        gridPaneLeft.add(new Label("Website: "), 0, ++row);
+        gridPaneLeft.add(new Label("Website:"), 0, ++row);
         gridPaneLeft.add(hyperlinkWebsite, 1, row);
-        gridPaneLeft.add(new Label("Beschreibung:"), 0, ++row);
+        gridPaneLeft.add(new Label("Download-URL:"), 0, ++row);
+        gridPaneLeft.add(hyperlinkUrl, 1, row);
+        gridPaneLeft.add(lblDescription, 0, ++row);
         gridPaneLeft.add(taDescription, 1, row);
         GridPane.setVgrow(taDescription, Priority.ALWAYS);
-
 
         gridPaneRight.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPaneRight.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
         gridPaneRight.setPadding(new Insets(P2LibConst.PADDING_GRIDPANE));
-
         gridPaneRight.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         row = 0;
-        gridPaneRight.add(new Label("Genre:"), 0, row);
-        gridPaneRight.add(lblGenre, 1, row);
-        gridPaneRight.add(new Label("Datum:"), 0, ++row);
+        gridPaneRight.add(new Label("Datum:"), 0, row);
         gridPaneRight.add(lblDate, 1, row);
         gridPaneRight.add(new Label("Dauer:"), 0, ++row);
         gridPaneRight.add(lblLength, 1, row);
         gridPaneRight.add(new Label("Größe:"), 0, ++row);
-        gridPaneRight.add(size, 1, row);
-
-
-        VBox.setVgrow(gridPaneLeft, Priority.ALWAYS);
+        gridPaneRight.add(lblSize, 1, row);
     }
 
-    public void setEpisode(Episode episode) {
-        if (this.episode != null) {
-            taDescription.textProperty().unbindBidirectional(this.episode.descriptionProperty());
+    public void setDownload(DownloadData down) {
+        if (this.downloadData != null) {
+            taDescription.textProperty().unbindBidirectional(this.downloadData.descriptionProperty());
         }
 
-        this.episode = episode;
-        if (episode == null) {
+        this.downloadData = down;
+        if (downloadData == null) {
             lblTitle.setText("");
-            lblGenre.setText("");
             lblDate.setText("");
             lblLength.setText("");
-            size.setText("");
+            lblSize.setText("");
+
             hyperlinkWebsite.setUrl("");
+            hyperlinkUrl.setUrl("");
             taDescription.setText("");
             return;
         }
 
-        lblTitle.setText(episode.getEpisodeTitle());
-        lblGenre.setText(episode.getGenre());
-        lblDate.setText(P2LDateFactory.toString(episode.getPubDate()));
-        lblLength.setText(episode.getDuration());
-        size.setText(episode.getPFileSize().getSizeStr());
-        hyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
-        taDescription.textProperty().bindBidirectional(episode.descriptionProperty());
+        lblTitle.setText(downloadData.getEpisodeTitle() + "  -  " + downloadData.getGenre());
+        lblDate.setText(P2LDateFactory.toString(downloadData.getPubDate()));
+        lblLength.setText(downloadData.getDuration());
+        lblSize.setText(downloadData.getDownloadSize().toString());
+
+        hyperlinkWebsite.setUrl(downloadData.getEpisodeWebsite());
+        hyperlinkUrl.setUrl(downloadData.getEpisodeUrl());
+        taDescription.textProperty().bindBidirectional(downloadData.descriptionProperty());
     }
 }
