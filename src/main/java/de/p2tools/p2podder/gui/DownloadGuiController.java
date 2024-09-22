@@ -18,8 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.guitools.pclosepane.InfoController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
@@ -33,14 +34,16 @@ import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableDownload;
 import de.p2tools.p2podder.gui.tools.table.TableRowDownload;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -56,7 +59,7 @@ public class DownloadGuiController extends AnchorPane {
     private final RadioButton rbLoading = new RadioButton("Lädt");
     private final RadioButton rbFinalized = new RadioButton("Abgeschlossen");
 
-    private InfoController infoController;
+    private P2InfoController infoController;
     private PaneDownloadInfo paneDownloadInfo;
 
     private final ProgData progData;
@@ -96,10 +99,13 @@ public class DownloadGuiController extends AnchorPane {
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         paneDownloadInfo = new PaneDownloadInfo();
-        infoController = new InfoController(paneDownloadInfo,
-                ProgConfig.DOWNLOAD__INFO_IS_SHOWING, ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP,
+        ArrayList<P2InfoDto> list = new ArrayList<>();
+        P2InfoDto infoDto = new P2InfoDto(paneDownloadInfo,
+                ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP,
                 ProgConfig.DOWNLOAD__DIALOG_INFO_SIZE, ProgData.DOWNLOAD_TAB_ON,
                 "Info", "Beschreibung", false);
+        list.add(infoDto);
+        infoController = new P2InfoController(list, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
 
         ProgConfig.DOWNLOAD__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
@@ -243,33 +249,6 @@ public class DownloadGuiController extends AnchorPane {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-    }
-
-    public static void setSplit(BooleanProperty bound, SplitPane splitPane, InfoController infoController,
-                                Region pane, DoubleProperty divider, BooleanProperty isShowing) {
-        // hier wird der Filter ein- ausgeblendet
-        if (bound.get() && splitPane.getItems().size() > 1) {
-            bound.set(false);
-            splitPane.getDividers().get(0).positionProperty().unbindBidirectional(divider);
-        }
-
-        splitPane.getItems().clear();
-        if (!infoController.arePanesShowing()) {
-            // dann wird nix angezeigt
-            splitPane.getItems().add(pane);
-            isShowing.set(false);
-            return;
-        }
-
-        if (isShowing.getValue()) {
-            bound.set(true);
-            splitPane.getItems().addAll(infoController, pane);
-            SplitPane.setResizableWithParent(infoController, false);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(divider);
-
-        } else {
-            splitPane.getItems().add(pane);
-        }
     }
 
     private void setInfoPane() {

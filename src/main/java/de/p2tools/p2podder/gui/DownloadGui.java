@@ -16,8 +16,9 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.guitools.pclosepane.InfoController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.DownloadFilterController;
@@ -29,13 +30,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+import java.util.ArrayList;
+
 public class DownloadGui {
 
     private ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final DownloadGuiController downloadGuiController;
-    private final InfoController infoController;
+    private final P2InfoController infoController;
 
     private BooleanProperty bound = new SimpleBooleanProperty(false);
 
@@ -43,10 +46,13 @@ public class DownloadGui {
         progData = ProgData.getInstance();
         progData.downloadGui = this;
 
-        infoController = new InfoController(new DownloadFilterController(),
-                ProgConfig.DOWNLOAD__FILTER_IS_SHOWING, ProgConfig.DOWNLOAD__FILTER_IS_RIP,
+        ArrayList<P2InfoDto> list = new ArrayList<>();
+        P2InfoDto infoDto = new P2InfoDto(new DownloadFilterController(),
+                ProgConfig.DOWNLOAD__FILTER_IS_RIP,
                 ProgConfig.DOWNLOAD__FILTER_DIALOG_SIZE, ProgData.DOWNLOAD_TAB_ON,
                 "Filter", "Download", true);
+        list.add(infoDto);
+        infoController = new P2InfoController(list, ProgConfig.DOWNLOAD__FILTER_IS_SHOWING);
 
         downloadGuiController = new DownloadGuiController();
     }

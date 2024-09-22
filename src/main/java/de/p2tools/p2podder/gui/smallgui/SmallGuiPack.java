@@ -25,7 +25,6 @@ import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -110,14 +109,7 @@ public class SmallGuiPack extends P2DialogOnly {
         progData.smallGuiPack = null;
         getSize();
         close();
-
-        Platform.runLater(() -> {
-                    P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStage);
-                    progData.primaryStage.setWidth(P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.setHeight(P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-                    progData.primaryStage.show();
-                }
-        );
+        progData.p2PodderController.quittSmallRadio();
     }
 
     public void showFilter() {

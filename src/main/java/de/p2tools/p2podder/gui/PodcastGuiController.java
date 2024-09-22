@@ -18,8 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.guitools.pclosepane.InfoController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -49,7 +50,7 @@ public class PodcastGuiController extends AnchorPane {
     private final ScrollPane scrollPane = new ScrollPane();
 
     private PanePodcastInfo panePodcastInfo;
-    private InfoController infoController;
+    private P2InfoController infoController;
 
     private final TablePodcast tableView;
 
@@ -82,10 +83,13 @@ public class PodcastGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         panePodcastInfo = new PanePodcastInfo();
-        infoController = new InfoController(panePodcastInfo,
-                ProgConfig.PODCAST__INFO_IS_SHOWING, ProgConfig.PODCAST__PANE_INFO_IS_RIP,
+        ArrayList<P2InfoDto> list = new ArrayList<>();
+        P2InfoDto infoDto = new P2InfoDto(panePodcastInfo,
+                ProgConfig.PODCAST__PANE_INFO_IS_RIP,
                 ProgConfig.PODCAST__DIALOG_INFO_SIZE, ProgData.PODCAST_TAB_ON,
                 "Info", "Beschreibung", false);
+        list.add(infoDto);
+        infoController = new P2InfoController(list, ProgConfig.PODCAST__INFO_IS_SHOWING);
 
         ProgConfig.PODCAST__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.PODCAST__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());

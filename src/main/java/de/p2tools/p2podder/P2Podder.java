@@ -110,7 +110,7 @@ public class P2Podder extends Application {
 
             if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
                 //dann gleich mit smallRadio starten
-                Platform.runLater(() -> new SmallGuiPack());
+                Platform.runLater(SmallGuiPack::new);
             } else {
                 primaryStage.show();
             }

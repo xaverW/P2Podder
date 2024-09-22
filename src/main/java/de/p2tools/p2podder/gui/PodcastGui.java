@@ -16,8 +16,9 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.guitools.pclosepane.InfoController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
+import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.DownloadFilterController;
@@ -29,13 +30,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+import java.util.ArrayList;
+
 public class PodcastGui {
 
     ProgData progData;
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final PodcastGuiController podcastGuiController;
-    private final InfoController infoController;
+    private final P2InfoController infoController;
     private BooleanProperty bound = new SimpleBooleanProperty(false);
 
 
@@ -43,10 +46,13 @@ public class PodcastGui {
         progData = ProgData.getInstance();
         progData.podcastGui = this;
 
-        infoController = new InfoController(new DownloadFilterController(),
-                ProgConfig.PODCAST__FILTER_IS_SHOWING, ProgConfig.PODCAST__FILTER_IS_RIP,
+        ArrayList<P2InfoDto> list = new ArrayList<>();
+        P2InfoDto infoDto = new P2InfoDto(new DownloadFilterController(),
+                ProgConfig.PODCAST__FILTER_IS_RIP,
                 ProgConfig.PODCAST__FILTER_DIALOG_SIZE, ProgData.PODCAST_TAB_ON,
                 "Filter", "Podcast", true);
+        list.add(infoDto);
+        infoController = new P2InfoController(list, ProgConfig.PODCAST__FILTER_IS_SHOWING);
 
         podcastGuiController = new PodcastGuiController();
     }

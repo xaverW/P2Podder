@@ -94,16 +94,19 @@ public class P2PodderController extends StackPane {
 
             initMaskerPane();
             initButton();
-            switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
-                case ProgConst.LAST_TAB_STATION_EPISODE:
-                default:
-                    initPanelEpisode();
-                    break;
-                case ProgConst.LAST_TAB_STATION_PODCAST:
-                    initPanelPodcast();
-                    break;
-                case ProgConst.LAST_TAB_STATION_DOWNLOAD:
-                    initPanelDownload();
+            if (!ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
+                // nur dann notwendig
+                switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
+                    case ProgConst.LAST_TAB_STATION_EPISODE:
+                    default:
+                        initPanelEpisode();
+                        break;
+                    case ProgConst.LAST_TAB_STATION_PODCAST:
+                        initPanelPodcast();
+                        break;
+                    case ProgConst.LAST_TAB_STATION_DOWNLOAD:
+                        initPanelDownload();
+                }
             }
         } catch (Exception ex) {
             P2Log.errorLog(597841023, ex);
@@ -169,11 +172,19 @@ public class P2PodderController extends StackPane {
     }
 
     private void selPanelSmallRadio() {
+        ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);
+        ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
         if (maskerPane.isVisible()) {
             return;
         }
         progData.primaryStage.close();
         new SmallGuiPack();
+    }
+
+    public void quittSmallRadio() {
+        initPanelEpisode();
+        progData.primaryStage.show();
     }
 
     private void selPanelEpisode() {
