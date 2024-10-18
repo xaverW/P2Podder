@@ -36,7 +36,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ProgStartAfterGui {
-    public static boolean firstProgramStart = false;
 
     private ProgStartAfterGui() {
     }

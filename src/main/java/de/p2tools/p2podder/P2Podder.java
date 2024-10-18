@@ -17,13 +17,14 @@ package de.p2tools.p2podder;
 
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
-import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.ProgStartAfterGui;
 import de.p2tools.p2podder.controller.ProgStartBeforeGui;
-import de.p2tools.p2podder.controller.config.*;
+import de.p2tools.p2podder.controller.config.ProgColorList;
+import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgConst;
+import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import javafx.application.Application;
@@ -49,12 +50,14 @@ public class P2Podder extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
 
-        initP2lib();
         ProgStartBeforeGui.workBeforeGui();
+        initP2lib();
+
         initRootLayout();
         ProgStartAfterGui.workAfterGui();
 
@@ -63,50 +66,39 @@ public class P2Podder extends Application {
     }
 
     private void initP2lib() {
-        ProgIcons.initIcons();
-
         P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgData.debug, ProgData.duration);
-        P2LibInit.addCssFile(ProgConst.CSS_FILE);
+                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
+                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_STYLE_SIZE,
+                ProgData.debug, ProgData.duration);
     }
 
     private void initRootLayout() {
         try {
-            addThemeCss(); // damit es für die 2 schon mal stimmt
             progData.episodeInfoDialogController = new EpisodeInfoDialogController(progData);
             progData.p2PodderController = new P2PodderController();
 
             scene = new Scene(progData.p2PodderController,
                     P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-
-            addThemeCss(); // und jetzt noch für die neue Scene
-            ProgColorList.setColorTheme();
-
-            if (ProgConfig.SYSTEM_STYLE.get()) {
-                P2LibInit.setStyleFile(ProgInfosFactory.getStyleFile().toString());
-                IoReadWriteStyle.readStyle(ProgInfosFactory.getStyleFile(), scene);
-            }
-
-            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
-                addThemeCss();
-                //erst css ändern, dann
-                ProgColorList.setColorTheme();
-                ProgConfig.SYSTEM_THEME_CHANGED.setValue(!ProgConfig.SYSTEM_THEME_CHANGED.get());
-            });
-
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(e -> {
                 e.consume();
                 ProgQuitFactory.quit(primaryStage, true);
             });
+
             //Pos setzen
             P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);
-
             scene.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             scene.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
             primaryStage.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+
+            P2LibInit.addP2CssToScene(scene); // und jetzt noch CSS einstellen
+            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
+                ProgColorList.setColorTheme();
+            });
+
+            primaryStage.show();
 
             if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
                 //dann gleich mit smallRadio starten
@@ -118,14 +110,5 @@ public class P2Podder extends Application {
         } catch (final Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void addThemeCss() {
-        if (ProgConfig.SYSTEM_DARK_THEME.get()) {
-            P2LibInit.addCssFile(ProgConst.CSS_FILE_DARK_THEME);
-        } else {
-            P2LibInit.removeCssFile(ProgConst.CSS_FILE_DARK_THEME);
-        }
-        P2LibInit.addP2CssToScene(scene);
     }
 }
