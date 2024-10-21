@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
@@ -53,7 +53,7 @@ public class EpisodeGuiController extends AnchorPane {
     private final ScrollPane scrollPane = new ScrollPane();
 
     private final TableEpisode tableView;
-    private P2InfoController infoController;
+    private P2ClosePaneController infoController;
     private PaneEpisodeInfo paneEpisodeInfo;
 
     private final RadioButton rbAll = new RadioButton("Alle");
@@ -96,13 +96,13 @@ public class EpisodeGuiController extends AnchorPane {
         scrollPane.setContent(tableView);
 
         paneEpisodeInfo = new PaneEpisodeInfo();
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDto = new P2InfoDto(paneEpisodeInfo,
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(paneEpisodeInfo,
                 ProgConfig.EPISODE__PANE_INFO_IS_RIP,
                 ProgConfig.EPISODE__DIALOG_INFO_SIZE, ProgData.EPISODE_TAB_ON,
                 "Info", "Beschreibung", false);
         list.add(infoDto);
-        infoController = new P2InfoController(list, ProgConfig.EPISODE__INFO_IS_SHOWING);
+        infoController = new P2ClosePaneController(list, ProgConfig.EPISODE__INFO_IS_SHOWING);
 
         ProgConfig.EPISODE__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.EPISODE__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());

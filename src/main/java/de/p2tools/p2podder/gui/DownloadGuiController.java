@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
@@ -59,7 +59,7 @@ public class DownloadGuiController extends AnchorPane {
     private final RadioButton rbLoading = new RadioButton("Lädt");
     private final RadioButton rbFinalized = new RadioButton("Abgeschlossen");
 
-    private P2InfoController infoController;
+    private P2ClosePaneController infoController;
     private PaneDownloadInfo paneDownloadInfo;
 
     private final ProgData progData;
@@ -99,13 +99,13 @@ public class DownloadGuiController extends AnchorPane {
 
         boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
         paneDownloadInfo = new PaneDownloadInfo();
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDto = new P2InfoDto(paneDownloadInfo,
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(paneDownloadInfo,
                 ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP,
                 ProgConfig.DOWNLOAD__DIALOG_INFO_SIZE, ProgData.DOWNLOAD_TAB_ON,
                 "Info", "Beschreibung", false);
         list.add(infoDto);
-        infoController = new P2InfoController(list, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
+        infoController = new P2ClosePaneController(list, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
 
         ProgConfig.DOWNLOAD__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());

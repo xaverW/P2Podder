@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.gui;
 
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
+import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoController;
-import de.p2tools.p2lib.guitools.pclosepane.P2InfoDto;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.filter.EpisodeFilterController;
@@ -38,20 +38,20 @@ public class EpisodeGui {
     private final SplitPane splitPane = new SplitPane();
     private final HBox hBox = new HBox();
     private final EpisodeGuiController episodeGuiController;
-    private final P2InfoController infoController;
+    private final P2ClosePaneController infoController;
     private BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public EpisodeGui() {
         progData = ProgData.getInstance();
         progData.episodeGui = this;
 
-        ArrayList<P2InfoDto> list = new ArrayList<>();
-        P2InfoDto infoDto = new P2InfoDto(new EpisodeFilterController(),
+        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(new EpisodeFilterController(),
                 ProgConfig.EPISODE__FILTER_IS_RIP,
                 ProgConfig.EPISODE__FILTER_DIALOG_SIZE, ProgData.EPISODE_TAB_ON,
                 "Filter", "Episoden", true);
         list.add(infoDto);
-        infoController = new P2InfoController(list, ProgConfig.EPISODE__FILTER_IS_SHOWING);
+        infoController = new P2ClosePaneController(list, ProgConfig.EPISODE__FILTER_IS_SHOWING);
 
         episodeGuiController = new EpisodeGuiController();
     }
