@@ -31,7 +31,7 @@ public class SmallGuiTop extends HBox {
     private final RadioButton rbRunning = new RadioButton("läuft");
     private final RadioButton rbWasShown = new RadioButton("gehörte");
     private final RadioButton rbNew = new RadioButton("neue");
-    private Button btnRadio = new Button("");
+    private final Button btnRadio = new Button("");
     private final Button btnClose = new Button();
     private final ProgData progData;
 
@@ -42,14 +42,14 @@ public class SmallGuiTop extends HBox {
         progData = ProgData.getInstance();
 
         btnRadio.setTooltip(new Tooltip("große Programmoberfläche anzeigen"));
-        btnRadio.setOnAction(e -> progData.smallGuiPack.changeGui());
+        btnRadio.setOnAction(e -> progData.smallGuiPack.close());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
-            ProgQuitFactory.quit(smallGuiPack.getStage(), true);
+            ProgQuitFactory.quit();
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");

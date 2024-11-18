@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.controller;
 
-import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -45,13 +44,22 @@ public class ProgStartAfterGui {
      * Podcast beim Programmstart!! laden
      */
     public static void workAfterGui() {
-        P2WindowIcon.addWindowP2Icon(ProgData.getInstance().primaryStage);
         startMsg();
-        setTitle(ProgData.getInstance().primaryStage);
+        setTitle();
 
         ProgData.getInstance().initProgData();
         checkProgUpdate();
         loadPodcastListProgStart();
+    }
+
+    private static void setTitle() {
+        // muss nur für das große GUI gesetzt werden
+        Stage stage = ProgData.getInstance().primaryStageBig;
+        if (ProgData.debug) {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
+        } else {
+            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
+        }
     }
 
     /**
@@ -144,14 +152,6 @@ public class ProgStartAfterGui {
         list.addAll(ProgData.getInstance().setDataList.getStringListSetData());
         ProgConfig.getConfigLog(list);
         P2LogMessage.startMsg(ProgConst.PROGRAM_NAME, list);
-    }
-
-    public static void setTitle(Stage stage) {
-        if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
-        } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
-        }
     }
 
     private static void checkProgUpdate() {

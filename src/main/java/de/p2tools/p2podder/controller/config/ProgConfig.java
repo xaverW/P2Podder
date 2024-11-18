@@ -38,6 +38,17 @@ public class ProgConfig extends P2DataProgConfig {
     private static final ArrayList<Config> arrayList = new ArrayList<>();
     public static final String SYSTEM = "system";
 
+
+    public static String SHORTCUT_CHANGE_GUI_INIT = "Ctrl+G";
+    public static StringProperty SHORTCUT_CHANGE_GUI = addStrProp("SHORTCUT_CHANGE_GUI", SHORTCUT_CHANGE_GUI_INIT);
+
+    public static String SHORTCUT_CENTER_INIT = "Ctrl+W";
+    public static StringProperty SHORTCUT_CENTER_GUI = addStrProp("SHORTCUT_CENTER_GUI", SHORTCUT_CENTER_INIT);
+
+    public static String SHORTCUT_MINIMIZE_INIT = "Alt+M";
+    public static StringProperty SHORTCUT_MINIMIZE_GUI = addStrProp("SHORTCUT_MINIMIZE_GUI", SHORTCUT_MINIMIZE_INIT);
+
+
     // Programm-Configs, änderbar nur im Config-File
     // ============================================
     // Downloadfehlermeldung wird xx Sedunden lang angezeigt
@@ -67,6 +78,7 @@ public class ProgConfig extends P2DataProgConfig {
 
 
     // Configs zur Programmupdatesuche
+    public static BooleanProperty SYSTEM_SMALL_PODDER = addBoolProp("system-small-podder", false);
     public static StringProperty SYSTEM_UPDATE_DATE = addStrProp("system-update-date"); // Datum der letzten Prüfung
     public static StringProperty SYSTEM_UPDATE_PROGSET_VERSION = addStrProp("system-update-progset-version");
 
@@ -117,7 +129,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty SYSTEM_SIZE_DIALOG_DOWNLOAD_DEL = addStrProp("system-size-dialog-download-del");
 
     //Gui SmallPodder
-    public static BooleanProperty SYSTEM_SMALL_PODDER = addBoolProp("system-small-podder", false);
     public static StringProperty SMALL_PODDER_SIZE = addStrProp("small-podder-size", "800:400");
 
 

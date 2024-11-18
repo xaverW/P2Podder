@@ -16,9 +16,9 @@
 
 package de.p2tools.p2podder.controller;
 
+import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2Logger;
@@ -27,7 +27,6 @@ import de.p2tools.p2podder.controller.data.ImportSetDataFactory;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.gui.startdialog.StartDialogController;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +38,10 @@ public class ProgStartBeforeGui {
     }
 
     public static void workBeforeGui() {
-        if (!loadAll()) {
+        boolean load = loadAll();
+        initP2lib();
+
+        if (!load) {
             // dann ist der erste Start
             P2Duration.onlyPing("Erster Start");
             ProgData.firstProgramStart = true;
@@ -61,6 +63,14 @@ public class ProgStartBeforeGui {
             //beim ersten Start oder wenn sie sonst fehlen
             addStandarSets();
         }
+    }
+
+    private static void initP2lib() {
+        P2LibInit.initLib(ProgData.getInstance().primaryStageBig, ProgConst.PROGRAM_NAME, "",
+                ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
+                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_STYLE_SIZE,
+                "", "",
+                ProgData.debug, ProgData.duration);
     }
 
     private static boolean loadAll() {
@@ -134,14 +144,6 @@ public class ProgStartBeforeGui {
             }
             P2Duration.onlyPing("Erster Start: PSet geladen");
         });
-    }
-
-    public static void setTitle(Stage stage) {
-        if (ProgData.debug) {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion() + " / DEBUG");
-        } else {
-            stage.setTitle(ProgConst.PROGRAM_NAME + " " + P2ToolsFactory.getProgVersion());
-        }
     }
 
     private static void initAfterLoad() {

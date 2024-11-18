@@ -26,7 +26,6 @@ import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
 import de.p2tools.p2podder.gui.PodcastBarController;
 import de.p2tools.p2podder.gui.PodcastGui;
-import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -35,15 +34,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
 public class P2PodderController extends StackPane {
-    private Button btnSmallGui = new Button("");
-    private Button btnEpisodes = new Button("Episoden");
-    private Button btnPodcasts = new Button("Podcasts");
-    private Button btnDownloads = new Button("Downloads");
+    private final Button btnSmallGui = new Button("");
+    private final Button btnEpisodes = new Button("Episoden");
+    private final Button btnPodcasts = new Button("Podcasts");
+    private final Button btnDownloads = new Button("Downloads");
 
-    private BorderPane borderPane = new BorderPane();
-    private StackPane stackPaneCont = new StackPane();
+    private final BorderPane borderPane = new BorderPane();
+    private final StackPane stackPaneCont = new StackPane();
 
-    private P2MaskerPane maskerPane = new P2MaskerPane();
+    private final P2MaskerPane maskerPane = new P2MaskerPane();
     private PodcastBarController podcastBarController;
 
     private Pane paneEpisodeGui;
@@ -52,9 +51,9 @@ public class P2PodderController extends StackPane {
 
     private final ProgData progData;
 
-    private PodcastGui podcastGui = new PodcastGui();
-    private DownloadGui downloadGui = new DownloadGui();
-    private EpisodeGui episodeGui = new EpisodeGui();
+    private final PodcastGui podcastGui = new PodcastGui();
+    private final DownloadGui downloadGui = new DownloadGui();
+    private final EpisodeGui episodeGui = new EpisodeGui();
 
     public P2PodderController() {
         progData = ProgData.getInstance();
@@ -94,22 +93,23 @@ public class P2PodderController extends StackPane {
 
             initMaskerPane();
             initButton();
-            if (!ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
-                // nur dann notwendig
-                switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
-                    case ProgConst.LAST_TAB_STATION_EPISODE:
-                    default:
-                        initPanelEpisode();
-                        break;
-                    case ProgConst.LAST_TAB_STATION_PODCAST:
-                        initPanelPodcast();
-                        break;
-                    case ProgConst.LAST_TAB_STATION_DOWNLOAD:
-                        initPanelDownload();
-                }
-            }
+            initPanel();
         } catch (Exception ex) {
             P2Log.errorLog(597841023, ex);
+        }
+    }
+
+    public void initPanel() {
+        switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
+            case ProgConst.LAST_TAB_STATION_EPISODE:
+            default:
+                initPanelEpisode();
+                break;
+            case ProgConst.LAST_TAB_STATION_PODCAST:
+                initPanelPodcast();
+                break;
+            case ProgConst.LAST_TAB_STATION_DOWNLOAD:
+                initPanelDownload();
         }
     }
 
@@ -125,7 +125,7 @@ public class P2PodderController extends StackPane {
 
     private void initButton() {
         btnSmallGui.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));
-        btnSmallGui.setOnAction(e -> selPanelSmallRadio());
+        btnSmallGui.setOnAction(e -> P2PodderFactory.selPanelSmallPodder());
         btnSmallGui.setMaxWidth(Double.MAX_VALUE);
         btnSmallGui.getStyleClass().addAll("btnFunction", "btnFunc-2");
         btnSmallGui.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
@@ -169,22 +169,6 @@ public class P2PodderController extends StackPane {
                 ProgConfig.DOWNLOAD__INFO_IS_SHOWING.setValue(!ProgConfig.DOWNLOAD__INFO_IS_SHOWING.get());
             }
         });
-    }
-
-    private void selPanelSmallRadio() {
-        ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
-        ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);
-        ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
-        if (maskerPane.isVisible()) {
-            return;
-        }
-        progData.primaryStage.close();
-        new SmallGuiPack();
-    }
-
-    public void quittSmallRadio() {
-        initPanelEpisode();
-        progData.primaryStage.show();
     }
 
     private void selPanelEpisode() {

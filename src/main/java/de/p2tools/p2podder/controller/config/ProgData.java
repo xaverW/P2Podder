@@ -22,7 +22,6 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2EventHandler;
 import de.p2tools.p2podder.P2PodderController;
-import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.controller.data.download.DownloadList;
 import de.p2tools.p2podder.controller.data.episode.EpisodeList;
@@ -58,16 +57,20 @@ public class ProgData {
     public static boolean duration = false; // Duration ausgeben
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht
+    public static boolean startMinimized = false; // Minimiert starten
 
     // Infos
     public static String configDir = ""; // Verzeichnis zum Speichern der Programmeinstellungen
 
     // zentrale Klassen
-    public P2PodderShortCuts pShortcut; // verwendete Shortcuts
+    public PShortCut pShortcut; // verwendete Shortcuts
     public DownloadStarterFactory downloadStarterFactory; // Klasse zum Ausführen der Programme (für die Downloads): VLC, flvstreamer, ...
 
     // Gui
     public Stage primaryStage = null;
+    public Stage primaryStageBig = null;
+    public Stage primaryStageSmall = null;
+
     public P2MaskerPane maskerPane = null;
     public P2PodderController p2PodderController = null;
 
@@ -112,7 +115,7 @@ public class ProgData {
 
     private ProgData() {
         pEventHandler = new P2EventHandler();
-        pShortcut = new P2PodderShortCuts();
+        pShortcut = new PShortCut();
 
         episodeFilter = new EpisodeFilter(true);
         episodeFilterSmall = new EpisodeFilterSmall();

@@ -20,10 +20,10 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
+import de.p2tools.p2podder.controller.config.PShortCut;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.gui.tools.HelpText;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
@@ -117,7 +117,7 @@ public class PaneShortcut {
         orgShortcutColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(15.0 / 100));
 
         tableView.getColumns().addAll(descriptionColumn, actShortcutColumn, changeColumn, resetColumn, orgShortcutColumn);
-        tableView.setItems(P2PodderShortCuts.getShortcutList());
+        tableView.setItems(PShortCut.getShortcutList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setActReplaceData));
 

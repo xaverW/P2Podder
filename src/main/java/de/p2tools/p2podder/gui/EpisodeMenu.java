@@ -18,9 +18,9 @@ package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutWorker;
 import de.p2tools.p2podder.controller.ProgIcons;
+import de.p2tools.p2podder.controller.config.PShortCut;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.controller.data.P2PodderShortCuts;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.scene.control.*;
@@ -85,7 +85,7 @@ public class EpisodeMenu {
         } else {
             MenuItem miStart = new MenuItem("Episode abspielen");
             miStart.setOnAction(a -> EpisodeFactory.playEpisode());
-            P2ShortcutWorker.addShortCut(miStart, P2PodderShortCuts.SHORTCUT_EPOSODE_START);
+            P2ShortcutWorker.addShortCut(miStart, PShortCut.SHORTCUT_EPOSODE_START);
             mb.getItems().addAll(miStart);
         }
 
@@ -97,7 +97,7 @@ public class EpisodeMenu {
 
         final MenuItem miStopAll = new MenuItem("Alle laufenden Episoden stoppen");
         miStopAll.setOnAction(a -> EpisodeFactory.stopAllEpisode());
-        P2ShortcutWorker.addShortCut(miStopAll, P2PodderShortCuts.SHORTCUT_EPISODE_STOP);
+        P2ShortcutWorker.addShortCut(miStopAll, PShortCut.SHORTCUT_EPISODE_STOP);
 
         final MenuItem miEpisodeDel = new MenuItem("Episode löschen");
         miEpisodeDel.setOnAction(a -> EpisodeFactory.delEpisode());

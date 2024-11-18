@@ -148,7 +148,7 @@ public class ProgTray {
             } else if (progData.primaryStage.isShowing()) {
                 stage = progData.primaryStage;
             }
-            ProgQuitFactory.quit(stage, true);
+            ProgQuitFactory.quit();
         }));
 
         PopupMenu popupMenu = new PopupMenu();

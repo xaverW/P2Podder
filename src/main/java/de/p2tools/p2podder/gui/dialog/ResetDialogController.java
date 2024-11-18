@@ -108,7 +108,7 @@ public class ResetDialogController extends P2DialogExtra {
                 } else if (progData.primaryStage.isShowing()) {
                     stage = progData.primaryStage;
                 }
-                ProgQuitFactory.quit(stage, false);
+                ProgQuitFactory.quit();
             }
         });
 

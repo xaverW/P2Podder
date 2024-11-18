@@ -21,23 +21,20 @@ import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.ProgStartAfterGui;
 import de.p2tools.p2podder.controller.ProgStartBeforeGui;
+import de.p2tools.p2podder.controller.config.PShortCutFactory;
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
-import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class P2Podder extends Application {
 
-    private Stage primaryStage;
     private static final String LOG_TEXT_PROGRAM_START = "Dauer Programmstart";
     protected ProgData progData;
-    private Scene scene = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -49,15 +46,13 @@ public class P2Podder extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-
         P2Duration.counterStart(LOG_TEXT_PROGRAM_START);
+
         progData = ProgData.getInstance();
         progData.primaryStage = primaryStage;
+        progData.primaryStageBig = primaryStage;
 
         ProgStartBeforeGui.workBeforeGui();
-        initP2lib();
-
         initRootLayout();
         ProgStartAfterGui.workAfterGui();
 
@@ -65,50 +60,63 @@ public class P2Podder extends Application {
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
-    private void initP2lib() {
-        P2LibInit.initLib(primaryStage, ProgConst.PROGRAM_NAME,
-                "", ProgConfig.SYSTEM_DARK_THEME, null, ProgConfig.SYSTEM_THEME_CHANGED,
-                ProgConst.CSS_FILE, ProgConst.CSS_FILE_DARK_THEME, ProgConfig.SYSTEM_STYLE_SIZE,
-                ProgData.debug, ProgData.duration);
-    }
 
     private void initRootLayout() {
         try {
             progData.episodeInfoDialogController = new EpisodeInfoDialogController(progData);
             progData.p2PodderController = new P2PodderController();
 
-            scene = new Scene(progData.p2PodderController,
+            // bigGui
+            Scene sceneBig = new Scene(progData.p2PodderController,
                     P2GuiSize.getWidth(ProgConfig.SYSTEM_SIZE_GUI),
                     P2GuiSize.getHeight(ProgConfig.SYSTEM_SIZE_GUI));
-            primaryStage.setScene(scene);
-            primaryStage.setOnCloseRequest(e -> {
+
+            progData.primaryStageBig.setScene(sceneBig);
+            progData.primaryStageBig.setOnCloseRequest(e -> {
                 e.consume();
-                ProgQuitFactory.quit(primaryStage, true);
+                ProgQuitFactory.quit();
             });
+            P2LibInit.addP2CssToScene(sceneBig); // und jetzt noch CSS einstellen
+            PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
 
-            //Pos setzen
-            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, primaryStage);
-            scene.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
-            scene.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
-            primaryStage.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
-            primaryStage.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, primaryStage, scene));
+            sceneBig.heightProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
+            sceneBig.widthProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
+            progData.primaryStageBig.xProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
+            progData.primaryStageBig.yProperty().addListener((v, o, n) -> P2GuiSize.getSizeScene(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig, sceneBig));
 
-            P2LibInit.addP2CssToScene(scene); // und jetzt noch CSS einstellen
-            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> {
-                ProgColorList.setColorTheme();
-            });
+            ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
+            ProgConfig.SYSTEM_SMALL_PODDER.addListener((u, o, n) -> selectGui());
 
-            primaryStage.show();
+            selectGui();
+            progData.primaryStage.setIconified(ProgData.startMinimized);
 
-            if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
-                //dann gleich mit smallRadio starten
-                Platform.runLater(SmallGuiPack::new);
-            } else {
-                primaryStage.show();
-            }
 
         } catch (final Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void selectGui() {
+        if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
+            ProgData.getInstance().smallGuiPack = new SmallGuiPack();
+            progData.primaryStageSmall = ProgData.getInstance().smallGuiPack.getStage();
+            progData.primaryStage = progData.primaryStageSmall;
+            P2LibInit.setActStage(progData.primaryStageSmall);
+            PShortCutFactory.addShortCut(progData.primaryStageSmall.getScene());
+
+            ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
+            ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
+            ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);
+
+            progData.primaryStageBig.close();
+            progData.primaryStageSmall.show();
+
+        } else {
+            progData.primaryStage = progData.primaryStageBig;
+            P2LibInit.setActStage(progData.primaryStageBig);
+            P2GuiSize.setOnlyPos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig);
+            progData.p2PodderController.initPanel();
+            progData.primaryStageBig.show();
         }
     }
 }

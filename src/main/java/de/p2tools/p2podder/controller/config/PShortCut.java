@@ -15,14 +15,28 @@
  */
 
 
-package de.p2tools.p2podder.controller.data;
+package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.tools.shortcut.P2ShortcutKey;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class P2PodderShortCuts {
+public class PShortCut {
+
+    public static final P2ShortcutKey SHORTCUT_CHANGE_GUI =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_CHANGE_GUI, ProgConfig.SHORTCUT_CHANGE_GUI_INIT,
+                    "Programm-GUI umschalten",
+                    "Das Programmfenster (groß/klein) umschalten.");
+
+    public static final P2ShortcutKey SHORTCUT_CENTER_GUI =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_CENTER_GUI, ProgConfig.SHORTCUT_CENTER_INIT,
+                    "Center Programm",
+                    "Das Programmfenster wird auf dem Bildschirm zentriert.");
+
+    public static final P2ShortcutKey SHORTCUT_MINIMIZE_GUI =
+            new P2ShortcutKey(ProgConfig.SHORTCUT_MINIMIZE_GUI, ProgConfig.SHORTCUT_MINIMIZE_INIT,
+                    "Programm-GUI minimieren",
+                    "Das Programmfenster wird minimiert.");
     // Menü
     public static final P2ShortcutKey SHORTCUT_QUIT_PROGRAM =
             new P2ShortcutKey(ProgConfig.SHORTCUT_QUIT_PROGRAM, ProgConfig.SHORTCUT_QUIT_PROGRAM_INIT,
@@ -55,7 +69,7 @@ public class P2PodderShortCuts {
 
     private static ObservableList<P2ShortcutKey> shortcutList = FXCollections.observableArrayList();
 
-    public P2PodderShortCuts() {
+    public PShortCut() {
         shortcutList.add(SHORTCUT_QUIT_PROGRAM);
 
         shortcutList.add(SHORTCUT_UPDATE_PODCAST);

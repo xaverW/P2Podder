@@ -56,8 +56,7 @@ public class SmallGuiPack extends P2DialogOnly {
         smallGuiBottom = new SmallGuiBottom(this);
 
         progData.smallGuiPack = this;
-        ProgConfig.SYSTEM_SMALL_PODDER.setValue(true);
-        init(true);
+        init(false);
     }
 
     @Override
@@ -68,48 +67,44 @@ public class SmallGuiPack extends P2DialogOnly {
         vAll.setPadding(new Insets(25));
         vAll.setSpacing(P2LibConst.DIST_BUTTON);
         vAll.getChildren().addAll(smallGuiTop, smallGuiCenter, smallGuiBottom);
-
         VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
 
+        getStage().setOnShown(e -> showFilter()); //????
+        progData.pEventHandler.addListener(listener);
+
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                changeGui();
+                close();
             }
         });
         getStage().setOnCloseRequest(e -> {
             e.consume();
             close();
         });
-        getStage().setOnShown(e -> showFilter()); //????
-        progData.pEventHandler.addListener(listener);
     }
 
     @Override
     public void close() {
-        saveMe();
+        saveTable();
+        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
         ProgData.getInstance().pEventHandler.removeListener(listener);
+
+        progData.smallGuiPack = null;
+        ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
         super.close();
     }
 
-    private void saveMe() {
-        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
-    }
+//    private void saveMe() {
+//        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
+//    }
 
-    public void saveTable() {
+    private void saveTable() {
         smallGuiCenter.saveTable();
     }
 
     public void tableRefresh() {
         smallGuiCenter.tableRefresh();
-    }
-
-    public void changeGui() {
-        ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
-        progData.smallGuiPack = null;
-        getSize();
-        close();
-        progData.p2PodderController.quittSmallRadio();
     }
 
     public void showFilter() {
@@ -146,10 +141,5 @@ public class SmallGuiPack extends P2DialogOnly {
 
     public void setEpisodeInfoBox(Episode episode) {
         smallGuiBottom.setInfoBox(episode);
-    }
-
-    private void getSize() {
-        smallGuiCenter.saveTable();
-        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
     }
 }
