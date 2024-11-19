@@ -131,7 +131,6 @@ public class ProgConfig extends P2DataProgConfig {
     //Gui SmallPodder
     public static StringProperty SMALL_PODDER_SIZE = addStrProp("small-podder-size", "800:400");
 
-
     public static StringProperty SYSTEM_PATH_VLC = addStrProp("system-path-vlc", SetFactory.getTemplatePathVlc());
 
     // Download
@@ -140,10 +139,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_SSL_ALWAYS_TRUE = addBoolProp("system-ssl-always-true");
 
     // Gui Podcast
-//    public static DoubleProperty PODCAST_GUI_FILTER_DIVIDER = addDoubleProp("podcast-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-//    public static BooleanProperty PODCAST_GUI_FILTER_ON = addBoolProp("podcast-gui-filter-on", Boolean.TRUE);
-//    public static DoubleProperty PODCAST_GUI_DIVIDER = addDoubleProp("podcast-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    //    public static BooleanProperty PODCAST_GUI_INFO_ON = addBoolProp("podcast-gui-info-on", Boolean.TRUE);
     public static StringProperty PODCAST_GUI_TABLE_WIDTH = addStrProp("podcast-gui-table-width");
     public static StringProperty PODCAST_GUI_TABLE_SORT = addStrProp("podcast-gui-table-sort");
     public static StringProperty PODCAST_GUI_TABLE_UP_DOWN = addStrProp("podcast-gui-table-up-down");
@@ -155,10 +150,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static StringProperty PODCAST_DIALOG_ADD_MORE_SIZE = addStrProp("podcast-dialog-add-more-size", "800:700");
 
     //Gui Download
-    public static DoubleProperty DOWNLOAD_GUI_FILTER_DIVIDER = addDoubleProp("download-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty DOWNLOAD_GUI_FILTER_ON = addBoolProp("download-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty DOWNLOAD_GUI_DIVIDER = addDoubleProp("download-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    //    public static BooleanProperty DOWNLOAD_GUI_INFO_ON = addBoolProp("download-gui-info-on", Boolean.TRUE);
     public static StringProperty DOWNLOAD_GUI_TABLE_WIDTH = addStrProp("download-gui-table-width");
     public static StringProperty DOWNLOAD_GUI_TABLE_SORT = addStrProp("download-gui-table-sort");
     public static StringProperty DOWNLOAD_GUI_TABLE_UP_DOWN = addStrProp("download-gui-table-up-down");
@@ -167,10 +158,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty DOWNLOAD_GUI_INFO_DIVIDER = addDoubleProp("download-gui-info-divider", 0.7);
 
     //Gui Episodes
-    public static DoubleProperty EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("episode-gui-filter-divider", ProgConst.GUI_FILTER_DIVIDER_LOCATION);
-    public static BooleanProperty EPISODE_GUI_FILTER_ON = addBoolProp("episode-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty EPISODE_GUI_DIVIDER = addDoubleProp("episode-gui-divider", ProgConst.GUI_DIVIDER_LOCATION);
-    //    public static BooleanProperty EPISODE_GUI_DIVIDER_ON = addBoolProp("episode-gui-divider-on", Boolean.TRUE);
     public static StringProperty EPISODE_DIALOG_EDIT_SIZE = addStrProp("episode-dialog-edit-size", "800:800");
     public static StringProperty START_STATION_ERROR_DIALOG_SIZE = addStrProp("start-station-error-dialog-size", "");
     public static StringProperty EPISODE_GUI_TABLE_WIDTH = addStrProp("episode-gui-table-width");
@@ -182,8 +169,6 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty EPISODE_GUI_INFO_DIVIDER = addDoubleProp("episode-gui-info-divider", 0.7);
 
     //Gui SmallEpisode
-    public static BooleanProperty SMALL_EPISODE_GUI_FILTER_ON = addBoolProp("small-episode-gui-filter-on", Boolean.TRUE);
-    public static DoubleProperty SMALL_EPISODE_GUI_FILTER_DIVIDER = addDoubleProp("small-episode-gui-filter-divider", 0.2);
     public static StringProperty SMALL_EPISODE_GUI_TABLE_WIDTH = addStrProp("small-episode-gui-table-width");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_SORT = addStrProp("small-episode-gui-table-sort");
     public static StringProperty SMALL_EPISODE_GUI_TABLE_UP_DOWN = addStrProp("small-episode-gui-table-up-down");

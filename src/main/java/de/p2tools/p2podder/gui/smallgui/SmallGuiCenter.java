@@ -21,20 +21,15 @@ import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
-import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.tools.table.Table;
 import de.p2tools.p2podder.gui.tools.table.TableRowEpisode;
 import de.p2tools.p2podder.gui.tools.table.TableSmallEpisode;
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Priority;
@@ -46,10 +41,8 @@ import java.util.Random;
 
 public class SmallGuiCenter extends VBox {
 
-    private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
     private final TableSmallEpisode tableView;
-    private final ListView<Podcast> listView = new ListView<>();
 
     private final ProgData progData;
     private SmallGuiPack smallGuiPack;
@@ -60,31 +53,11 @@ public class SmallGuiCenter extends VBox {
         progData = ProgData.getInstance();
         tableView = new TableSmallEpisode(Table.TABLE_ENUM.SMALL_EPISODE, progData);
 
-        VBox.setVgrow(splitPane, Priority.ALWAYS);
-        getChildren().addAll(splitPane);
+        getChildren().addAll(scrollPane);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         initTable();
-        initListView();
         initListener();
-    }
-
-    public void clearFilter() {
-        listView.getSelectionModel().clearSelection();
-    }
-
-    public void showFilter() {
-        if (splitPane.getDividers().size() > 0) {
-            splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER);
-        }
-        splitPane.getItems().clear();
-
-        if (ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue()) {
-            splitPane.getItems().addAll(listView, scrollPane);
-            SplitPane.setResizableWithParent(listView, Boolean.FALSE);
-            splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.SMALL_EPISODE_GUI_FILTER_DIVIDER);
-        } else {
-            splitPane.getItems().addAll(scrollPane);
-        }
     }
 
     public void tableRefresh() {
@@ -231,31 +204,5 @@ public class SmallGuiCenter extends VBox {
         Episode episode = tableView.getSelectionModel().getSelectedItem();
         progData.episodeInfoDialogController.setEpisode(episode);
         smallGuiPack.setEpisodeInfoBox(episode);
-    }
-
-    private void initListView() {
-        listView.setMinWidth(10);
-        progData.episodeList.addListener((u, o, n) -> {
-            Platform.runLater(() -> {
-                //kann durch Downloads außer der Reihe sein!!
-                Podcast podcast = listView.getSelectionModel().getSelectedItem();
-                listView.getItems().setAll(progData.episodeList.getPodcastList());
-                if (podcast != null && listView.getItems().contains(podcast)) {
-                    listView.getSelectionModel().select(podcast);
-                } else {
-                    listView.getSelectionModel().clearSelection();
-                }
-            });
-        });
-
-        listView.getItems().setAll(progData.episodeList.getPodcastList());
-        listView.getSelectionModel().selectedItemProperty().addListener((u, o, n) -> {
-            if (listView.getSelectionModel().isEmpty()) {
-                progData.episodeFilterSmall.setPodcastId(0);
-
-            } else if (n != null && o != n) {
-                progData.episodeFilterSmall.setPodcastId(n.getId());
-            }
-        });
     }
 }

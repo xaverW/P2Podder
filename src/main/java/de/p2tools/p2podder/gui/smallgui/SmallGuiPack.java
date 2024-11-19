@@ -70,7 +70,6 @@ public class SmallGuiPack extends P2DialogOnly {
         VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);
 
-        getStage().setOnShown(e -> showFilter()); //????
         progData.pEventHandler.addListener(listener);
 
         getStage().getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
@@ -107,12 +106,8 @@ public class SmallGuiPack extends P2DialogOnly {
         smallGuiCenter.tableRefresh();
     }
 
-    public void showFilter() {
-        smallGuiCenter.showFilter();
-    }
-
     public void clearFilter() {
-        smallGuiCenter.clearFilter();
+        smallGuiTop.clearFilter();
     }
 
     public void playEpisode() {

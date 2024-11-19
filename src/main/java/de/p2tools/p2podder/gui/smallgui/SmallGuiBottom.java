@@ -20,24 +20,25 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2podder.controller.ProgIcons;
-import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class SmallGuiBottom extends HBox {
+public class SmallGuiBottom extends VBox {
 
-    private final Button btnClearFilter = new Button("");
-    private final Button btnShowFilter = new Button("");
+    private final RadioButton rbAll = new RadioButton("alle");
+    private final RadioButton rbStarted = new RadioButton("gestartete");
+    private final RadioButton rbRunning = new RadioButton("läuft");
+    private final RadioButton rbWasShown = new RadioButton("gehörte");
+    private final RadioButton rbNew = new RadioButton("neue");
+
     private final Button btnRandom = new Button("");
     private final Button btnNext = new Button("");
     private final Button btnPrev = new Button("");
@@ -59,34 +60,44 @@ public class SmallGuiBottom extends HBox {
     }
 
     public void init() {
-        setSpacing(P2LibConst.PADDING_HBOX);
+        setSpacing(0);
         setAlignment(Pos.CENTER);
+
+        ToggleGroup tg = new ToggleGroup();
+        rbAll.setToggleGroup(tg);
+        rbStarted.setToggleGroup(tg);
+        rbRunning.setToggleGroup(tg);
+        rbWasShown.setToggleGroup(tg);
+        rbNew.setToggleGroup(tg);
 
         Separator sp1 = new Separator(Orientation.VERTICAL);
         sp1.setPadding(new Insets(0, 5, 0, 5));
         Separator sp2 = new Separator(Orientation.VERTICAL);
+        sp1.setPadding(new Insets(0, 5, 0, 5));
+        Separator sp3 = new Separator(Orientation.VERTICAL);
         sp2.setPadding(new Insets(0, 5, 0, 5));
 
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
-        hBoxButton.getChildren().addAll(btnRandom, sp1, btnPrev, btnNext, sp2, btnStart, btnPlayNext, btnStop);
-        getChildren().addAll(btnShowFilter, btnClearFilter, P2GuiTools.getVDistance(20),
-                getInfoBox(), P2GuiTools.getHBoxGrower(), hBoxButton);
+        hBoxButton.getChildren().addAll(
+                new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown,
+                P2GuiTools.getHBoxGrower(),
+                btnRandom,
+                sp2,
+                btnPrev, btnNext,
+                sp3,
+                btnStart, btnPlayNext, btnStop);
+        getChildren().addAll(getInfoBox(), hBoxButton);
+
+        initFilter();
     }
 
     private GridPane getInfoBox() {
         final GridPane gridPane = new GridPane();
-        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
-        gridPane.setVgap(2);
+        gridPane.setHgap(20);
         gridPane.setPadding(new Insets(0));
-//        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow(),
-//                PColumnConstraints.getCcPrefSize(),
-//                PColumnConstraints.getCcComputedSizeAndHgrow());
-
-        int row = 0;
-        gridPane.add(lblTitle, 0, ++row);
-        gridPane.add(lblDate, 0, ++row);
-
+        gridPane.add(lblTitle, 0, 0);
+        gridPane.add(lblDate, 1, 0);
         return gridPane;
     }
 
@@ -109,22 +120,6 @@ public class SmallGuiBottom extends HBox {
     }
 
     private void initStartButton() {
-        btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
-        btnClearFilter.getStyleClass().add("btnSmallGui");
-        btnClearFilter.setGraphic(ProgIcons.ICON_BUTTON_CLEAR_FILTER.getImageView());
-        btnClearFilter.setOnAction(event -> {
-            smallGuiPack.clearFilter();
-        });
-
-        btnShowFilter.setTooltip(new Tooltip("Filter anzeigen und ausblenden"));
-        btnShowFilter.getStyleClass().add("btnSmallGui");
-        btnShowFilter.setOnAction(event -> {
-            ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.setValue(!ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue());
-            smallGuiPack.showFilter();
-        });
-        ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.addListener((u, o, n) -> setBtnIcon());
-        setBtnIcon();
-
         btnRandom.setTooltip(new Tooltip("Eine Episode per Zufall starten"));
         btnRandom.getStyleClass().add("btnSmallGui");
         btnRandom.setGraphic(ProgIcons.ICON_BUTTON_RANDOM.getImageView());
@@ -156,11 +151,11 @@ public class SmallGuiBottom extends HBox {
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
     }
 
-    private void setBtnIcon() {
-        if (ProgConfig.SMALL_EPISODE_GUI_FILTER_ON.getValue()) {
-            btnShowFilter.setGraphic(ProgIcons.ICON_BUTTON_BACKWARD.getImageView());
-        } else {
-            btnShowFilter.setGraphic(ProgIcons.ICON_BUTTON_FORWARD.getImageView());
-        }
+    private void initFilter() {
+        rbAll.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isAllProperty());
+        rbNew.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isNewProperty());
+        rbStarted.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isStartedProperty());
+        rbRunning.selectedProperty().bindBidirectional(progData.episodeFilterSmall.isRunningProperty());
+        rbWasShown.selectedProperty().bindBidirectional(progData.episodeFilterSmall.wasShownProperty());
     }
 }
