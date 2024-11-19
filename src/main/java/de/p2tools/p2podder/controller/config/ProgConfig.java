@@ -117,6 +117,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static IntegerProperty SYSTEM_LAST_TAB = addIntProp("system-last-tab", 0);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE_ASK = addBoolProp("system-delete-episode-file-ask", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBoolProp("system-delete-episode-file", Boolean.TRUE);
+    public static BooleanProperty SYSTEM_SMALL_GUI_SHOW_START_HELP = addBoolProp("system-small-gui-show-start-help", false);
 
     //Meta-Daten
     public static P2LDateTimeProperty META_PODCAST_LIST_DATE = addPLocalDateTimeProp("meta-podcast-list-date", LocalDateTime.MIN);

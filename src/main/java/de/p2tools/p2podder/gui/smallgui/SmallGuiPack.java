@@ -19,6 +19,7 @@ package de.p2tools.p2podder.gui.smallgui;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
 import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.config.Events;
@@ -57,11 +58,16 @@ public class SmallGuiPack extends P2DialogOnly {
 
         progData.smallGuiPack = this;
         init(false);
+
+        if (!ProgConfig.SYSTEM_SMALL_GUI_SHOW_START_HELP.getValue()) {
+            new SmallGuiHelpDialogController(ProgData.getInstance().primaryStage);
+            ProgConfig.SYSTEM_SMALL_GUI_SHOW_START_HELP.setValue(true);
+        }
     }
 
     @Override
     public void make() {
-        SmallGuiFactory.addBorderListener(getStage());
+        P2SmallGuiFactory.addBorderListener(getStage());
         getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
         vAll.setPadding(new Insets(25));
@@ -93,10 +99,6 @@ public class SmallGuiPack extends P2DialogOnly {
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
         super.close();
     }
-
-//    private void saveMe() {
-//        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
-//    }
 
     private void saveTable() {
         smallGuiCenter.saveTable();

@@ -38,19 +38,14 @@ import javafx.util.Callback;
 
 
 public class DownloadFilterController extends VBox {
+    private final ScrollPane scrollPane = new ScrollPane();
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
     private ProgData progData;
 
     public DownloadFilterController() {
-//        super(ProgConfig.DOWNLOAD_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
-
-        VBox vBoxTable = new VBox();
-        vBoxTable.getChildren().addAll(tableView);
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        VBox.setVgrow(vBoxTable, Priority.ALWAYS);
 
         VBox vBoxGenre = new VBox();
         cboGenre.setMaxWidth(Double.MAX_VALUE);
@@ -59,9 +54,10 @@ public class DownloadFilterController extends VBox {
         VBox vBoxTitle = new VBox();
         vBoxTitle.getChildren().addAll(new Label("Titel:"), txtTitle);
 
+        VBox.setVgrow(this, Priority.ALWAYS);
         setPadding(new Insets(P2LibConst.PADDING));
         setSpacing(P2LibConst.DIST_BUTTON);
-        getChildren().addAll(vBoxTable, vBoxGenre, vBoxTitle);
+        getChildren().addAll(scrollPane, vBoxGenre, vBoxTitle, P2GuiTools.getVBoxGrower());
 
         addButton();
         initTable();
@@ -74,18 +70,21 @@ public class DownloadFilterController extends VBox {
         btnClearFilter.setOnAction(a -> clearFilter(true));
         btnClearFilter.setTooltip(new Tooltip("Alle Filter löschen"));
 
-        HBox hBoxAll = new HBox(5);
-        hBoxAll.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(hBoxAll, Priority.ALWAYS);
-        hBoxAll.getChildren().addAll(btnClearFilter);
+        HBox hBox = new HBox(5);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.getChildren().addAll(btnClearFilter);
 
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
 
-        getChildren().addAll(P2GuiTools.getHDistance(10), separator, hBoxAll);
+        getChildren().addAll(separator, hBox);
     }
 
     private void initTable() {
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(tableView);
+
         final TableColumn<Podcast, String> episodeColumn = new TableColumn<>("Podcast");
         episodeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         episodeColumn.setCellFactory(cellFactory);

@@ -38,6 +38,7 @@ import javafx.util.StringConverter;
 
 
 public class EpisodeFilterController extends VBox {
+    private final ScrollPane scrollPane = new ScrollPane();
     private TableView<Podcast> tableView = new TableView<>();
     private ComboBox<String> cboGenre = new ComboBox();
     private TextField txtTitle = new TextField();
@@ -49,14 +50,7 @@ public class EpisodeFilterController extends VBox {
     private final Label lblTimeRangeValue = new Label();
 
     public EpisodeFilterController() {
-//        super(ProgConfig.EPISODE_GUI_FILTER_ON);
         this.progData = ProgData.getInstance();
-
-        //Tabelle
-        VBox vBoxTable = new VBox();
-        vBoxTable.getChildren().addAll(tableView);
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        VBox.setVgrow(vBoxTable, Priority.ALWAYS);
 
         //Tage
         VBox vBoxTimeRange = new VBox(2);
@@ -77,9 +71,10 @@ public class EpisodeFilterController extends VBox {
         vBoxTxt.getChildren().addAll(new Label("Titel:"), txtTitle);
         vBoxTxt.getChildren().addAll(new Label("Beschreibung:"), txtDescription);
 
+        VBox.setVgrow(this, Priority.ALWAYS);
         setPadding(new Insets(P2LibConst.PADDING));
         setSpacing(P2LibConst.DIST_BUTTON);
-        getChildren().addAll(vBoxTable, vBoxTimeRange, vBoxGenre, vBoxTxt);
+        getChildren().addAll(scrollPane, vBoxTimeRange, vBoxGenre, vBoxTxt, P2GuiTools.getVBoxGrower());
 
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
@@ -133,6 +128,10 @@ public class EpisodeFilterController extends VBox {
     }
 
     private void initTable() {
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(tableView);
+
         final TableColumn<Podcast, String> episodeColumn = new TableColumn<>("Podcast");
         episodeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         episodeColumn.setCellFactory(cellFactory);

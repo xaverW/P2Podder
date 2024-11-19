@@ -53,7 +53,6 @@ public class DownloadGui {
                 "Filter", "Download", true);
         list.add(infoDto);
         infoController = new P2ClosePaneController(list, ProgConfig.DOWNLOAD__FILTER_IS_SHOWING);
-
         downloadGuiController = new DownloadGuiController();
     }
 
