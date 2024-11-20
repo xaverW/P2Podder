@@ -101,6 +101,7 @@ public class ProgStartAfterGui {
         Podcast podcast = new Podcast();
         podcast.setName("Deutschlandfunk – Der Tag");
         podcast.setGenre("Nachrichten");
+        podcast.setMaxAge(40);
         podcast.setUrl("https://www.deutschlandfunk.de/podcast-104.xml");
         podcast.setWebsite("https://www.deutschlandfunk.de");
         podcast.setDescription("Ausgewählte Themen hintergründig eingeordnet – das ist der Anspruch unseres " +
@@ -110,6 +111,7 @@ public class ProgStartAfterGui {
         podcast = new Podcast();
         podcast.setName("Auf den Punkt - der SZ-Nachrichtenpodcast");
         podcast.setGenre("Nachrichten");
+        podcast.setMaxAge(40);
         podcast.setUrl("https://sz-auf-den-punkt.podigee.io/feed/mp3");
         podcast.setWebsite("https://www.sueddeutsche.de/");
         podcast.setDescription("Die Nachrichten des Tages - als Podcast auf den Punkt gebracht. " +
@@ -120,6 +122,7 @@ public class ProgStartAfterGui {
         podcast = new Podcast();
         podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
         podcast.setGenre("Ökologie");
+        podcast.setMaxAge(40);
         podcast.setUrl("https://utopia.podigee.io/feed/mp3");
         podcast.setWebsite("https://utopia.de/");
         podcast.setDescription("Alle sprechen von Nachhaltigkeit – aber was ist damit eigentlich gemeint? " +
@@ -132,6 +135,7 @@ public class ProgStartAfterGui {
         podcast = new Podcast();
         podcast.setName("Radio Tux");
         podcast.setGenre("Linux");
+        podcast.setMaxAge(40);
         podcast.setUrl("http://prometheus.radiotux.de/index.php?/feeds/index.rss2");
         podcast.setWebsite("https://radiotux.de");
         podcast.setDescription("RadioTux ist ein 2001 gegründetes Podcast-Projekt mit den thematischen " +

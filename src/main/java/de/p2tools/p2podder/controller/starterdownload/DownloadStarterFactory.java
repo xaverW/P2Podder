@@ -211,7 +211,6 @@ public class DownloadStarterFactory {
         start.setProcess(null);
         start.setInputStream(null);
         start.setStartTime(null);
-
     }
 
     /**
