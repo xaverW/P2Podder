@@ -17,11 +17,10 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
-import de.p2tools.p2lib.guitools.ptable.P2CellPFileSize;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2lib.tools.file.P2FileSize;
-import de.p2tools.p2podder.controller.config.ProgColorList;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -55,19 +54,19 @@ public class TableEpisode extends PTable<Episode> {
         Table.resetTable(this);
     }
 
+    private void refreshTable() {
+        P2TableFactory.refreshTable(this);
+    }
+
     private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
-        ProgColorList.EPISODE_NEW_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_NEW.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_STARTED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_STARTED.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_RUNNING_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_RUNNING.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_ERROR_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_ERROR.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_HISTORY_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.EPISODE_HISTORY.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            @Override
+            public void pingGui(P2Event runEvent) {
+                refreshTable();
+            }
+        });
     }
 
     private void initColumn() {
@@ -80,46 +79,56 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        noColumn.setCellFactory(new P2CellIntMax<Episode, Integer>().cellFactory);
+//        noColumn.setCellFactory(new P2CellIntMax<Episode, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryIntegerMax(this.table_enum, noColumn);
 
         final TableColumn<Episode, String> podcastNameColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_PODCAST_NAME);
         podcastNameColumn.setCellValueFactory(new PropertyValueFactory<>("podcastName"));
         podcastNameColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, podcastNameColumn);
 
         final TableColumn<Episode, String> titleColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_TITLE);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("episodeTitle"));
         titleColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, titleColumn);
 
         final TableColumn<Episode, String> genreColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, genreColumn);
 
-        final TableColumn<Episode, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(new CellEpisodeButton<>().cellFactory);
+        final TableColumn<Episode, String> startColumn = new TableColumn<>("");
+//        startColumn.setCellFactory(new CellEpisodeButton<>().cellFactory);
         startColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryButton(this.table_enum, startColumn);
 
         final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
+//        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryLocalDate(this.table_enum, dateColumn);
 
         final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, durationColumn);
 
         final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
-        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, P2FileSize>().cellFactory);
+//        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, P2FileSize>().cellFactory);
         sizeColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryP2FileSize(this.table_enum, sizeColumn);
 
         final TableColumn<Episode, String> fileColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_NAME);
         fileColumn.setCellValueFactory(new PropertyValueFactory<>("fileName"));
         fileColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, fileColumn);
 
         final TableColumn<Episode, String> pathColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_PATH);
         pathColumn.setCellValueFactory(new PropertyValueFactory<>("filePath"));
         pathColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(this.table_enum, pathColumn);
 
         noColumn.setPrefWidth(50);
         podcastNameColumn.setPrefWidth(180);
@@ -134,10 +143,5 @@ public class TableEpisode extends PTable<Episode> {
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
                 startColumn, dateColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
-
-//        setRowFactory(tableRow -> {
-//            TableRowEpisode row = new TableRowEpisode<>();
-//            return row;
-//        });
     }
 }

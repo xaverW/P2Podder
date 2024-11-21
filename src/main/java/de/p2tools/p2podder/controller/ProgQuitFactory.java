@@ -51,6 +51,12 @@ public class ProgQuitFactory {
      * Quit the application
      */
     public static void quit() {
+        ProgData.getInstance().downloadList.forEach(d -> {
+            System.out.println(d.getState());
+            System.out.println(d.getGuiState());
+        });
+
+
         if (quit_()) {
 
             // dann jetzt beenden -> Thüss
@@ -73,15 +79,14 @@ public class ProgQuitFactory {
     }
 
     private static void stopAllDownloads() {
-        //erst mal alle Downloads stoppen und zurücksetzen
-        ProgData.getInstance().downloadList.forEach(download -> {
-            if (!download.isStateFinished()) {
-                download.stopDownload();
-            }
-        });
-
-        //fertige werden entfernt
+        // Fertige werden entfernt
         ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
+
+        // Alle Downloads stoppen und zurücksetzen
+        ProgData.getInstance().downloadList.forEach(download -> {
+            download.stopDownload();
+            download.setStateInit(); // sonst stehen sie auf "Abgebrochen"
+        });
     }
 
     private static void stopAll() {

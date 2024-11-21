@@ -33,19 +33,24 @@ public class TableRowEpisode<T extends Episode> extends TableRow {
     public void updateItem(Object f, boolean empty) {
         super.updateItem(f, empty);
 
-        Episode episode = (Episode) f;
+        if (f == null || empty) {
+            setStyle("");
+            setTooltip(null);
 
-        setStyle("");
-        for (int i = 0; i < getChildren().size(); i++) {
-            getChildren().get(i).setStyle("");
-        }
+        } else {
+            Episode episode = (Episode) f;
+            if (episode.getStart() != null && episode.getStart().getStartStatus().isStateError()) {
+                Tooltip tooltip = new Tooltip();
+                tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
+                setTooltip(tooltip);
+            }
 
-        if (episode != null && !empty) {
             final boolean started = EpisodeFactory.episodeIsStarted(episode);
             final boolean running = EpisodeFactory.episodeIsRunning(episode);
-            final boolean error = episode.getStart() != null ? episode.getStart().getStartStatus().isStateError() : false;
+            final boolean error = episode.getStart() != null && episode.getStart().getStartStatus().isStateError();
             final boolean history = ProgData.getInstance().historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
 
+            setStyle("");
             if (episode.getStart() != null && episode.getStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
@@ -57,40 +62,20 @@ public class TableRowEpisode<T extends Episode> extends TableRow {
                 if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackground());
                 }
-                if (ProgColorList.EPISODE_ERROR.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.EPISODE_ERROR.getCssFont());
-                    }
-                }
 
             } else if (started && !running) {
                 if (ProgColorList.EPISODE_STARTED_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackground());
-                }
-                if (ProgColorList.EPISODE_STARTED.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.EPISODE_STARTED.getCssFont());
-                    }
                 }
 
             } else if (running) {
                 if (ProgColorList.EPISODE_RUNNING_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackground());
                 }
-                if (ProgColorList.EPISODE_RUNNING.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.EPISODE_RUNNING.getCssFont());
-                    }
-                }
 
             } else if (!error && !started && !running && history) {
                 if (ProgColorList.EPISODE_HISTORY_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackground());
-                }
-                if (ProgColorList.EPISODE_HISTORY.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.EPISODE_HISTORY.getCssFont());
-                    }
                 }
 
             } else if (episode.isNew()) {
@@ -98,14 +83,7 @@ public class TableRowEpisode<T extends Episode> extends TableRow {
                 if (ProgColorList.EPISODE_NEW_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackground());
                 }
-                if (ProgColorList.EPISODE_NEW.isUse()) {
-                    for (int i = 0; i < getChildren().size(); i++) {
-                        getChildren().get(i).setStyle(ProgColorList.EPISODE_NEW.getCssFont());
-                    }
-                }
             }
         }
-
-
     }
 }

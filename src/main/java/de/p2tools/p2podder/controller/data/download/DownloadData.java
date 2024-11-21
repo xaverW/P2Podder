@@ -165,6 +165,10 @@ public final class DownloadData extends DownloadDataProps {
         return getState() == DownloadConstants.STATE_ERROR;
     }
 
+    public void setStateInit() {
+        setState(DownloadConstants.STATE_INIT);
+    }
+
     public void setStateStartedWaiting() {
         setState(DownloadConstants.STATE_STARTED_WAITING);
     }
@@ -211,6 +215,7 @@ public final class DownloadData extends DownloadDataProps {
         for (int i = 0; i < configs.length; ++i) {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
+        ret.setGuiState(getGuiState());
         ret.setDownloadStart(getDownloadStart());
         return ret;
     }
@@ -221,7 +226,7 @@ public final class DownloadData extends DownloadDataProps {
         for (int i = 0; i < configs.length; ++i) {
             configsCopy[i].setActValue(configs[i].getActValueString());
         }
-
+        setGuiState(download.getGuiState());
         setDownloadStart(download.getDownloadStart());
     }
 }

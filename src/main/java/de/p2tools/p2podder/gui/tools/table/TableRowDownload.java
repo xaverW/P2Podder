@@ -31,60 +31,39 @@ public class TableRowDownload<T extends DownloadData> extends TableRow {
     @Override
     public void updateItem(Object f, boolean empty) {
         super.updateItem(f, empty);
-        DownloadData download = (DownloadData) f;
 
-        setStyle("");
-        for (int i = 0; i < getChildren().size(); i++) {
-            getChildren().get(i).setStyle("");
-        }
+        if (f == null || empty) {
+            setStyle("");
+            setTooltip(null);
 
-        if (download != null && !empty) {
-
+        } else {
+            DownloadData download = (DownloadData) f;
             if (download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(download.getDownloadStart().getStartStatus().getErrorMessage());
                 setTooltip(tooltip);
             }
 
+            setStyle("");
             switch (download.getState()) {
                 case DownloadConstants.STATE_STARTED_WAITING:
                     if (ProgColorList.DOWNLOAD_WAIT_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_WAIT_BG.getCssBackground());
-                    }
-                    if (ProgColorList.DOWNLOAD_WAIT.isUse()) {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_WAIT.getCssFont());
-                        }
                     }
                     break;
                 case DownloadConstants.STATE_STARTED_RUN:
                     if (ProgColorList.DOWNLOAD_RUN_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_RUN_BG.getCssBackground());
                     }
-                    if (ProgColorList.DOWNLOAD_RUN.isUse()) {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_RUN.getCssFont());
-                        }
-                    }
                     break;
                 case DownloadConstants.STATE_FINISHED:
                     if (ProgColorList.DOWNLOAD_FINISHED_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_FINISHED_BG.getCssBackground());
                     }
-                    if (ProgColorList.DOWNLOAD_FINISHED.isUse()) {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_FINISHED.getCssFont());
-                        }
-                    }
                     break;
                 case DownloadConstants.STATE_ERROR:
                     if (ProgColorList.DOWNLOAD_ERROR_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_ERROR_BG.getCssBackground());
-                    }
-                    if (ProgColorList.DOWNLOAD_ERROR.isUse()) {
-                        for (int i = 0; i < getChildren().size(); i++) {
-                            getChildren().get(i).setStyle(ProgColorList.DOWNLOAD_ERROR.getCssFont());
-                        }
                     }
                     break;
             }

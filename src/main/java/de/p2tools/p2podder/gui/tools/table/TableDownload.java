@@ -17,10 +17,10 @@
 package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2lib.guitools.P2TableFactory;
-import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
 import de.p2tools.p2lib.mtdownload.DownloadSizeData;
-import de.p2tools.p2podder.controller.config.ProgColorList;
+import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
@@ -54,17 +54,18 @@ public class TableDownload extends PTable<DownloadData> {
         Table.resetTable(this);
     }
 
+    private void refreshTable() {
+        P2TableFactory.refreshTable(this);
+    }
+
     private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
-
-        ProgColorList.DOWNLOAD_WAIT_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_WAIT.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_RUN_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_RUN.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_FINISHED_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_ERROR_BG.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
-        ProgColorList.DOWNLOAD_ERROR.colorProperty().addListener((a, b, c) -> P2TableFactory.refreshTable(this));
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+            @Override
+            public void pingGui(P2Event runEvent) {
+                refreshTable();
+            }
+        });
     }
 
     private void initColumn() {
@@ -77,63 +78,77 @@ public class TableDownload extends PTable<DownloadData> {
 
         final TableColumn<DownloadData, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        noColumn.setCellFactory(new P2CellIntMax<DownloadData, Integer>().cellFactory);
+//        noColumn.setCellFactory(new P2CellIntMax<DownloadData, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryIntegerMax(this.table_enum, noColumn);
 
         final TableColumn<DownloadData, String> genreColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, genreColumn);
 
-        final TableColumn<DownloadData, Long> podcastNameColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_PODCAST_NAME);
+        final TableColumn<DownloadData, String> podcastNameColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_PODCAST_NAME);
         podcastNameColumn.setCellValueFactory(new PropertyValueFactory<>("podcastName"));
         podcastNameColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, podcastNameColumn);
 
         final TableColumn<DownloadData, String> titleColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_EPISODE_TITLE);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("episodeTitle"));
         titleColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, titleColumn);
 
         final TableColumn<DownloadData, Integer> startColumn = new TableColumn<>("");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("guiState"));
-        startColumn.setCellFactory(new CellDownloadButton<>().cellFactory);
+//        startColumn.setCellFactory(new CellDownloadButton<>().cellFactory);
         startColumn.getStyleClass().add("alignCenter");
+        TableDownloadFactory.columnFactoryButton(this.table_enum, startColumn);
 
         final TableColumn<DownloadData, Double> progressColumn = new TableColumn<>("Fortschritt"); //müssen sich unterscheiden!!
         progressColumn.setCellValueFactory(new PropertyValueFactory<>("guiProgress"));
         progressColumn.setCellFactory(new CellProgress<>().cellFactory);
         progressColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryProgress(this.table_enum, progressColumn);
 
-        final TableColumn<DownloadData, Integer> remainingColumn = new TableColumn<>("Restzeit");
+        final TableColumn<DownloadData, String> remainingColumn = new TableColumn<>("Restzeit");
         remainingColumn.setCellValueFactory(new PropertyValueFactory<>("remaining"));
         remainingColumn.getStyleClass().add("alignCenterRightPadding_25");
+        TableDownloadFactory.columnFactoryString(this.table_enum, remainingColumn);
 
-        final TableColumn<DownloadData, Integer> speedColumn = new TableColumn<>("Geschwindigkeit");
+        final TableColumn<DownloadData, String> speedColumn = new TableColumn<>("Geschwindigkeit");
         speedColumn.setCellValueFactory(new PropertyValueFactory<>("bandwidth"));
         speedColumn.getStyleClass().add("alignCenterRightPadding_25");
+        TableDownloadFactory.columnFactoryString(this.table_enum, speedColumn);
 
         final TableColumn<DownloadData, DownloadSizeData> downloadSizeColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_FILESIZE);
         downloadSizeColumn.setCellValueFactory(new PropertyValueFactory<>("downloadSize"));
         downloadSizeColumn.getStyleClass().add("alignCenter");
+        TableDownloadFactory.columnFactoryDownloadSizeData(this.table_enum, downloadSizeColumn);
 
         final TableColumn<DownloadData, String> durationColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DURATION);
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
+        TableDownloadFactory.columnFactoryString(this.table_enum, durationColumn);
 
         final TableColumn<DownloadData, LocalDate> dateColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
+//        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
+        TableDownloadFactory.columnFactoryLocalDate(this.table_enum, dateColumn);
 
         final TableColumn<DownloadData, String> fileColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME);
         fileColumn.setCellValueFactory(new PropertyValueFactory<>("destFileName"));
         fileColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, fileColumn);
 
         final TableColumn<DownloadData, String> pathColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DEST_PATH);
         pathColumn.setCellValueFactory(new PropertyValueFactory<>("destPath"));
         pathColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, pathColumn);
 
         final TableColumn<DownloadData, String> urlColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_URL);
         urlColumn.setCellValueFactory(new PropertyValueFactory<>("episodeUrl"));
         urlColumn.getStyleClass().add("alignCenterLeft");
+        TableDownloadFactory.columnFactoryString(this.table_enum, urlColumn);
 
         noColumn.setPrefWidth(50);
         genreColumn.setPrefWidth(120);
@@ -150,10 +165,5 @@ public class TableDownload extends PTable<DownloadData> {
         getColumns().addAll(noColumn, genreColumn, podcastNameColumn, titleColumn,
                 startColumn, progressColumn, remainingColumn, speedColumn,
                 downloadSizeColumn, durationColumn, dateColumn, fileColumn, pathColumn, urlColumn);
-
-//        setRowFactory(tableRow -> {
-//            TableRowDownload row = new TableRowDownload();
-//            return row;
-//        });
     }
 }
