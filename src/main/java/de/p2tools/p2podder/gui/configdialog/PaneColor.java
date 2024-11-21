@@ -72,13 +72,13 @@ public class PaneColor {
         initTableColor(tableView);
         tglDarkTheme.selectedProperty().addListener((u, o, n) -> {
             tableView.refresh();
-            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
         });
 
         Button button = new Button("Alle _Farben zurücksetzen");
         button.setOnAction(event -> {
             ProgColorList.resetAllColor();
-            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+            ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
         });
         HBox hBox = new HBox();
         hBox.getChildren().add(button);
@@ -92,7 +92,6 @@ public class PaneColor {
     }
 
     public void close() {
-//        tglDarkTheme.selectedProperty().unbindBidirectional(propDarkTheme);
     }
 
     private void initTableColor(TableView<P2ColorData> tableView) {
@@ -154,7 +153,7 @@ public class PaneColor {
                 checkBox.setSelected(pColorData.isUse());
                 checkBox.setOnAction(a -> {
                     pColorData.setUse(checkBox.isSelected());
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
                 });
                 hbox.getChildren().add(checkBox);
                 setGraphic(hbox);
@@ -190,7 +189,7 @@ public class PaneColor {
                 colorPicker.setOnAction(a -> {
                     Color fxColor = colorPicker.getValue();
                     PColorDataBlack.setColor(fxColor);
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
                 });
                 hbox.getChildren().addAll(colorPicker);
                 setGraphic(hbox);
@@ -269,7 +268,7 @@ public class PaneColor {
                 final Button button = new Button("Reset");
                 button.setOnAction(a -> {
                     PColorDataBlack.resetColor();
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.COLORS_CHANGED));
+                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.REFRESH_TABLE));
                 });
 
                 hbox.getChildren().add(button);

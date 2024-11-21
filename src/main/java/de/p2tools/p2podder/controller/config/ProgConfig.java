@@ -67,6 +67,7 @@ public class ProgConfig extends P2DataProgConfig {
 
     // Configs zum Aktualisieren beim Programmupdate
     public static BooleanProperty SYSTEM_CHANGE_LOG_DIR = addBoolProp("system-change-log-dir", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_RESET_COLOR = addBoolProp("system-reset-color", Boolean.FALSE);
 
 
     // Configs der Programmversion

@@ -30,64 +30,60 @@ public class ProgColorList extends P2ColorList {
 
     //Tabelle Episodes
     public static final P2ColorData EPISODE_NEW_BG = addNewKey("COLOR__EPISODE_NEW_BG",
-            Color.rgb(255, 255, 255),
-            Color.rgb(255, 255, 255),
-            "Neue Episode, Tabellenzeile");
+            Color.rgb(210, 210, 255),
+            Color.rgb(210, 210, 255),
+            false, "Neue Episode, Tabellenzeile");
     public static final P2ColorData EPISODE_NEW = addNewKey("COLOR__EPISODE_NEW",
             Color.rgb(0, 0, 240),
             Color.rgb(0, 0, 240),
-            "Neue Episode, Schriftfarbe");
+            true, "Neue Episode, Schriftfarbe");
 
     public static final P2ColorData EPISODE_STARTED_BG = addNewKey("COLOR__EPISODE_STARTED_BG",
-            Color.rgb(255, 245, 176),
-            Color.rgb(174, 150, 85),
-            "Gestartete Episode, Tabellenzeile");
+            Color.rgb(136, 202, 136),
+            Color.rgb(136, 202, 136),
+            true, "Gestartete Episode, Tabellenzeile");
     public static final P2ColorData EPISODE_STARTED = addNewKey("COLOR__EPISODE_STARTED",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Gestartete Episode, Schriftfarbe");
+            false, "Gestartete Episode, Schriftfarbe");
 
     public static final P2ColorData EPISODE_RUNNING_BG = addNewKey("COLOR__EPISODE_RUNNING_BG",
-            Color.rgb(206, 255, 202),
-            Color.rgb(79, 129, 74),
-            "Episode läuft, Tabellenzeile");
+            Color.rgb(198, 255, 198),
+            Color.rgb(198, 255, 198),
+            true, "Episode läuft, Tabellenzeile");
     public static final P2ColorData EPISODE_RUNNING = addNewKey("COLOR__EPISODE_RUNNING",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Episode läuft, Schriftfarbe");
+            false, "Episode läuft, Schriftfarbe");
 
     public static final P2ColorData EPISODE_ERROR_BG = addNewKey("COLOR__EPISODE_ERROR_BG",
-            Color.rgb(255, 233, 233),
             Color.rgb(163, 82, 82),
-            "Episode ist fehlerhaft, Tabellenzeile");
+            Color.rgb(163, 82, 82),
+            true, "Episode ist fehlerhaft, Tabellenzeile");
     public static final P2ColorData EPISODE_ERROR = addNewKey("COLOR__EPISODE_ERROR",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Episode ist fehlerhaft, Schriftfarbe");
+            false, "Episode ist fehlerhaft, Schriftfarbe");
+
 
     public static final P2ColorData EPISODE_HISTORY_BG = addNewKey("COLOR__EPISODE_HISTORY_BG",
             Color.rgb(223, 223, 223),
             Color.rgb(100, 100, 100),
-            "Episode wurde bereits gehört, Tabellenzeile");
+            true, "Episode wurde bereits gehört, Tabellenzeile");
     public static final P2ColorData EPISODE_HISTORY = addNewKey("COLOR__EPISODE_HISTORY",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Episode wurde bereits gehört, Schriftfarbe");
+            false, "Episode wurde bereits gehört, Schriftfarbe");
 
     //Tabelle Downloads
     public static final P2ColorData DOWNLOAD_WAIT_BG = addNewKey("COLOR__DOWNLOAD_WAIT_BG",
-            Color.rgb(239, 244, 255),
-            Color.rgb(99, 100, 105),
-            "Download noch nicht gestartet, Tabellenzeile");
+            Color.rgb(223, 223, 223),
+            Color.rgb(100, 100, 100),
+            true, "Download noch nicht gestartet, Tabellenzeile");
     public static final P2ColorData DOWNLOAD_WAIT = addNewKey("COLOR__DOWNLOAD_WAIT",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Download noch nicht gestartet, Schriftfarbe");
+            false, "Download noch nicht gestartet, Schriftfarbe");
 
     public static final P2ColorData DOWNLOAD_RUN_BG = addNewKey("COLOR__DOWNLOAD_RUN_BG",
             Color.rgb(255, 245, 176),
@@ -100,24 +96,22 @@ public class ProgColorList extends P2ColorList {
             "Download läuft, Schriftfarbe");
 
     public static final P2ColorData DOWNLOAD_FINISHED_BG = addNewKey("COLOR__DOWNLOAD_FINISHED_BG",
-            Color.rgb(206, 255, 202),
-            Color.rgb(79, 129, 74),
-            "Download ist fertig, Tabellenzeile");
+            Color.rgb(198, 255, 198),
+            Color.rgb(145, 181, 145),
+            true, "Download ist fertig, Tabellenzeile");
     public static final P2ColorData DOWNLOAD_FINISHED = addNewKey("COLOR__DOWNLOAD_FINISHED",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Download ist fertig, Schriftfarbe");
+            false, "Download ist fertig, Schriftfarbe");
 
     public static final P2ColorData DOWNLOAD_ERROR_BG = addNewKey("COLOR__DOWNLOAD_ERROR_BG",
-            Color.rgb(255, 233, 233),
             Color.rgb(163, 82, 82),
-            "Download ist fehlerhaft, Tabellenzeile");
+            Color.rgb(163, 82, 82),
+            true, "Download ist fehlerhaft, Tabellenzeile");
     public static final P2ColorData DOWNLOAD_ERROR = addNewKey("COLOR__DOWNLOAD_ERROR",
             Color.rgb(0, 0, 0),
             Color.rgb(0, 0, 0),
-            false,
-            "Download ist fehlerhaft, Schriftfarbe");
+            false, "Download ist fehlerhaft, Schriftfarbe");
 
 
     public synchronized static P2ColorList getInstance() {

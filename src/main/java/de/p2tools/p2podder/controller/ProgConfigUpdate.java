@@ -17,6 +17,7 @@
 
 package de.p2tools.p2podder.controller;
 
+import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgInfos;
 
@@ -27,7 +28,8 @@ public class ProgConfigUpdate {
     }
 
     public static void setUpdateDone() {
-        ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true); // für Version 17
+        ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true); // für Version 1
+        ProgConfig.SYSTEM_RESET_COLOR.setValue(true); // Anpassung der Farben
     }
 
     public static void update() {
@@ -39,6 +41,38 @@ public class ProgConfigUpdate {
                 // wenn eh der StandardPfad drin steht, dann löschen
                 ProgConfig.SYSTEM_LOG_DIR.setValue("");
             }
+        }
+
+        if (!ProgConfig.SYSTEM_RESET_COLOR.getValue()) {
+            // gibt neue Farben
+            ProgColorList.resetAllColorDarkLight();
+
+            ProgColorList.EPISODE_NEW_BG.setUse(false);
+            ProgColorList.EPISODE_NEW.setUse(true);
+
+            ProgColorList.EPISODE_STARTED_BG.setUse(true);
+            ProgColorList.EPISODE_STARTED.setUse(false);
+
+            ProgColorList.EPISODE_RUNNING_BG.setUse(true);
+            ProgColorList.EPISODE_RUNNING.setUse(false);
+
+            ProgColorList.EPISODE_ERROR_BG.setUse(true);
+            ProgColorList.EPISODE_ERROR.setUse(false);
+
+            ProgColorList.EPISODE_HISTORY_BG.setUse(true);
+            ProgColorList.EPISODE_HISTORY.setUse(false);
+
+            ProgColorList.DOWNLOAD_WAIT_BG.setUse(true);
+            ProgColorList.DOWNLOAD_WAIT.setUse(false);
+
+            ProgColorList.DOWNLOAD_RUN_BG.setUse(true);
+            ProgColorList.DOWNLOAD_RUN.setUse(false);
+
+            ProgColorList.DOWNLOAD_FINISHED_BG.setUse(true);
+            ProgColorList.DOWNLOAD_FINISHED.setUse(false);
+
+            ProgColorList.DOWNLOAD_ERROR_BG.setUse(true);
+            ProgColorList.DOWNLOAD_ERROR.setUse(false);
         }
 
         setUpdateDone();

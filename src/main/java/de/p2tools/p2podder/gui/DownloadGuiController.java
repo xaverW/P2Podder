@@ -243,7 +243,7 @@ public class DownloadGuiController extends AnchorPane {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new P2Listener(Events.COLORS_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
             @Override
             public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
