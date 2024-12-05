@@ -33,7 +33,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -108,17 +107,17 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
 
         setBtnUpDownToolTip();
         btnUpDown.setOnAction(event -> {
+            setSizeConfiguration(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+                    ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL);
             if (ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get()) {
-                P2GuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, getStage());
                 ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
                 makePane();
-                P2GuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, this.getStage());
+                P2GuiSize.setSize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, this.getStage());
 
             } else {
-                P2GuiSize.getSizeStage(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL, getStage());
                 ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.setValue(!ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.getValue());
                 makePane();
-                P2GuiSize.setOnlySize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, this.getStage());
+                P2GuiSize.setSize(ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO, this.getStage());
             }
             setBtnUpDownToolTip();
         });
@@ -165,16 +164,7 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
 
     private void addStageSize() {
         if (this.getStage().isShowing()) {
-            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                            ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
-                    this.getStage());
-            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                            ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
-                    this.getStage());
-            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
-                            ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
-                    this.getStage());
-            P2GuiSize.getSizeStage(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
+            P2GuiSize.getSize(ProgConfig.EPISODE_INFO_DIALOG_SHOW_BIG.get() ?
                             ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO : ProgConfig.SYSTEM_SIZE_DIALOG_EPISODE_INFO_SMALL,
                     this.getStage());
         }
@@ -240,7 +230,6 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
                     GridPane.setVgrow(taDescription, Priority.ALWAYS);
                     taDescription.setEditable(false);
                     taDescription.setWrapText(true);
-                    taDescription.setBlendMode(BlendMode.DARKEN);
 
                     gridPane.add(textTitle[EpisodeFieldNames.EPISODE_DESCRIPTION_NO], 0, row);
                     gridPane.add(taDescription, 1, row++);

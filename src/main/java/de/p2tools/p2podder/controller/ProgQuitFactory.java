@@ -18,11 +18,13 @@ package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigWriteFile;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
+import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.application.Platform;
 
@@ -33,12 +35,37 @@ public class ProgQuitFactory {
     private ProgQuitFactory() {
     }
 
+    /**
+     * Quit the application
+     */
+    public static void quit() {
+        stopAll();
+        writeTabSettings();
+
+        if (ProgData.getInstance().primaryStageBig.isShowing()) {
+            P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStageBig);
+        }
+
+        if (ProgData.getInstance().primaryStageSmall != null && ProgData.getInstance().primaryStageSmall.isShowing()) {
+            P2GuiSize.getSize(ProgConfig.SMALL_PODDER_SIZE, ProgData.getInstance().primaryStageSmall);
+        }
+
+        saveProgConfig();
+        P2LogMessage.endMsg();
+
+        // dann jetzt beenden
+        Platform.runLater(() -> {
+            Platform.exit();
+            System.exit(0);
+        });
+    }
+
     public static void saveAll() {
         P2Log.sysLog("save all data");
         saveProgConfig();
     }
 
-    public static void saveProgConfig() {
+    private static void saveProgConfig() {
         //sind die Programmeinstellungen
         P2Log.sysLog("Alle Programmeinstellungen sichern");
         final Path xmlFilePath = ProgInfosFactory.getSettingsFile();
@@ -47,51 +74,17 @@ public class ProgQuitFactory {
         ConfigWriteFile.writeConfigFile(configFile);
     }
 
-    /**
-     * Quit the application
-     */
-    public static void quit() {
-        ProgData.getInstance().downloadList.forEach(d -> {
-            System.out.println(d.getState());
-            System.out.println(d.getGuiState());
-        });
 
-
-        if (quit_()) {
-
-            // dann jetzt beenden -> Thüss
-            Platform.runLater(() -> {
-                Platform.exit();
-                System.exit(0);
-            });
-
-        }
-    }
-
-    private static boolean quit_() {
-        // und dann Programm beenden
-        stopAll();
-        writeTabSettings();
-
-        saveProgConfig();
-        P2LogMessage.endMsg();
-        return true;
-    }
-
-    private static void stopAllDownloads() {
+    private static void stopAll() {
+        EpisodeFactory.stopAllEpisode();
         // Fertige werden entfernt
-        ProgData.getInstance().downloadList.removeIf(download -> download.isStateFinished());
+        ProgData.getInstance().downloadList.removeIf(DownloadData::isStateFinished);
 
         // Alle Downloads stoppen und zurücksetzen
         ProgData.getInstance().downloadList.forEach(download -> {
             download.stopDownload();
             download.setStateInit(); // sonst stehen sie auf "Abgebrochen"
         });
-    }
-
-    private static void stopAll() {
-        EpisodeFactory.stopAllEpisode();
-        stopAllDownloads();
     }
 
     private static void writeTabSettings() {

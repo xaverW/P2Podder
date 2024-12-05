@@ -61,7 +61,7 @@ public class ProgStartBeforeGui {
         ProgData.getInstance().downloadList.initList();
         if (ProgData.getInstance().setDataList.isEmpty()) {
             //beim ersten Start oder wenn sie sonst fehlen
-            addStandarSets();
+            addStandardSets();
         }
     }
 
@@ -133,7 +133,7 @@ public class ProgStartBeforeGui {
         progData.episodeList.clear();
     }
 
-    private static void addStandarSets() {
+    private static void addStandardSets() {
         Platform.runLater(() -> {
             P2Duration.onlyPing("Erster Start: PSet");
             // kann ein Dialog aufgehen

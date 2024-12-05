@@ -53,8 +53,9 @@ public class SearchProgramUpdate {
         final String SEARCH_URL;
         final String SEARCH_URL_DOWNLOAD;
         if (ProgData.debug) {
-            SEARCH_URL = "http://p2.localhost:8080";
-            SEARCH_URL_DOWNLOAD = "http://p2.localhost:8080/download/";
+            showAllways = true;
+            SEARCH_URL = "http://localhost:1313/";
+            SEARCH_URL_DOWNLOAD = "http://localhost:1313/download/";
         } else {
             SEARCH_URL = "https://www.p2tools.de";
             SEARCH_URL_DOWNLOAD = "https://www.p2tools.de/download/";

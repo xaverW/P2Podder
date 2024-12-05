@@ -18,7 +18,6 @@ package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
-import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
@@ -49,7 +48,7 @@ public class SmallGuiPack extends P2DialogOnly {
 
     public SmallGuiPack() {
         super(ProgData.getInstance().primaryStage, ProgConfig.SMALL_PODDER_SIZE,
-                "Podder", false, false, false);
+                "Podder", false, false, true);
 
         this.progData = ProgData.getInstance();
         smallGuiTop = new SmallGuiTop(this);
@@ -92,9 +91,6 @@ public class SmallGuiPack extends P2DialogOnly {
     @Override
     public void close() {
         saveTable();
-        P2GuiSize.getSizeStage(ProgConfig.SMALL_PODDER_SIZE, getStage());
-        ProgData.getInstance().pEventHandler.removeListener(listener);
-
         progData.smallGuiPack = null;
         ProgConfig.SYSTEM_SMALL_PODDER.setValue(false);
         super.close();
