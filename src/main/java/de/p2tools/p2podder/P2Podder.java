@@ -86,7 +86,6 @@ public class P2Podder extends Application {
             P2LibInit.addP2CssToScene(sceneBig); // und jetzt noch CSS einstellen
 
             selectGui();
-            progData.primaryStage.setIconified(ProgData.startMinimized);
         } catch (final Exception e) {
             e.printStackTrace();
         }

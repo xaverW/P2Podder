@@ -40,7 +40,7 @@ public class ProgConst {
 
     // Website
     public static final String URL_WEBSITE = "https://www.p2tools.de/";
-    public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2podder/download.html";
+    public static final String URL_WEBSITE_DOWNLOAD = "https://www.p2tools.de/p2podder/download/";
     public static final String URL_WEBSITE_HELP = "https://www.p2tools.de/p2podder/manual/";
 
     // ProgrammUrls

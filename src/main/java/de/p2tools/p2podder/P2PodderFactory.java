@@ -17,6 +17,7 @@
 
 package de.p2tools.p2podder;
 
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 
@@ -50,5 +51,6 @@ public class P2PodderFactory {
 
     public static void minimizeGui() {
         ProgData.getInstance().primaryStage.setIconified(true);
+        P2DialogExtra.getDialogList().forEach(p2Dialog -> p2Dialog.getStage().setIconified(true));
     }
 }

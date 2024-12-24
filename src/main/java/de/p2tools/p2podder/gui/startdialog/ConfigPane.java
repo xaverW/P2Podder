@@ -66,7 +66,7 @@ public class ConfigPane {
     }
 
     public void close() {
-        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
+        tglSearch.selectedProperty().unbindBidirectional(ProgConfig.SYSTEM_SEARCH_UPDATE);
         txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
     }
 
@@ -164,7 +164,7 @@ public class ConfigPane {
 
     private void makeUpdate() {
         //einmal am Tag Update suchen
-        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_UPDATE_SEARCH_ACT);
+        tglSearch.selectedProperty().bindBidirectional(ProgConfig.SYSTEM_SEARCH_UPDATE);
 
         Text text = new Text("Suche nach einem Programmupdate");
         text.setStyle("-fx-font-weight: bold");
