@@ -34,10 +34,6 @@ public class P2PodderFactory {
     }
 
     public static void selPanelSmallPodder() {
-        if (ProgData.getInstance().maskerPane.isVisible()) {
-            return;
-        }
-
         ProgData.EPISODE_TAB_ON.setValue(Boolean.FALSE);
         ProgData.PODCAST_TAB_ON.setValue(Boolean.FALSE);
         ProgData.DOWNLOAD_TAB_ON.setValue(Boolean.FALSE);

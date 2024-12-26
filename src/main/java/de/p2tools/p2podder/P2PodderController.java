@@ -33,13 +33,13 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
-public class P2PodderController extends StackPane {
+public class P2PodderController extends BorderPane {
     private final Button btnSmallGui = new Button("");
     private final Button btnEpisodes = new Button("Episoden");
     private final Button btnPodcasts = new Button("Podcasts");
     private final Button btnDownloads = new Button("Downloads");
 
-    private final BorderPane borderPane = new BorderPane();
+    //    private final BorderPane borderPane = new BorderPane();
     private final StackPane stackPaneCont = new StackPane();
 
     private final P2MaskerPane maskerPane = new P2MaskerPane();
@@ -85,13 +85,12 @@ public class P2PodderController extends StackPane {
             podcastBarController = new PodcastBarController(progData);
 
             // Gui zusammenbauen
-            borderPane.setTop(hBoxTop);
-            borderPane.setCenter(stackPaneCont);
-            borderPane.setBottom(podcastBarController);
+            setTop(hBoxTop);
+            setCenter(stackPaneCont);
+            setBottom(podcastBarController);
             this.setPadding(new Insets(0));
-            this.getChildren().addAll(borderPane, maskerPane);
+//            this.getChildren().addAll(borderPane, maskerPane);
 
-            initMaskerPane();
             initButton();
             initPanel();
         } catch (Exception ex) {
@@ -113,15 +112,15 @@ public class P2PodderController extends StackPane {
         }
     }
 
-    private void initMaskerPane() {
-        StackPane.setAlignment(maskerPane, Pos.CENTER);
-        progData.maskerPane = maskerPane;
-        maskerPane.setPadding(new Insets(4, 1, 1, 1));
-        maskerPane.toFront();
-        Button btnStop = maskerPane.getButton();
-        maskerPane.setButtonText("");
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
-    }
+//    private void initMaskerPane() {
+//        StackPane.setAlignment(maskerPane, Pos.CENTER);
+//        progData.maskerPane = maskerPane;
+//        maskerPane.setPadding(new Insets(4, 1, 1, 1));
+//        maskerPane.toFront();
+//        Button btnStop = maskerPane.getButton();
+//        maskerPane.setButtonText("");
+//        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+//    }
 
     private void initButton() {
         btnSmallGui.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));
@@ -143,8 +142,7 @@ public class P2PodderController extends StackPane {
         btnDownloads.setMaxWidth(Double.MAX_VALUE);
 
         btnEpisodes.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
+            if (!stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -152,8 +150,7 @@ public class P2PodderController extends StackPane {
             }
         });
         btnPodcasts.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
+            if (!stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -161,8 +158,7 @@ public class P2PodderController extends StackPane {
             }
         });
         btnDownloads.setOnMouseClicked(mouseEvent -> {
-            if (maskerPane.isVisible() ||
-                    !stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
+            if (!stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
                 return;
             }
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
@@ -173,9 +169,6 @@ public class P2PodderController extends StackPane {
 
     private void selPanelEpisode() {
         ProgConfig.SYSTEM_LAST_TAB.set(ProgConst.LAST_TAB_STATION_EPISODE);
-        if (maskerPane.isVisible()) {
-            return;
-        }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneEpisodeGui)) {
             // dann ist der 2. Klick
             if (!ProgConfig.EPISODE__FILTER_IS_RIP.get()) {
@@ -198,9 +191,6 @@ public class P2PodderController extends StackPane {
 
     private void selPanelPodcast() {
         ProgConfig.SYSTEM_LAST_TAB.set(ProgConst.LAST_TAB_STATION_PODCAST);
-        if (maskerPane.isVisible()) {
-            return;
-        }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(panePodcastGui)) {
             // dann ist der 2. Klick
             if (!ProgConfig.PODCAST__FILTER_IS_RIP.get()) {
@@ -223,9 +213,6 @@ public class P2PodderController extends StackPane {
 
     private void selPanelDownload() {
         ProgConfig.SYSTEM_LAST_TAB.set(ProgConst.LAST_TAB_STATION_DOWNLOAD);
-        if (maskerPane.isVisible()) {
-            return;
-        }
         if (stackPaneCont.getChildren().get(stackPaneCont.getChildren().size() - 1).equals(paneDownloadGui)) {
             // dann ist der 2. Klick
             if (!ProgConfig.DOWNLOAD__FILTER_IS_RIP.get()) {
