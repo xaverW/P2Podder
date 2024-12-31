@@ -21,7 +21,7 @@ import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.gui.filter.DownloadFilterController;
+import de.p2tools.p2podder.gui.filter.PodcastFilterController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.SplitPane;
@@ -46,7 +46,7 @@ public class PodcastGui {
         progData.podcastGui = this;
 
         ArrayList<P2ClosePaneDto> list = new ArrayList<>();
-        P2ClosePaneDto infoDto = new P2ClosePaneDto(new DownloadFilterController(),
+        P2ClosePaneDto infoDto = new P2ClosePaneDto(new PodcastFilterController(),
                 ProgConfig.PODCAST__FILTER_IS_RIP,
                 ProgConfig.PODCAST__FILTER_DIALOG_SIZE, ProgData.PODCAST_TAB_ON,
                 "Filter", "Podcast", true);
