@@ -114,10 +114,6 @@ public class DirectHttpDownload extends Thread {
                             // dann wars das
                             responseCode = "Responsecode: " + conn.getResponseCode() + P2LibConst.LINE_SEPARATOR + conn.getResponseMessage();
                             P2Log.errorLog(915236798, "HTTP-Fehler: " + conn.getResponseCode() + ' ' + conn.getResponseMessage());
-//                            if (download.getStart().getRestartCounter() == 0) {
-                            // nur beim ersten Mal melden -> nervt sonst
-//                                Platform.runLater(() -> new DownloadErrorDialogController(download, responseCode));
-//                            }
                             download.setErrorMessage(responseCode);
                             download.setStateError();
                         }
@@ -145,10 +141,6 @@ public class DirectHttpDownload extends Thread {
                     // dann weiß der Geier!
                     exMessage = ex.getMessage();
                     P2Log.errorLog(316598941, ex, "Fehler");
-                    if (download.getDownloadStart().getRestartCounter() == 0) {
-                        // nur beim ersten Mal melden -> nervt sonst
-//                        Platform.runLater(() -> new DownloadErrorDialogController(download, exMessage));
-                    }
                     download.setErrorMessage(exMessage);
                     download.setStateError();
                 }

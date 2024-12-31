@@ -23,9 +23,6 @@ import javafx.scene.layout.VBox;
 
 public class ToolBarButton extends Button {
 
-    /**
-     *
-     */
     private final ImageView imageIcon;
     private boolean vis = true;
     private String name = "";

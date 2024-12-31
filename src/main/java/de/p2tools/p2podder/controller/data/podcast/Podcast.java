@@ -47,13 +47,6 @@ public class Podcast extends PodcastProps {
         return ret;
     }
 
-//    @Override
-//    public String toString() {
-//        String count;
-//        count = EpisodeFactory.countEpisode(this) + "";
-//        return getGenre() + "\n" + "[" + count + "]  -  " + getName();
-//    }
-
     @Override
     public String toString() {
         return getGenre() + "  |  " + getName();

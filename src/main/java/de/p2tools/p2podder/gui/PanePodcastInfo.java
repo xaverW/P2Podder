@@ -45,7 +45,6 @@ public class PanePodcastInfo extends VBox {
             ProgConfig.SYSTEM_PROG_OPEN_URL);
 
     public PanePodcastInfo() {
-//        super(ProgConfig.PODCAST_GUI_INFO_ON, true);
         initInfo();
         VBox.setVgrow(this, Priority.ALWAYS);
     }

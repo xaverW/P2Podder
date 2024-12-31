@@ -79,7 +79,6 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-//        noColumn.setCellFactory(new P2CellIntMax<Episode, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
         TableEpisodeFactory.columnFactoryIntegerMax(this.table_enum, noColumn);
 
@@ -99,13 +98,11 @@ public class TableEpisode extends PTable<Episode> {
         TableEpisodeFactory.columnFactoryString(this.table_enum, genreColumn);
 
         final TableColumn<Episode, String> startColumn = new TableColumn<>("");
-//        startColumn.setCellFactory(new CellEpisodeButton<>().cellFactory);
         startColumn.getStyleClass().add("alignCenter");
         TableEpisodeFactory.columnFactoryButton(this.table_enum, startColumn);
 
         final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-//        dateColumn.setCellFactory(new P2CellLocalDate().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
         TableEpisodeFactory.columnFactoryLocalDate(this.table_enum, dateColumn);
 
@@ -116,7 +113,6 @@ public class TableEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
-//        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, P2FileSize>().cellFactory);
         sizeColumn.getStyleClass().add("alignCenter");
         TableEpisodeFactory.columnFactoryP2FileSize(this.table_enum, sizeColumn);
 

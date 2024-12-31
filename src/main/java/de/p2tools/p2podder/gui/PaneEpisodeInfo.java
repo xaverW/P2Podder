@@ -45,7 +45,6 @@ public class PaneEpisodeInfo extends VBox {
     private Episode episode = null;
 
     public PaneEpisodeInfo() {
-//        super(ProgConfig.EPISODE_GUI_DIVIDER_ON, true);
         initInfo();
         VBox.setVgrow(this, Priority.ALWAYS);
     }

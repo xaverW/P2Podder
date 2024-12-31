@@ -62,8 +62,6 @@ public class ProgConst {
     public static final String FILE_FINISHED_DOWNLOADS = "downloads.txt";
     public static final String FILE_PLAYED_EPISODES = "episodes.txt";
 
-    public static final String FILE_PROG_ICON = "/de/p2tools/p2podder/res/P2.png";
-
     public static final int LAST_TAB_STATION_EPISODE = 0;
     public static final int LAST_TAB_STATION_PODCAST = 1;
     public static final int LAST_TAB_STATION_DOWNLOAD = 2;

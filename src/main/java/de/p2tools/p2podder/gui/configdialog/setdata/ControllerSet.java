@@ -61,12 +61,6 @@ public class ControllerSet extends AnchorPane {
         splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
     }
 
-    public void setSplitPane() {
-//        splitPane.getItems().addAll(paneSetList, scrollPane);
-//        SplitPane.setResizableWithParent(paneSetList, Boolean.FALSE);
-//        splitPane.getDividers().get(0).positionProperty().bindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
-    }
-
     public void close() {
         splitPane.getDividers().get(0).positionProperty().unbindBidirectional(ProgConfig.CONFIG_DIALOG_SET_DIVIDER);
         paneSetData.close();

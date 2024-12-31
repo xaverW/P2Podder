@@ -144,7 +144,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements P2DataLi
             this.stream().forEach(station -> {
                 if (!urlHashSet.add(station.getUrl())) {
                     ++countDouble;
-//                    station.setDoubleUrl(true);
                 }
             });
 
@@ -206,7 +205,6 @@ public class PodcastList extends SimpleListProperty<Podcast> implements P2DataLi
             }
         });
         genres = hashSet.toArray(new String[hashSet.size()]);
-//        ProgData.getInstance().filterWorker.createFilterLists();//und im Filter eintragen
 
         P2Duration.counterStop("Filter-Listen suchen");
     }

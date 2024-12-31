@@ -53,7 +53,6 @@ public class PodcastGuiController extends AnchorPane {
     private P2ClosePaneController infoController;
 
     private final TablePodcast tableView;
-
     private final ProgData progData;
     private BooleanProperty bound = new SimpleBooleanProperty(false);
     private final SortedList<Podcast> sortedList;

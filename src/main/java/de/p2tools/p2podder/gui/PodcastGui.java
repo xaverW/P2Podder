@@ -41,7 +41,6 @@ public class PodcastGui {
     private final P2ClosePaneController infoController;
     private BooleanProperty bound = new SimpleBooleanProperty(false);
 
-
     public PodcastGui() {
         progData = ProgData.getInstance();
         progData.podcastGui = this;

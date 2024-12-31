@@ -26,7 +26,6 @@ import javafx.collections.FXCollections;
 
 import java.util.Collection;
 
-@SuppressWarnings("serial")
 public class SetDataListProps extends SimpleListProperty<SetData> implements P2DataList<SetData> {
     // Liste aller Programmsets
 

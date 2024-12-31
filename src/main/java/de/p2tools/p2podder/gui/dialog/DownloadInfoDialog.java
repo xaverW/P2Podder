@@ -36,7 +36,6 @@ import javafx.scene.layout.VBox;
 public class DownloadInfoDialog extends P2DialogExtra {
 
     private Button btnOk = new Button("_Ok");
-
     private final GridPane gridPane = new GridPane();
     private DownloadData downloadData;
 

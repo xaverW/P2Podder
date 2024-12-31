@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -39,10 +38,7 @@ public class P2PodderController extends BorderPane {
     private final Button btnPodcasts = new Button("Podcasts");
     private final Button btnDownloads = new Button("Downloads");
 
-    //    private final BorderPane borderPane = new BorderPane();
     private final StackPane stackPaneCont = new StackPane();
-
-    private final P2MaskerPane maskerPane = new P2MaskerPane();
     private PodcastBarController podcastBarController;
 
     private Pane paneEpisodeGui;
@@ -89,7 +85,6 @@ public class P2PodderController extends BorderPane {
             setCenter(stackPaneCont);
             setBottom(podcastBarController);
             this.setPadding(new Insets(0));
-//            this.getChildren().addAll(borderPane, maskerPane);
 
             initButton();
             initPanel();
@@ -111,16 +106,6 @@ public class P2PodderController extends BorderPane {
                 initPanelDownload();
         }
     }
-
-//    private void initMaskerPane() {
-//        StackPane.setAlignment(maskerPane, Pos.CENTER);
-//        progData.maskerPane = maskerPane;
-//        maskerPane.setPadding(new Insets(4, 1, 1, 1));
-//        maskerPane.toFront();
-//        Button btnStop = maskerPane.getButton();
-//        maskerPane.setButtonText("");
-//        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
-//    }
 
     private void initButton() {
         btnSmallGui.setTooltip(new Tooltip("kleine Übersicht der Episoden anzeigen"));

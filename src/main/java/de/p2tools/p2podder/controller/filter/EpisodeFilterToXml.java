@@ -30,48 +30,5 @@ public class EpisodeFilterToXml {
     public static final String SELECTED_FILTER_IS_RUNNING = "isRunning";
     public static final String SELECTED_FILTER_WAS_SHOWN = "wasShown";
 
-    public static final int FILTER_NAME = 0;
-    public static final int FILTER_PODCAST_ID = 1;
-    public static final int FILTER_GENRE = 2;
-    public static final int FILTER_TITLE = 3;
-    public static final int FILTER_DESCRIPTION = 4;
-    public static final int FILTER_TIME_RANGE = 5;
-    public static final int FILTER_IS_ALL = 6;
-    public static final int FILTER_IS_NEW = 7;
-    public static final int FILTER_IS_STATED = 8;
-    public static final int FILTER_IS_RUNNING = 9;
-    public static final int FILTER_WAS_SHOWN = 10;
-
-    public static final String[] XML_NAMES = {
-            "name",
-            "podcastId",
-            "genre",
-            "title",
-            "description",
-            "timeRange",
-            "isAll",
-            "isNew",
-            "isStarted",
-            "isRunning",
-            "wasShown"
-    };
-
     public static final String TAG = "Filter";
-
-    public static String[] getEmptyArray() {
-        final String[] array = new String[XML_NAMES.length];
-        for (int i = 0; i < array.length; ++i) {
-            array[i] = "";
-        }
-        return array;
-    }
-
-    public static String[] getXmlArray() {
-        // erstellt die XML-Namen fürs Lesen/Schreiben aus/ins Configfile
-        final String[] array = getEmptyArray();
-        for (int i = 0; i < XML_NAMES.length; ++i) {
-            array[i] = XML_NAMES[i];
-        }
-        return array;
-    }
 }

@@ -17,8 +17,6 @@
 
 package de.p2tools.p2podder.controller.data.podcast;
 
-import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.podcastadd.PodcastAddDialogController;
 
@@ -40,65 +38,5 @@ public class PodcastFactory {
         ArrayList<Podcast> list = new ArrayList<>();
         list.add(new Podcast());
         new PodcastAddDialogController(ProgData.getInstance(), list, true);
-
-//        Podcast podcast = new Podcast();
-//        PodcastEditDialogController podcastEditDialogController =
-//                new PodcastEditDialogController(ProgData.getInstance(), podcast, true);
-//        if (podcastEditDialogController.isOk()) {
-//            ProgData.getInstance().podcastList.addNewItem(podcast);
-//        }
-    }
-
-    public static void cleanFaultyCharacterStationList() {
-        //damit werden Unicode-Zeichen korrigiert
-        //gibt da einen Java-Bug
-        //https://github.com/javafxports/openjdk-jfx/issues/287
-        P2Duration.counterStart("cleanFaultyCharacter");
-        PodcastList podcastList = ProgData.getInstance().podcastList;
-        podcastList.stream().forEach(station -> {
-        });
-
-        for (Map.Entry<Character, Integer> entry : counterMap.entrySet()) {
-            Character key = entry.getKey();
-            Integer value = entry.getValue();
-            P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
-
-        }
-        P2Duration.counterStop("cleanFaultyCharacter");
-    }
-
-
-    final static String regEx1 = "[\\n\\r]";
-    final static String regEx2 = "[\\p{Cc}&&[^\\t\\n\\r]]";
-
-    public static String cleanUnicode(String ret) {
-        return clean_1(ret, true);
-    }
-
-    private static String clean_1(String ret, boolean alsoNewLine) {
-        //damit werden Unicode-Zeichen korrigiert
-        //gibt da eine Java-Bug
-        //https://github.com/javafxports/openjdk-jfx/issues/287
-        if (alsoNewLine) {
-            ret = ret.replaceAll(regEx1, " ").replaceAll(regEx2, "");
-        } else {
-            ret = ret.replaceAll(regEx2, "");
-        }
-        return ret;
-    }
-
-    private static String clean_2(String test) {
-        //damit werden Unicode-Zeichen korrigiert
-        //gibt da eine Java-Bug, auch Probleme bei Linux mit fehlenden Zeichen in den code tablen
-        //https://github.com/javafxports/openjdk-jfx/issues/287
-        char[] c = test.toCharArray();
-        for (int i = 0; i < c.length; ++i) {
-            if ((int) c[i] > 11263) { //der Wert ist jetzt einfach mal geschätzt und kommt ~ 20x vor
-                counterMap.merge(c[i], 1, Integer::sum);
-                c[i] = ' ';
-                test = String.valueOf(c);
-            }
-        }
-        return test;
     }
 }

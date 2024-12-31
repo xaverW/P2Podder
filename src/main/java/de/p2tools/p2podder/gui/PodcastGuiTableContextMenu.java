@@ -59,6 +59,7 @@ public class PodcastGuiTableContextMenu {
         miCopyUrl.setOnAction(a -> P2SystemUtils.copyToClipboard(podcast.getUrl()));
 
         MenuItem miStationInfo = new MenuItem("Podcast-Info anzeigen");
+        // todo ??
 //        miStationInfo.setOnAction(a -> progData.episodeInfoDialogController.showStationInfo());
 
         miStart.setDisable(podcast == null);

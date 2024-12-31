@@ -92,7 +92,6 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
                         " gelöscht werden?")) {
             clearList();
             historyWorker.deleteHistoryFile();
-//            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
         }
     }
 
@@ -263,7 +262,6 @@ public class HistoryList extends SimpleListProperty<HistoryData> {
             // und nur dann wurde was gelöscht und muss geschreiben werden
             replaceThisList(newHistoryList);
             writeToFile(newHistoryList, false);
-//            Listener.notify(Listener.EREIGNIS_GUI_HISTORY_CHANGED, HistoryList.class.getSimpleName());
         }
 
         P2Duration.counterStop("History: removeFromHistory");

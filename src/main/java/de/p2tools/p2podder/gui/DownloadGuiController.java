@@ -64,8 +64,6 @@ public class DownloadGuiController extends AnchorPane {
 
     private final ProgData progData;
     private BooleanProperty bound = new SimpleBooleanProperty(false);
-
-    //    private DoubleProperty downloadGuiDivider = ProgConfig.DOWNLOAD_GUI_DIVIDER;
     private BooleanProperty boolInfoOn = ProgConfig.DOWNLOAD__INFO_IS_SHOWING;
 
     public DownloadGuiController() {

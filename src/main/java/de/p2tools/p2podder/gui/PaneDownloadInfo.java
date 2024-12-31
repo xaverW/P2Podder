@@ -49,7 +49,6 @@ public class PaneDownloadInfo extends VBox {
     private DownloadData downloadData = null;
 
     public PaneDownloadInfo() {
-//        super(ProgConfig.DOWNLOAD_GUI_INFO_ON, true);
         initInfo();
         VBox.setVgrow(this, Priority.ALWAYS);
     }

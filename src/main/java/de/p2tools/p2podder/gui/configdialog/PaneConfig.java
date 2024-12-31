@@ -41,7 +41,6 @@ public class PaneConfig {
     private final ProgData progData;
 
     private final P2ToggleSwitch tglSmallButton = new P2ToggleSwitch("In den Tabellen nur kleine Buttons anzeigen");
-
     private TextField txtUserAgent;
     private final Stage stage;
 

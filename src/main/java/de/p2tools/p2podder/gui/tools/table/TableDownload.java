@@ -78,7 +78,6 @@ public class TableDownload extends PTable<DownloadData> {
 
         final TableColumn<DownloadData, Integer> noColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-//        noColumn.setCellFactory(new P2CellIntMax<DownloadData, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
         TableDownloadFactory.columnFactoryIntegerMax(this.table_enum, noColumn);
 

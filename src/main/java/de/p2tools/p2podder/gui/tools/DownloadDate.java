@@ -22,7 +22,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-@SuppressWarnings("serial")
 public class DownloadDate extends P2Date {
 
     // die Filme werden immer in der Zeitzone "Europe/Berlin" gesucht

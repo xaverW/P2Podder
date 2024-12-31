@@ -25,7 +25,6 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-@SuppressWarnings("serial")
 public class SetDataList extends SetDataListProps {
 
     public boolean addSetData(SetData setData) {

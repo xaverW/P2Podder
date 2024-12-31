@@ -112,7 +112,6 @@ public class PaneSetData extends TitledPane {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
         gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
-//        gridPane.setPadding(new Insets(P2LibConst.DIST_EDGE));
 
         gridPane.add(lblName, 0, row);
         gridPane.add(txtVisibleName, 1, row, 4, 1);

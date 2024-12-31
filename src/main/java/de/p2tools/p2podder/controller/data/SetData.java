@@ -23,15 +23,9 @@ import de.p2tools.p2lib.tools.P2Index;
 public class SetData extends SetDataProps {
 
     public SetData() {
-//        if (getId().isEmpty()) {
-//            setId(PIndex.getIndexStr());
-//        }
     }
 
     public SetData(String name) {
-//        if (getId().isEmpty()) {
-//            setId(PIndex.getIndexStr());
-//        }
         setName(name);
     }
 

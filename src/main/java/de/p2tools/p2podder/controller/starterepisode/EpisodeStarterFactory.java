@@ -102,10 +102,6 @@ public class EpisodeStarterFactory {
             } catch (final Exception ex) {
                 final String exMessage = ex.getLocalizedMessage();
                 P2Log.errorLog(987989569, ex);
-//                if (start == null) {
-//                    //dann schon beendet??
-//                    return;
-//                }
                 if (start.getRestartCounter() == 0) {
                     //nur beim ersten Mal melden -> nervt sonst
                     Platform.runLater(() -> new StartEpisodeErrorDialogController(start, exMessage));
