@@ -17,8 +17,8 @@
 
 package de.p2tools.p2podder;
 
-import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2lib.tools.log.P2LogMessage;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.cli.*;
@@ -73,6 +73,10 @@ public class AppParameter {
                 String path = line.getOptionValue(ProgParameter.PATH.name);
                 setConfigDir(path);
             }
+            if (hasOption(line, ProgParameter.AUTO)) {
+                ProgData.auto = true;
+            }
+
 
         } catch (Exception ex) {
             P2Log.errorLog(941237890, ex);
@@ -117,6 +121,7 @@ public class AppParameter {
         HELP("h", "help", false, "show help"),
         VERSION("v", "version", false, "show version"),
         PATH("p", "path", true, "path of configuration file"),
+        AUTO("a", "auto", false, "auto mode"),
         DEBUG("d", "debug", false, "show debug info"),
         DURATION("t", "time", false, "show timekeeping info");
 

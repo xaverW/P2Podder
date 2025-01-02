@@ -54,6 +54,7 @@ public class ProgData {
 
     // flags
     public static boolean debug = false; // Debugmodus
+    public static boolean auto = false; // Automode
     public static boolean duration = false; // Duration ausgeben
     public static boolean reset = false; // Programm auf Starteinstellungen zurücksetzen
     public static boolean firstProgramStart = false; // ist der allererste Programmstart: Init wird gemacht

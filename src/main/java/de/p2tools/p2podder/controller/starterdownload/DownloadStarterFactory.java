@@ -21,7 +21,10 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2SizeTools;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.date.P2DateConst;
+import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2podder.controller.ProgQuitFactory;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
@@ -47,8 +50,7 @@ public class DownloadStarterFactory {
     }
 
     public void startWaitingDownloads() {
-        if (starterThread == null ||
-                starterThread != null && !starterThread.isAlive()) {
+        if (starterThread == null || !starterThread.isAlive()) {
             //dann wieder starten
             starterThread = new StarterThread();
             starterThread.start();
@@ -133,7 +135,7 @@ public class DownloadStarterFactory {
 
         final ArrayList<String> list = new ArrayList<>();
         list.add(P2Log.LILNE3);
-        if (download.isStateStoped()) {
+        if (download.isStateStopped()) {
             list.add("Download wurde abgebrochen");
 
         } else {
@@ -184,7 +186,7 @@ public class DownloadStarterFactory {
         if (download.isStateError()) {
             download.setProgress(DownloadConstants.PROGRESS_NOT_STARTED);
 
-        } else if (!download.isStateStoped()) {
+        } else if (!download.isStateStopped()) {
             //dann ist er gelaufen
             start.setTimeLeftSeconds(0);
             download.setProgress(DownloadConstants.PROGRESS_FINISHED);
@@ -207,7 +209,8 @@ public class DownloadStarterFactory {
         }
 
         download.setNo(P2LibConst.NUMBER_NOT_STARTED);
-        Platform.runLater(() -> ProgData.getInstance().downloadGui.getDownloadGuiController().tableRefresh());
+        Platform.runLater(() -> ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.DOWNLOAD_REFRESH_TABLE)));
+
         start.setProcess(null);
         start.setInputStream(null);
         start.setStartTime(null);
@@ -263,6 +266,10 @@ public class DownloadStarterFactory {
                     sleep(5 * 1000);
                 }
 
+                if (ProgData.auto) {
+                    // dann haben wir den "Automodus", Beenden
+                    ProgQuitFactory.quit();
+                }
             } catch (final Exception ex) {
                 P2Log.errorLog(201201478, ex);
             }

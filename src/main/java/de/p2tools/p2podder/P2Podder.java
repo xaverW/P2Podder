@@ -60,7 +60,6 @@ public class P2Podder extends Application {
         P2Duration.counterStop(LOG_TEXT_PROGRAM_START);
     }
 
-
     private void initRootLayout() {
         try {
             progData.episodeInfoDialogController = new EpisodeInfoDialogController(progData);
@@ -84,7 +83,6 @@ public class P2Podder extends Application {
 
             PShortCutFactory.addShortCut(progData.primaryStageBig.getScene());
             P2LibInit.addP2CssToScene(sceneBig); // und jetzt noch CSS einstellen
-
             selectGui();
         } catch (final Exception e) {
             e.printStackTrace();
@@ -92,7 +90,7 @@ public class P2Podder extends Application {
     }
 
     private void selectGui() {
-        if (ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
+        if (!ProgData.auto && ProgConfig.SYSTEM_SMALL_PODDER.getValue()) {
             progData.smallGuiPack = new SmallGuiPack();
             progData.primaryStageSmall = ProgData.getInstance().smallGuiPack.getStage();
             progData.primaryStage = progData.primaryStageSmall;

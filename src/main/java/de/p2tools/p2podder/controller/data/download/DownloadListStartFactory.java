@@ -66,7 +66,8 @@ public class DownloadListStartFactory {
         //ersten passenden Download der Liste zurückgeben oder null
         //und versuchen, dass bei mehreren laufenden Downloads ein anderer Download gesucht wird
         DownloadData ret = null;
-        if (ProgData.getInstance().downloadList.size() > 0 && getDown(ProgConfig.DOWNLOAD_MAX_DOWNLOADS.getValue())) {
+        if (!ProgData.getInstance().downloadList.isEmpty() &&
+                getDown(ProgConfig.DOWNLOAD_MAX_DOWNLOADS.getValue())) {
             final DownloadData download = nextStart();
             if (download != null && download.isStateStartedWaiting()) {
                 ret = download;

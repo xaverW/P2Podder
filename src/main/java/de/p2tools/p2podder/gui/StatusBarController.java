@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class PodcastBarController extends AnchorPane {
+public class StatusBarController extends AnchorPane {
 
     public enum StatusbarIndex {NONE, EPISODE, DOWNLOAD, PODCAST}
 
@@ -58,7 +58,7 @@ public class PodcastBarController extends AnchorPane {
     private final ProgData progData;
     private boolean stopTimer = false;
 
-    public PodcastBarController(ProgData progData) {
+    public StatusBarController(ProgData progData) {
         this.progData = progData;
 
         getChildren().addAll(stackPane);

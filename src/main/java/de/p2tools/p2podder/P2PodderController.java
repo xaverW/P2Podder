@@ -23,8 +23,8 @@ import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.gui.DownloadGui;
 import de.p2tools.p2podder.gui.EpisodeGui;
-import de.p2tools.p2podder.gui.PodcastBarController;
 import de.p2tools.p2podder.gui.PodcastGui;
+import de.p2tools.p2podder.gui.StatusBarController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -39,7 +39,7 @@ public class P2PodderController extends BorderPane {
     private final Button btnDownloads = new Button("Downloads");
 
     private final StackPane stackPaneCont = new StackPane();
-    private PodcastBarController podcastBarController;
+    private StatusBarController statusBarController;
 
     private Pane paneEpisodeGui;
     private Pane panePodcastGui;
@@ -78,12 +78,12 @@ public class P2PodderController extends BorderPane {
             stackPaneCont.getChildren().addAll(paneEpisodeGui, panePodcastGui, paneDownloadGui);
 
             // Statusbar
-            podcastBarController = new PodcastBarController(progData);
+            statusBarController = new StatusBarController(progData);
 
             // Gui zusammenbauen
             setTop(hBoxTop);
             setCenter(stackPaneCont);
-            setBottom(podcastBarController);
+            setBottom(statusBarController);
             this.setPadding(new Insets(0));
 
             initButton();
@@ -94,16 +94,21 @@ public class P2PodderController extends BorderPane {
     }
 
     public void initPanel() {
-        switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
-            case ProgConst.LAST_TAB_STATION_EPISODE:
-            default:
-                initPanelEpisode();
-                break;
-            case ProgConst.LAST_TAB_STATION_PODCAST:
-                initPanelPodcast();
-                break;
-            case ProgConst.LAST_TAB_STATION_DOWNLOAD:
-                initPanelDownload();
+        if (ProgData.auto) {
+            initPanelDownload();
+
+        } else {
+            switch (ProgConfig.SYSTEM_LAST_TAB.get()) {
+                case ProgConst.LAST_TAB_STATION_EPISODE:
+                default:
+                    initPanelEpisode();
+                    break;
+                case ProgConst.LAST_TAB_STATION_PODCAST:
+                    initPanelPodcast();
+                    break;
+                case ProgConst.LAST_TAB_STATION_DOWNLOAD:
+                    initPanelDownload();
+            }
         }
     }
 
@@ -171,7 +176,7 @@ public class P2PodderController extends BorderPane {
         setButtonStyle(btnEpisodes);
         paneEpisodeGui.toFront();
         progData.episodeGui.getEpisodeGuiController().isShown();
-        podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.EPISODE);
+        statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.EPISODE);
     }
 
     private void selPanelPodcast() {
@@ -193,7 +198,7 @@ public class P2PodderController extends BorderPane {
         setButtonStyle(btnPodcasts);
         panePodcastGui.toFront();
         progData.podcastGui.getPodcastGuiController().isShown();
-        podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.PODCAST);
+        statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.PODCAST);
     }
 
     private void selPanelDownload() {
@@ -215,7 +220,7 @@ public class P2PodderController extends BorderPane {
         setButtonStyle(btnDownloads);
         paneDownloadGui.toFront();
         progData.downloadGui.getDownloadGuiController().isShown();
-        podcastBarController.setStatusbarIndex(PodcastBarController.StatusbarIndex.DOWNLOAD);
+        statusBarController.setStatusbarIndex(StatusBarController.StatusbarIndex.DOWNLOAD);
     }
 
 

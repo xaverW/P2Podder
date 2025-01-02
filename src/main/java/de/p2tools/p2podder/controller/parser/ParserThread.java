@@ -17,13 +17,12 @@
 
 package de.p2tools.p2podder.controller.parser;
 
-import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.log.P2Log;
+import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
-import javafx.application.Platform;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,24 +39,25 @@ public class ParserThread {
     }
 
     public void parse(Podcast podcast) {
-        //der wird immer geparst, ist ja explizit aufgerufen worden
+        // der wird immer geparst, ist ja explizit aufgerufen worden
         parser.addPodcast(podcast);
         new Thread(parser).start();
     }
 
     public void parse(List<Podcast> podcastList) {
-        //hier werden nur die "eingeschalteten" Pods geparst
+        // hier werden nur die "eingeschalteten" Pods geparst
         parse(podcastList, false);
     }
 
     public void parse(List<Podcast> podcastList, boolean andStartDownload) {
-        //hier werden nur die "eingeschalteten" Pods geparst
+        // hier werden nur die "eingeschalteten" Pods geparst
         this.andStartDownload = andStartDownload;
-        podcastList.stream().forEach(p -> {
+        podcastList.forEach(p -> {
             if (p.isActive()) {
                 parser.addPodcast(p);
             }
         });
+
         new Thread(parser).start();
     }
 
@@ -94,30 +94,20 @@ public class ParserThread {
                     ParseRss.parse(progData, podcast);
                 }
 
-                //und dann noch starten, falls gewünscht
+                if (ProgData.auto && progData.downloadList.isEmpty()) {
+                    // dann gibts nix, beenden
+                    ProgQuitFactory.quit();
+                    return;
+                }
+
                 if (!andStartDownload || progData.downloadList.isEmpty()) {
+                    // starten nicht gewünscht
                     return;
                 }
 
                 //dann die Downloads auch noch starten
                 P2Log.sysLog("Downloads: " + progData.downloadList.getSize() + ", jetzt noch starten");
-                if (progData.downloadList.size() < 15) {
-                    //wenn nicht zu viele, dann sofort starten
-                    DownloadFactory.startAllDownloads();
-                    return;
-                }
-
-
-                Platform.runLater(() -> {
-                    //dann vorher auf jeden Fall fragen
-                    P2Alert.BUTTON button = P2Alert.showAlert_yes_no(progData.primaryStage, "Download der Episoden",
-                            "Viele Episoden gefunden", "Es wurden " + progData.downloadList.size() +
-                                    " Episoden gefunden. Sollen die gefundenen Episoden jetzt " +
-                                    "geladen werden?");
-                    if (button.equals(P2Alert.BUTTON.YES)) {
-                        DownloadFactory.startAllDownloads();
-                    }
-                });
+                DownloadFactory.startAllDownloads();
             } catch (final Exception ignored) {
             }
         }

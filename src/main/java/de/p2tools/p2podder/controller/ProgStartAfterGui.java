@@ -28,6 +28,7 @@ import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfosFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.parser.ParserThread;
+import de.p2tools.p2podder.gui.dialog.AutoDialog;
 import de.p2tools.p2podder.tools.update.SearchProgramUpdate;
 import javafx.stage.Stage;
 
@@ -63,35 +64,37 @@ public class ProgStartAfterGui {
         }
     }
 
-    /**
-     * Podcastliste beim Programmstart laden
-     */
     public static void loadPodcastListProgStart() {
-        // Gui startet ein wenig flüssiger
-        Thread th = new Thread(() -> {
-            P2Duration.onlyPing("Programmstart Podcastliste laden: start");
+        P2Duration.onlyPing("Programmstart Podcastliste laden: start");
 
-            if (ProgData.firstProgramStart) {
-                //schon mal ein paar eintragen
-                addStartPodcasts();
+        if (ProgData.firstProgramStart) {
+            //schon mal ein paar eintragen
+            addStartPodcasts();
+            return;
+        }
+
+        if (ProgData.auto) {
+            // immer suchen und starten
+            P2Log.sysLog("Auto: Nach neuen Episoden suchen");
+            ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
+            new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, true);
+            new AutoDialog(ProgData.getInstance());
+            return;
+        }
+
+        if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
+            //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
+            if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
+                P2Log.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
+
             } else {
-                //wenn gewünscht und heute noch nicht gemacht, die Podcasts aktualisieren
-                if (ProgConfig.SYSTEM_UPDATE_PODCAST_DAILY.getValue()) {
-                    if (ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.get().equals(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()))) {
-                        P2Log.sysLog("keine neuen Episoden suchen: Heute schon gemacht");
-                    } else {
-                        P2Log.sysLog("nach neuen Episoden suchen");
-                        ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
-                        new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
-                    }
-                } else {
-                    P2Log.sysLog("keine neuen Episoden suchen: Nicht gewünscht");
-                }
+                P2Log.sysLog("nach neuen Episoden suchen");
+                ProgConfig.SYSTEM_UPDATE_PODCAST_DATE.setValue(P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date()));
+                new ParserThread(ProgData.getInstance()).parse(ProgData.getInstance().podcastList, ProgConfig.SYSTEM_START_DAILY_DOWNLOAD.getValue());
             }
-        });
-
-        th.setName("loadStationProgStart");
-        th.start();
+        } else {
+            P2Log.sysLog("keine neuen Episoden suchen: Nicht gewünscht");
+        }
     }
 
     private static void addStartPodcasts() {

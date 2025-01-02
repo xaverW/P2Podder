@@ -43,7 +43,7 @@ public class DownloadFactory {
 
     public static synchronized void startAllDownloads() {
         List<DownloadData> downloadList = ProgData.getInstance().downloadList;
-        downloadList.stream().forEach(d -> {
+        downloadList.forEach(d -> {
             ProgData.getInstance().downloadList.startDownloads(downloadList, false);
         });
     }
@@ -55,7 +55,7 @@ public class DownloadFactory {
         while (it.hasNext()) {
             DownloadData download = it.next();
             if (download.isStateInit() ||
-                    download.isStateStoped()) {
+                    download.isStateStopped()) {
                 continue;
             }
             if (download.isStateFinished()) {
@@ -145,7 +145,7 @@ public class DownloadFactory {
     }
 
     public static synchronized long getDownloadsWaiting() {
-        return ProgData.getInstance().downloadList.stream().filter(download -> download.isStateStartedWaiting()).count();
+        return ProgData.getInstance().downloadList.stream().filter(DownloadData::isStateStartedWaiting).count();
     }
 
     public static synchronized List<Podcast> getPodcastList() {

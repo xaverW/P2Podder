@@ -141,7 +141,7 @@ public final class DownloadData extends DownloadDataProps {
         return getState() <= DownloadConstants.STATE_STOPPED;
     }
 
-    public boolean isStateStoped() {
+    public boolean isStateStopped() {
         return getState() == DownloadConstants.STATE_STOPPED;
     }
 

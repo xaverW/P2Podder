@@ -22,4 +22,5 @@ public class Events {
     public static int EREIGNIS_TIMER = count;
     public static int EREIGNIS_SETDATA_CHANGED = ++count;
     public static int REFRESH_TABLE = ++count;
+    public static int DOWNLOAD_REFRESH_TABLE = ++count;
 }

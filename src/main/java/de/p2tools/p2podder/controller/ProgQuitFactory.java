@@ -45,7 +45,6 @@ public class ProgQuitFactory {
         if (ProgData.getInstance().primaryStageBig.isShowing()) {
             P2GuiSize.getSize(ProgConfig.SYSTEM_SIZE_GUI, ProgData.getInstance().primaryStageBig);
         }
-
         if (ProgData.getInstance().primaryStageSmall != null && ProgData.getInstance().primaryStageSmall.isShowing()) {
             P2GuiSize.getSize(ProgConfig.SMALL_PODDER_SIZE, ProgData.getInstance().primaryStageSmall);
         }

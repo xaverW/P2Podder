@@ -28,11 +28,7 @@ public class MenuController extends ScrollPane {
         STATION, DOWNLOAD, EPISODE
     }
 
-    private final StartupMode startupMode;
-
-    public MenuController(StartupMode sm) {
-        startupMode = sm;
-
+    public MenuController(StartupMode startupMode) {
         VBox vb = new VBox();
 
         setMinWidth(Region.USE_PREF_SIZE);

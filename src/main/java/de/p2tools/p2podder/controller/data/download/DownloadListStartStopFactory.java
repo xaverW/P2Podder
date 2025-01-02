@@ -57,7 +57,7 @@ public class DownloadListStartStopFactory {
         ProgData.getInstance().downloadStarterFactory.setPaused();
 
         for (final DownloadData download : list) {
-            if (download.isStateInit() || download.isStateStoped()) {
+            if (download.isStateInit() || download.isStateStopped()) {
                 download.putBack();
                 found = true;
             } else {
@@ -216,7 +216,7 @@ public class DownloadListStartStopFactory {
         for (DownloadData download : list) {
 
             // abgebrochene starten
-            if (download.isStateStoped()) {
+            if (download.isStateStopped()) {
                 listDelDownloads.add(download);
                 // wenn er schon feritg ist und ein Abos ist, Url auch aus dem Logfile löschen, der Film ist damit wieder auf "Anfang"
                 listDownloadsRemovePodcastHistory.add(download);

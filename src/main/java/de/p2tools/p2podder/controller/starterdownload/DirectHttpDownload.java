@@ -222,7 +222,7 @@ public class DirectHttpDownload extends Thread {
         int len;
         long aktBandwidth = 0, aktSize = 0;
 
-        while ((len = download.getDownloadStart().getInputStream().read(buffer)) != -1 && (!download.isStateStoped())) {
+        while ((len = download.getDownloadStart().getInputStream().read(buffer)) != -1 && (!download.isStateStopped())) {
             downloaded += len;
             fos.write(buffer, 0, len);
             download.getDownloadSize().addActFileSize(len);
@@ -266,7 +266,7 @@ public class DirectHttpDownload extends Thread {
             }
         }
 
-        if (!download.isStateStoped()) {
+        if (!download.isStateStopped()) {
             if (DownloadStarterFactory.check(progData, download)) {
                 // Anzeige ändern - fertig
                 download.setStateFinished();
