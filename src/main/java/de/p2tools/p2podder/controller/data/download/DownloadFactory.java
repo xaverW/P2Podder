@@ -148,6 +148,10 @@ public class DownloadFactory {
         return ProgData.getInstance().downloadList.stream().filter(DownloadData::isStateStartedWaiting).count();
     }
 
+    public static synchronized long getDownloadsSaving() {
+        return ProgData.getInstance().downloadList.stream().filter(DownloadData::isStateStartedRun).count();
+    }
+
     public static synchronized List<Podcast> getPodcastList() {
         P2Duration.counterStart("getPodcastList");
 

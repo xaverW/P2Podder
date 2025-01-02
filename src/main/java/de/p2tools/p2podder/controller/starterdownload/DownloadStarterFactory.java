@@ -268,6 +268,9 @@ public class DownloadStarterFactory {
 
                 if (ProgData.auto) {
                     // dann haben wir den "Automodus", Beenden
+                    while (DownloadFactory.getDownloadsSaving() > 0) {
+                        sleep(2 * 1000);
+                    }
                     ProgQuitFactory.quit();
                 }
             } catch (final Exception ex) {
