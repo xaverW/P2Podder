@@ -70,7 +70,7 @@ public class PodcastMenu {
 
         btUpdate.setOnAction(a -> progData.worker.updatePodcast(true));
         btnAdd.setOnAction(a -> PodcastFactory.addNewPodcast());
-        btnDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delPodcast());
+        btnDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast());
         btnChange.setOnAction(a -> progData.podcastGui.getPodcastGuiController().changePodcast());
         btInfo.setOnAction(a -> progData.episodeInfoDialogController.toggleShowInfo());
     }
@@ -89,10 +89,10 @@ public class PodcastMenu {
         miUpdateAll.setOnAction(a -> progData.worker.updatePodcast(true));
 
         final MenuItem miDel = new MenuItem("Markierte Podcasts löschen");
-        miDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(false));
+        miDel.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast());
 
         final MenuItem miDelAll = new MenuItem("Alle Podcasts löschen");
-        miDelAll.setOnAction(a -> progData.podcastGui.getPodcastGuiController().delSelPodcast(true));
+        miDelAll.setOnAction(a -> progData.podcastList.removeAllPodcast());
 
         final MenuItem miSetActive = new MenuItem("Markierte Podcasts einschalten");
         miSetActive.setOnAction(a -> progData.worker.setPodcastActive(true));

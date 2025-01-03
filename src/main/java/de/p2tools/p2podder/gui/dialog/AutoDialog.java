@@ -45,7 +45,7 @@ public class AutoDialog extends P2DialogExtra {
 
     public AutoDialog(ProgData progData) {
         super(progData.primaryStage, null,
-                "Auto-Mode abbrechen", true, false, DECO.BORDER_SMALL);
+                "Auto-Mode", true, false, DECO.BORDER_SMALL);
         this.progData = progData;
         init(true);
     }

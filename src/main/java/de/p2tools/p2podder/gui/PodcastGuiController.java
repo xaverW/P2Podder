@@ -147,18 +147,12 @@ public class PodcastGuiController extends AnchorPane {
     public void delPodcast() {
         // Menü/Button Podcast löschen
         final Optional<Podcast> sel = getSel();
-        if (sel.isPresent()) {
-            progData.podcastList.removePodcast(sel.get());
-        }
+        sel.ifPresent(podcast -> progData.podcastList.removePodcast(podcast));
     }
 
-    public void delSelPodcast(boolean all) {
-        // Menü/Button podcast aktualisieren
-        if (all) {
-            progData.podcastList.removeAllPodcast();
-        } else {
-            progData.podcastList.removePodcast(getSelList());
-        }
+    public void delSelPodcast() {
+        // Menü
+        progData.podcastList.removePodcast(getSelList());
     }
 
     public void saveTable() {
@@ -170,8 +164,7 @@ public class PodcastGuiController extends AnchorPane {
     }
 
     public ArrayList<Podcast> getSelList() {
-        final ArrayList<Podcast> ret = new ArrayList<>();
-        ret.addAll(tableView.getSelectionModel().getSelectedItems());
+        final ArrayList<Podcast> ret = new ArrayList<>(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             P2Alert.showInfoNoSelection();
         }
