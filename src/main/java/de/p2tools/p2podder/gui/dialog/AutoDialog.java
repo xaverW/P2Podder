@@ -16,9 +16,10 @@
 
 package de.p2tools.p2podder.gui.dialog;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.events.P2Listener;
 import de.p2tools.p2podder.controller.ProgIcons;
@@ -29,19 +30,18 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class AutoDialog extends P2DialogExtra {
 
-    private final GridPane gridPane = new GridPane();
     private final ProgData progData;
-    private long max = 0;
-    private final Label lbl = new Label();
-    private final ProgressBar progressBar = new ProgressBar();
+    private long maxDownload = 0;
+    private final Label lblParse = new Label();
+    private final Label lblDownload = new Label();
+    private final ProgressBar progressBarParse = new ProgressBar();
+    private final ProgressBar progressBarDownload = new ProgressBar();
 
     public AutoDialog(ProgData progData) {
         super(progData.primaryStage, null,
@@ -55,9 +55,7 @@ public class AutoDialog extends P2DialogExtra {
     }
 
     private void initCont() {
-        getVBoxCont().getChildren().add(gridPane);
-
-        Label headerLabel = new Label("Es laufen noch Downloads!");
+        Label headerLabel = new Label("Downloads suchen und laden!");
         headerLabel.setStyle("-fx-font-size: 1.5em;");
 
         // Auto-Mode beenden
@@ -68,56 +66,78 @@ public class AutoDialog extends P2DialogExtra {
             close();
         });
 
-        gridPane.setHgap(10);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(10));
+        VBox vBox = getVBoxCont();
+        vBox.setPadding(new Insets(15));
+        vBox.setSpacing(2);
 
-        gridPane.add(headerLabel, 0, 0);
-        gridPane.add(cancelButton, 0, 1);
-        gridPane.add(progressBar, 0, 2);
-        gridPane.add(lbl, 0, 3);
-        GridPane.setHalignment(lbl, HPos.RIGHT);
+        vBox.getChildren().add(headerLabel);
+        vBox.getChildren().add(P2GuiTools.getHDistance(15));
+        vBox.getChildren().add(cancelButton);
+        vBox.getChildren().add(P2GuiTools.getHDistance(25));
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize());
-        VBox.setVgrow(gridPane, Priority.ALWAYS);
+        vBox.getChildren().add(progressBarParse);
+        HBox hBox = new HBox(P2LibConst.SPACING_HBOX);
+        hBox.getChildren().addAll(new Label("Suchen"), P2GuiTools.getHBoxGrower(), lblParse);
+        vBox.getChildren().add(hBox);
 
-        TextArea taDescription = new TextArea();
-        taDescription.setMinHeight(25);
-        GridPane.setVgrow(taDescription, Priority.ALWAYS);
-        taDescription.setEditable(false);
-        taDescription.setWrapText(true);
-        taDescription.setBlendMode(BlendMode.DARKEN);
-        taDescription.setText("Auto-Mode abbrechen");
+        vBox.getChildren().add(P2GuiTools.getHDistance(15));
+
+        vBox.getChildren().add(progressBarDownload);
+        hBox = new HBox(P2LibConst.SPACING_HBOX);
+        hBox.getChildren().addAll(new Label("Laden"), P2GuiTools.getHBoxGrower(), lblDownload);
+        vBox.getChildren().add(hBox);
+        GridPane.setHalignment(lblDownload, HPos.RIGHT);
 
         addProgress();
     }
 
     private void addProgress() {
-        progressBar.setMaxWidth(Double.MAX_VALUE);
-        progressBar.setProgress(0);
-        setProgress();
+        progressBarParse.setMaxWidth(Double.MAX_VALUE);
+        progressBarParse.setProgress(0);
+        progData.pEventHandler.addListener(new P2Listener(Events.PARSE_PODCAST) {
+            @Override
+            public void pingGui(P2Event runEvent) {
+                setProgressParse(runEvent);
+            }
+        });
+
+        progressBarDownload.setMaxWidth(Double.MAX_VALUE);
+        progressBarDownload.setProgress(0);
+        setProgressDownload();
         progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_TIMER) {
             @Override
             public void pingGui(P2Event runEvent) {
-                setProgress();
+                setProgressDownload();
             }
         });
     }
 
-    private void setProgress() {
+    private void setProgressParse(P2Event events) {
+        int countParse = events.getNumber();
+        long podcastSize = progData.podcastList.size();
+        double progress;
+
+        progress = 1.0 * podcastSize / countParse;
+        progress = 100 / progress / 100;
+
+        lblParse.setText("Anzahl: " + countParse + " von " + podcastSize);
+        progressBarParse.setProgress(progress);
+    }
+
+    private void setProgressDownload() {
         long sum = DownloadFactory.getDownloadsWaiting();
         double progress = 0;
 
-        if (max < sum) {
-            max = sum;
+        if (maxDownload < sum) {
+            maxDownload = sum;
         }
-        if (max > 0) {
-            progress = (double) (100 * sum / max);
+        if (maxDownload > 0) {
+            progress = 100.0 * sum / maxDownload;
             progress = 100 - progress;
             progress = progress / 100;
         }
 
-        lbl.setText("Anzahl: " + sum + " von " + max);
-        progressBar.setProgress(progress);
+        lblDownload.setText("Anzahl: " + (maxDownload - sum) + " von " + maxDownload);
+        progressBarDownload.setProgress(progress);
     }
 }

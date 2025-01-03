@@ -17,8 +17,10 @@
 
 package de.p2tools.p2podder.controller.parser;
 
+import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
+import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
@@ -86,11 +88,14 @@ public class ParserThread {
         public void run() {
             try {
                 //erst mal parsen
+                int count = 0;
                 for (Podcast podcast : podcastList) {
                     if (stop) {
                         break;
                     }
                     P2Log.sysLog("Parse Podcast: " + podcast.getName());
+
+                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.PARSE_PODCAST, ++count));
                     ParseRss.parse(progData, podcast);
                 }
 
