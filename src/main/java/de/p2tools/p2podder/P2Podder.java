@@ -76,6 +76,10 @@ public class P2Podder extends Application {
                 ProgQuitFactory.quit();
             });
 
+            if (ProgData.auto) {
+                // dann immer großes Gui anzeigen
+                ProgConfig.SYSTEM_SMALL_PODDER.set(false);
+            }
             progData.primaryStageBig.setOnShowing(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
             progData.primaryStageBig.setOnShown(e -> P2GuiSize.setSizePos(ProgConfig.SYSTEM_SIZE_GUI, progData.primaryStageBig));
             ProgConfig.SYSTEM_DARK_THEME.addListener((u, o, n) -> ProgColorList.setColorTheme());
