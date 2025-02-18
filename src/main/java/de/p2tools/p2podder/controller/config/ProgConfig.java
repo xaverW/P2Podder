@@ -20,7 +20,7 @@ package de.p2tools.p2podder.controller.config;
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
-import de.p2tools.p2lib.data.P2DataProgConfig;
+import de.p2tools.p2lib.configfile.pdata.P2DataProgConfig;
 import de.p2tools.p2lib.tools.P2SystemUtils;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeProperty;
