@@ -18,7 +18,7 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.configfile.SettingsDirectory;
 import de.p2tools.p2lib.tools.P2Exception;
-import de.p2tools.p2lib.tools.file.P2FileUtils;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2podder.Main;
 
 import java.io.File;
@@ -76,7 +76,7 @@ public class ProgInfosFactory {
     }
 
     public static String getStandardPodDestString() {
-        return Paths.get(P2FileUtils.getHomePath(), ProgConst.POD_DEST_DIR).toString();
+        return Paths.get(P2InfoFactory.getHomePath(), ProgConst.POD_DEST_DIR).toString();
     }
 
     /**

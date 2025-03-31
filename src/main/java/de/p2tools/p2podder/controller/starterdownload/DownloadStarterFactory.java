@@ -19,9 +19,9 @@ package de.p2tools.p2podder.controller.starterdownload;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2SizeTools;
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.date.P2DateConst;
-import de.p2tools.p2lib.tools.events.P2Event;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.Events;

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 
@@ -36,7 +36,7 @@ public class DownloadProgram {
         }
 
         if (path.isEmpty()) {
-            path = P2SystemUtils.getStandardDownloadPath();
+            path = P2InfoFactory.getStandardDownloadPath();
         }
         if (name.isEmpty()) {
             name = getToday_yyyyMMdd() + "_" + download.getGenre() + "-" + download.getEpisodeTitle() + ".mp4";

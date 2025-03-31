@@ -19,7 +19,7 @@ package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -87,7 +87,7 @@ public class EpisodeFactory {
         if (episode.isPresent()) {
             return;
         }
-        P2SystemUtils.copyToClipboard(episode.get().getEpisodeUrl());
+        P2ToolsFactory.copyToClipboard(episode.get().getEpisodeUrl());
     }
 
     public static void playSelEpisode() {

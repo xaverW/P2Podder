@@ -20,8 +20,8 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2BigButton;
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -113,7 +113,7 @@ public class AutoDialog extends P2DialogExtra {
     }
 
     private void setProgressParse(P2Event events) {
-        int countParse = events.getNumber();
+        int countParse = (int) events.getAct();
         long podcastSize = progData.podcastList.size();
         double progress;
 

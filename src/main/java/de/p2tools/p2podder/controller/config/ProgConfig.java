@@ -21,8 +21,7 @@ import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataProgConfig;
-import de.p2tools.p2lib.tools.P2SystemUtils;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeProperty;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.data.SetFactory;
@@ -71,9 +70,9 @@ public class ProgConfig extends P2DataProgConfig {
 
 
     // Configs der Programmversion
-    public static StringProperty SYSTEM_PROG_VERSION = addStrProp("system-prog-version", P2ToolsFactory.getProgVersion());
-    public static StringProperty SYSTEM_PROG_BUILD_NO = addStrProp("system-prog-build-no", P2ToolsFactory.getBuildNo());
-    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStrProp("system-prog-build-date", P2ToolsFactory.getBuildDateR()); // 2024.08.12
+    public static StringProperty SYSTEM_PROG_VERSION = addStrProp("system-prog-version", P2InfoFactory.getProgVersion());
+    public static StringProperty SYSTEM_PROG_BUILD_NO = addStrProp("system-prog-build-no", P2InfoFactory.getBuildNo());
+    public static StringProperty SYSTEM_PROG_BUILD_DATE = addStrProp("system-prog-build-date", P2InfoFactory.getBuildDateR()); // 2024.08.12
 
     public static StringProperty SYSTEM_DOWNLOAD_DIR_NEW_VERSION = addStrProp("system-download-dir-new-version", "");
     public static StringProperty SYSTEM_PROG_OPEN_DIR = addStrProp("system-prog-open-dir", "");
@@ -218,7 +217,7 @@ public class ProgConfig extends P2DataProgConfig {
     public static DoubleProperty CONFIG_DIALOG_SHORTCUT_DIVIDER = addDoubleProp("config-dialog-shortcut-divider", 0.1);
 
     //StartDialog
-    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", P2SystemUtils.getStandardDownloadPath());
+    public static StringProperty START_DIALOG_DOWNLOAD_PATH = addStrProp("start-dialog-download-path", P2InfoFactory.getStandardDownloadPath());
 
     //EpisodeInfoDialog
     public static BooleanProperty EPISODE_INFO_DIALOG_SHOW_BIG = addBoolProp("episode-info-dialog-show-big", Boolean.TRUE);
@@ -253,9 +252,9 @@ public class ProgConfig extends P2DataProgConfig {
     }
 
     public static void addConfigData(ConfigFile configFile) {
-        ProgConfig.SYSTEM_PROG_VERSION.set(P2ToolsFactory.getProgVersion());
-        ProgConfig.SYSTEM_PROG_BUILD_NO.set(P2ToolsFactory.getBuildNo());
-        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(P2ToolsFactory.getBuildDateR());
+        ProgConfig.SYSTEM_PROG_VERSION.set(P2InfoFactory.getProgVersion());
+        ProgConfig.SYSTEM_PROG_BUILD_NO.set(P2InfoFactory.getBuildNo());
+        ProgConfig.SYSTEM_PROG_BUILD_DATE.set(P2InfoFactory.getBuildDateR());
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getInstance());

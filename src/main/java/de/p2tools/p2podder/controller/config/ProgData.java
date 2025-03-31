@@ -18,9 +18,7 @@
 package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2EventHandler;
+import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2podder.P2PodderController;
 import de.p2tools.p2podder.controller.data.SetDataList;
 import de.p2tools.p2podder.controller.data.download.DownloadList;
@@ -41,13 +39,9 @@ import de.p2tools.p2podder.gui.PodcastGui;
 import de.p2tools.p2podder.gui.dialog.EpisodeInfoDialogController;
 import de.p2tools.p2podder.gui.smallgui.SmallGuiPack;
 import de.p2tools.p2podder.gui.tools.ProgTray;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class ProgData {
     private static ProgData instance;
@@ -114,7 +108,7 @@ public class ProgData {
     public P2EventHandler pEventHandler;
 
     private ProgData() {
-        pEventHandler = new P2EventHandler();
+        pEventHandler = new P2EventHandler(false);
         pShortcut = new PShortCut();
 
         episodeFilter = new EpisodeFilter(true);
@@ -142,26 +136,8 @@ public class ProgData {
     }
 
     public void initProgData() {
-        startTimer();
+        pEventHandler.startTimer();
         progTray.initProgTray();
-    }
-
-    private void startTimer() {
-        // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> {
-            oneSecond = !oneSecond;
-            if (oneSecond) {
-                doTimerWorkOneSecond();
-            }
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.setDelay(Duration.seconds(5));
-        timeline.play();
-        P2Duration.onlyPing("Timer gestartet");
-    }
-
-    private void doTimerWorkOneSecond() {
-        pEventHandler.notifyListener(new P2Event(Events.EREIGNIS_TIMER));
     }
 
     public synchronized static final ProgData getInstance() {

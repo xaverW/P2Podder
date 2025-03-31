@@ -18,7 +18,7 @@
 package de.p2tools.p2podder.gui.tools;
 
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.ProgConfig;
@@ -156,14 +156,14 @@ public class ProgTray {
         popupMenu.add(miStop);
         popupMenu.add(miInfo);
         popupMenu.add(miConfig);
-        if (!P2ToolsFactory.getOs().equals(P2ToolsFactory.OperatingSystemType.MAC)) {
+        if (!P2InfoFactory.getOs().equals(P2InfoFactory.OperatingSystemType.MAC)) {
             //machen unter MAC Probleme
             popupMenu.add(miTray);
         }
 
         popupMenu.addSeparator();
         popupMenu.add(miAbout);
-        if (!P2ToolsFactory.getOs().equals(P2ToolsFactory.OperatingSystemType.MAC)) {
+        if (!P2InfoFactory.getOs().equals(P2InfoFactory.OperatingSystemType.MAC)) {
             //machen unter MAC Probleme
             popupMenu.addSeparator();
             popupMenu.add(miQuit);

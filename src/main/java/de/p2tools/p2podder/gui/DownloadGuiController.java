@@ -21,9 +21,9 @@ import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
-import de.p2tools.p2lib.tools.P2SystemUtils;
-import de.p2tools.p2lib.tools.events.P2Event;
-import de.p2tools.p2lib.tools.events.P2Listener;
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Listener;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2podder.controller.config.Events;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -132,7 +132,7 @@ public class DownloadGuiController extends AnchorPane {
         if (!download.isPresent()) {
             return;
         }
-        P2SystemUtils.copyToClipboard(download.get().getEpisodeUrl());
+        P2ToolsFactory.copyToClipboard(download.get().getEpisodeUrl());
     }
 
     private void setSelectedDownload() {

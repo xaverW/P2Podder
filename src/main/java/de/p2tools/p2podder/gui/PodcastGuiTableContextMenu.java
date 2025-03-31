@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.gui;
 
-import de.p2tools.p2lib.tools.P2SystemUtils;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.gui.tools.table.TablePodcast;
@@ -56,7 +56,7 @@ public class PodcastGuiTableContextMenu {
         miSetOffActive.setOnAction(a -> progData.worker.setPodcastActive(false));
 
         MenuItem miCopyUrl = new MenuItem("Podcast-URL kopieren");
-        miCopyUrl.setOnAction(a -> P2SystemUtils.copyToClipboard(podcast.getUrl()));
+        miCopyUrl.setOnAction(a -> P2ToolsFactory.copyToClipboard(podcast.getUrl()));
 
         MenuItem miStationInfo = new MenuItem("Podcast-Info anzeigen");
         // todo ??

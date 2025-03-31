@@ -17,7 +17,7 @@
 
 package de.p2tools.p2podder.controller.parser;
 
-import de.p2tools.p2lib.tools.events.P2Event;
+import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
 import de.p2tools.p2podder.controller.config.Events;
@@ -95,7 +95,7 @@ public class ParserThread {
                     }
                     P2Log.sysLog("Parse Podcast: " + podcast.getName());
 
-                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.PARSE_PODCAST, ++count));
+                    ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.PARSE_PODCAST, "", ++count));
                     ParseRss.parse(progData, podcast);
                 }
 
