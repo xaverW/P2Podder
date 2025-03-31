@@ -299,49 +299,6 @@ public class DirectHttpDownload extends Thread {
     }
 
     private boolean break_() {
-        boolean cancel = false;
-//        if (file.exists()) {
-//            DownloadContinueDialogController downloadContinueDialogController =
-//                    new DownloadContinueDialogController(ProgConfig.DOWNLOAD_DIALOG_CONTINUE_SIZE.getStringProperty(),
-//                            progData, download, true /* weiterführen */);
-//
-//            DownloadState.ContinueDownload result = downloadContinueDialogController.getResult();
-//            boolean isNewName = downloadContinueDialogController.isNewName();
-//            downloadContinueDialogController = null;
-//
-//            switch (result) {
-//                case CANCEL_DOWNLOAD:
-//                    // dann wars das
-//                    download.stopDownload();
-//                    cancel = true;
-//                    break;
-//
-//                case CONTINUE_DOWNLOAD:
-//                    downloaded = file.length();
-//                    break;
-//
-//                case RESTART_DOWNLOAD:
-//                    if (!isNewName) {
-//                        // dann mit gleichem Namen und Datei vorher löschen
-//                        try {
-//                            Files.deleteIfExists(file.toPath());
-//                            file = new File(download.getDestPathFile());
-//                        } catch (final Exception ex) {
-//                            // kann nicht gelöscht werden, evtl. klappt ja das Überschreiben
-//                            P2Log.errorLog(915263654, ex,
-//                                    "file exists: " + download.getDestPathFile());
-//                        }
-//                    } else {
-//                        // dann mit neuem Namen
-//                        try {
-//                            Files.createDirectories(Paths.get(download.getDestPath()));
-//                        } catch (final IOException ignored) {
-//                        }
-//                        file = new File(download.getDestPathFile());
-//                    }
-//                    break;
-//            }
-//        }
-        return cancel;
+        return false;
     }
 }

@@ -103,8 +103,6 @@ public class ProgData {
     public static BooleanProperty EPISODE_TAB_ON = new SimpleBooleanProperty(Boolean.FALSE);
 
     // Programmdaten
-    boolean oneSecond = false;
-
     public P2EventHandler pEventHandler;
 
     private ProgData() {
@@ -140,7 +138,7 @@ public class ProgData {
         progTray.initProgTray();
     }
 
-    public synchronized static final ProgData getInstance() {
+    public synchronized static ProgData getInstance() {
         return instance == null ? instance = new ProgData() : instance;
     }
 }

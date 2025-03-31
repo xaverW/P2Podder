@@ -17,11 +17,14 @@
 
 package de.p2tools.p2podder.controller.config;
 
-public class Events {
+import de.p2tools.p2lib.p2event.P2Events;
+
+public class PEvents extends P2Events {
+
     private static int count = 0;
-    public static int EREIGNIS_TIMER = count;
-    public static int EREIGNIS_SETDATA_CHANGED = ++count;
-    public static int REFRESH_TABLE = ++count;
-    public static int DOWNLOAD_REFRESH_TABLE = ++count;
-    public static int PARSE_PODCAST = ++count;
+
+    public static int EVENT_SETDATA_CHANGED = ++count;
+    public static int EVENT_REFRESH_TABLE = ++count;
+    public static int EVENT_DOWNLOAD_REFRESH_TABLE = ++count;
+    public static int EVENT_PARSE_PODCAST = ++count;
 }

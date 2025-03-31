@@ -18,44 +18,11 @@ package de.p2tools.p2podder.controller.config;
 
 import de.p2tools.p2lib.configfile.SettingsDirectory;
 import de.p2tools.p2lib.tools.P2Exception;
-import de.p2tools.p2podder.Main;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.CodeSource;
 
 public class ProgInfos {
-
-    public static String getUserAgent() {
-        return ProgConfig.SYSTEM_USERAGENT.get();
-    }
-
-
-    /**
-     * Retrieve the path to the program jar file.
-     *
-     * @return The program jar file path with a separator added.
-     */
-    public static String getPathJar() {
-        // macht Probleme bei Win und Netzwerkpfaden, liefert dann Absolute Pfade zB. \\VBOXSVR\share\Mediathek\...
-        final String pFilePath = "pFile";
-        File propFile = new File(pFilePath);
-        if (!propFile.exists()) {
-            try {
-                final CodeSource cS = Main.class.getProtectionDomain().getCodeSource();
-                final File jarFile = new File(cS.getLocation().toURI().getPath());
-                final String jarDir = jarFile.getParentFile().getPath();
-                propFile = new File(jarDir + File.separator + pFilePath);
-            } catch (final Exception ignored) {
-            }
-        }
-        String s = propFile.getAbsolutePath().replace(pFilePath, "");
-        if (!s.endsWith(File.separator)) {
-            s = s + File.separator;
-        }
-        return s;
-    }
 
     public static String getLogDirectory_String() {
         final String logDir;
@@ -69,28 +36,6 @@ public class ProgInfos {
 
     public static String getStandardLogDirectory_String() {
         return Paths.get(getSettingsDirectory_String(), ProgConst.LOG_DIR).toString();
-    }
-
-    /**
-     * Return the path to "mtplayer.xml"
-     *
-     * @return Path object to mtplayer.xml file
-     */
-    public static Path getSettingsFile() {
-        return SettingsDirectory.getSettingsFile(ProgData.configDir,
-                ProgConst.CONFIG_DIRECTORY,
-                ProgConst.CONFIG_FILE);
-    }
-
-    /**
-     * Return the path to styleFile
-     *
-     * @return Path object to style.css file
-     */
-    public static Path getStyleFile() {
-        return SettingsDirectory.getSettingsFile(ProgData.configDir,
-                ProgConst.CONFIG_DIRECTORY,
-                ProgConst.STYLE_FILE);
     }
 
     /**

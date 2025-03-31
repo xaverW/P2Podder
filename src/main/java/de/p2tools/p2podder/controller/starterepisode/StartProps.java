@@ -21,9 +21,9 @@ import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_intProp;
 import de.p2tools.p2lib.configfile.config.Config_stringProp;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
+import de.p2tools.p2lib.tools.GermanStringSorter;
 import de.p2tools.p2podder.controller.data.episode.EpisodeConstants;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFieldNames;
-import de.p2tools.p2podder.tools.Data;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -146,7 +146,7 @@ public class StartProps extends P2DataSample<Start> {
     }
 
     public int compareTo(StartProps arg0) {
-        return Data.sorter.compare(getEpisodeTitle(), arg0.getEpisodeTitle());
+        return GermanStringSorter.getInstance().compare(getEpisodeTitle(), arg0.getEpisodeTitle());
     }
 
 }

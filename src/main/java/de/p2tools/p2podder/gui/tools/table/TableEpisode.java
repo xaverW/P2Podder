@@ -20,7 +20,7 @@ import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.file.P2FileSize;
-import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -61,7 +61,7 @@ public class TableEpisode extends PTable<Episode> {
     private void addListener() {
         ProgConfig.SYSTEM_SMALL_BUTTON_TABLE_ROW.addListener((observableValue, s, t1) -> this.refresh());
 
-        ProgData.getInstance().pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+        ProgData.getInstance().pEventHandler.addListener(new P2Listener(PEvents.EVENT_REFRESH_TABLE) {
             @Override
             public void pingGui(P2Event runEvent) {
                 refreshTable();

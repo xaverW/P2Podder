@@ -20,7 +20,7 @@ import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
-import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.worker.InfoFactory;
@@ -92,7 +92,7 @@ public class StatusBarController extends AnchorPane {
         stackPane.getChildren().addAll(nonePane, episodePane, podcastPane, downloadPane);
         stackPane.setPadding(new Insets(2, 5, 2, 5));
         nonePane.toFront();
-        progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_TIMER) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_TIMER_SECOND) {
             @Override
             public void pingGui(P2Event runEvent) {
                 try {

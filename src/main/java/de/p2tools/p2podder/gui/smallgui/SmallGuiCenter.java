@@ -20,7 +20,7 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
-import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -126,7 +126,7 @@ public class SmallGuiCenter extends VBox {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_SETDATA_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_SETDATA_CHANGED) {
             @Override
             public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);

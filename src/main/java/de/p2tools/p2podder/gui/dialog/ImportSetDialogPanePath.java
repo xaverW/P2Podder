@@ -80,14 +80,6 @@ public class ImportSetDialogPanePath {
 
         text.setStyle("-fx-font-weight: bold");
 
-        txtPlayer.textProperty().addListener((observable, oldValue, newValue) -> {
-//            File file = new File(txtPlayer.getText());
-//            if (!file.exists() || !file.isFile()) {
-////                txtPlayer.setStyle(ProgColorList.STATION_NAME_ERROR.getCssBackground());
-//            } else {
-//                txtPlayer.setStyle("");
-//            }
-        });
         txtPlayer.textProperty().bindBidirectional(ProgConfig.SYSTEM_PATH_VLC);
 
         final Button btnFile = new Button();

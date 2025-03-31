@@ -21,10 +21,10 @@ import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.mtdownload.DownloadSize;
+import de.p2tools.p2lib.tools.GermanStringSorter;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2podder.controller.config.ProgData;
-import de.p2tools.p2podder.tools.Data;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 
@@ -357,7 +357,7 @@ public class DownloadDataProps extends P2DataSample<DownloadData> {
 
     public int compareTo(DownloadDataProps arg0) {
         int ret;
-        if ((ret = Data.sorter.compare(getEpisodeTitle(), arg0.getEpisodeTitle())) == 0) {
+        if ((ret = GermanStringSorter.getInstance().compare(getEpisodeTitle(), arg0.getEpisodeTitle())) == 0) {
             return getEpisodeUrl().compareTo(arg0.getEpisodeUrl());
         }
         return ret;

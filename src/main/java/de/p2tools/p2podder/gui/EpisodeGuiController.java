@@ -23,7 +23,7 @@ import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
-import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
@@ -174,13 +174,13 @@ public class EpisodeGuiController extends AnchorPane {
     }
 
     private void initListener() {
-        progData.pEventHandler.addListener(new P2Listener(Events.EREIGNIS_SETDATA_CHANGED) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_SETDATA_CHANGED) {
             @Override
             public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);
             }
         });
-        progData.pEventHandler.addListener(new P2Listener(Events.REFRESH_TABLE) {
+        progData.pEventHandler.addListener(new P2Listener(PEvents.EVENT_REFRESH_TABLE) {
             @Override
             public void pingGui(P2Event runEvent) {
                 P2TableFactory.refreshTable(tableView);

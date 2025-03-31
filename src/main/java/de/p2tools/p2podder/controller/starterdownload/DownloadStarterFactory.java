@@ -24,7 +24,7 @@ import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.date.P2DateConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
-import de.p2tools.p2podder.controller.config.Events;
+import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;
@@ -209,7 +209,7 @@ public class DownloadStarterFactory {
         }
 
         download.setNo(P2LibConst.NUMBER_NOT_STARTED);
-        Platform.runLater(() -> ProgData.getInstance().pEventHandler.notifyListener(new P2Event(Events.DOWNLOAD_REFRESH_TABLE)));
+        Platform.runLater(() -> ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.EVENT_DOWNLOAD_REFRESH_TABLE)));
 
         start.setProcess(null);
         start.setInputStream(null);
