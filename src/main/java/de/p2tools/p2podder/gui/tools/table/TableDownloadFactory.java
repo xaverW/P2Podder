@@ -268,7 +268,7 @@ public class TableDownloadFactory {
                     btnDownBack = new Button("");
                     btnDownBack.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownBack.setTooltip(new Tooltip("Download zurückstellen, beim nächsten Suchen wieder anzeigen"));
-                    btnDownBack.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_BACK.getImageView());
+                    btnDownBack.setGraphic(ProgIcons.IMAGE_TABLE_BACK.getImageView());
                     btnDownBack.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         ProgData.getInstance().downloadList.putBackDownloads(download);
@@ -277,7 +277,7 @@ public class TableDownloadFactory {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -293,7 +293,7 @@ public class TableDownloadFactory {
                     btnDownStop = new Button("");
                     btnDownStop.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownStop.setTooltip(new Tooltip("Download stoppen"));
-                    btnDownStop.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_STOP.getImageView());
+                    btnDownStop.setGraphic(ProgIcons.IMAGE_TABLE_STOP.getImageView());
                     btnDownStop.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         download.stopDownload();
@@ -302,7 +302,7 @@ public class TableDownloadFactory {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);
@@ -317,7 +317,7 @@ public class TableDownloadFactory {
                     btnOpenDirectory = new Button();
                     btnOpenDirectory.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnOpenDirectory.setTooltip(new Tooltip("Ordner mit gespeichertem Film öffnen"));
-                    btnOpenDirectory.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_OPEN_DIR.getImageView());
+                    btnOpenDirectory.setGraphic(ProgIcons.IMAGE_TABLE_FILE_OPEN.getImageView());
                     btnOpenDirectory.setOnAction((ActionEvent event) -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         P2Open.openDir(download.getDestPath(), ProgConfig.SYSTEM_PROG_OPEN_DIR, ProgIcons.ICON_BUTTON_FILE_OPEN.getImageView());
@@ -342,7 +342,7 @@ public class TableDownloadFactory {
                     btnDownDel = new Button("");
                     btnDownDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                     btnDownDel.setTooltip(new Tooltip("Download dauerhaft löschen, Pod als gehört markieren"));
-                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DOWNLOAD_DEL.getImageView());
+                    btnDownDel.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                     btnDownDel.setOnAction(event -> {
                         DownloadData download = getTableView().getItems().get(getIndex());
                         DownloadListStartStopFactory.delDownloads(download);

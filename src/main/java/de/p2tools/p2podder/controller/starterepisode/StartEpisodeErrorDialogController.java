@@ -88,7 +88,7 @@ public class StartEpisodeErrorDialogController extends P2DialogExtra {
             quit();
         });
 
-        imageView.setImage(ProgIcons.IMAGE_ACHTUNG_64.getImage());
+        imageView.setImage(ProgIcons.IMAGE_ATTENTION_64.getImage());
 
         //start the countdown...
         lblTime.setText("");

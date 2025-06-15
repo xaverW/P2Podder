@@ -110,12 +110,15 @@ public class ProgConfig extends P2DataProgConfig {
     public static BooleanProperty SYSTEM_UPDATE_PODCAST_DAILY = addBoolProp("system-update-podcast-daily", Boolean.FALSE);
     public static BooleanProperty SYSTEM_START_DAILY_DOWNLOAD = addBoolProp("system-start-daily-download", Boolean.FALSE);
     public static BooleanProperty SYSTEM_SMALL_BUTTON_TABLE_ROW = addBoolProp("system-small-button-table-row", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_BLACK_WHITE_ICON = addBoolProp("system-black-white-icon", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DARK_THEME = addBoolProp("system-dark-theme", Boolean.FALSE);
     public static BooleanProperty SYSTEM_THEME_CHANGED = addBoolProp("system-theme-changed");
     public static IntegerProperty SYSTEM_LAST_TAB = addIntProp("system-last-tab", 0);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE_ASK = addBoolProp("system-delete-episode-file-ask", Boolean.FALSE);
     public static BooleanProperty SYSTEM_DELETE_EPISODE_FILE = addBoolProp("system-delete-episode-file", Boolean.TRUE);
     public static BooleanProperty SYSTEM_SMALL_GUI_SHOW_START_HELP = addBoolProp("system-small-gui-show-start-help", false);
+    public static BooleanProperty SYSTEM_DARK_THEME_START = addBoolProp("system-dark-theme-start", Boolean.FALSE);
+    public static BooleanProperty SYSTEM_BLACK_WHITE_ICON_START = addBoolProp("system-black-white-icon-start", Boolean.FALSE);
 
     //Meta-Daten
     public static P2LDateTimeProperty META_PODCAST_LIST_DATE = addPLocalDateTimeProp("meta-podcast-list-date", LocalDateTime.MIN);

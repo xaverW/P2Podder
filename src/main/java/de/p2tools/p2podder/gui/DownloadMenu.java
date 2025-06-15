@@ -54,12 +54,12 @@ public class DownloadMenu {
         final ToolBarButton btStartAll = new ToolBarButton(vBox,
                 "Alle Downloads starten", "Alle Downloads starten", ProgIcons.ICON_TOOLBAR_DOWNLOAD_START_ALL.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Downloads stoppen", "Alle laufenden Downloads stoppen", ProgIcons.ICON_TOOLBAR_DOWNLOAD_STOP.getImageView());
+                "Alle laufenden Downloads stoppen", "Alle laufenden Downloads stoppen", ProgIcons.ICON_TOOLBAR_STOP.getImageView());
 
         final ToolBarButton btBack = new ToolBarButton(vBox,
-                "Markierte Downloads zurückstellen", "Markierte Downloads zurückstellen", ProgIcons.ICON_TOOLBAR_DOWNLOAD_BACK.getImageView());
+                "Markierte Downloads zurückstellen", "Markierte Downloads zurückstellen", ProgIcons.ICON_TOOLBAR_DOWNLOAD_UNDO.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierten Download löschen", "Markierten Download löschen", ProgIcons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
+                "Markierten Download löschen", "Markierten Download löschen", ProgIcons.ICON_TOOLBAR_DEL.getImageView());
         final ToolBarButton btDownloadClear = new ToolBarButton(vBox,
                 "Downloads aufräumen", "Liste der Downloads aufräumen", ProgIcons.ICON_TOOLBAR_DOWNLOAD_CLEAN.getImageView());
 

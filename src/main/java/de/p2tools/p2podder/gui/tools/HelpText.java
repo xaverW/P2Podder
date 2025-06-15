@@ -19,7 +19,7 @@ package de.p2tools.p2podder.gui.tools;
 import de.p2tools.p2lib.P2LibConst;
 
 public class HelpText {
-    
+
     public static final String SHORTCUT =
             "Zum Ändern eines Tastenkürzels, seinen \"Ändern\"-Button klicken und dann " +
                     "die gewünschten neuen Tasten drücken.\n" +
@@ -84,6 +84,12 @@ public class HelpText {
                     "Filterprofile:" + P2LibConst.LINE_SEPARATOR +
                     "Mit den Buttons unten (Pfeil nach rechts/links), kann man die verwendeten Filter " +
                     "\"vor- und zurückspulen\"." +
+                    "\n";
+
+    public static final String BLACK_WHITE_ICON =
+            "Die Programmicons werden in Schwarz-Weiß angezeigt. " +
+                    "Für einige Elemente kann ein " +
+                    "Programmneustart notwendig sein." +
                     "\n";
 
     public static final String GUI_STATIONS_EDIT_FILTER = "Hier können die angezeigten Filter " +

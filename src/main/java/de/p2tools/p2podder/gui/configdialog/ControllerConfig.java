@@ -71,7 +71,7 @@ public class ControllerConfig extends P2AccordionPane {
         paneLogFile.makeLogfile(result);
 
         paneColor = new PaneColor(stage);
-        paneColor.makeColor(result);
+        paneColor.make(result);
 
         paneShortcut = new PaneShortcut(stage);
         paneShortcut.makeShortcut(result);

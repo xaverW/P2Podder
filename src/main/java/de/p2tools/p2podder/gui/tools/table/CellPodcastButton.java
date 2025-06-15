@@ -53,7 +53,7 @@ public class CellPodcastButton<S, T> extends TableCell<S, T> {
                 btnUpdate = new Button("");
                 btnUpdate.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnUpdate.setTooltip(new Tooltip("Podcast aktualisieren"));
-                btnUpdate.setGraphic(ProgIcons.IMAGE_TABLE_PODCAST_UPDATE.getImageView());
+                btnUpdate.setGraphic(ProgIcons.IMAGE_TABLE_UPDATE.getImageView());
                 btnUpdate.setOnAction(event -> {
                     new ParserThread(ProgData.getInstance()).parse(podcast);
                 });
@@ -62,7 +62,7 @@ public class CellPodcastButton<S, T> extends TableCell<S, T> {
                 btnDel = new Button("");
                 btnDel.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnDel.setTooltip(new Tooltip("Podcast löschen"));
-                btnDel.setGraphic(ProgIcons.IMAGE_TABLE_PODCAST_DEL.getImageView());
+                btnDel.setGraphic(ProgIcons.IMAGE_TABLE_DEL.getImageView());
                 btnDel.setOnAction(event -> {
                     ProgData.getInstance().podcastList.removePodcast(podcast);
                 });
@@ -71,7 +71,7 @@ public class CellPodcastButton<S, T> extends TableCell<S, T> {
                 btnActive = new Button("");
                 btnActive.getStyleClass().addAll("btnFunction", "btnFuncTable");
                 btnActive.setTooltip(new Tooltip("Podcast ein-/ausschalten"));
-                btnActive.setGraphic(ProgIcons.IMAGE_TABLE_PODCAST_SET_ACTIVE.getImageView());
+                btnActive.setGraphic(ProgIcons.IMAGE_TABLE_OFF.getImageView());
                 btnActive.setOnAction(event -> {
                     ProgData.getInstance().worker.setPodcastActive(podcast);
                 });

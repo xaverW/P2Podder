@@ -117,7 +117,7 @@ public class P2PodderController extends BorderPane {
         btnSmallGui.setOnAction(e -> P2PodderFactory.selPanelSmallPodder());
         btnSmallGui.setMaxWidth(Double.MAX_VALUE);
         btnSmallGui.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnSmallGui.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_PODDER_24.getImageView());
+        btnSmallGui.setGraphic(ProgIcons.ICON_MENU_SMALL_PODDER_24.getImageView());
 
         btnEpisodes.setTooltip(new Tooltip("Episoden anzeigen"));
         btnEpisodes.setOnAction(e -> selPanelEpisode());

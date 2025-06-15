@@ -48,14 +48,14 @@ public class EpisodeMenu {
         vBox.getChildren().add(vBoxSpace);
 
         final ToolBarButton btStart = new ToolBarButton(vBox,
-                "Markierte Episoden abspielen", "Markierte Episoden abspielen", ProgIcons.ICON_TOOLBAR_EPISODE_START.getImageView());
+                "Markierte Episoden abspielen", "Markierte Episoden abspielen", ProgIcons.ICON_TOOLBAR_START.getImageView());
         final ToolBarButton btPlayNext = new ToolBarButton(vBox,
                 "Nächste gestartete Episoden abspielen", "Nächste gestartete Episoden abspielen",
-                ProgIcons.ICON_TOOLBAR_EPISODE_PLAY_NEXT.getImageView());
+                ProgIcons.ICON_TOOLBAR_PLAY_NEXT.getImageView());
         final ToolBarButton btStop = new ToolBarButton(vBox,
-                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", ProgIcons.ICON_TOOLBAR_EPISODE_STOP.getImageView());
+                "Alle laufenden Episoden stoppen", "Alle laufenden Episoden stoppen", ProgIcons.ICON_TOOLBAR_STOP.getImageView());
         final ToolBarButton btDel = new ToolBarButton(vBox,
-                "Markierte Episoden löschen", "Markierte Episoden löschen", ProgIcons.ICON_TOOLBAR_EPISODE_DEL.getImageView());
+                "Markierte Episoden löschen", "Markierte Episoden löschen", ProgIcons.ICON_TOOLBAR_DEL.getImageView());
         final ToolBarButton btInfo = new ToolBarButton(vBox,
                 "Info-Dialog anzeigen", "Info-Dialog anzeigen", ProgIcons.ICON_TOOLBAR_INFO.getImageView());
 

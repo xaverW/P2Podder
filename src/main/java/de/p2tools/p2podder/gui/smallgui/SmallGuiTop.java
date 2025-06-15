@@ -48,7 +48,7 @@ public class SmallGuiTop extends HBox {
         btnRadio.setOnAction(e -> progData.smallGuiPack.close());
         btnRadio.setMaxWidth(Double.MAX_VALUE);
         btnRadio.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnRadio.setGraphic(ProgIcons.ICON_TOOLBAR_SMALL_PODDER_20.getImageView());
+        btnRadio.setGraphic(ProgIcons.ICON_MENU_SMALL_PODDER_20.getImageView());
 
         btnClose.setTooltip(new Tooltip("Programm beenden"));
         btnClose.setOnAction(e -> {
