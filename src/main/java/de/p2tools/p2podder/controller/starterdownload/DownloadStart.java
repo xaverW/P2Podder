@@ -17,7 +17,7 @@
 package de.p2tools.p2podder.controller.starterdownload;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.guitools.P2SizeTools;
+import de.p2tools.p2lib.mediathek.tools.P2SizeTools;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2podder.controller.data.SetData;
 import de.p2tools.p2podder.controller.data.download.DownloadConstants;

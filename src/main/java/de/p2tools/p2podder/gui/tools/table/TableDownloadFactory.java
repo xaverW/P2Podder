@@ -2,7 +2,7 @@ package de.p2tools.p2podder.gui.tools.table;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2Open;
-import de.p2tools.p2lib.mtdownload.DownloadSizeData;
+import de.p2tools.p2lib.mediathek.download.DownloadSizeData;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import de.p2tools.p2lib.tools.file.P2FileSize;

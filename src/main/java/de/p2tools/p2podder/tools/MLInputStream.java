@@ -16,7 +16,7 @@
 
 package de.p2tools.p2podder.tools;
 
-import de.p2tools.p2lib.guitools.P2SizeTools;
+import de.p2tools.p2lib.mediathek.tools.P2SizeTools;
 import javafx.beans.property.IntegerProperty;
 
 import java.io.IOException;
