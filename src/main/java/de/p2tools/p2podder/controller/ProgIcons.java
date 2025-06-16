@@ -59,16 +59,17 @@ public class ProgIcons {
     public static P2Image ICON_TOOLBAR_MENU = new P2Image(ICON_PATH_LONG, "toolbar-menu.png", 18, 15);
     public static P2Image ICON_TOOLBAR_MENU_TOP = new P2Image(ICON_PATH_LONG, "toolbar-menu-top.png", 32, 18);
 
+
     public static P2Image ICON_TOOLBAR_CONFIG = new P2Image(ICON_PATH_LONG, "toolbar-config.png", 26, 26);
     public static P2Image ICON_TOOLBAR_DEL = new P2Image(ICON_PATH_LONG, "toolbar-del.png", 26, 26);
     public static P2Image ICON_TOOLBAR_DOWNLOAD_CLEAN = new P2Image(ICON_PATH_LONG, "toolbar-download-clean.png", 26, 26);
-    public static P2Image ICON_TOOLBAR_DOWNLOAD_UNDO = new P2Image(ICON_PATH_LONG, "toolbar-download-undo.png", 26, 26);
     public static P2Image ICON_TOOLBAR_DOWNLOAD_START = new P2Image(ICON_PATH_LONG, "toolbar-download-start.png", 26, 26);
     public static P2Image ICON_TOOLBAR_DOWNLOAD_START_ALL = new P2Image(ICON_PATH_LONG, "toolbar-download-start-all.png", 26, 26);
+    public static P2Image ICON_TOOLBAR_DOWNLOAD_UNDO = new P2Image(ICON_PATH_LONG, "toolbar-download-undo.png", 26, 26);
     public static P2Image ICON_TOOLBAR_PLAY_NEXT = new P2Image(ICON_PATH_LONG, "toolbar-play-next.png", 26, 26);
+    public static P2Image ICON_TOOLBAR_REFRESH = new P2Image(ICON_PATH_LONG, "toolbar-refresh.png", 26, 26);
+    public static P2Image ICON_TOOLBAR_START = new P2Image(ICON_PATH_LONG, "toolbar-start.png", 26, 26);
+    public static P2Image ICON_TOOLBAR_STOP = new P2Image(ICON_PATH_LONG, "toolbar-stop.png", 26, 26);
     public static P2Image ICON_TOOLBAR_INFO = new P2Image(ICON_PATH_LONG, "toolbar-info_26.png", 26, 26);
     public static P2Image ICON_TOOLBAR_NEW = new P2Image(ICON_PATH_LONG, "toolbar-new.png", 26, 26);
-    public static P2Image ICON_TOOLBAR_REFRESH = new P2Image(ICON_PATH_LONG, "toolbar-refresh.png", 26, 26);
-    public static P2Image ICON_TOOLBAR_STOP = new P2Image(ICON_PATH_LONG, "toolbar-stop.png", 26, 26);
-    public static P2Image ICON_TOOLBAR_START = new P2Image(ICON_PATH_LONG, "toolbar-start.png", 26, 26);
 }

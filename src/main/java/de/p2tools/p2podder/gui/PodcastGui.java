@@ -58,7 +58,7 @@ public class PodcastGui {
 
     public Pane pack() {
         // Menü
-        final MenuController menuController = new MenuController(MenuController.StartupMode.STATION);
+        final MenuController menuController = new MenuController(MenuController.StartupMode.PODCAST);
         menuController.setId("station-menu-pane");
 
         // Gui
