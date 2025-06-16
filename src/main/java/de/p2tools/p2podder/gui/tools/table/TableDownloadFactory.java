@@ -43,7 +43,7 @@ public class TableDownloadFactory {
 
                 setText(item);
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -67,7 +67,7 @@ public class TableDownloadFactory {
                     setGraphic(label);
                 }
 
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -88,7 +88,7 @@ public class TableDownloadFactory {
                 setText(item + "");
 
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -114,7 +114,7 @@ public class TableDownloadFactory {
                 }
 
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -140,7 +140,7 @@ public class TableDownloadFactory {
                 }
 
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -169,7 +169,7 @@ public class TableDownloadFactory {
                 setGraphic(box);
 
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -188,7 +188,7 @@ public class TableDownloadFactory {
 
                 setText(P2LDateFactory.toString(item));
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -207,7 +207,7 @@ public class TableDownloadFactory {
 
                 setText(P2LDateTimeFactory.toString(item));
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -227,7 +227,7 @@ public class TableDownloadFactory {
                 setGraphic(null);
                 setText(item.getSizeStr());
                 DownloadData data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
@@ -359,33 +359,47 @@ public class TableDownloadFactory {
                 }
 
                 DownloadData download = getTableView().getItems().get(getIndex());
-                set(tableEnum, download, this);
+                set(download, this);
             }
         });
     }
 
-    private static void set(Table.TABLE_ENUM tableEnum, DownloadData download, TableCell tableCell) {
+    private static void set(DownloadData download, TableCell tableCell) {
         switch (download.getState()) {
             case DownloadConstants.STATE_STARTED_WAITING:
                 if (ProgColorList.DOWNLOAD_WAIT.isUse()) {
                     tableCell.setStyle(ProgColorList.DOWNLOAD_WAIT.getCssFont());
+                } else {
+                    tableCell.setStyle("");
                 }
                 break;
+
             case DownloadConstants.STATE_STARTED_RUN:
                 if (ProgColorList.DOWNLOAD_RUN.isUse()) {
                     tableCell.setStyle(ProgColorList.DOWNLOAD_RUN.getCssFont());
+                } else {
+                    tableCell.setStyle("");
                 }
                 break;
+
             case DownloadConstants.STATE_FINISHED:
                 if (ProgColorList.DOWNLOAD_FINISHED.isUse()) {
                     tableCell.setStyle(ProgColorList.DOWNLOAD_FINISHED.getCssFont());
+                } else {
+                    tableCell.setStyle("");
                 }
                 break;
+
             case DownloadConstants.STATE_ERROR:
                 if (ProgColorList.DOWNLOAD_ERROR.isUse()) {
                     tableCell.setStyle(ProgColorList.DOWNLOAD_ERROR.getCssFont());
+                } else {
+                    tableCell.setStyle("");
                 }
                 break;
+
+            default:
+                tableCell.setStyle("");
         }
     }
 }

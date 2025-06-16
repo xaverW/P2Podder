@@ -174,7 +174,7 @@ public class SmallGuiCenter extends VBox {
         tableView.setRowFactory(tableView -> {
             TableRowEpisode<Episode> row = new TableRowEpisode<>();
             row.hoverProperty().addListener((observable) -> {
-                final Episode episode = (Episode) row.getItem();
+                final Episode episode = row.getItem();
                 if (row.isHover() && episode != null) {
                     progData.episodeInfoDialogController.setEpisode(episode);
                     smallGuiPack.setEpisodeInfoBox(episode);

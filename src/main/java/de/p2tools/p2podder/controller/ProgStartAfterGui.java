@@ -103,49 +103,48 @@ public class ProgStartAfterGui {
         P2Log.sysLog("erster Programmstart, ein paar Pods eintragen");
 
         Podcast podcast = new Podcast();
-        podcast.setName("Deutschlandfunk – Der Tag");
+        podcast.setName("DRadio-Europa Heute");
         podcast.setGenre("Nachrichten");
         podcast.setMaxAge(40);
-        podcast.setUrl("https://www.deutschlandfunk.de/podcast-104.xml");
-        podcast.setWebsite("https://www.deutschlandfunk.de");
-        podcast.setDescription("Ausgewählte Themen hintergründig eingeordnet – das ist der Anspruch unseres " +
-                "täglichen Podcasts „Der Tag“. Was steckt hinter einer Nachricht und was ergibt sich daraus?");
+        podcast.setUrl("https://www.deutschlandfunk.de/europa-heute-104.xml");
+        podcast.setWebsite("https://www.deutschlandfunk.de/europa-heute-100.html");
+        podcast.setDescription("In \"Europa heute\" wird unser Kontinent konkret. Unsere Reporter betrachten " +
+                "Alltagsphänomene und stellen sie in den großen, politischen " +
+                "Zusammenhang. \"Europa heute\" erklärt und schildert.");
         ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.setName("Auf den Punkt - der SZ-Nachrichtenpodcast");
-        podcast.setGenre("Nachrichten");
+        podcast.setName("Forschung Aktuell - Deutschlandfunk");
+        podcast.setGenre("Forschung");
         podcast.setMaxAge(40);
-        podcast.setUrl("https://sz-auf-den-punkt.podigee.io/feed/mp3");
-        podcast.setWebsite("https://www.sueddeutsche.de/");
-        podcast.setDescription("Die Nachrichten des Tages - als Podcast auf den Punkt gebracht. " +
-                "Bleiben Sie auf dem Laufenden mit aktuellen Meldungen, Interviews und " +
-                "Hintergrundberichten. Kostenlos und immer aktuell. Jeden Montag bis Freitag um 17 Uhr.");
+        podcast.setUrl("https://www.deutschlandfunk.de/forschung-aktuell-104.xml");
+        podcast.setWebsite("https://www.deutschlandfunk.de/forschung-aktuell-100.html");
+        podcast.setDescription("Täglich das Neueste aus Naturwissenschaft, Medizin und Technik. Berichte, " +
+                "Reportagen und Interviews aus der Welt der Wissenschaft. Ob Astronomie, Biologie, " +
+                "Chemie, Geologie, Ökologie, Physik oder Raumfahrt: Forschung Aktuell liefert Wissen im " +
+                "Kontext und Bildung mit Unterhaltungswert.");
         ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.setName("Der Utopia-Podcast – Einfach nachhaltig leben");
-        podcast.setGenre("Ökologie");
+        podcast.setName("Computer und Kommunikation (komplette Sendung) - Deutschlandfunk");
+        podcast.setGenre("Computer");
         podcast.setMaxAge(40);
-        podcast.setUrl("https://utopia.podigee.io/feed/mp3");
-        podcast.setWebsite("https://utopia.de/");
-        podcast.setDescription("Alle sprechen von Nachhaltigkeit – aber was ist damit eigentlich gemeint? " +
-                "Ist es nur Marketing – oder die einzige Möglichkeit, wie wir die kommenden " +
-                "ökologischen Herausforderungen meistern können? Der Utopia-Podcast hilft, " +
-                "den Überblick zu behalten! Und zwar nicht abgehoben, sondern ganz alltagsnah, " +
-                "mit vielen Tipps und nützlichen Hinweisen.");
+        podcast.setUrl("https://www.deutschlandfunk.de/computer-und-kommunikation-102.xml");
+        podcast.setWebsite("https://www.deutschlandfunk.de/computer-und-kommunikation-102.html");
+        podcast.setDescription("Jeden Samstag das Neueste aus Computertechnik und Informationstechnologie. " +
+                "Beiträge, Reportagen und Interviews zu IT-Sicherheit, Informatik, " +
+                "Datenschutz, Smartphones, Cloud-Computing und IT-Politik. Die Trends der IT " +
+                "werden kompakt und informativ zusammengefasst.");
         ProgData.getInstance().podcastList.addNewItem(podcast);
 
         podcast = new Podcast();
-        podcast.setName("Radio Tux");
-        podcast.setGenre("Linux");
+        podcast.setName("DRadio-Umwelt und Verbraucher");
+        podcast.setGenre("Umweltschutz");
         podcast.setMaxAge(40);
-        podcast.setUrl("http://prometheus.radiotux.de/index.php?/feeds/index.rss2");
-        podcast.setWebsite("https://radiotux.de");
-        podcast.setDescription("RadioTux ist ein 2001 gegründetes Podcast-Projekt mit den thematischen " +
-                "Schwerpunkten Linux, Open Source und Netzkultur. Es produziert in " +
-                "regelmäßigen Abständen verschiedene Formate und hat sich zu einem " +
-                "gefragten Medienpartner für OpenSource Events entwickelt.");
+        podcast.setUrl("https://www.deutschlandfunk.de/umwelt-und-verbraucher-102.xml");
+        podcast.setWebsite("https://www.deutschlandfunk.de/umwelt-und-verbraucher-100.html");
+        podcast.setDescription("Von Mülltrennung bis Klimaschutz – alles, was die Umwelt bewegt und wie sie sich verändert. " +
+                "Dazu Informationen für Verbraucher. Politisch und praktisch mit viel Nutzen für den Alltag.");
         ProgData.getInstance().podcastList.addNewItem(podcast);
     }
 

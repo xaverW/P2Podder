@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 public class DirectHttpDownload extends Thread {
 
-    private static final int TIMEOUT_LENGTH = 5000; //HTTP Timeout in milliseconds
+    private static final int TIMEOUT_LENGTH = 3000; //HTTP Timeout in milliseconds
 
     private final ProgData progData;
     private final DownloadData download;
@@ -189,7 +189,10 @@ public class DirectHttpDownload extends Thread {
             P2Log.errorLog(643298301, ex);
         } finally {
             if (connection != null) {
-                connection.disconnect();
+                try {
+                    connection.disconnect();
+                } catch (Exception ignore) {
+                }
             }
         }
         return ret;

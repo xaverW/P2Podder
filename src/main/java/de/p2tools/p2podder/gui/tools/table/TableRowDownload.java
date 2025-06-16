@@ -23,49 +23,57 @@ import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.Tooltip;
 
-public class TableRowDownload<T extends DownloadData> extends TableRow {
+public class TableRowDownload<T extends DownloadData> extends TableRow<T> {
 
     public TableRowDownload() {
     }
 
     @Override
-    public void updateItem(Object f, boolean empty) {
-        super.updateItem(f, empty);
+    public void updateItem(T download, boolean empty) {
+        super.updateItem(download, empty);
 
-        if (f == null || empty) {
+        if (download == null || empty) {
             setStyle("");
             setTooltip(null);
 
         } else {
-            DownloadData download = (DownloadData) f;
             if (download.getDownloadStart() != null && download.getDownloadStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(download.getDownloadStart().getStartStatus().getErrorMessage());
                 setTooltip(tooltip);
             }
 
-            setStyle("");
             switch (download.getState()) {
                 case DownloadConstants.STATE_STARTED_WAITING:
                     if (ProgColorList.DOWNLOAD_WAIT_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_WAIT_BG.getCssBackground());
+                    } else {
+                        setStyle("");
                     }
                     break;
                 case DownloadConstants.STATE_STARTED_RUN:
                     if (ProgColorList.DOWNLOAD_RUN_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_RUN_BG.getCssBackground());
+                    } else {
+                        setStyle("");
                     }
                     break;
                 case DownloadConstants.STATE_FINISHED:
                     if (ProgColorList.DOWNLOAD_FINISHED_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_FINISHED_BG.getCssBackground());
+                    } else {
+                        setStyle("");
                     }
                     break;
                 case DownloadConstants.STATE_ERROR:
                     if (ProgColorList.DOWNLOAD_ERROR_BG.isUse()) {
                         setStyle(ProgColorList.DOWNLOAD_ERROR_BG.getCssBackground());
+                    } else {
+                        setStyle("");
                     }
                     break;
+                default:
+                    setStyle("");
             }
         }
     }

@@ -230,7 +230,7 @@ public class EpisodeGuiController extends AnchorPane {
         tableView.setRowFactory(tableView -> {
             TableRowEpisode<Episode> row = new TableRowEpisode<>();
             row.hoverProperty().addListener((observable) -> {
-                final Episode episode = (Episode) row.getItem();
+                final Episode episode = row.getItem();
                 if (row.isHover() && episode != null) {
                     paneEpisodeInfo.setEpisode(episode);
                     progData.episodeInfoDialogController.setEpisode(episode);

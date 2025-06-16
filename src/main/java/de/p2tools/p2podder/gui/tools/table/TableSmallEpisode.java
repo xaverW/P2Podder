@@ -16,9 +16,6 @@
 
 package de.p2tools.p2podder.gui.tools.table;
 
-import de.p2tools.p2lib.guitools.ptable.P2CellIntMax;
-import de.p2tools.p2lib.guitools.ptable.P2CellLocalDate;
-import de.p2tools.p2lib.guitools.ptable.P2CellPFileSize;
 import de.p2tools.p2lib.tools.file.P2FileSize;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
@@ -65,46 +62,52 @@ public class TableSmallEpisode extends PTable<Episode> {
 
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        noColumn.setCellFactory(new P2CellIntMax<Episode, Integer>().cellFactory);
         noColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryIntegerMax(noColumn);
 
         final TableColumn<Episode, String> podcastNameColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_PODCAST_NAME);
         podcastNameColumn.setCellValueFactory(new PropertyValueFactory<>("podcastName"));
         podcastNameColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(podcastNameColumn);
 
         final TableColumn<Episode, String> titleColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_TITLE);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("episodeTitle"));
         titleColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(titleColumn);
 
         final TableColumn<Episode, String> genreColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(genreColumn);
 
-        final TableColumn<Episode, Integer> startColumn = new TableColumn<>("");
-        startColumn.setCellFactory(new CellSmallEpisodeButton<>().cellFactory);
+        final TableColumn<Episode, String> startColumn = new TableColumn<>("");
         startColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryButton(startColumn);
 
         final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
-        dateColumn.setCellFactory(new P2CellLocalDate<Episode, LocalDate>().cellFactory);
         dateColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryLocalDate(dateColumn);
 
         final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryString(durationColumn);
 
         final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
-        sizeColumn.setCellFactory(new P2CellPFileSize<Episode, P2FileSize>().cellFactory);
         sizeColumn.getStyleClass().add("alignCenter");
+        TableEpisodeFactory.columnFactoryP2FileSize(sizeColumn);
 
         final TableColumn<Episode, String> fileColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_NAME);
         fileColumn.setCellValueFactory(new PropertyValueFactory<>("fileName"));
         fileColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(fileColumn);
 
         final TableColumn<Episode, String> pathColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_PATH);
         pathColumn.setCellValueFactory(new PropertyValueFactory<>("filePath"));
         pathColumn.getStyleClass().add("alignCenterLeft");
+        TableEpisodeFactory.columnFactoryString(pathColumn);
 
         noColumn.setPrefWidth(50);
         podcastNameColumn.setPrefWidth(180);
@@ -119,10 +122,5 @@ public class TableSmallEpisode extends PTable<Episode> {
                 noColumn, podcastNameColumn, titleColumn, genreColumn,
                 startColumn, dateColumn, durationColumn,
                 sizeColumn, fileColumn, pathColumn);
-
-        setRowFactory(tableRow -> {
-            TableRowSmallEpisode row = new TableRowSmallEpisode<>();
-            return row;
-        });
     }
 }

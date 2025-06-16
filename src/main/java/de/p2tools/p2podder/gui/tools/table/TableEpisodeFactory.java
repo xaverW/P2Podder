@@ -22,7 +22,7 @@ public class TableEpisodeFactory {
     private TableEpisodeFactory() {
     }
 
-    public static void columnFactoryString(Table.TABLE_ENUM tableEnum, TableColumn<Episode, String> column) {
+    public static void columnFactoryString(TableColumn<Episode, String> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -36,12 +36,12 @@ public class TableEpisodeFactory {
 
                 setText(item);
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryInteger(Table.TABLE_ENUM tableEnum, TableColumn<Episode, Integer> column) {
+    public static void columnFactoryInteger(TableColumn<Episode, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -62,12 +62,12 @@ public class TableEpisodeFactory {
                 }
 
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryIntegerMax(Table.TABLE_ENUM tableEnum, TableColumn<Episode, Integer> column) {
+    public static void columnFactoryIntegerMax(TableColumn<Episode, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -88,13 +88,13 @@ public class TableEpisodeFactory {
                 }
 
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
 
-    public static void columnFactoryBoolean(Table.TABLE_ENUM tableEnum, TableColumn<Episode, Boolean> column) {
+    public static void columnFactoryBoolean(TableColumn<Episode, Boolean> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Boolean item, boolean empty) {
@@ -117,12 +117,12 @@ public class TableEpisodeFactory {
                 setGraphic(box);
 
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryLocalDate(Table.TABLE_ENUM tableEnum, TableColumn<Episode, LocalDate> column) {
+    public static void columnFactoryLocalDate(TableColumn<Episode, LocalDate> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
@@ -136,12 +136,12 @@ public class TableEpisodeFactory {
 
                 setText(P2LDateFactory.toString(item));
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryLocalDateTime(Table.TABLE_ENUM tableEnum, TableColumn<Episode, LocalDateTime> column) {
+    public static void columnFactoryLocalDateTime(TableColumn<Episode, LocalDateTime> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDateTime item, boolean empty) {
@@ -155,12 +155,12 @@ public class TableEpisodeFactory {
 
                 setText(P2LDateTimeFactory.toString(item));
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryP2FileSize(Table.TABLE_ENUM tableEnum, TableColumn<Episode, P2FileSize> column) {
+    public static void columnFactoryP2FileSize(TableColumn<Episode, P2FileSize> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(P2FileSize item, boolean empty) {
@@ -175,12 +175,12 @@ public class TableEpisodeFactory {
                 setGraphic(null);
                 setText(item.getSizeStr());
                 Episode data = getTableView().getItems().get(getIndex());
-                set(tableEnum, data, this);
+                set(data, this);
             }
         });
     }
 
-    public static void columnFactoryButton(Table.TABLE_ENUM tableEnum, TableColumn<Episode, String> column) {
+    public static void columnFactoryButton(TableColumn<Episode, String> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -245,12 +245,12 @@ public class TableEpisodeFactory {
                 hbox.getChildren().add(btnDel);
                 setGraphic(hbox);
 
-                set(tableEnum, episode, this);
+                set(episode, this);
             }
         });
     }
 
-    private static void set(Table.TABLE_ENUM tableEnum, Episode episode, TableCell tableCell) {
+    private static void set(Episode episode, TableCell tableCell) {
 
         final boolean started = EpisodeFactory.episodeIsStarted(episode);
         final boolean running = EpisodeFactory.episodeIsRunning(episode);
@@ -260,29 +260,48 @@ public class TableEpisodeFactory {
         tableCell.setStyle("");
         //und jetzt die Farben setzen
         if (error) {
+            // Fehler
             if (ProgColorList.EPISODE_ERROR.isUse()) {
                 tableCell.setStyle(ProgColorList.EPISODE_ERROR.getCssFont());
+            } else {
+                tableCell.setStyle("");
             }
 
-        } else if (started && !running) {
-            if (ProgColorList.EPISODE_STARTED.isUse()) {
-                tableCell.setStyle(ProgColorList.EPISODE_STARTED.getCssFont());
+        } else if (!started) {
+            // noch nicht gestartet
+            if (!running && history) {
+                if (ProgColorList.EPISODE_HISTORY.isUse()) {
+                    tableCell.setStyle(ProgColorList.EPISODE_HISTORY.getCssFont());
+                } else {
+                    tableCell.setStyle("");
+                }
+
+            } else if (episode.isNew()) {
+                //neue Episode
+                if (ProgColorList.EPISODE_NEW.isUse()) {
+                    tableCell.setStyle(ProgColorList.EPISODE_NEW.getCssFont());
+                } else {
+                    tableCell.setStyle("");
+                }
+            } else {
+                tableCell.setStyle("");
             }
 
-        } else if (running) {
-            if (ProgColorList.EPISODE_RUNNING.isUse()) {
-                tableCell.setStyle(ProgColorList.EPISODE_RUNNING.getCssFont());
-            }
+        } else {
+            // gestartet
+            if (!running) {
+                if (ProgColorList.EPISODE_STARTED.isUse()) {
+                    tableCell.setStyle(ProgColorList.EPISODE_STARTED.getCssFont());
+                } else {
+                    tableCell.setStyle("");
+                }
 
-        } else if (!error && !started && !running && history) {
-            if (ProgColorList.EPISODE_HISTORY.isUse()) {
-                tableCell.setStyle(ProgColorList.EPISODE_HISTORY.getCssFont());
-            }
-
-        } else if (episode.isNew()) {
-            //neue Episode
-            if (ProgColorList.EPISODE_NEW.isUse()) {
-                tableCell.setStyle(ProgColorList.EPISODE_NEW.getCssFont());
+            } else {
+                if (ProgColorList.EPISODE_RUNNING.isUse()) {
+                    tableCell.setStyle(ProgColorList.EPISODE_RUNNING.getCssFont());
+                } else {
+                    tableCell.setStyle("");
+                }
             }
         }
     }

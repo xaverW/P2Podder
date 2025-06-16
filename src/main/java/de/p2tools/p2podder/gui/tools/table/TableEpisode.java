@@ -80,51 +80,51 @@ public class TableEpisode extends PTable<Episode> {
         final TableColumn<Episode, Integer> noColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_NO);
         noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
         noColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryIntegerMax(this.table_enum, noColumn);
+        TableEpisodeFactory.columnFactoryIntegerMax(noColumn);
 
         final TableColumn<Episode, String> podcastNameColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_PODCAST_NAME);
         podcastNameColumn.setCellValueFactory(new PropertyValueFactory<>("podcastName"));
         podcastNameColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, podcastNameColumn);
+        TableEpisodeFactory.columnFactoryString(podcastNameColumn);
 
         final TableColumn<Episode, String> titleColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_TITLE);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("episodeTitle"));
         titleColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, titleColumn);
+        TableEpisodeFactory.columnFactoryString(titleColumn);
 
         final TableColumn<Episode, String> genreColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_GENRE);
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         genreColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, genreColumn);
+        TableEpisodeFactory.columnFactoryString(genreColumn);
 
         final TableColumn<Episode, String> startColumn = new TableColumn<>("");
         startColumn.getStyleClass().add("alignCenter");
-        TableEpisodeFactory.columnFactoryButton(this.table_enum, startColumn);
+        TableEpisodeFactory.columnFactoryButton(startColumn);
 
         final TableColumn<Episode, LocalDate> dateColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));
         dateColumn.getStyleClass().add("alignCenter");
-        TableEpisodeFactory.columnFactoryLocalDate(this.table_enum, dateColumn);
+        TableEpisodeFactory.columnFactoryLocalDate(dateColumn);
 
         final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         durationColumn.getStyleClass().add("alignCenter");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, durationColumn);
+        TableEpisodeFactory.columnFactoryString(durationColumn);
 
         final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));
         sizeColumn.getStyleClass().add("alignCenter");
-        TableEpisodeFactory.columnFactoryP2FileSize(this.table_enum, sizeColumn);
+        TableEpisodeFactory.columnFactoryP2FileSize(sizeColumn);
 
         final TableColumn<Episode, String> fileColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_NAME);
         fileColumn.setCellValueFactory(new PropertyValueFactory<>("fileName"));
         fileColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, fileColumn);
+        TableEpisodeFactory.columnFactoryString(fileColumn);
 
         final TableColumn<Episode, String> pathColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_PATH);
         pathColumn.setCellValueFactory(new PropertyValueFactory<>("filePath"));
         pathColumn.getStyleClass().add("alignCenterLeft");
-        TableEpisodeFactory.columnFactoryString(this.table_enum, pathColumn);
+        TableEpisodeFactory.columnFactoryString(pathColumn);
 
         noColumn.setPrefWidth(50);
         podcastNameColumn.setPrefWidth(180);

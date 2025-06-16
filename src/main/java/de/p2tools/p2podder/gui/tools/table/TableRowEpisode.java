@@ -24,21 +24,20 @@ import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.Tooltip;
 
-public class TableRowEpisode<T extends Episode> extends TableRow {
+public class TableRowEpisode<T extends Episode> extends TableRow<T> {
 
     public TableRowEpisode() {
     }
 
     @Override
-    public void updateItem(Object f, boolean empty) {
-        super.updateItem(f, empty);
+    public void updateItem(T episode, boolean empty) {
+        super.updateItem(episode, empty);
 
-        if (f == null || empty) {
+        if (episode == null || empty) {
             setStyle("");
             setTooltip(null);
 
         } else {
-            Episode episode = (Episode) f;
             if (episode.getStart() != null && episode.getStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
@@ -50,7 +49,6 @@ public class TableRowEpisode<T extends Episode> extends TableRow {
             final boolean error = episode.getStart() != null && episode.getStart().getStartStatus().isStateError();
             final boolean history = ProgData.getInstance().historyEpisodes.checkIfUrlAlreadyIn(episode.getEpisodeUrl());
 
-            setStyle("");
             if (episode.getStart() != null && episode.getStart().getStartStatus().isStateError()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(episode.getStart().getStartStatus().getErrorMessage());
@@ -61,27 +59,46 @@ public class TableRowEpisode<T extends Episode> extends TableRow {
             if (error) {
                 if (ProgColorList.EPISODE_ERROR_BG.isUse()) {
                     setStyle(ProgColorList.EPISODE_ERROR_BG.getCssBackground());
+                } else {
+                    setStyle("");
                 }
 
-            } else if (started && !running) {
-                if (ProgColorList.EPISODE_STARTED_BG.isUse()) {
-                    setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackground());
+            } else if (!started) {
+                // noch nicht gestartet
+                if (history) {
+                    if (ProgColorList.EPISODE_HISTORY_BG.isUse()) {
+                        setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackground());
+                    } else {
+                        setStyle("");
+                    }
+
+                } else if (episode.isNew()) {
+                    //neue Episode
+                    if (ProgColorList.EPISODE_NEW_BG.isUse()) {
+                        setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackground());
+                    } else {
+                        setStyle("");
+                    }
+
+                } else {
+                    setStyle("");
                 }
 
-            } else if (running) {
-                if (ProgColorList.EPISODE_RUNNING_BG.isUse()) {
-                    setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackground());
-                }
+            } else {
+                // gestartet
+                if (!running) {
+                    if (ProgColorList.EPISODE_STARTED_BG.isUse()) {
+                        setStyle(ProgColorList.EPISODE_STARTED_BG.getCssBackground());
+                    } else {
+                        setStyle("");
+                    }
 
-            } else if (!error && !started && !running && history) {
-                if (ProgColorList.EPISODE_HISTORY_BG.isUse()) {
-                    setStyle(ProgColorList.EPISODE_HISTORY_BG.getCssBackground());
-                }
-
-            } else if (episode.isNew()) {
-                //neue Episode
-                if (ProgColorList.EPISODE_NEW_BG.isUse()) {
-                    setStyle(ProgColorList.EPISODE_NEW_BG.getCssBackground());
+                } else {
+                    if (ProgColorList.EPISODE_RUNNING_BG.isUse()) {
+                        setStyle(ProgColorList.EPISODE_RUNNING_BG.getCssBackground());
+                    } else {
+                        setStyle("");
+                    }
                 }
             }
         }
