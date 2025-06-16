@@ -139,7 +139,7 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
         btnStart.setOnAction(event -> EpisodeFactory.playEpisode());
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
 
         initUrl();

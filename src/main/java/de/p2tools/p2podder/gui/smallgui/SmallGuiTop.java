@@ -56,7 +56,7 @@ public class SmallGuiTop extends HBox {
         });
         btnClose.setMaxWidth(Double.MAX_VALUE);
         btnClose.getStyleClass().addAll("btnFunction", "btnFunc-2");
-        btnClose.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
+        btnClose.setGraphic(ProgIcons.ICON_BUTTON_CLOSE.getImageView());
 
         btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
         btnClearFilter.setOnAction(e -> {

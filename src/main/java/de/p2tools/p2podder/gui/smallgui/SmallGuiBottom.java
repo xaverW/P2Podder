@@ -147,7 +147,7 @@ public class SmallGuiBottom extends VBox {
 
         btnStop.setTooltip(new Tooltip("alle laufenden Episoden stoppen"));
         btnStop.getStyleClass().add("btnSmallGui");
-        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP_PLAY.getImageView());
+        btnStop.setGraphic(ProgIcons.ICON_BUTTON_STOP.getImageView());
         btnStop.setOnAction(event -> EpisodeFactory.stopAllEpisode());
     }
 

@@ -16,16 +16,13 @@
 
 package de.p2tools.p2podder.gui.smallgui;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogOnly;
-import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2Listener;
 import de.p2tools.p2podder.controller.config.PEvents;
 import de.p2tools.p2podder.controller.config.ProgConfig;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
-import javafx.geometry.Insets;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -66,11 +63,12 @@ public class SmallGuiPack extends P2DialogOnly {
 
     @Override
     public void make() {
-        P2SmallGuiFactory.addBorderListener(getStage());
-        getVBoxCompleteDialog().getStyleClass().add("smallGui");
+//        P2SmallGuiFactory.addBorderListener(getStage());
+//        getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
-        vAll.setPadding(new Insets(25));
-        vAll.setSpacing(P2LibConst.DIST_BUTTON);
+//        vAll.setPadding(new Insets(25));
+//        vAll.setSpacing(P2LibConst.DIST_BUTTON);
+
         vAll.getChildren().addAll(smallGuiTop, smallGuiCenter, smallGuiBottom);
         VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);

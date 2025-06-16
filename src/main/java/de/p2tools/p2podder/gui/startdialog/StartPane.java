@@ -183,22 +183,22 @@ public class StartPane {
     }
 
     private javafx.scene.image.Image getImageDescription() {
-        final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-description.png";
+        final String path = "/de/p2tools/p2podder/res/startdialog/p2Podder-startpage-description.png";
         return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getImageHelpScreen1() {
-        final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-1.png";
+        final String path = "/de/p2tools/p2podder/res/startdialog/p2Podder-startpage-1.png";
         return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getImageHelpScreen2() {
-        final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-2.png";
+        final String path = "/de/p2tools/p2podder/res/startdialog/p2Podder-startpage-2.png";
         return new Image(path, 600, 600, true, true);
     }
 
     private javafx.scene.image.Image getImageHelpScreen3() {
-        final String path = "/de/p2tools/p2podder/res/p2Podder-startpage-3.png";
+        final String path = "/de/p2tools/p2podder/res/startdialog/p2Podder-startpage-3.png";
         return new Image(path, 600, 600, true, true);
     }
 }
