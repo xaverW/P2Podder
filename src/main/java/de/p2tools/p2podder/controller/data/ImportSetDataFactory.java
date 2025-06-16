@@ -47,6 +47,8 @@ public class ImportSetDataFactory {
         if (setDataList != null) {
             // damit die Variablen ersetzt werden
             SetDataList.progReplacePattern(setDataList);
+        } else {
+            P2Log.errorLog(956487459, "Konnte die Sets nicht anlegen!");
         }
         return setDataList;
     }

@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.configfile.ConfigFile;
 import de.p2tools.p2lib.configfile.ConfigReadFile;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -136,11 +137,18 @@ public class ProgStartBeforeGui {
     private static void addStandardSets() {
         Platform.runLater(() -> {
             P2Duration.onlyPing("Erster Start: PSet");
-            // kann ein Dialog aufgehen
-            final SetDataList pSet = ImportSetDataFactory.getStandarset();
-            if (pSet != null) {
-                ProgData.getInstance().setDataList.addSetData(pSet);
-                ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
+            try {
+                // kann ein Dialog aufgehen
+                final SetDataList pSet = ImportSetDataFactory.getStandarset();
+                if (pSet != null) {
+                    ProgData.getInstance().setDataList.addSetData(pSet);
+                    ProgConfig.SYSTEM_UPDATE_PROGSET_VERSION.setValue(pSet.version);
+                }
+            } catch (Exception ex) {
+                P2Log.errorLog(210124589, "Konnte die Sets nicht laden!");
+                P2Alert.showErrorAlert(ProgData.getInstance().primaryStage, "Sets einrichten",
+                        "Konnte die Sets zum Abspielen " +
+                                "der Episoden nicht einrichten");
             }
             P2Duration.onlyPing("Erster Start: PSet geladen");
         });

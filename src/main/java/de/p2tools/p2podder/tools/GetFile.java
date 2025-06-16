@@ -41,7 +41,7 @@ public class GetFile {
 
     public InputStreamReader getPsetTemplateWindows() {
         try {
-            return new InputStreamReader(getClass().getResource(PATH_PSET_WINDOWS).openStream(), StandardCharsets.UTF_8);
+            return new InputStreamReader(ClassLoader.getSystemResource(PATH_PSET_WINDOWS).openStream(), StandardCharsets.UTF_8);
         } catch (final IOException ex) {
             P2Log.errorLog(842306087, ex);
         }
