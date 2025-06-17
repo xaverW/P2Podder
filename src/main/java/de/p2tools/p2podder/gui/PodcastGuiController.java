@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
@@ -130,7 +131,7 @@ public class PodcastGuiController extends AnchorPane {
 
     private void selectPodcast() {
         Platform.runLater(() -> {
-            if ((tableView.getItems().size() == 0)) {
+            if ((tableView.getItems().isEmpty())) {
                 return;
             }
 
@@ -219,11 +220,7 @@ public class PodcastGuiController extends AnchorPane {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<Podcast> optionalStation = getSel(false);
                 Podcast podcast;
-                if (optionalStation.isPresent()) {
-                    podcast = optionalStation.get();
-                } else {
-                    podcast = null;
-                }
+                podcast = optionalStation.orElse(null);
                 ContextMenu contextMenu = new PodcastGuiTableContextMenu(progData, this, tableView).getContextMenu(podcast);
                 tableView.setContextMenu(contextMenu);
             }
@@ -247,18 +244,20 @@ public class PodcastGuiController extends AnchorPane {
                 }
             }
         });
-        tableView.setRowFactory(tableView -> {
+
+        tableView.setRowFactory(new P2RowMoveFactory<>(table -> {
             TableRow<Podcast> row = new TableRow<>();
             row.hoverProperty().addListener((observable) -> {
-                final Podcast filmDataMTP = (Podcast) row.getItem();
-                if (row.isHover() && filmDataMTP != null) {
-                    panePodcastInfo.setStation(filmDataMTP);
+                final Podcast podcast = row.getItem();
+                if (row.isHover() && podcast != null) {
+                    panePodcastInfo.setStation(podcast);
                 } else {
                     setPodcast();
                 }
             });
             return row;
-        });
+        }, progData.podcastList));
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(this::setPodcast)
         );

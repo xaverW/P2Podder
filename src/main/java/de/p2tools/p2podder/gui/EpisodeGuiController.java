@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
@@ -221,7 +222,7 @@ public class EpisodeGuiController extends AnchorPane {
                 tableView.setContextMenu(contextMenu);
             }
         });
-        tableView.setRowFactory(tableView -> {
+        tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
             TableRowEpisode<Episode> row = new TableRowEpisode<>();
             row.hoverProperty().addListener((observable) -> {
                 final Episode episode = row.getItem();
@@ -233,7 +234,8 @@ public class EpisodeGuiController extends AnchorPane {
                 }
             });
             return row;
-        });
+        }));
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             setSelectedEpisode();
         });

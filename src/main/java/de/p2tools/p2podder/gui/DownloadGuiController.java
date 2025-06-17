@@ -17,6 +17,7 @@
 package de.p2tools.p2podder.gui;
 
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.guitools.P2RowMoveFactory;
 import de.p2tools.p2lib.guitools.P2TableFactory;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneController;
 import de.p2tools.p2lib.guitools.pclosepane.P2ClosePaneDto;
@@ -274,7 +275,8 @@ public class DownloadGuiController extends AnchorPane {
                 tableView.setContextMenu(contextMenu);
             }
         });
-        tableView.setRowFactory(tableView -> {
+
+        tableView.setRowFactory(new P2RowMoveFactory<>(tv -> {
             TableRowDownload<DownloadData> row = new TableRowDownload<>();
             row.hoverProperty().addListener((observable) -> {
                 final DownloadData download = row.getItem();
@@ -285,7 +287,8 @@ public class DownloadGuiController extends AnchorPane {
                 }
             });
             return row;
-        });
+        }));
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             setSelectedDownload();
         });
