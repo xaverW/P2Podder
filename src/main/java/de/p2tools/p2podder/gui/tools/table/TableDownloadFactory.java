@@ -93,7 +93,7 @@ public class TableDownloadFactory {
         });
     }
 
-    public static void columnFactoryInteger(Table.TABLE_ENUM tableEnum, TableColumn<DownloadData, Integer> column) {
+    public static void columnFactoryDuration(Table.TABLE_ENUM tableEnum, TableColumn<DownloadData, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -110,7 +110,10 @@ public class TableDownloadFactory {
                     setText(null);
                 } else {
                     setGraphic(null);
-                    setText(item + "");
+                    int second = item % 60;
+                    String sStr = second < 10 ? "0" + second : second + "";
+                    String min = item / 60 + ":" + sStr;
+                    setText(min);
                 }
 
                 DownloadData data = getTableView().getItems().get(getIndex());

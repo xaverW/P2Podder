@@ -17,8 +17,10 @@
 package de.p2tools.p2podder.controller.data.episode;
 
 import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
+import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import de.p2tools.p2podder.controller.starterepisode.Start;
 
 import java.time.LocalDate;
@@ -34,9 +36,9 @@ public final class Episode extends EpisodeProps {
     }
 
     public Episode(DownloadData download) {
-        de.p2tools.p2podder.controller.data.podcast.Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
+        Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
 
-        setDuration(download.getDuration());
+        setDurationInt(download.getDurationInt());
         setDescription(download.getDescription());
         setEpisodeWebsite(download.getEpisodeWebsite());
         setEpisodeUrl(download.getEpisodeUrl());
@@ -73,15 +75,31 @@ public final class Episode extends EpisodeProps {
     }
 
     public boolean checkDays(long days) {
-        if (days == 0) {
+        if (getPubDate().isEqual(LocalDate.MIN)) {
+            // dann immer anzeigen
             return true;
         }
+
         final long timeRange = DAYS.between(getPubDate(), LocalDate.now());
         if (timeRange <= days) {
             return true;
         }
 
         return false;
+    }
+
+    public boolean checkDurationMin(long minute) {
+        if (getDurationInt() == ProgConst.FILTER_DURATION_MIN_VALUE) {
+            return true;
+        }
+        return getDurationInt() > minute * 60;
+    }
+
+    public boolean checkDurationMax(long minutes) {
+        if (getDurationInt() == ProgConst.FILTER_DURATION_MAX_MINUTE) {
+            return true;
+        }
+        return getDurationInt() < minutes * 60;
     }
 
     public void setThePodcast(de.p2tools.p2podder.controller.data.podcast.Podcast podcast) {

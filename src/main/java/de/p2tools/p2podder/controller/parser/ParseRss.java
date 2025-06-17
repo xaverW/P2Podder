@@ -28,6 +28,7 @@ import de.p2tools.p2lib.mediathek.filter.FilterCheck;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
+import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import org.jdom2.Element;
 
@@ -120,7 +121,7 @@ public class ParseRss {
                 if (podcast.getMaxAge() == FilterCheck.FILTER_ALL_OR_MIN || days <= podcast.getMaxAge()) {
                     DownloadData download = new DownloadData(uri, title, website, date, description, podcast);
                     download.getDownloadSize().setTargetSize(size);
-                    download.setDuration(duration);
+                    download.durationIntProperty().set(DownloadFactory.getDuration(duration));
                     downloads.add(download);
                 }
             }

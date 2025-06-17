@@ -22,6 +22,7 @@ import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import de.p2tools.p2lib.tools.file.P2FileSize;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -37,6 +38,7 @@ public class EpisodeProps extends P2DataSample<Episode> {
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty language = new SimpleStringProperty("");
     private final StringProperty duration = new SimpleStringProperty("");
+    private final IntegerProperty durationInt = new SimpleIntegerProperty(0); // länge in Sekunden
     private final StringProperty description = new SimpleStringProperty("");
     private final StringProperty fileName = new SimpleStringProperty("");
     private final StringProperty filePath = new SimpleStringProperty("");
@@ -58,6 +60,7 @@ public class EpisodeProps extends P2DataSample<Episode> {
         list.add(new Config_stringProp("genre", genre));
 
         list.add(new Config_stringProp("duration", duration));
+        list.add(new Config_intProp("durationInt", durationInt));
         list.add(new Config_stringProp("description", description));
         list.add(new Config_stringProp("fileName", fileName));
         list.add(new Config_stringProp("filePath", filePath));
@@ -129,16 +132,32 @@ public class EpisodeProps extends P2DataSample<Episode> {
         this.genre.set(genre);
     }
 
-    public String getDuration() {
+    public String getOldDuration() {
         return duration.get();
     }
 
-    public StringProperty durationProperty() {
-        return duration;
+    public void setOldDuration(String s) {
+        duration.set(s);
     }
 
-    public void setDuration(String duration) {
-        this.duration.set(duration);
+    public int getDurationInt() {
+        return durationInt.get();
+    }
+
+    public String getDurationStr() {
+        if (durationInt.get() == ProgConst.FILTER_DURATION_MIN_VALUE) {
+            return "";
+        } else {
+            return durationInt.get() + "";
+        }
+    }
+
+    public IntegerProperty durationIntProperty() {
+        return durationInt;
+    }
+
+    public void setDurationInt(int durationInt) {
+        this.durationInt.set(durationInt);
     }
 
     public String getDescription() {

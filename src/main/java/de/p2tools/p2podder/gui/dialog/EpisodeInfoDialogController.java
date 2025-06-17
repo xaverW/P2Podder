@@ -289,7 +289,7 @@ public class EpisodeInfoDialogController extends P2DialogExtra {
                         lblCont[i].setText(episode.getGenre());
                         break;
                     case EpisodeFieldNames.EPISODE_DURATION_NO:
-                        lblCont[i].setText(episode.getDuration());
+                        lblCont[i].setText(episode.getDurationStr());
                         break;
                     case EpisodeFieldNames.EPISODE_DESCRIPTION_NO:
                         taDescription.setText(episode.getDescription());

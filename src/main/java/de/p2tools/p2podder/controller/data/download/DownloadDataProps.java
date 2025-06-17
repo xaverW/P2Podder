@@ -42,6 +42,7 @@ public class DownloadDataProps extends P2DataSample<DownloadData> {
     private final StringProperty genre = new SimpleStringProperty("");
     private final StringProperty podcastName = new SimpleStringProperty("");
     private final StringProperty duration = new SimpleStringProperty("");
+    private final IntegerProperty durationInt = new SimpleIntegerProperty(0);
     private final StringProperty description = new SimpleStringProperty("");
     private final BooleanProperty placedBack = new SimpleBooleanProperty(false);
     private final DoubleProperty progress = new SimpleDoubleProperty(DownloadConstants.PROGRESS_NOT_STARTED);
@@ -72,6 +73,7 @@ public class DownloadDataProps extends P2DataSample<DownloadData> {
         list.add(new Config_stringProp("podcastName", podcastName));
 
         list.add(new Config_stringProp("duration", duration));
+        list.add(new Config_intProp("durationInt", durationInt));
         list.add(new Config_stringProp("description", description));
         list.add(new Config_boolProp("placedBack", placedBack));
         list.add(new Config_doubleProp("progress", progress));
@@ -174,27 +176,28 @@ public class DownloadDataProps extends P2DataSample<DownloadData> {
         this.podcastName.set(podcastName);
     }
 
-    public String getDuration() {
+    public String getOldDuration() {
         return duration.get();
     }
 
-    public StringProperty durationProperty() {
-        return duration;
+    public void setOldDuration(String s) {
+        duration.set(s);
     }
 
-    public void setDuration(String duration) {
-        if (!duration.contains(":")) {
-            try {
-                int dur = Integer.parseInt(duration);
-                this.duration.set(dur / 60 + ":" + dur % 60);
-            } catch (Exception e) {
-            }
+    public int getDurationInt() {
+        return durationInt.get();
+    }
+
+    public String getDurationStr() {
+        if (durationInt.get() == 0) {
+            return "";
         } else {
-            if (duration.startsWith("00:")) {
-                duration = duration.replaceFirst("00:", "");
-            }
-            this.duration.set(duration);
+            return durationInt.get() + "";
         }
+    }
+
+    public IntegerProperty durationIntProperty() {
+        return durationInt;
     }
 
     public String getDescription() {

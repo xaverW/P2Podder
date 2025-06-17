@@ -120,7 +120,7 @@ public class PaneDownloadInfo extends VBox {
 
         lblTitle.setText(downloadData.getEpisodeTitle() + "  -  " + downloadData.getGenre());
         lblDate.setText(P2LDateFactory.toString(downloadData.getPubDate()));
-        lblLength.setText(downloadData.getDuration());
+        lblLength.setText(downloadData.getDurationStr());
         lblSize.setText(downloadData.getDownloadSize().toString());
 
         hyperlinkWebsite.setUrl(downloadData.getEpisodeWebsite());

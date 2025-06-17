@@ -173,4 +173,59 @@ public class DownloadFactory {
     public static long countDownload(Podcast podcast) {
         return ProgData.getInstance().downloadList.stream().filter(p -> p.getPodcastId() == podcast.getId()).count();
     }
+
+    public static int getDuration(String duration) {
+        int ret = 0;
+        if (!duration.contains(":")) {
+            try {
+                ret = Integer.parseInt(duration);
+            } catch (Exception ignored) {
+            }
+
+        } else {
+            try {
+                // Sekunden
+                String last;
+                if (duration.contains(":")) {
+                    last = duration.substring(duration.lastIndexOf(":") + 1);
+                    duration = duration.substring(0, duration.lastIndexOf(":"));
+                } else {
+                    last = duration;
+                    duration = "";
+                }
+
+                int d = Integer.parseInt(last);
+                ret += d;
+
+                if (!duration.isEmpty()) {
+                    // Minuten
+                    if (duration.contains(":")) {
+                        last = duration.substring(duration.lastIndexOf(":") + 1);
+                        duration = duration.substring(0, duration.lastIndexOf(":"));
+                    } else {
+                        last = duration;
+                        duration = "";
+                    }
+
+                    d = Integer.parseInt(last) * 60;
+                    ret += d;
+                }
+
+                if (!duration.isEmpty()) {
+                    // Stunden
+                    if (duration.contains(":")) {
+                        last = duration.substring(duration.lastIndexOf(":") + 1);
+                    } else {
+                        last = duration;
+                    }
+
+                    d = Integer.parseInt(last) * 60 * 60;
+                    ret += d;
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        return ret;
+    }
 }

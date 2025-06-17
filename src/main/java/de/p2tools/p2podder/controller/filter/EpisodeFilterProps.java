@@ -31,6 +31,8 @@ public class EpisodeFilterProps extends P2DataSample<EpisodeFilter> implements C
     private final StringProperty title = new SimpleStringProperty("");
     private final StringProperty description = new SimpleStringProperty("");
     private final IntegerProperty timeRange = new SimpleIntegerProperty(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
+    private final IntegerProperty durationMin = new SimpleIntegerProperty(ProgConst.FILTER_DURATION_MIN_VALUE);
+    private final IntegerProperty durationMax = new SimpleIntegerProperty(ProgConst.FILTER_DURATION_MAX_MINUTE);
     private final BooleanProperty isAll = new SimpleBooleanProperty(true);//dient nur dazu, dass die anderen ausgeschaltet werden
     private final BooleanProperty isNew = new SimpleBooleanProperty(false);
     private final BooleanProperty isStartet = new SimpleBooleanProperty(false);
@@ -39,7 +41,7 @@ public class EpisodeFilterProps extends P2DataSample<EpisodeFilter> implements C
 
     public BooleanProperty[] sfBooleanPropArr = {isAll, isNew, isStartet, isRunning, wasShown};
     public StringProperty[] sfStringPropArr = {genre, title, description};
-    public IntegerProperty[] sfIntegerPropArr = {timeRange};
+    public IntegerProperty[] sfIntegerPropArr = {timeRange, durationMin, durationMax};
     public LongProperty[] sfLongPropArr = {podcastId};
 
     @Override
@@ -50,6 +52,8 @@ public class EpisodeFilterProps extends P2DataSample<EpisodeFilter> implements C
         list.add(new Config_stringProp("title", EpisodeFilterToXml.SELECTED_FILTER_TITLE, title));
         list.add(new Config_stringProp("description", EpisodeFilterToXml.SELECTED_FILTER_DESCRIPTION, description));
         list.add(new Config_intProp("timeRange", EpisodeFilterToXml.SELECTED_FILTER_TIME_RANGE, timeRange));
+        list.add(new Config_intProp("durationMin", durationMin));
+        list.add(new Config_intProp("durationMax", durationMax));
         list.add(new Config_boolProp("isAll", EpisodeFilterToXml.SELECTED_FILTER_IS_ALL, isAll));
         list.add(new Config_boolProp("isNew", EpisodeFilterToXml.SELECTED_FILTER_IS_NEW, isNew));
         list.add(new Config_boolProp("isStarted", EpisodeFilterToXml.SELECTED_FILTER_IS_STARTED, isStartet));
@@ -123,6 +127,31 @@ public class EpisodeFilterProps extends P2DataSample<EpisodeFilter> implements C
 
     public void setTimeRange(int timeRange) {
         this.timeRange.set(timeRange);
+    }
+
+
+    public int getDurationMin() {
+        return durationMin.get();
+    }
+
+    public IntegerProperty durationMinProperty() {
+        return durationMin;
+    }
+
+    public void setDurationMin(int durationMin) {
+        this.durationMin.set(durationMin);
+    }
+
+    public int getDurationMax() {
+        return durationMax.get();
+    }
+
+    public IntegerProperty durationMaxProperty() {
+        return durationMax;
+    }
+
+    public void setDurationMax(int durationMax) {
+        this.durationMax.set(durationMax);
     }
 
     public boolean isIsAll() {

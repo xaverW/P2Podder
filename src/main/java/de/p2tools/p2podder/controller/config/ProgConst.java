@@ -70,6 +70,9 @@ public class ProgConst {
     public static final int FILTER_TIME_RANGE_MIN_VALUE = 0;
     public static final int FILTER_TIME_RANGE_MAX_VALUE = 50;
 
+    public static final int FILTER_DURATION_MIN_VALUE = 0;
+    public static final int FILTER_DURATION_MAX_MINUTE = 100; // Länge [Sekunden]
+
     public static final int TABLE_SMALL_BUTTON = 18;
     public static final int EPISODE_FILTER_MAX_BACKWARD_SIZE = 10;
 }

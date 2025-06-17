@@ -123,10 +123,10 @@ public class TableDownload extends PTable<DownloadData> {
         downloadSizeColumn.getStyleClass().add("alignCenter");
         TableDownloadFactory.columnFactoryDownloadSizeData(this.table_enum, downloadSizeColumn);
 
-        final TableColumn<DownloadData, String> durationColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DURATION);
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        final TableColumn<DownloadData, Integer> durationColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DURATION);
+        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationInt"));
         durationColumn.getStyleClass().add("alignCenter");
-        TableDownloadFactory.columnFactoryString(this.table_enum, durationColumn);
+        TableDownloadFactory.columnFactoryDuration(this.table_enum, durationColumn);
 
         final TableColumn<DownloadData, LocalDate> dateColumn = new TableColumn<>(DownloadFieldNames.DOWNLOAD_DATE);
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("pubDate"));

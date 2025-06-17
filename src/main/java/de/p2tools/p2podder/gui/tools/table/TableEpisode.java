@@ -106,10 +106,10 @@ public class TableEpisode extends PTable<Episode> {
         dateColumn.getStyleClass().add("alignCenter");
         TableEpisodeFactory.columnFactoryLocalDate(dateColumn);
 
-        final TableColumn<Episode, String> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        final TableColumn<Episode, Integer> durationColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_DURATION);
+        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationInt"));
         durationColumn.getStyleClass().add("alignCenter");
-        TableEpisodeFactory.columnFactoryString(durationColumn);
+        TableEpisodeFactory.columnFactoryDuration(durationColumn);
 
         final TableColumn<Episode, P2FileSize> sizeColumn = new TableColumn<>(EpisodeFieldNames.EPISODE_FILE_SIZE);
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("pFileSize"));

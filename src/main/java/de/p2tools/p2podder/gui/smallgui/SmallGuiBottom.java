@@ -108,7 +108,7 @@ public class SmallGuiBottom extends VBox {
             lblTitle.setText("");
         } else {
             String date = P2LDateFactory.toString(episode.getPubDate());
-            String dur = episode.getDuration();
+            String dur = episode.getDurationStr();
             if (!date.isEmpty() && !dur.isEmpty()) {
                 lblDate.setText(date + "  /  " + dur);
             } else {

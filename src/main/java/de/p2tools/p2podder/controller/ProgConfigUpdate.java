@@ -19,7 +19,9 @@ package de.p2tools.p2podder.controller;
 
 import de.p2tools.p2podder.controller.config.ProgColorList;
 import de.p2tools.p2podder.controller.config.ProgConfig;
+import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.config.ProgInfos;
+import de.p2tools.p2podder.controller.data.download.DownloadFactory;
 
 public class ProgConfigUpdate {
     // hier werden geänderte Programmeinstellungen/Funktionen angepasst,
@@ -30,6 +32,7 @@ public class ProgConfigUpdate {
     public static void setUpdateDone() {
         ProgConfig.SYSTEM_CHANGE_LOG_DIR.setValue(true); // für Version 1
         ProgConfig.SYSTEM_RESET_COLOR.setValue(true); // Anpassung der Farben
+        ProgConfig.SYSTEM_SET_DURATION_INT.setValue(true); // Ändern der Duration auf int
     }
 
     public static void update() {
@@ -73,6 +76,22 @@ public class ProgConfigUpdate {
 
             ProgColorList.DOWNLOAD_ERROR_BG.setUse(true);
             ProgColorList.DOWNLOAD_ERROR.setUse(false);
+        }
+
+        if (!ProgConfig.SYSTEM_SET_DURATION_INT.getValue()) {
+            ProgData.getInstance().downloadList.forEach(download -> {
+                if (!download.getOldDuration().isEmpty()) {
+                    download.durationIntProperty().set(DownloadFactory.getDuration(download.getOldDuration()));
+                    download.setOldDuration("");
+                }
+            });
+            ProgData.getInstance().episodeList.forEach(episode -> {
+                if (!episode.getOldDuration().isEmpty()) {
+                    episode.durationIntProperty().set(DownloadFactory.getDuration(episode.getOldDuration()));
+                    episode.setOldDuration("");
+                }
+            });
+
         }
 
         setUpdateDone();

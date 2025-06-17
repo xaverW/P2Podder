@@ -44,6 +44,8 @@ public class EpisodeFilter extends EpisodeFilterProps {
         setTitle("");
         setDescription("");
         setTimeRange(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
+        setDurationMin(ProgConst.FILTER_DURATION_MIN_VALUE);
+        setDurationMax(ProgConst.FILTER_DURATION_MAX_MINUTE);
     }
 
     public EpisodeFilterForwardBackward getEpisodeFilterForwardBackward() {
@@ -56,6 +58,8 @@ public class EpisodeFilter extends EpisodeFilterProps {
         titleProperty().addListener(l -> setPredicate());
         descriptionProperty().addListener(l -> setPredicate());
         timeRangeProperty().addListener(l -> setPredicate());
+        durationMinProperty().addListener(l -> setPredicate());
+        durationMaxProperty().addListener(l -> setPredicate());
 
         isAllProperty().addListener(l -> setPredicate());
         isNewProperty().addListener(l -> setPredicate());
@@ -99,15 +103,21 @@ public class EpisodeFilter extends EpisodeFilterProps {
             predicate = predicate.and(episode -> episode.checkDays(getTimeRange()));
         }
 
+        if (getDurationMin() != ProgConst.FILTER_DURATION_MIN_VALUE) {
+            predicate = predicate.and(episode -> episode.checkDurationMin(getDurationMin()));
+        }
+        if (getDurationMax() != ProgConst.FILTER_DURATION_MAX_MINUTE) {
+            predicate = predicate.and(episode -> episode.checkDurationMax(getDurationMax()));
+        }
 
         if (isIsNew()) {
-            predicate = predicate.and(episode -> episode.isNew());
+            predicate = predicate.and(Episode::isNew);
         }
         if (isIsStartet()) {
-            predicate = predicate.and(episode -> EpisodeFactory.episodeIsStarted(episode));
+            predicate = predicate.and(EpisodeFactory::episodeIsStarted);
         }
         if (isIsRunning()) {
-            predicate = predicate.and(episode -> EpisodeFactory.episodeIsRunning(episode));
+            predicate = predicate.and(EpisodeFactory::episodeIsRunning);
         }
         if (isWasShown()) {
             predicate = predicate.and(episode -> ProgData.getInstance().historyEpisodes.

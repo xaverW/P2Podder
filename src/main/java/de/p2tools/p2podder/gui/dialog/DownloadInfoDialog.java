@@ -96,7 +96,7 @@ public class DownloadInfoDialog extends P2DialogExtra {
 
         ++row;
         gridAdd(DownloadFieldNames.DOWNLOAD_SIZE, downloadData.getDownloadSize().toString() + " MB",
-                DownloadFieldNames.DOWNLOAD_DURATION, downloadData.getDuration(), row);
+                DownloadFieldNames.DOWNLOAD_DURATION, downloadData.getDurationStr(), row);
 
         ++row;
         gridAdd(DownloadFieldNames.DOWNLOAD_DEST_FILE_NAME, downloadData.getDestFileName(), row);

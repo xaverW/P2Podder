@@ -122,7 +122,7 @@ public class PaneEpisodeInfo extends VBox {
         lblTitle.setText(episode.getEpisodeTitle());
         lblGenre.setText(episode.getGenre());
         lblDate.setText(P2LDateFactory.toString(episode.getPubDate()));
-        lblLength.setText(episode.getDuration());
+        lblLength.setText(episode.getDurationStr());
         size.setText(episode.getPFileSize().getSizeStr());
         hyperlinkWebsite.setUrl(episode.getEpisodeWebsite());
         taDescription.textProperty().bindBidirectional(episode.descriptionProperty());

@@ -41,7 +41,7 @@ public class TableEpisodeFactory {
         });
     }
 
-    public static void columnFactoryInteger(TableColumn<Episode, Integer> column) {
+    public static void columnFactoryDuration(TableColumn<Episode, Integer> column) {
         column.setCellFactory(c -> new TableCell<>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -58,7 +58,10 @@ public class TableEpisodeFactory {
                     setText(null);
                 } else {
                     setGraphic(null);
-                    setText(item + "");
+                    int second = item % 60;
+                    String sStr = second < 10 ? "0" + second : second + "";
+                    String min = item / 60 + ":" + sStr;
+                    setText(min);
                 }
 
                 Episode data = getTableView().getItems().get(getIndex());

@@ -18,6 +18,7 @@ package de.p2tools.p2podder.gui.filter;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -44,6 +45,8 @@ public class EpisodeFilterController extends VBox {
     private final TextField txtTitle = new TextField();
     private final TextField txtDescription = new TextField();
     private final ProgData progData;
+    private final P2RangeBox slDur = new P2RangeBox("Länge:", true, 0, ProgConst.FILTER_DURATION_MAX_MINUTE);
+
 
     private final Slider slTimeRange = new Slider();
     private final Label lblTimeRangeValue = new Label();
@@ -74,15 +77,21 @@ public class EpisodeFilterController extends VBox {
         VBox.setVgrow(this, Priority.ALWAYS);
         setPadding(new Insets(P2LibConst.PADDING));
         setSpacing(P2LibConst.DIST_BUTTON);
-        getChildren().addAll(scrollPane, vBoxTimeRange, vBoxGenre, vBoxTxt, P2GuiTools.getVBoxGrower());
+        getChildren().addAll(scrollPane, vBoxGenre, vBoxTxt, vBoxTimeRange, slDur, P2GuiTools.getVBoxGrower());
 
         Separator separator = new Separator();
         separator.getStyleClass().add("pseperator2");
         getChildren().addAll(P2GuiTools.getHDistance(10), separator, new EpisodeFilterControllerClearFilter());
 
+        initDurFilter();
         initDaysFilter();
         initTable();
         initFilter();
+    }
+
+    private void initDurFilter() {
+        slDur.minValueProperty().bindBidirectional(progData.episodeFilter.durationMinProperty());
+        slDur.maxValueProperty().bindBidirectional(progData.episodeFilter.durationMaxProperty());
     }
 
     private void initDaysFilter() {
