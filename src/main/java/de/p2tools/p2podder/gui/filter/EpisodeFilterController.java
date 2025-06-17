@@ -39,14 +39,13 @@ import javafx.util.StringConverter;
 
 public class EpisodeFilterController extends VBox {
     private final ScrollPane scrollPane = new ScrollPane();
-    private TableView<Podcast> tableView = new TableView<>();
-    private ComboBox<String> cboGenre = new ComboBox();
-    private TextField txtTitle = new TextField();
-    private TextField txtDescription = new TextField();
-    private ProgData progData;
+    private final TableView<Podcast> tableView = new TableView<>();
+    private final ComboBox<String> cboGenre = new ComboBox<>();
+    private final TextField txtTitle = new TextField();
+    private final TextField txtDescription = new TextField();
+    private final ProgData progData;
 
     private final Slider slTimeRange = new Slider();
-    private final Label lblTimeRange = new Label("Zeitraum:");
     private final Label lblTimeRangeValue = new Label();
 
     public EpisodeFilterController() {
@@ -56,6 +55,7 @@ public class EpisodeFilterController extends VBox {
         VBox vBoxTimeRange = new VBox(2);
         HBox h = new HBox();
         HBox hh = new HBox();
+        Label lblTimeRange = new Label("Zeitraum:");
         h.getChildren().addAll(lblTimeRange, hh, lblTimeRangeValue);
         HBox.setHgrow(hh, Priority.ALWAYS);
         lblTimeRange.setMinWidth(0);
@@ -138,7 +138,7 @@ public class EpisodeFilterController extends VBox {
         episodeColumn.getStyleClass().add("alignCenterLeft");
         tableView.getColumns().addAll(episodeColumn);
         tableView.setEditable(false);
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
 
     private void initFilter() {
@@ -211,7 +211,7 @@ public class EpisodeFilterController extends VBox {
         txtDescription.textProperty().addListener((observable, oldValue, newValue) -> fD.checkPattern());
     }
 
-    private Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactory
+    private final Callback<TableColumn<Podcast, String>, TableCell<Podcast, String>> cellFactory
             = (final TableColumn<Podcast, String> param) -> {
 
         final TableCell<Podcast, String> cell = new TableCell<Podcast, String>() {

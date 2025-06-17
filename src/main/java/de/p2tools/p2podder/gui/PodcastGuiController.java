@@ -49,12 +49,12 @@ public class PodcastGuiController extends AnchorPane {
     private final SplitPane splitPane = new SplitPane();
     private final ScrollPane scrollPane = new ScrollPane();
 
-    private PanePodcastInfo panePodcastInfo;
-    private P2ClosePaneController infoController;
+    private final PanePodcastInfo panePodcastInfo;
+    private final P2ClosePaneController infoController;
 
     private final TablePodcast tableView;
     private final ProgData progData;
-    private BooleanProperty bound = new SimpleBooleanProperty(false);
+    private final BooleanProperty bound = new SimpleBooleanProperty(false);
     private final SortedList<Podcast> sortedList;
     private final KeyCombination STRG_A = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_ANY);
     private final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);

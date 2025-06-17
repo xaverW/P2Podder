@@ -50,11 +50,10 @@ public class EpisodeGuiController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
-    private final ScrollPane scrollPane = new ScrollPane();
 
     private final TableEpisode tableView;
-    private P2ClosePaneController infoController;
-    private PaneEpisodeInfo paneEpisodeInfo;
+    private final P2ClosePaneController infoController;
+    private final PaneEpisodeInfo paneEpisodeInfo;
 
     private final RadioButton rbAll = new RadioButton("Alle");
     private final RadioButton rbNew = new RadioButton("Neu");
@@ -63,7 +62,7 @@ public class EpisodeGuiController extends AnchorPane {
     private final RadioButton rbWasShown = new RadioButton("Gehört");
 
     private final ProgData progData;
-    private BooleanProperty bound = new SimpleBooleanProperty(false);
+    private final BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public EpisodeGuiController() {
         progData = ProgData.getInstance();
@@ -83,26 +82,25 @@ public class EpisodeGuiController extends AnchorPane {
         rbWasShown.setToggleGroup(tg);
         rbNew.setToggleGroup(tg);
 
-        HBox hBoxDown = new HBox();
-        hBoxDown.setPadding(new Insets(5));
-        hBoxDown.setSpacing(15);
-        hBoxDown.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown);
+        HBox hBoxFilter = new HBox();
+        hBoxFilter.setPadding(new Insets(5));
+        hBoxFilter.setSpacing(15);
+        hBoxFilter.getChildren().addAll(new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown);
 
-        vBox.getChildren().addAll(hBoxDown, scrollPane);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
-
+        ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
+        vBox.getChildren().addAll(scrollPane, hBoxFilter);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
         paneEpisodeInfo = new PaneEpisodeInfo();
-        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
         P2ClosePaneDto infoDto = new P2ClosePaneDto(paneEpisodeInfo,
                 ProgConfig.EPISODE__PANE_INFO_IS_RIP,
                 ProgConfig.EPISODE__DIALOG_INFO_SIZE, ProgData.EPISODE_TAB_ON,
                 "Info", "Beschreibung", false);
-        list.add(infoDto);
-        infoController = new P2ClosePaneController(list, ProgConfig.EPISODE__INFO_IS_SHOWING);
+        infoController = new P2ClosePaneController(infoDto, ProgConfig.EPISODE__INFO_IS_SHOWING);
 
         ProgConfig.EPISODE__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.EPISODE__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
@@ -192,7 +190,7 @@ public class EpisodeGuiController extends AnchorPane {
         // hier wird das InfoPane ein- ausgeblendet
         P2ClosePaneFactory.setSplit(bound, splitPane,
                 infoController, false,
-                scrollPane, ProgConfig.EPISODE__INFO_DIVIDER, ProgConfig.EPISODE__INFO_IS_SHOWING);
+                vBox, ProgConfig.EPISODE__INFO_DIVIDER, ProgConfig.EPISODE__INFO_IS_SHOWING);
     }
 
     private void initFilter() {
@@ -218,11 +216,7 @@ public class EpisodeGuiController extends AnchorPane {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<Episode> optionalDownload = getSel(false);
                 Episode episode;
-                if (optionalDownload.isPresent()) {
-                    episode = optionalDownload.get();
-                } else {
-                    episode = null;
-                }
+                episode = optionalDownload.orElse(null);
                 ContextMenu contextMenu = new EpisodeGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
                 tableView.setContextMenu(contextMenu);
             }

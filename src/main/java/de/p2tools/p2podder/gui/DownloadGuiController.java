@@ -52,19 +52,17 @@ public class DownloadGuiController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
-    private final ScrollPane scrollPane = new ScrollPane();
     private final TableDownload tableView;
     private final RadioButton rbAll = new RadioButton("Alle");
     private final RadioButton rbStarted = new RadioButton("Gestartet");
     private final RadioButton rbLoading = new RadioButton("Lädt");
     private final RadioButton rbFinalized = new RadioButton("Abgeschlossen");
 
-    private P2ClosePaneController infoController;
-    private PaneDownloadInfo paneDownloadInfo;
+    private final P2ClosePaneController infoController;
+    private final PaneDownloadInfo paneDownloadInfo;
 
     private final ProgData progData;
-    private BooleanProperty bound = new SimpleBooleanProperty(false);
-    private BooleanProperty boolInfoOn = ProgConfig.DOWNLOAD__INFO_IS_SHOWING;
+    private final BooleanProperty bound = new SimpleBooleanProperty(false);
 
     public DownloadGuiController() {
         progData = ProgData.getInstance();
@@ -83,27 +81,25 @@ public class DownloadGuiController extends AnchorPane {
         rbLoading.setToggleGroup(tg);
         rbFinalized.setToggleGroup(tg);
 
-        HBox hBoxDown = new HBox();
-        hBoxDown.setPadding(new Insets(5));
-        hBoxDown.setSpacing(15);
-        hBoxDown.getChildren().addAll(new Label("Downloads: "), rbAll, rbStarted, rbLoading, rbFinalized);
+        HBox hBoxFilter = new HBox();
+        hBoxFilter.setPadding(new Insets(5));
+        hBoxFilter.setSpacing(15);
+        hBoxFilter.getChildren().addAll(new Label("Downloads: "), rbAll, rbStarted, rbLoading, rbFinalized);
 
-        vBox.getChildren().addAll(hBoxDown, scrollPane);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
-
+        ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(tableView);
 
-        boolInfoOn.addListener((observable, oldValue, newValue) -> setInfoPane());
+        vBox.getChildren().addAll(scrollPane, hBoxFilter);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
         paneDownloadInfo = new PaneDownloadInfo();
-        ArrayList<P2ClosePaneDto> list = new ArrayList<>();
         P2ClosePaneDto infoDto = new P2ClosePaneDto(paneDownloadInfo,
                 ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP,
                 ProgConfig.DOWNLOAD__DIALOG_INFO_SIZE, ProgData.DOWNLOAD_TAB_ON,
                 "Info", "Beschreibung", false);
-        list.add(infoDto);
-        infoController = new P2ClosePaneController(list, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
+        infoController = new P2ClosePaneController(infoDto, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
 
         ProgConfig.DOWNLOAD__INFO_IS_SHOWING.addListener((observable, oldValue, newValue) -> setInfoPane());
         ProgConfig.DOWNLOAD__PANE_INFO_IS_RIP.addListener((observable, oldValue, newValue) -> setInfoPane());
@@ -129,7 +125,7 @@ public class DownloadGuiController extends AnchorPane {
 
     public void copyUrl() {
         final Optional<DownloadData> download = getSel();
-        if (!download.isPresent()) {
+        if (download.isEmpty()) {
             return;
         }
         P2ToolsFactory.copyToClipboard(download.get().getEpisodeUrl());
@@ -147,21 +143,17 @@ public class DownloadGuiController extends AnchorPane {
     public void startDownload() {
         // bezieht sich auf den ausgewählten Episoden
         final Optional<DownloadData> download = getSel();
-        if (download.isPresent()) {
-            progData.downloadList.startDownloads(download.get());
-        }
+        download.ifPresent(downloadData -> progData.downloadList.startDownloads(downloadData));
     }
 
     public void stopDownload(boolean all) {
         // bezieht sich auf "alle" oder nur die markierten Download
         if (all) {
-            progData.downloadList.stream().forEach(download -> download.stopDownload());
+            progData.downloadList.forEach(DownloadData::stopDownload);
 
         } else {
             final Optional<DownloadData> download = getSel();
-            if (download.isPresent()) {
-                download.get().stopDownload();
-            }
+            download.ifPresent(DownloadData::stopDownload);
         }
     }
 
@@ -185,9 +177,7 @@ public class DownloadGuiController extends AnchorPane {
 
         } else {
             final Optional<DownloadData> download = getSel();
-            if (download.isPresent()) {
-                deleteDownloads(download.get());
-            }
+            download.ifPresent(this::deleteDownloads);
         }
     }
 
@@ -200,9 +190,7 @@ public class DownloadGuiController extends AnchorPane {
 
     public void showDownloadInfoDialog() {
         final Optional<DownloadData> download = getSel();
-        if (download.isPresent()) {
-            new DownloadInfoDialog(progData, download.get());
-        }
+        download.ifPresent(downloadData -> new DownloadInfoDialog(progData, downloadData));
     }
 
     public void saveTable() {
@@ -210,8 +198,7 @@ public class DownloadGuiController extends AnchorPane {
     }
 
     public ArrayList<DownloadData> getSelList() {
-        final ArrayList<DownloadData> ret = new ArrayList<>();
-        ret.addAll(tableView.getSelectionModel().getSelectedItems());
+        final ArrayList<DownloadData> ret = new ArrayList<>(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             P2Alert.showInfoNoSelection();
         }
@@ -258,7 +245,7 @@ public class DownloadGuiController extends AnchorPane {
     private void setInfoPane() {
         P2ClosePaneFactory.setSplit(bound, splitPane,
                 infoController, false,
-                scrollPane, ProgConfig.DOWNLOAD__INFO_DIVIDER, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
+                vBox, ProgConfig.DOWNLOAD__INFO_DIVIDER, ProgConfig.DOWNLOAD__INFO_IS_SHOWING);
     }
 
     private void initFilter() {
@@ -282,11 +269,7 @@ public class DownloadGuiController extends AnchorPane {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<DownloadData> optionalDownload = getSel(false);
                 DownloadData download;
-                if (optionalDownload.isPresent()) {
-                    download = optionalDownload.get();
-                } else {
-                    download = null;
-                }
+                download = optionalDownload.orElse(null);
                 ContextMenu contextMenu = new DownloadGuiTableContextMenu(progData, this, tableView).getContextMenu(download);
                 tableView.setContextMenu(contextMenu);
             }
@@ -294,7 +277,7 @@ public class DownloadGuiController extends AnchorPane {
         tableView.setRowFactory(tableView -> {
             TableRowDownload<DownloadData> row = new TableRowDownload<>();
             row.hoverProperty().addListener((observable) -> {
-                final DownloadData download = (DownloadData) row.getItem();
+                final DownloadData download = row.getItem();
                 if (row.isHover() && download != null) {
                     paneDownloadInfo.setDownload(download);
                 } else {
