@@ -93,6 +93,7 @@ public final class EpisodeFilterForwardBackward {
             //dann wars ein gewollter Filter
             return false;
         }
+
         date = new Date();
 
         if (ep.getPodcastId() != act.getPodcastId()) {
@@ -101,6 +102,24 @@ public final class EpisodeFilterForwardBackward {
         if (!ep.getGenre().equals(act.getGenre())) {
             return false;
         }
+
+        if (!ep.getTitle().equals(act.getTitle())) {
+            if (ep.getTitle().isEmpty() || act.getTitle().isEmpty()) {
+                //das erste Mal eintragen
+                return false;
+            } else {
+                return true;
+            }
+        }
+        if (!ep.getDescription().equals(act.getDescription())) {
+            if (ep.getDescription().isEmpty() || act.getDescription().isEmpty()) {
+                //das erste Mal eintragen
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         if (ep.getTimeRange() != act.getTimeRange()) {
             if (ep.getTimeRange() == ProgConst.FILTER_TIME_RANGE_ALL_VALUE ||
                     act.getTimeRange() == ProgConst.FILTER_TIME_RANGE_ALL_VALUE) {
@@ -110,17 +129,18 @@ public final class EpisodeFilterForwardBackward {
                 return true;
             }
         }
-        if (!ep.getTitle().equals(act.getTitle())) {
-            if (ep.getTitle().isEmpty() || act.getTitle().isEmpty()) {
+        if (ep.getDurationMin() != act.getDurationMin()) {
+            if (ep.getDurationMin() == ProgConst.FILTER_DURATION_MIN_VALUE ||
+                    act.getDurationMin() == ProgConst.FILTER_DURATION_MAX_MINUTE) {
                 //das erste Mal eintragen
                 return false;
             } else {
                 return true;
             }
         }
-
-        if (!ep.getDescription().equals(act.getDescription())) {
-            if (ep.getDescription().isEmpty() || act.getDescription().isEmpty()) {
+        if (ep.getDurationMax() != act.getDurationMax()) {
+            if (ep.getDurationMax() == ProgConst.FILTER_DURATION_MIN_VALUE ||
+                    act.getDurationMax() == ProgConst.FILTER_DURATION_MAX_MINUTE) {
                 //das erste Mal eintragen
                 return false;
             } else {
@@ -194,12 +214,9 @@ public final class EpisodeFilterForwardBackward {
         if (filterListBackward.isEmpty()) {
             return false;
         }
+
         if (filterListBackward.size() == 1) {
-            if (!EpisodeFilterFactory.compareFilter(actFilter, filterListBackward.get(0))) {
-                return true;
-            } else {
-                return false;
-            }
+            return !EpisodeFilterFactory.compareFilter(actFilter, filterListBackward.get(0));
         }
 
         //dann wird schon ein passender dabei sein :)

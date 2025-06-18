@@ -57,7 +57,7 @@ public class EpisodeFilterControllerClearFilter extends HBox {
 
         btnClearFilter.setGraphic(ProgIcons.ICON_BUTTON_CLEAR_FILTER.getImageView());
         btnClearFilter.setOnAction(a -> clearFilter());
-        btnClearFilter.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
+        btnClearFilter.setTooltip(new Tooltip("Filter löschen"));
 
         btnGoBack.setMaxHeight(Double.MAX_VALUE);
         btnGoForward.setMaxHeight(Double.MAX_VALUE);

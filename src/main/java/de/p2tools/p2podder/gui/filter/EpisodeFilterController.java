@@ -90,8 +90,26 @@ public class EpisodeFilterController extends VBox {
     }
 
     private void initDurFilter() {
-        slDur.minValueProperty().bindBidirectional(progData.episodeFilter.durationMinProperty());
-        slDur.maxValueProperty().bindBidirectional(progData.episodeFilter.durationMaxProperty());
+        slDur.minValueProperty().set(progData.episodeFilter.getDurationMin());
+        slDur.maxValueProperty().set(progData.episodeFilter.getDurationMax());
+
+        progData.episodeFilter.durationMinProperty().addListener(l ->
+                slDur.minValueProperty().set(progData.episodeFilter.getDurationMin()));
+        progData.episodeFilter.durationMaxProperty().addListener(l ->
+                slDur.maxValueProperty().set(progData.episodeFilter.getDurationMax()));
+
+        slDur.getSlider().lowValueChangingProperty().addListener((u, o, n) -> {
+            if (!n) {
+                // dann ist er fertig
+                progData.episodeFilter.setDurationMin(slDur.getActMinValue());
+            }
+        });
+        slDur.getSlider().highValueChangingProperty().addListener((u, o, n) -> {
+            if (!n) {
+                // dann ist er fertig
+                progData.episodeFilter.setDurationMax(slDur.getActMaxValue());
+            }
+        });
     }
 
     private void initDaysFilter() {
@@ -100,6 +118,7 @@ public class EpisodeFilterController extends VBox {
         slTimeRange.setShowTickLabels(true);
         slTimeRange.setMajorTickUnit(10);
         slTimeRange.setBlockIncrement(5);
+
         slTimeRange.setLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Double x) {
@@ -115,14 +134,17 @@ public class EpisodeFilterController extends VBox {
 
         slTimeRange.setValue(ProgConst.FILTER_TIME_RANGE_ALL_VALUE);
         setLabelSlider();
+        progData.episodeFilter.timeRangeProperty().addListener(l ->
+                slTimeRange.setValue(progData.episodeFilter.timeRangeProperty().get()));
+
         slTimeRange.valueProperty().addListener((o, oldV, newV) -> {
             setLabelSlider();
-            if (!slTimeRange.isValueChanging()) {
+        });
+        slTimeRange.valueChangingProperty().addListener((u, o, n) -> {
+            if (!n) {
                 progData.episodeFilter.setTimeRange((int) slTimeRange.getValue());
             }
         });
-        slTimeRange.valueProperty().bindBidirectional(progData.episodeFilter.timeRangeProperty());
-        slTimeRange.valueChangingProperty().addListener((observable, oldvalue, newvalue) -> setLabelSlider());
     }
 
     private void setLabelSlider() {

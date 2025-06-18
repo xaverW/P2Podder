@@ -25,13 +25,13 @@ import java.util.function.Predicate;
 
 public class DownloadFilter {
 
-    private LongProperty podcastId = new SimpleLongProperty(0);
-    private StringProperty genre = new SimpleStringProperty("");
-    private StringProperty title = new SimpleStringProperty("");
-    private BooleanProperty isAll = new SimpleBooleanProperty(true);
-    private BooleanProperty isStarted = new SimpleBooleanProperty(false);
-    private BooleanProperty isLoading = new SimpleBooleanProperty(false);
-    private BooleanProperty isFinalized = new SimpleBooleanProperty(false);
+    private final LongProperty podcastId = new SimpleLongProperty(0);
+    private final StringProperty genre = new SimpleStringProperty("");
+    private final StringProperty title = new SimpleStringProperty("");
+    private final BooleanProperty isAll = new SimpleBooleanProperty(true);
+    private final BooleanProperty isStarted = new SimpleBooleanProperty(false);
+    private final BooleanProperty isLoading = new SimpleBooleanProperty(false);
+    private final BooleanProperty isFinalized = new SimpleBooleanProperty(false);
     private boolean running = false;
     private boolean loading = false;
     private boolean finalized = false;

@@ -74,5 +74,5 @@ public class ProgConst {
     public static final int FILTER_DURATION_MAX_MINUTE = 100; // Länge [Sekunden]
 
     public static final int TABLE_SMALL_BUTTON = 18;
-    public static final int EPISODE_FILTER_MAX_BACKWARD_SIZE = 10;
+    public static final int EPISODE_FILTER_MAX_BACKWARD_SIZE = 25;
 }
