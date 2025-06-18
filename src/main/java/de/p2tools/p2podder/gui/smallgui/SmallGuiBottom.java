@@ -60,7 +60,6 @@ public class SmallGuiBottom extends VBox {
     }
 
     public void init() {
-        setSpacing(0);
         setAlignment(Pos.CENTER);
 
         ToggleGroup tg = new ToggleGroup();
@@ -79,6 +78,7 @@ public class SmallGuiBottom extends VBox {
 
         HBox hBoxButton = new HBox(P2LibConst.DIST_BUTTON);
         hBoxButton.setAlignment(Pos.CENTER_RIGHT);
+
         hBoxButton.getChildren().addAll(
                 new Label("Episoden: "), rbAll, rbNew, rbStarted, rbRunning, rbWasShown,
                 P2GuiTools.getHBoxGrower(),
@@ -87,7 +87,8 @@ public class SmallGuiBottom extends VBox {
                 btnPrev, btnNext,
                 sp3,
                 btnStart, btnPlayNext, btnStop);
-        getChildren().addAll(getInfoBox(), hBoxButton);
+        getChildren().addAll(hBoxButton);
+//        getChildren().addAll(getInfoBox(), hBoxButton);
 
         initFilter();
     }

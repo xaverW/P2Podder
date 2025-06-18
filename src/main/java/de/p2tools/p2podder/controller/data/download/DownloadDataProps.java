@@ -192,7 +192,9 @@ public class DownloadDataProps extends P2DataSample<DownloadData> {
         if (durationInt.get() == 0) {
             return "";
         } else {
-            return durationInt.get() + "";
+            int second = durationInt.get() % 60;
+            String sStr = second < 10 ? "0" + second : second + "";
+            return durationInt.get() / 60 + ":" + sStr;
         }
     }
 

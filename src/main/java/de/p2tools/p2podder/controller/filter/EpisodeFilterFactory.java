@@ -25,6 +25,8 @@ public class EpisodeFilterFactory {
         sfTo.setTitle(sfFrom.getTitle());
         sfTo.setDescription(sfFrom.getDescription());
         sfTo.setTimeRange(sfFrom.getTimeRange());
+        sfTo.setDurationMax(sfFrom.getDurationMax());
+        sfTo.setDurationMin(sfFrom.getDurationMin());
         return sfTo;
     }
 

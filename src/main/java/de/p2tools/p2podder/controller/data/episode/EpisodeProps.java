@@ -148,7 +148,10 @@ public class EpisodeProps extends P2DataSample<Episode> {
         if (durationInt.get() == ProgConst.FILTER_DURATION_MIN_VALUE) {
             return "";
         } else {
-            return durationInt.get() + "";
+
+            int second = durationInt.get() % 60;
+            String sStr = second < 10 ? "0" + second : second + "";
+            return durationInt.get() / 60 + ":" + sStr;
         }
     }
 

@@ -63,12 +63,7 @@ public class SmallGuiPack extends P2DialogOnly {
 
     @Override
     public void make() {
-//        P2SmallGuiFactory.addBorderListener(getStage());
-//        getVBoxCompleteDialog().getStyleClass().add("smallGui");
         VBox vAll = getVBoxCompleteDialog();
-//        vAll.setPadding(new Insets(25));
-//        vAll.setSpacing(P2LibConst.DIST_BUTTON);
-
         vAll.getChildren().addAll(smallGuiTop, smallGuiCenter, smallGuiBottom);
         VBox.setVgrow(smallGuiCenter, Priority.ALWAYS);
         VBox.setVgrow(super.getVBoxCompleteDialog(), Priority.ALWAYS);

@@ -105,18 +105,16 @@ public class TableDownloadFactory {
                     return;
                 }
 
+                DownloadData data = getTableView().getItems().get(getIndex());
                 if (item == 0) {
                     setGraphic(null);
                     setText(null);
+
                 } else {
                     setGraphic(null);
-                    int second = item % 60;
-                    String sStr = second < 10 ? "0" + second : second + "";
-                    String min = item / 60 + ":" + sStr;
-                    setText(min);
+                    setText(data.getDurationStr());
                 }
 
-                DownloadData data = getTableView().getItems().get(getIndex());
                 set(data, this);
             }
         });

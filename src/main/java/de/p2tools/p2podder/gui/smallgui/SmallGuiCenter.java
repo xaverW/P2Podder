@@ -45,7 +45,7 @@ public class SmallGuiCenter extends VBox {
     private final TableSmallEpisode tableView;
 
     private final ProgData progData;
-    private SmallGuiPack smallGuiPack;
+    private final SmallGuiPack smallGuiPack;
 
 
     public SmallGuiCenter(SmallGuiPack smallGuiPack) {
@@ -77,8 +77,7 @@ public class SmallGuiCenter extends VBox {
     }
 
     public ArrayList<Episode> getSelList() {
-        final ArrayList<Episode> ret = new ArrayList<>();
-        ret.addAll(tableView.getSelectionModel().getSelectedItems());
+        final ArrayList<Episode> ret = new ArrayList<>(tableView.getSelectionModel().getSelectedItems());
         if (ret.isEmpty()) {
             P2Alert.showInfoNoSelection();
         }
@@ -153,11 +152,7 @@ public class SmallGuiCenter extends VBox {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
                 final Optional<Episode> optionalDownload = getSel(false);
                 Episode episode;
-                if (optionalDownload.isPresent()) {
-                    episode = optionalDownload.get();
-                } else {
-                    episode = null;
-                }
+                episode = optionalDownload.orElse(null);
                 ContextMenu contextMenu =
                         new SmallGuiTableContextMenu(progData, this, tableView).getContextMenu(episode);
                 tableView.setContextMenu(contextMenu);
