@@ -53,6 +53,7 @@ public class DownloadGuiController extends AnchorPane {
 
     private final SplitPane splitPane = new SplitPane();
     private final VBox vBox = new VBox(0);
+
     private final TableDownload tableView;
     private final RadioButton rbAll = new RadioButton("Alle");
     private final RadioButton rbStarted = new RadioButton("Gestartet");
@@ -134,11 +135,7 @@ public class DownloadGuiController extends AnchorPane {
 
     private void setSelectedDownload() {
         DownloadData download = tableView.getSelectionModel().getSelectedItem();
-        if (download != null) {
-            paneDownloadInfo.setDownload(download);
-        } else {
-            paneDownloadInfo.setDownload(null);
-        }
+        paneDownloadInfo.setDownload(download);
     }
 
     public void startDownload() {
