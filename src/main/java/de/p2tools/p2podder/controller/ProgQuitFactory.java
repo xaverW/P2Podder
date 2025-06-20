@@ -76,7 +76,8 @@ public class ProgQuitFactory {
 
     private static void stopAll() {
         EpisodeFactory.stopAllEpisode();
-        // Fertige werden entfernt
+
+        // fertige Downloads werden entfernt
         ProgData.getInstance().downloadList.removeIf(DownloadData::isStateFinished);
 
         // Alle Downloads stoppen und zurücksetzen
