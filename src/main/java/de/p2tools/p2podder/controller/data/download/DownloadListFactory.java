@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import org.apache.commons.io.FilenameUtils;
@@ -30,9 +29,8 @@ public class DownloadListFactory {
     }
 
     public static synchronized long countRunningDownloads() {
-        long count = ProgData.getInstance().downloadList.stream()
-                .filter(download -> download.isStarted()).count();
-        return count;
+        return ProgData.getInstance().downloadList.stream()
+                .filter(DownloadData::isStarted).count();
     }
 
     public static synchronized void addNewDownloads(ArrayList<DownloadData> list) {
@@ -63,7 +61,7 @@ public class DownloadListFactory {
         if (found) {
             checkDoubleNames(syncDownloadArrayList, ProgData.getInstance().downloadList);
             ProgData.getInstance().downloadList.addAll(syncDownloadArrayList);
-            setNumbersInList();
+//            setNumbersInList();
         }
         syncDownloadArrayList.clear();
         syncDownloadsAlreadyInTheListHash.clear();
@@ -103,19 +101,19 @@ public class DownloadListFactory {
         return searchDownloadList.stream().filter(download -> download.getDestFileName().equals(name)).findAny().isPresent();
     }
 
-    private static synchronized void setNumbersInList() {
-        int i = ProgData.getInstance().downloadList.getNextNumber();
-        for (final DownloadData download : ProgData.getInstance().downloadList) {
-            if (download.isStarted()) {
-                // gestartete Downloads ohne!! Nummer nummerieren
-                if (download.getNo() == P2LibConst.NUMBER_NOT_STARTED) {
-                    download.setNo(i++);
-                }
-
-            } else {
-                // nicht gestartete Downloads
-                download.setNo(P2LibConst.NUMBER_NOT_STARTED);
-            }
-        }
-    }
+//    private static synchronized void setNumbersInList() {
+//        int i = ProgData.getInstance().downloadList.getNextNumber();
+//        for (final DownloadData download : ProgData.getInstance().downloadList) {
+//            if (download.isStarted()) {
+//                // gestartete Downloads ohne!! Nummer nummerieren
+//                if (download.getNo() == P2LibConst.NUMBER_NOT_STARTED) {
+//                    download.setNo(i++);
+//                }
+//
+//            } else {
+//                // nicht gestartete Downloads
+//                download.setNo(P2LibConst.NUMBER_NOT_STARTED);
+//            }
+//        }
+//    }
 }

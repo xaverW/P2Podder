@@ -16,7 +16,6 @@
 
 package de.p2tools.p2podder.controller.data.download;
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -45,8 +44,8 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
     private final FilteredList<DownloadData> filteredList;
     private final SortedList<DownloadData> sortedList;
 
-    private BooleanProperty downloadsChanged = new SimpleBooleanProperty(true);
-    private ObservableList<String> genreList = FXCollections.observableArrayList();
+    private final BooleanProperty downloadsChanged = new SimpleBooleanProperty(true);
+    private final ObservableList<String> genreList = FXCollections.observableArrayList();
 
     public DownloadList(ProgData progData) {
         super(FXCollections.observableArrayList());
@@ -77,10 +76,6 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
             DownloadData d = (DownloadData) obj;
             add(d);
         }
-    }
-
-    public synchronized void addNewDownloads(ArrayList<DownloadData> list) {
-        DownloadListFactory.addNewDownloads(list);
     }
 
     public synchronized void initList() {
@@ -116,9 +111,7 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
 
     @Override
     public synchronized boolean addAll(Collection<? extends DownloadData> elements) {
-        elements.stream().forEach(f -> {
-            f.setNo(++no);
-        });
+        elements.forEach(f -> f.setNo(++no));
         return super.addAll(elements);
     }
 
@@ -162,22 +155,22 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
         setDownloadsChanged();
     }
 
-    public synchronized void addNumber(ArrayList<DownloadData> downloads) {
-        int i = getNextNumber();
-        for (DownloadData download : downloads) {
-            download.setNo(i++);
-        }
-    }
+//    public synchronized void addNumber(ArrayList<DownloadData> downloads) {
+//        int i = getNextNumber();
+//        for (DownloadData download : downloads) {
+//            download.setNo(i++);
+//        }
+//    }
 
-    public int getNextNumber() {
-        int i = 1;
-        for (final DownloadData download : this) {
-            if (download.getNo() < P2LibConst.NUMBER_NOT_STARTED && download.getNo() >= i) {
-                i = download.getNo() + 1;
-            }
-        }
-        return i;
-    }
+//    public int getNextNumber() {
+//        int i = 1;
+//        for (final DownloadData download : this) {
+//            if (download.getNo() < P2LibConst.NUMBER_NOT_STARTED && download.getNo() >= i) {
+//                i = download.getNo() + 1;
+//            }
+//        }
+//        return i;
+//    }
 
     synchronized void setDownloadsChanged() {
         downloadsChanged.set(!downloadsChanged.get());

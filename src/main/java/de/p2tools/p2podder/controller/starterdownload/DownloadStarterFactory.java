@@ -17,7 +17,6 @@
 package de.p2tools.p2podder.controller.starterdownload;
 
 
-import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mediathek.tools.P2SizeTools;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.tools.date.P2Date;
@@ -208,7 +207,7 @@ public class DownloadStarterFactory {
             Platform.runLater(() -> ProgData.getInstance().episodeList.add(episode));
         }
 
-        download.setNo(P2LibConst.NUMBER_NOT_STARTED);
+//        download.setNo(P2LibConst.NUMBER_NOT_STARTED);
         Platform.runLater(() -> ProgData.getInstance().pEventHandler.notifyListener(new P2Event(PEvents.EVENT_DOWNLOAD_REFRESH_TABLE)));
 
         start.setProcess(null);

@@ -200,8 +200,8 @@ public class DownloadListStartStopFactory {
             return;
         }
 
-        downloads.stream().forEach(download -> download.initStartDownload());
-        ProgData.getInstance().downloadList.addNumber(downloads);
+        downloads.forEach(DownloadData::initStartDownload);
+//        ProgData.getInstance().downloadList.addNumber(downloads);
         ProgData.getInstance().downloadStarterFactory.startWaitingDownloads();
     }
 

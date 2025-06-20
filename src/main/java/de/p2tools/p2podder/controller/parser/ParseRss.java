@@ -29,6 +29,7 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import de.p2tools.p2podder.controller.data.download.DownloadFactory;
+import de.p2tools.p2podder.controller.data.download.DownloadListFactory;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import org.jdom2.Element;
 
@@ -126,7 +127,7 @@ public class ParseRss {
                 }
             }
             if (!downloads.isEmpty()) {
-                progData.downloadList.addNewDownloads(downloads);
+                DownloadListFactory.addNewDownloads(downloads);
             }
         } catch (Exception ex) {
             P2Log.errorLog(897451209, ex.getMessage());
