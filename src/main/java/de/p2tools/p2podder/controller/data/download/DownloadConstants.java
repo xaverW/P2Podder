@@ -52,7 +52,7 @@ public class DownloadConstants {
             }
 
         } else if (progress == PROGRESS_WAITING) {
-            //todo tritt eigentlich  nie auf??
+            //todo tritt eigentlich nie auf??
             ret = "wartet";
 
         } else if (progress == PROGRESS_STARTED) {

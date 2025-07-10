@@ -195,11 +195,13 @@ public class DownloadStarterFactory {
                 download.setBandwidth("Ø " + P2SizeTools.humanReadableByteCount(start.getInputStream().getSumBandwidth(), true));
             }
 
-            final long dauer = start.getStartTime().diffInMinutes();
+            final long dauer = start.getStartTime().diffInSeconds();
             if (dauer == 0) {
-                download.setRemaining("Dauer: " + start.getStartTime().diffInSeconds() + " s");
+                download.setRemaining("∑: 1 s");
+            } else if (dauer < 60) {
+                download.setRemaining("∑: " + dauer + " s");
             } else {
-                download.setRemaining("Dauer: " + start.getStartTime().diffInMinutes() + " Min");
+                download.setRemaining("∑: " + start.getStartTime().diffInMinutes() + " Min");
             }
 
             //fertigen Download in die PosListe eintragen
