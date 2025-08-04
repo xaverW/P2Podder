@@ -17,8 +17,10 @@
 package de.p2tools.p2podder.gui.smallgui;
 
 import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2lib.guitools.prange.P2RangeBox;
 import de.p2tools.p2podder.controller.ProgIcons;
 import de.p2tools.p2podder.controller.ProgQuitFactory;
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.application.Platform;
@@ -32,6 +34,7 @@ public class SmallGuiTop extends HBox {
 
 
     private final ComboBox<Podcast> cboPodcast = new ComboBox<>();
+    private final P2RangeBox slDur = new P2RangeBox("Länge:", true, 0, ProgConst.FILTER_DURATION_MAX_MINUTE);
     private final Button btnClearFilter = new Button();
 
     private final Button btnRadio = new Button("");
@@ -68,13 +71,18 @@ public class SmallGuiTop extends HBox {
 
         setAlignment(Pos.CENTER_LEFT);
         setSpacing(15);
-        getChildren().addAll(btnRadio, P2GuiTools.getHDistance(25), cboPodcast, btnClearFilter, P2GuiTools.getHBoxGrower(),
+        setAlignment(Pos.CENTER);
+        getChildren().addAll(btnRadio, P2GuiTools.getHDistance(25), cboPodcast, slDur, btnClearFilter, P2GuiTools.getHBoxGrower(),
                 P2GuiTools.getHBoxGrower(), btnClose);
         initFilter();
+        initDurFilter();
     }
 
     public void clearFilter() {
         cboPodcast.getSelectionModel().clearSelection();
+        progData.episodeFilterSmall.setDurationMin(0);
+        progData.episodeFilterSmall.setDurationMax(ProgConst.FILTER_DURATION_MAX_MINUTE);
+//        progData.episodeFilterSmall.clearFilter();
     }
 
     private void initFilter() {
@@ -98,6 +106,30 @@ public class SmallGuiTop extends HBox {
 
             } else if (n != null && o != n) {
                 progData.episodeFilterSmall.setPodcastId(n.getId());
+            }
+        });
+        cboPodcast.getSelectionModel().select(progData.podcastList.getPodcastById(progData.episodeFilterSmall.getPodcastId()));
+    }
+
+    private void initDurFilter() {
+        slDur.minValueProperty().set(progData.episodeFilterSmall.getDurationMin());
+        slDur.maxValueProperty().set(progData.episodeFilterSmall.getDurationMax());
+
+        progData.episodeFilterSmall.durationMinProperty().addListener(l ->
+                slDur.minValueProperty().set(progData.episodeFilterSmall.getDurationMin()));
+        progData.episodeFilterSmall.durationMaxProperty().addListener(l ->
+                slDur.maxValueProperty().set(progData.episodeFilterSmall.getDurationMax()));
+
+        slDur.getSlider().lowValueChangingProperty().addListener((u, o, n) -> {
+            if (!n) {
+                // dann ist er fertig
+                progData.episodeFilterSmall.setDurationMin(slDur.getActMinValue());
+            }
+        });
+        slDur.getSlider().highValueChangingProperty().addListener((u, o, n) -> {
+            if (!n) {
+                // dann ist er fertig
+                progData.episodeFilterSmall.setDurationMax(slDur.getActMaxValue());
             }
         });
     }

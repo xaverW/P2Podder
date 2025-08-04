@@ -17,15 +17,21 @@
 
 package de.p2tools.p2podder.controller.filter;
 
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config_stringProp;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.podcast.Podcast;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.function.Predicate;
 
-public class PodcastFilter {
+public class PodcastFilter extends P2DataSample<PodcastFilter> implements Comparable<PodcastFilter> {
+
+    public static String TAG = "PodcastFilter";
 
     private StringProperty genre = new SimpleStringProperty("");
     private StringProperty name = new SimpleStringProperty("");
@@ -35,6 +41,31 @@ public class PodcastFilter {
         genre.addListener((observable, oldValue, newValue) -> setPredicate());
         name.addListener((observable, oldValue, newValue) -> setPredicate());
         url.addListener((observable, oldValue, newValue) -> setPredicate());
+    }
+
+    @Override
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new Config_stringProp("genre", genre));
+        list.add(new Config_stringProp("name", name));
+        list.add(new Config_stringProp("url", url));
+
+        return list.toArray(new Config[]{});
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String toString() {
+        return name.getValueSafe();
+    }
+
+    @Override
+    public int compareTo(PodcastFilter o) {
+        return toString().compareTo(o.toString());
     }
 
     public void clearFilter() {

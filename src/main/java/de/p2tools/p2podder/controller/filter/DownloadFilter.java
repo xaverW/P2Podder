@@ -17,13 +17,21 @@
 
 package de.p2tools.p2podder.controller.filter;
 
+import de.p2tools.p2lib.configfile.config.Config;
+import de.p2tools.p2lib.configfile.config.Config_boolProp;
+import de.p2tools.p2lib.configfile.config.Config_longProp;
+import de.p2tools.p2lib.configfile.config.Config_stringProp;
+import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.download.DownloadData;
 import javafx.beans.property.*;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class DownloadFilter {
+public class DownloadFilter extends P2DataSample<DownloadFilter> implements Comparable<DownloadFilter> {
+
+    public static String TAG = "DownloadFilter";
 
     private final LongProperty podcastId = new SimpleLongProperty(0);
     private final StringProperty genre = new SimpleStringProperty("");
@@ -65,6 +73,35 @@ public class DownloadFilter {
             finalized = true;
             setPredicate();
         });
+    }
+
+    @Override
+    public Config[] getConfigsArr() {
+        ArrayList<Config> list = new ArrayList<>();
+        list.add(new Config_longProp("podcastId", podcastId));
+        list.add(new Config_stringProp("genre", genre));
+        list.add(new Config_stringProp("title", title));
+        list.add(new Config_boolProp("isAll", isAll));
+        list.add(new Config_boolProp("isStarted", isStarted));
+        list.add(new Config_boolProp("isLoading", isLoading));
+        list.add(new Config_boolProp("isFinalized", isFinalized));
+
+        return list.toArray(new Config[]{});
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String toString() {
+        return title.getValueSafe();
+    }
+
+    @Override
+    public int compareTo(DownloadFilter o) {
+        return toString().compareTo(o.toString());
     }
 
     public void setPodcastId(long podcastId) {

@@ -262,6 +262,11 @@ public class ProgConfig extends P2DataProgConfig {
 
         configFile.addConfigs(ProgConfig.getInstance());
         configFile.addConfigs(ProgColorList.getInstance());
+        configFile.addConfigs(ProgData.getInstance().episodeFilter);
+        configFile.addConfigs(ProgData.getInstance().episodeFilterSmall);
+        configFile.addConfigs(ProgData.getInstance().downloadFilter);
+        configFile.addConfigs(ProgData.getInstance().podcastFilter);
+
         configFile.addConfigs(ProgData.getInstance().setDataList);
         configFile.addConfigs(ProgData.getInstance().podcastList);
         configFile.addConfigs(ProgData.getInstance().downloadList);

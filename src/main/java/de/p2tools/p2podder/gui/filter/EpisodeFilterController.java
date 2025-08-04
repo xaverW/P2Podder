@@ -46,8 +46,6 @@ public class EpisodeFilterController extends VBox {
     private final TextField txtDescription = new TextField();
     private final ProgData progData;
     private final P2RangeBox slDur = new P2RangeBox("Länge:", true, 0, ProgConst.FILTER_DURATION_MAX_MINUTE);
-
-
     private final Slider slTimeRange = new Slider();
     private final Label lblTimeRangeValue = new Label();
 
@@ -145,6 +143,7 @@ public class EpisodeFilterController extends VBox {
                 progData.episodeFilter.setTimeRange((int) slTimeRange.getValue());
             }
         });
+        slTimeRange.setValue(progData.episodeFilter.timeRangeProperty().get());
     }
 
     private void setLabelSlider() {

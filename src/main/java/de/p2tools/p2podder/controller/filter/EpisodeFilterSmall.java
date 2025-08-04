@@ -16,6 +16,7 @@
 
 package de.p2tools.p2podder.controller.filter;
 
+import de.p2tools.p2podder.controller.config.ProgConst;
 import de.p2tools.p2podder.controller.config.ProgData;
 import de.p2tools.p2podder.controller.data.episode.Episode;
 import de.p2tools.p2podder.controller.data.episode.EpisodeFactory;
@@ -35,6 +36,8 @@ public class EpisodeFilterSmall extends EpisodeFilterSmallProps {
 
     private void initFilter() {
         podcastIdProperty().addListener(l -> setPredicate());
+        durationMinProperty().addListener(l -> setPredicate());
+        durationMaxProperty().addListener(l -> setPredicate());
 
         isAllProperty().addListener(l -> setPredicate());
         isNewProperty().addListener(l -> setPredicate());
@@ -54,6 +57,14 @@ public class EpisodeFilterSmall extends EpisodeFilterSmallProps {
         if (getPodcastId() > 0) {
             predicate = predicate.and(episode -> episode.podcastIdProperty().getValue().equals(getPodcastId()));
         }
+
+        if (getDurationMin() != ProgConst.FILTER_DURATION_MIN_VALUE) {
+            predicate = predicate.and(episode -> episode.checkDurationMin(getDurationMin()));
+        }
+        if (getDurationMax() != ProgConst.FILTER_DURATION_MAX_MINUTE) {
+            predicate = predicate.and(episode -> episode.checkDurationMax(getDurationMax()));
+        }
+
         if (isIsNew()) {
             predicate = predicate.and(episode -> episode.isNew());
         }
