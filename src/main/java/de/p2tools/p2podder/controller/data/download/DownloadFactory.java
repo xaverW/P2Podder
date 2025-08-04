@@ -157,7 +157,7 @@ public class DownloadFactory {
 
         final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
         ArrayList<Podcast> arrayList = new ArrayList<>();
-        ProgData.getInstance().downloadList.stream().forEach((download) -> {
+        ProgData.getInstance().downloadList.forEach((download) -> {
             String podcastName = download.getPodcastName();
             Podcast podcast = ProgData.getInstance().podcastList.getPodcastById(download.getPodcastId());
             if (podcast != null && !hashSet.contains(podcastName)) {

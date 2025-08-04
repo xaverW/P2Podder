@@ -21,6 +21,7 @@ import de.p2tools.p2lib.configfile.pdata.P2DataList;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2podder.controller.config.ProgData;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -40,7 +41,6 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
     public static final String TAG = "downloadList" + P2Data.TAGGER + "DownloadList";
     private final ProgData progData;
     private int no = 0;
-    private boolean found = false;
     private final FilteredList<DownloadData> filteredList;
     private final SortedList<DownloadData> sortedList;
 
@@ -155,23 +155,6 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
         setDownloadsChanged();
     }
 
-//    public synchronized void addNumber(ArrayList<DownloadData> downloads) {
-//        int i = getNextNumber();
-//        for (DownloadData download : downloads) {
-//            download.setNo(i++);
-//        }
-//    }
-
-//    public int getNextNumber() {
-//        int i = 1;
-//        for (final DownloadData download : this) {
-//            if (download.getNo() < P2LibConst.NUMBER_NOT_STARTED && download.getNo() >= i) {
-//                i = download.getNo() + 1;
-//            }
-//        }
-//        return i;
-//    }
-
     synchronized void setDownloadsChanged() {
         downloadsChanged.set(!downloadsChanged.get());
     }
@@ -180,17 +163,20 @@ public class DownloadList extends SimpleListProperty<DownloadData> implements P2
         return genreList;
     }
 
-    public synchronized void genGenreList() {
-        P2Log.sysLog("DownloadList: genGenreList");
-        final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
-        ArrayList<String> arrayList = new ArrayList<>();
-        stream().forEach((download) -> {
-            String podcastName = download.getGenre();
-            if (!hashSet.contains(podcastName)) {
-                hashSet.add(podcastName);
-                arrayList.add(podcastName);
-            }
+    private synchronized void genGenreList() {
+        Platform.runLater(() -> {
+            // bei Downloads kann das außer der Reiche kommen
+            P2Log.sysLog("DownloadList: genGenreList");
+            final LinkedHashSet<String> hashSet = new LinkedHashSet<>(10);
+            ArrayList<String> arrayList = new ArrayList<>();
+            this.forEach((download) -> {
+                String podcastName = download.getGenre();
+                if (!hashSet.contains(podcastName)) {
+                    hashSet.add(podcastName);
+                    arrayList.add(podcastName);
+                }
+            });
+            genreList.setAll(arrayList);
         });
-        genreList.setAll(arrayList);
     }
 }
